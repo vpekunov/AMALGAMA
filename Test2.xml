@@ -1,0 +1,838 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE System [
+<!ELEMENT System (Elements)>
+<!ATTLIST System
+Lang CDATA #REQUIRED
+>
+<!ELEMENT Elements (Element*)>
+<!ATTLIST Elements
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT Element (Show,Position,Parameters,InternalInputs,InternalOutputs,PublishedInputs,PublishedOutputs,InputLinks,OutputLinks)>
+<!ATTLIST Element
+ClassID CDATA #REQUIRED
+ParentID CDATA #REQUIRED
+ID ID #REQUIRED
+Permanent (True | False) #REQUIRED
+>
+<!ELEMENT Show EMPTY>
+<!ATTLIST Show
+Class (True | False) #REQUIRED
+Name (True | False) #REQUIRED
+Image (True | False) #REQUIRED
+>
+<!ELEMENT Position EMPTY>
+<!ATTLIST Position
+Left CDATA #REQUIRED
+Top CDATA #REQUIRED
+>
+<!ELEMENT Parameters (Parameter*)>
+<!ATTLIST Parameters
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT Parameter (#PCDATA | EMPTY)*>
+<!ATTLIST Parameter
+ID CDATA #REQUIRED
+Indent CDATA #IMPLIED
+>
+<!ELEMENT InternalInputs (iContact*)>
+<!ATTLIST InternalInputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT InternalOutputs (iContact*)>
+<!ATTLIST InternalOutputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT iContact EMPTY>
+<!ATTLIST iContact
+ID CDATA #REQUIRED
+ElementID IDREF #REQUIRED
+ContID CDATA #REQUIRED
+>
+<!ELEMENT PublishedInputs (pContact*)>
+<!ATTLIST PublishedInputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT PublishedOutputs (pContact*)>
+<!ATTLIST PublishedOutputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT pContact EMPTY>
+<!ATTLIST pContact
+ID CDATA #REQUIRED
+PublicID CDATA #REQUIRED
+PublicName CDATA #REQUIRED
+>
+<!ELEMENT InputLinks (Contact*)>
+<!ELEMENT OutputLinks (Contact*)>
+<!ELEMENT Contact (Link*)>
+<!ATTLIST Contact
+ID CDATA #REQUIRED
+>
+<!ELEMENT Link (Points?)>
+<!ATTLIST Link
+ElementID IDREF #REQUIRED
+ContID CDATA #REQUIRED
+Color CDATA #IMPLIED
+Informational (True | False) #REQUIRED
+>
+<!ELEMENT Points (#PCDATA | EMPTY)*>
+<!ATTLIST Points
+NumItems CDATA #REQUIRED
+>
+]>
+<System Lang="">
+ <Elements NumItems="24">
+  <Element ClassID="clsP_Test" ParentID="" ID="Test" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="689" Top="1"/>
+   <Parameters NumItems="7">
+    <Parameter ID="TestID" Indent="0">Test2auto</Parameter>
+    <Parameter ID="Description" Indent="0">Тест на способность к концентрации внимания</Parameter>
+    <Parameter ID="Prompt" Indent="5">При  ответе  на  каждый  вопрос Вам предлагается несколько вариантов ответа.
+Выберите один  из  вариантов  и нажмите соответствующую кнопку.  Всего  Вы должны
+ответить на 10 вопросов.
+</Parameter>
+    <Parameter ID="Title" Indent="5">Тест на способность к концентрации внимания</Parameter>
+    <Parameter ID="Width" Indent="5">800</Parameter>
+    <Parameter ID="Height" Indent="5">600</Parameter>
+    <Parameter ID="Instruction" Indent="5"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="QPanel" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_Answer" ParentID="" ID="A1" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="14" Top="280"/>
+   <Parameters NumItems="2">
+    <Parameter ID="MaxAnswers" Indent="0">1</Parameter>
+    <Parameter ID="Descriptor" Indent="2">&amp;EqualButtons
+  @Почти всегда
+  @В большинстве случаев
+  @Иногда
+  @Редко
+  @Почти никогда
+</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Quest">
+     <Link ElementID="Q1" ContID="Answ" Color="#FF8000" Informational="False">
+      <Points NumItems="2">110,195,110,52</Points>
+     </Link>
+     <Link ElementID="Q2" ContID="Answ" Color="#FF8000" Informational="False">
+      <Points NumItems="2">118,217,118,115</Points>
+     </Link>
+     <Link ElementID="Q3" ContID="Answ" Color="#FF8000" Informational="False">
+      <Points NumItems="2">124,233,124,178</Points>
+     </Link>
+     <Link ElementID="Q4" ContID="Answ" Color="#FF8000" Informational="False">
+      <Points NumItems="1">133,246</Points>
+     </Link>
+     <Link ElementID="Q5" ContID="Answ" Color="#FF8000" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+     <Link ElementID="Q6" ContID="Answ" Color="#FF8000" Informational="False">
+      <Points NumItems="3">161,341,267,341,267,47</Points>
+     </Link>
+     <Link ElementID="Q7" ContID="Answ" Color="#FF8000" Informational="False">
+      <Points NumItems="3">159,354,273,353,273,113</Points>
+     </Link>
+     <Link ElementID="Q8" ContID="Answ" Color="#FF8000" Informational="False">
+      <Points NumItems="3">157,366,280,366,280,176</Points>
+     </Link>
+     <Link ElementID="Q9" ContID="Answ" Color="#FF8000" Informational="False">
+      <Points NumItems="3">155,377,287,377,287,239</Points>
+     </Link>
+     <Link ElementID="Q10" ContID="Answ" Color="#FF8000" Informational="False">
+      <Points NumItems="3">152,388,294,388,294,303</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_Answer" ParentID="" ID="A2" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="226" Top="417"/>
+   <Parameters NumItems="2">
+    <Parameter ID="MaxAnswers" Indent="0">1</Parameter>
+    <Parameter ID="Descriptor" Indent="2">@ Закончить тестирование</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Quest">
+     <Link ElementID="Q11" ContID="Answ" Color="#FF8000" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_Question" ParentID="" ID="Q1" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="126" Top="9"/>
+   <Parameters NumItems="4">
+    <Parameter ID="Number" Indent="0">1</Parameter>
+    <Parameter ID="Descriptor" Indent="3">Вопрос 1
+   &amp;Empty
+   &amp;Font(&apos;Courier New Cyr&apos;,11,clBlack,0,0,0)
+Стараетесь ли Вы &quot;свернуть&quot; беседу в  тех  случаях,  когда  тема  (или
+собеседник) неинтересны Вам?
+</Parameter>
+    <Parameter ID="Event" Indent="3"></Parameter>
+    <Parameter ID="Prefix" Indent="3"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="HandleBtns" ContID="Out" Informational="False"/>
+    </Contact>
+    <Contact ID="Answ">
+     <Link ElementID="A1" ContID="Quest" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="Q2" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_Question" ParentID="" ID="Q2" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="137" Top="73"/>
+   <Parameters NumItems="4">
+    <Parameter ID="Number" Indent="0">1</Parameter>
+    <Parameter ID="Descriptor" Indent="3">Вопрос 2
+   &amp;Empty
+   &amp;Font(&apos;Courier New Cyr&apos;,11,clBlack,0,0,0)
+Раздражают ли Вас манеры Вашего партнера по общению?
+</Parameter>
+    <Parameter ID="Event" Indent="3"></Parameter>
+    <Parameter ID="Prefix" Indent="3"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="Q1" ContID="Out" Informational="False"/>
+    </Contact>
+    <Contact ID="Answ">
+     <Link ElementID="A1" ContID="Quest" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="Q3" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_Question" ParentID="" ID="Q3" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="146" Top="137"/>
+   <Parameters NumItems="4">
+    <Parameter ID="Number" Indent="0">1</Parameter>
+    <Parameter ID="Descriptor" Indent="3">Вопрос 3
+   &amp;Empty
+   &amp;Font(&apos;Courier New Cyr&apos;,11,clBlack,0,0,0)
+Может ли  неудачное  выражение  другого человека спровоцировать Вас на
+резкость или грубость?
+</Parameter>
+    <Parameter ID="Event" Indent="3"></Parameter>
+    <Parameter ID="Prefix" Indent="3"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="Q2" ContID="Out" Informational="False"/>
+    </Contact>
+    <Contact ID="Answ">
+     <Link ElementID="A1" ContID="Quest" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="Q4" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_Question" ParentID="" ID="Q4" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="161" Top="204"/>
+   <Parameters NumItems="4">
+    <Parameter ID="Number" Indent="0">1</Parameter>
+    <Parameter ID="Descriptor" Indent="3">Вопрос 4
+   &amp;Empty
+   &amp;Font(&apos;Courier New Cyr&apos;,11,clBlack,0,0,0)
+Избегаете ли Вы вступать в разговор с неизвестным или малознакомым Вам
+человеком?
+</Parameter>
+    <Parameter ID="Event" Indent="3"></Parameter>
+    <Parameter ID="Prefix" Indent="3"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="Q3" ContID="Out" Informational="False"/>
+    </Contact>
+    <Contact ID="Answ">
+     <Link ElementID="A1" ContID="Quest" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="Q5" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_Question" ParentID="" ID="Q5" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="168" Top="268"/>
+   <Parameters NumItems="4">
+    <Parameter ID="Number" Indent="0">1</Parameter>
+    <Parameter ID="Descriptor" Indent="3">Вопрос 5
+   &amp;Empty
+   &amp;Font(&apos;Courier New Cyr&apos;,11,clBlack,0,0,0)
+Имеете ли Вы привычку перебивать говорящего?
+</Parameter>
+    <Parameter ID="Event" Indent="3"></Parameter>
+    <Parameter ID="Prefix" Indent="3"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="Q4" ContID="Out" Informational="False"/>
+    </Contact>
+    <Contact ID="Answ">
+     <Link ElementID="A1" ContID="Quest" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="Q6" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="2">254,302,254,29</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_Question" ParentID="" ID="Q6" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="310" Top="5"/>
+   <Parameters NumItems="4">
+    <Parameter ID="Number" Indent="0">1</Parameter>
+    <Parameter ID="Descriptor" Indent="3">Вопрос 6
+   &amp;Empty
+   &amp;Font(&apos;Courier New Cyr&apos;,11,clBlack,0,0,0)
+Делаете ли Вы вид,  что внимательно слушаете,  а сами думаете совсем о
+другом?
+</Parameter>
+    <Parameter ID="Event" Indent="3"></Parameter>
+    <Parameter ID="Prefix" Indent="3"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="Q5" ContID="Out" Informational="False"/>
+    </Contact>
+    <Contact ID="Answ">
+     <Link ElementID="A1" ContID="Quest" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="Q7" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_Question" ParentID="" ID="Q7" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="310" Top="71"/>
+   <Parameters NumItems="4">
+    <Parameter ID="Number" Indent="0">1</Parameter>
+    <Parameter ID="Descriptor" Indent="3">Вопрос 7
+   &amp;Empty
+   &amp;Font(&apos;Courier New Cyr&apos;,11,clBlack,0,0,0)
+Меняете ли Вы тон,  голос,  выражение лица в зависимости от того,  кто
+Ваш собеседник?
+</Parameter>
+    <Parameter ID="Event" Indent="3"></Parameter>
+    <Parameter ID="Prefix" Indent="3"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="Q6" ContID="Out" Informational="False"/>
+    </Contact>
+    <Contact ID="Answ">
+     <Link ElementID="A1" ContID="Quest" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="Q8" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_Question" ParentID="" ID="Q8" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="311" Top="134"/>
+   <Parameters NumItems="4">
+    <Parameter ID="Number" Indent="0">1</Parameter>
+    <Parameter ID="Descriptor" Indent="3">Вопрос 8
+   &amp;Empty
+   &amp;Font(&apos;Courier New Cyr&apos;,11,clBlack,0,0,0)
+Меняете ли  Вы  тему  разговора,  если  он коснулся неприятной для Вас
+темы?
+</Parameter>
+    <Parameter ID="Event" Indent="3"></Parameter>
+    <Parameter ID="Prefix" Indent="3"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="Q7" ContID="Out" Informational="False"/>
+    </Contact>
+    <Contact ID="Answ">
+     <Link ElementID="A1" ContID="Quest" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="Q9" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_Question" ParentID="" ID="Q9" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="312" Top="196"/>
+   <Parameters NumItems="4">
+    <Parameter ID="Number" Indent="0">1</Parameter>
+    <Parameter ID="Descriptor" Indent="3">Вопрос 9
+   &amp;Empty
+   &amp;Font(&apos;Courier New Cyr&apos;,11,clBlack,0,0,0)
+Поправляете ли Вы человека,  если в его речи  встречаются  неправильно
+произнесенные слова, название, вульгаризмы?
+</Parameter>
+    <Parameter ID="Event" Indent="3"></Parameter>
+    <Parameter ID="Prefix" Indent="3"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="Q8" ContID="Out" Informational="False"/>
+    </Contact>
+    <Contact ID="Answ">
+     <Link ElementID="A1" ContID="Quest" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="Q10" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_Question" ParentID="" ID="Q10" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="312" Top="261"/>
+   <Parameters NumItems="4">
+    <Parameter ID="Number" Indent="0">1</Parameter>
+    <Parameter ID="Descriptor" Indent="3">Вопрос 10
+   &amp;Empty
+   &amp;Font(&apos;Courier New Cyr&apos;,11,clBlack,0,0,0)
+Бывает ли у Вас снисходительно-менторский тон с оттенком пренебрежения
+и иронии по отношению к тому, с кем вы говорите?
+</Parameter>
+    <Parameter ID="Event" Indent="3"></Parameter>
+    <Parameter ID="Prefix" Indent="3"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="Q9" ContID="Out" Informational="False"/>
+    </Contact>
+    <Contact ID="Answ">
+     <Link ElementID="A1" ContID="Quest" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="Q11" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_Question" ParentID="" ID="Q11" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="312" Top="330"/>
+   <Parameters NumItems="4">
+    <Parameter ID="Number" Indent="0">1</Parameter>
+    <Parameter ID="Descriptor" Indent="3">&amp;Font(&apos;Courier New Cyr&apos;,11,clBlack,1,0,0)
+   Вы  ответили  на  все  предложенные  Вам  вопросы. Если вы
+   желаете  откорректировать свои ответы,  то выберите нужный
+   вопрос (вопросы)  с  помощью кнопок &quot;Вперед&quot; и &quot;Назад&quot;. По
+   окончании  исправлений  вернитесь в  конец теста и нажмите
+   кнопку &quot;Закончить тестирование&quot;
+</Parameter>
+    <Parameter ID="Event" Indent="3"></Parameter>
+    <Parameter ID="Prefix" Indent="3"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="Q10" ContID="Out" Informational="False"/>
+    </Contact>
+    <Contact ID="Answ">
+     <Link ElementID="A2" ContID="Quest" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="Handler" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_Handler" ParentID="" ID="Handler" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="784" Top="347"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Save" Indent="0">Yes</Parameter>
+    <Parameter ID="Event" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="Q11" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="C" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_PanelDecor" ParentID="" ID="QPanel" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="458" Top="58"/>
+   <Parameters NumItems="14">
+    <Parameter ID="Panel" Indent="0">Question</Parameter>
+    <Parameter ID="Left" Indent="0">2</Parameter>
+    <Parameter ID="Top" Indent="0">75</Parameter>
+    <Parameter ID="Width" Indent="0">650</Parameter>
+    <Parameter ID="Height" Indent="0">235</Parameter>
+    <Parameter ID="Color" Indent="0">RGB(176,208,176)</Parameter>
+    <Parameter ID="FontName" Indent="0">Times New Roman Cyr</Parameter>
+    <Parameter ID="FontSize" Indent="0">14</Parameter>
+    <Parameter ID="FontColor" Indent="0">clNavy</Parameter>
+    <Parameter ID="Bold" Indent="0">Yes</Parameter>
+    <Parameter ID="Italic" Indent="0">Yes</Parameter>
+    <Parameter ID="Underline" Indent="0">Yes</Parameter>
+    <Parameter ID="Event" Indent="0"></Parameter>
+    <Parameter ID="Prefix" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="Test" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="APanel" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_PanelDecor" ParentID="" ID="APanel" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="457" Top="108"/>
+   <Parameters NumItems="14">
+    <Parameter ID="Panel" Indent="0">Answer</Parameter>
+    <Parameter ID="Left" Indent="0">2</Parameter>
+    <Parameter ID="Top" Indent="0">315</Parameter>
+    <Parameter ID="Width" Indent="0">650</Parameter>
+    <Parameter ID="Height" Indent="0">255</Parameter>
+    <Parameter ID="Color" Indent="0">RGB(208,208,160)</Parameter>
+    <Parameter ID="FontName" Indent="0">Arial Cyr</Parameter>
+    <Parameter ID="FontSize" Indent="0">10</Parameter>
+    <Parameter ID="FontColor" Indent="0">clNavy</Parameter>
+    <Parameter ID="Bold" Indent="0">No</Parameter>
+    <Parameter ID="Italic" Indent="0">No</Parameter>
+    <Parameter ID="Underline" Indent="0">No</Parameter>
+    <Parameter ID="Event" Indent="0"></Parameter>
+    <Parameter ID="Prefix" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="QPanel" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="HPanel" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_PanelDecor" ParentID="" ID="HPanel" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="457" Top="159"/>
+   <Parameters NumItems="14">
+    <Parameter ID="Panel" Indent="0">Handle</Parameter>
+    <Parameter ID="Left" Indent="0">655</Parameter>
+    <Parameter ID="Top" Indent="0">75</Parameter>
+    <Parameter ID="Width" Indent="0">141</Parameter>
+    <Parameter ID="Height" Indent="0">495</Parameter>
+    <Parameter ID="Color" Indent="0">clBtnFace</Parameter>
+    <Parameter ID="FontName" Indent="0">Times New Roman Cyr</Parameter>
+    <Parameter ID="FontSize" Indent="0">14</Parameter>
+    <Parameter ID="FontColor" Indent="0">clBlack</Parameter>
+    <Parameter ID="Bold" Indent="0">No</Parameter>
+    <Parameter ID="Italic" Indent="0">No</Parameter>
+    <Parameter ID="Underline" Indent="0">No</Parameter>
+    <Parameter ID="Event" Indent="0"></Parameter>
+    <Parameter ID="Prefix" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="APanel" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="HandleBtns" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_HandlePanel" ParentID="" ID="HandleBtns" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="455" Top="208"/>
+   <Parameters NumItems="7">
+    <Parameter ID="Instruction" Indent="0">No</Parameter>
+    <Parameter ID="Back" Indent="0">Yes</Parameter>
+    <Parameter ID="Forward" Indent="0">Yes</Parameter>
+    <Parameter ID="Save" Indent="0">No</Parameter>
+    <Parameter ID="Exit" Indent="0">No</Parameter>
+    <Parameter ID="Event" Indent="0"></Parameter>
+    <Parameter ID="Prefix" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="HPanel" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="Q1" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="6">570,234,570,268,434,268,434,0,86,0,86,34</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_Show" ParentID="" ID="Show" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="1227" Top="353"/>
+   <Parameters NumItems="0"/>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="C" ContID="Out" Informational="False"/>
+     <Link ElementID="Texts" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks/>
+  </Element>
+  <Element ClassID="clsP_PrimaryCalc" ParentID="" ID="C" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="879" Top="347"/>
+   <Parameters NumItems="5">
+    <Parameter ID="Name" Indent="0">Количество баллов</Parameter>
+    <Parameter ID="QList" Indent="0">Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q8,Q9,Q10</Parameter>
+    <Parameter ID="Scheme" Indent="0">1=&gt;Все</Parameter>
+    <Parameter ID="Answers" Indent="0">1,2,3,4,5</Parameter>
+    <Parameter ID="Scores" Indent="0">2,4,6,8,10</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="Handler" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="Show" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+     <Link ElementID="S" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_StenCalc" ParentID="" ID="S" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="995" Top="401"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Name" Indent="0">Количество баллов (2)</Parameter>
+    <Parameter ID="Bounds" Indent="0">50,60</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="C" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="Texts" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_MapStrings" ParentID="" ID="Texts" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="1121" Top="401"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Min" Indent="0">1</Parameter>
+    <Parameter ID="Texts" Indent="0">T1,&apos;Умение слушать находится в пределах нормы&apos;,&apos;Умение слушать развито в высокой степени&apos;</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="S" ContID="Out" Informational="False"/>
+    </Contact>
+    <Contact ID="Texts">
+     <Link ElementID="T1" ContID="Map" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="Show" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_Text" ParentID="" ID="T1" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="1059" Top="504"/>
+   <Parameters NumItems="1">
+    <Parameter ID="Descriptor" Indent="0">Умение слушать недостаточно развито</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Map">
+     <Link ElementID="Texts" ContID="Texts" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+ </Elements>
+</System>

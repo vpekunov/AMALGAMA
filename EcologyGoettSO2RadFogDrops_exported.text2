@@ -1,0 +1,458 @@
+double Pi = 3.1415926535897932;
+double Mk = 0.018;
+double Ma = 0.0288;
+double _R = 8.315;
+double ROK = 1000.0;
+double TK = 273.15+T;
+double RO0 = 352.984/TK;
+double CC0 = 1.4*(718+0.1167*RO0);
+double Dvap0 = 0.211E-4*pow(TK/273.0,1.94);
+double Lambda0 = 1E-3*(4.39+0.071*TK);
+double Dvap1 = 2.0*Dvap0/@AlphaM{Drops}*sqrt(2.0*Pi*Mk/_R/TK);
+double Lambda1 = 2.0*Lambda0/(@AlphaT{Drops}*RO0*CC0)*sqrt(2*Pi*Ma/_R/TK);
+double _Hvap = 2.5E+6*pow(273.15/TK,0.167+3.67E-4*TK);
+double _Ck = 4185.5*(0.99618+0.0002874*pow((TK-173)/100.0,5.26)+0.01116*pow(10.0,-0.036*T));
+double PkF = (610.7799961+T*(44.36518521+T*(1.428945805+T*(2.650648471E-2+T*(3.031240396E-4+T*(2.034080948E-6+T*6.136820929E-9))))))/_R/TK;
+double _Sigma = 0.0761-1.55E-4*T;
+double PkF1 = 4.0*Mk*_Sigma/_R/TK/ROK;
+
+vector EMPTY[i] = Nk[i]<0.1*TAU || Rok[i] / Nk[i] <= Pi / 6.0*ROK*(@[]Dk{Drops}[i] * @[]Dk{Drops}[i] * @[]Dk{Drops}[i]);
+vector NMoles[i] = EMPTY[i] ? 0.0 : 1E6*max(0.0, SO2k[i])/Nk[i];
+vector PkF2[i] = EMPTY[i] ? 0.0 : 6.0*NMoles[i]*Mk/Pi/ROK;
+vector mCX[i] = EMPTY[i] ? 0.0 : 1E6*Source/PkF-exp(PkF1/@[]Dk{Drops}[i]-PkF2[i]/(@Dk[i]*@Dk[i]*@Dk[i]));
+vector mCY[i] = EMPTY[i] ? 0.0 : 1E6*Source/PkF-exp(PkF1/@[]Dk{Drops}[i+1]-PkF2[i]/(@Dk[i+1]*@Dk[i+1]*@Dk[i+1]));
+vector Mode[i] = mCX[i]*mCY[i]<=0.0 || i==0 && mCX[i]<0.0 && mCY[i]<0.0 ? 0.0 : mCX[i]<0.0 ? -1.0 : +1.0;
+vector SPEC1[i] = i>0 && i<Nc-1 && Mode[i-1]>0 && Mode[i]>0 && EMPTY[i+1];
+vector SPEC2[i] = i>0 && i<Nc-1 && EMPTY[i-1] && Mode[i]<0 && Mode[i+1]<0;
+vector State[i] = EMPTY[i] ? 0.0 :
+                   SPEC1[i] || SPEC2[i] ||
+                   i==0 && Mode[i]>0 ||
+                   i==Nc-1 && Mode[i]<0 ||
+                   i<Nc-1 && Mode[i]<0 && Mode[i]!=Mode[i+1] ||
+                   i>0 && Mode[i]>0 && Mode[i]!=Mode[i-1] ? -1.0 : 1.0;
+vector CND1[i] = State[i]<0 && (Mode[i]>0 && !SPEC1[i] || SPEC2[i]);
+vector CND2[i] = State[i]<0 && (Mode[i]<0 && !SPEC2[i] || SPEC1[i]);
+vector ppX[i] = EMPTY[i] ? @Dk[i] : CND1[i] ? amax2(@Dk[i],GetXY(@Dk[i+1],24.0*Rok[i]/(Pi*ROK*Nk[i]))) : @Dk[i];
+vector ppY[i] = EMPTY[i] ? @Dk[i+1] : CND2[i] ? amin2(@Dk[i+1],GetXY(@Dk[i],24.0*Rok[i]/(Pi*ROK*Nk[i]))) : @Dk[i+1];
+vector X[i] = ppX[i] < ppY[i] ? ppX[i] : 0.25*@[]Dk[i] + 0.75*@[]Dk[i + 1];
+vector Y[i] = ppX[i] < ppY[i] ? ppY[i] : 0.75*@[]Dk[i] + 0.25*@[]Dk[i + 1];
+vector dCX[i] = Mode[i]==0 ? 0.0 : CND1[i] ? 1E6*Source/PkF-exp(PkF1/X[i]-PkF2[i]/(X[i]*X[i]*X[i])) : mCX[i];
+vector dCY[i] = Mode[i]==0 ? 0.0 : CND2[i] ? 1E6*Source/PkF-exp(PkF1/Y[i]-PkF2[i]/(Y[i]*Y[i]*Y[i])) : mCY[i];
+vector _XYC[i] = EMPTY[i] ? 0.5*(@[]Dk[i]+@[]Dk[i+1]) : 0.5*(X[i] + Y[i]);
+vector X2[i] = X[i]*X[i];
+vector X3[i] = X2[i]*X[i];
+vector X4[i] = X3[i]*X[i];
+vector X5[i] = X4[i]*X[i];
+vector X6[i] = X5[i]*X[i];
+vector X7[i] = X6[i]*X[i];
+vector X8[i] = X7[i]*X[i];
+vector X9[i] = X8[i]*X[i];
+vector Y2[i] = Y[i]*Y[i];
+vector Y3[i] = Y2[i]*Y[i];
+vector Y4[i] = Y3[i]*Y[i];
+vector Y5[i] = Y4[i]*Y[i];
+vector Y6[i] = Y5[i]*Y[i];
+vector Y7[i] = Y6[i]*Y[i];
+vector Y8[i] = Y7[i]*Y[i];
+vector Y9[i] = Y8[i]*Y[i];
+
+vector XY1[i] = (Y[i]-X[i]);
+vector XY2[i] = (Y2[i]-X2[i])/2.0;
+vector XY3[i] = (Y3[i]-X3[i])/3.0;
+vector XY4[i] = (Y4[i]-X4[i])/4.0;
+vector XY5[i] = (Y5[i]-X5[i])/5.0;
+vector XY6[i] = (Y6[i]-X6[i])/6.0;
+vector XY7[i] = (Y7[i]-X7[i])/7.0;
+vector XY8[i] = (Y8[i]-X8[i])/8.0;
+vector XY9[i] = (Y9[i]-X9[i])/9.0;
+
+vector A1[i] = (EMPTY[i] || State[i]<0.0) ? 0.0 : XY2[i];
+vector B1[i] = (EMPTY[i] || State[i]<0.0) ? 0.0 : XY1[i];
+vector A2[i] = (EMPTY[i] || State[i]<0.0) ? 0.0 : XY5[i];
+vector B2[i] = (EMPTY[i] || State[i]<0.0) ? 0.0 : XY4[i];
+vector nC2[i] = (EMPTY[i] || State[i]<0.0) ? 0.0 : 6.0*Rok[i]/Pi/ROK;
+vector Determ[i] = (EMPTY[i] || State[i]<0.0) ? 0.0 : A1[i]*B2[i]-B1[i]*A2[i];
+vector AnC[i] = EMPTY[i] ? 0.0 : State[i]<0.0 ? 0.0 : (B2[i]*Nk[i]-B1[i]*nC2[i])/Determ[i];
+vector BnC[i] = EMPTY[i] ? 0.0 : State[i]<0.0 ? Nk[i]/(Y[i]-X[i]) : (-A2[i]*Nk[i]+A1[i]*nC2[i])/Determ[i];
+vector CORR[i] = EMPTY[i] ? 0.0 : AnC[i]*X[i]+BnC[i]<0.0 || AnC[i]*Y[i]+BnC[i]<0.0;
+vector __An[i] = EMPTY[i] ? 0.0 : CORR[i] ? 0.0 : AnC[i];
+vector __Bn[i] = EMPTY[i] ? 0.0 : CORR[i] ? Nk[i]/(Y[i]-X[i]) : BnC[i];
+
+vector dUkx[i] = Ux-Ukx[i];
+vector dUky[i] = Uy-Uky[i];
+vector dUkz[i] = Uz-Ukz[i];
+vector dUk[i] = fabs(@UwLight[i]) > 1E-8 ? 0.0 : sqrt(dUkx[i]*dUkx[i]+dUky[i]*dUky[i]+dUkz[i]*dUkz[i]);
+vector DC[i] = 0.5*(@[]Dk[i] + @[]Dk[i + 1]);
+vector Rek[i] = fabs(@UwLight[i]) > 1E-8 ? 0.0 : DC[i] * dUk[i] / @D;
+vector Prk[i] = @D*ROK*_Ck / Lambda0*(1.0 + Lambda1 / DC[i]);
+vector Sck[i] = @D / Dvap0*(1.0 + Dvap1 / DC[i]);
+vector sRek[i] = fabs(@UwLight[i]) > 1E-8 ? 0.0 : sqrt(Rek[i]);
+vector Nuss1[i] = fabs(@UwLight[i]) > 1E-8 ? 2.0 : 2.0 + 0.6*sRek[i] * pow(Sck[i], 1.0 / 3.0);
+vector Nuss2[i] = fabs(@UwLight[i]) > 1E-8 ? 2.0 : 2.0 + 0.6*sRek[i] * pow(Prk[i], 1.0 / 3.0);
+vector PkF3[i] = ROK/2.0/Nuss1[i]/PkF/Mk;
+vector PkF4[i] = _Hvap*ROK/2.0/Nuss2[i]/TK*(_Hvap*Mk/_R/TK-1.0);
+vector LX[i] = EMPTY[i] ? 0.0 : 0.5*ROK*dCX[i]/(PkF3[i]/Dvap0*(1.0+Dvap1/X[i])+PkF4[i]/Lambda0*(1.0+Lambda1/X[i]));
+vector LY[i] = EMPTY[i] ? 0.0 : 0.5*ROK*dCY[i]/(PkF3[i]/Dvap0*(1.0+Dvap1/Y[i])+PkF4[i]/Lambda0*(1.0+Lambda1/Y[i]));
+vector Dz[i] = EMPTY[i] || fabs(Y[i] - @Dk[i + 1])>1E-15 ? Y[i] : LX[i]<0 ? Y[i] : max(X[i], min(Y[i], Y[i] - TAU*2.0*LY[i] / ROK / Y[i]));
+vector Dzz[i] = EMPTY[i] || fabs(X[i] - @Dk[i])>1E-15 ? X[i] : LX[i]<0 ? max(X[i], min(Y[i], X[i] - TAU*2.0*LX[i] / ROK / X[i])) : X[i];
+
+vector XYC[i] = EMPTY[i] ? _XYC[i] : _XYC[i] < Dzz[i] ? Dzz[i] : _XYC[i] > Dz[i] ? Dz[i] : _XYC[i];
+vector XYC2[i] = XYC[i] * XYC[i];
+vector XYC3[i] = XYC2[i] * XYC[i];
+vector XYC4[i] = XYC3[i] * XYC[i];
+vector XYC5[i] = XYC4[i] * XYC[i];
+vector XYC6[i] = XYC5[i] * XYC[i];
+vector XYC7[i] = XYC6[i] * XYC[i];
+
+vector XC1[i] = (XYC[i] - X[i]) / 1.0;
+vector XC2[i] = (XYC2[i] - X2[i]) / 2.0;
+vector XC3[i] = (XYC3[i] - X3[i]) / 3.0;
+vector XC4[i] = (XYC4[i] - X4[i]) / 4.0;
+vector XC5[i] = (XYC5[i] - X5[i]) / 5.0;
+vector XC6[i] = (XYC6[i] - X6[i]) / 6.0;
+vector XC7[i] = (XYC7[i] - X7[i]) / 7.0;
+vector XC8[i] = (XYC7[i]*XYC[i] - X8[i]) / 8.0;
+vector XC9[i] = (XYC7[i]*XYC2[i] - X9[i]) / 9.0;
+vector XC10[i] = (XYC7[i]*XYC3[i] - X9[i]*X[i]) / 10.0;
+vector XC11[i] = (XYC7[i]*XYC4[i] - X9[i]*X2[i]) / 11.0;
+
+vector CY1[i] = -(XYC[i] - Y[i]) / 1.0;
+vector CY2[i] = -(XYC2[i] - Y2[i]) / 2.0;
+vector CY3[i] = -(XYC3[i] - Y3[i]) / 3.0;
+vector CY4[i] = -(XYC4[i] - Y4[i]) / 4.0;
+vector CY5[i] = -(XYC5[i] - Y5[i]) / 5.0;
+vector CY6[i] = -(XYC6[i] - Y6[i]) / 6.0;
+vector CY7[i] = -(XYC7[i] - Y7[i]) / 7.0;
+vector CY8[i] = -(XYC7[i] * XYC[i] - Y8[i]) / 8.0;
+vector CY9[i] = -(XYC7[i] * XYC2[i] - Y9[i]) / 9.0;
+vector CY10[i] = -(XYC7[i] * XYC3[i] - Y9[i] * Y[i]) / 10.0;
+vector CY11[i] = -(XYC7[i] * XYC4[i] - Y9[i] * Y2[i]) / 11.0;
+
+vector _Dnn[i] = EMPTY[i] ? 0.0 : (i == 0 || EMPTY[i - 1]) ? __Bn[i] : 0.0;
+vector _Cnn[i] = EMPTY[i] ? 0.0 : (i == 0 || EMPTY[i-1]) ? __An[i] : 0.0;
+vector _Bnn[i] = 0.0;
+vector _Ann[i] = EMPTY[i] ? 0.0 : (i == 0 || EMPTY[i-1]) ? 0.0 : getLeftSpline(i, Dk, XYC, XYC2, XYC3, XYC4, XYC5, XYC6, XYC7, ROK, __An, __Bn, _Ann, _Bnn, _Cnn, _Dnn);
+vector CORR_ABCDnn[i] = _Ann[i] * X3[i] + _Bnn[i] * X2[i] + _Cnn[i] * X[i] + _Dnn[i] >= 0.0;
+vector Dnn[i] = CORR_ABCDnn[i] ? _Dnn[i] : __Bn[i];
+vector Cnn[i] = CORR_ABCDnn[i] ? _Cnn[i] : __An[i];
+vector Bnn[i] = CORR_ABCDnn[i] ? _Bnn[i] : 0.0;
+vector Ann[i] = CORR_ABCDnn[i] ? _Ann[i] : 0.0;
+
+vector _Dn[i] = EMPTY[i] ? 0.0 : (i == Nc-1 || EMPTY[i + 1]) ? __Bn[i] : 0.0;
+vector _Cn[i] = EMPTY[i] ? 0.0 : (i == Nc-1 || EMPTY[i + 1]) ? __An[i] : 0.0;
+vector _Bn[i] = 0.0;
+vector _An[i] = EMPTY[i] ? 0.0 : (i == Nc-1 || EMPTY[i + 1]) ? 0.0 : getRightSpline(i, Dk, XYC, XYC2, XYC3, XYC4, XYC5, XYC6, XYC7, ROK, __An, __Bn, _An, _Bn, _Cn, _Dn);
+vector CORR_ABCDn[i] = _An[i] * X3[i] + _Bn[i] * X2[i] + _Cn[i] * X[i] + _Dn[i] >= 0.0;
+vector Dn[i] = CORR_ABCDn[i] ? _Dn[i] : __Bn[i];
+vector Cn[i] = CORR_ABCDn[i] ? _Cn[i] : __An[i];
+vector Bn[i] = CORR_ABCDn[i] ? _Bn[i] : 0.0;
+vector An[i] = CORR_ABCDn[i] ? _An[i] : 0.0;
+
+vector kCSubst[i] = EMPTY[i] ? 0.0 : max(0.0, max(ROK/Rok[i], 6.0 / (Pi*(
+		   An[i] / 7.0*(Y7[i] - XYC7[i]) + Bn[i] / 6.0*(Y6[i] - XYC6[i]) + Cn[i] / 5.0*(Y5[i] - XYC5[i]) + Dn[i] / 4.0*(Y4[i] - XYC4[i]) +
+		   Ann[i] / 7.0*(XYC7[i] - X7[i]) + Bnn[i] / 6.0*(XYC6[i] - X6[i]) + Cnn[i] / 5.0*(XYC5[i] - X5[i]) + Dnn[i] / 4.0*(XYC4[i] - X4[i])
+		   ))));
+vector _DD[i] = EMPTY[i] ? (@Dk[i] + @Dk[i + 1]) / 2.0 : (An[i] / 5.0*(Y5[i] - XYC5[i]) + Bn[i] / 4.0*(Y4[i] - XYC4[i]) + Cn[i] / 3.0*(Y3[i] - XYC3[i]) + Dn[i] / 2.0*(Y2[i] - XYC2[i]) +
+		   Ann[i] / 5.0*(XYC5[i] - X5[i]) + Bnn[i] / 4.0*(XYC4[i] - X4[i]) + Cnn[i] / 3.0*(XYC3[i] - X3[i]) + Dnn[i] / 2.0*(XYC2[i] - X2[i])) / Nk[i];
+vector DD[i] = _DD[i] < @Dk[i] || _DD[i] > @Dk[i + 1] ? (@Dk[i] + @Dk[i + 1]) / 2.0 : _DD[i];
+vector nX[i] = EMPTY[i] ? 0.0 : Ann[i] * X3[i] + Bnn[i] * X2[i] + Cnn[i] * X[i] + Dnn[i];
+vector nY[i] = EMPTY[i] ? 0.0 : An[i] * Y3[i] + Bn[i] * Y2[i] + Cn[i] * Y[i] + Dn[i];
+
+vector LDp[i] = EMPTY[i] || Mode[i]==0.0 ? 0.0 : 0.5*ROK*(1E6*Source/PkF-exp(PkF1/DD[i]-PkF2[i]/(DD[i]*DD[i]*DD[i])))/(PkF3[i]/Dvap0*(1.0+Dvap1/DD[i])+PkF4[i]/Lambda0*(1.0+Lambda1/DD[i]));
+
+vector ieC0[i] = @[]QeC0{Drops}[i];
+vector ieC1[i] = @[]QeC1{Drops}[i]*1E6;
+vector ieC2[i] = @[]QeC2{Drops}[i]*1E12;
+vector ieC3[i] = @[]QeC3{Drops}[i]*1E18;
+vector ieC4[i] = @[]QeC4{Drops}[i]*1E24;
+vector ieC5[i] = @[]QeC5{Drops}[i]*1E30;
+vector iaC0[i] = @[]QaC0{Drops}[i];
+vector iaC1[i] = @[]QaC1{Drops}[i]*1E6;
+vector iaC2[i] = @[]QaC2{Drops}[i]*1E12;
+vector iaC3[i] = @[]QaC3{Drops}[i]*1E18;
+vector iaC4[i] = @[]QaC4{Drops}[i]*1E24;
+vector iaC5[i] = @[]QaC5{Drops}[i]*1E30;
+vector igC0[i] = @[]gC0{Drops}[i];
+vector igC1[i] = @[]gC1{Drops}[i]*1E6;
+vector igC2[i] = @[]gC2{Drops}[i]*1E12;
+vector igC3[i] = @[]gC3{Drops}[i]*1E18;
+vector igC4[i] = @[]gC4{Drops}[i]*1E24;
+vector igC5[i] = @[]gC5{Drops}[i]*1E30;
+
+vector uieC0[i] = @[]uQeC0{Drops}[i];
+vector uieC1[i] = @[]uQeC1{Drops}[i]*1E6;
+vector uieC2[i] = @[]uQeC2{Drops}[i]*1E12;
+vector uieC3[i] = @[]uQeC3{Drops}[i]*1E18;
+vector uieC4[i] = @[]uQeC4{Drops}[i]*1E24;
+vector uieC5[i] = @[]uQeC5{Drops}[i]*1E30;
+vector uiaC0[i] = @[]uQaC0{Drops}[i];
+vector uiaC1[i] = @[]uQaC1{Drops}[i]*1E6;
+vector uiaC2[i] = @[]uQaC2{Drops}[i]*1E12;
+vector uiaC3[i] = @[]uQaC3{Drops}[i]*1E18;
+vector uiaC4[i] = @[]uQaC4{Drops}[i]*1E24;
+vector uiaC5[i] = @[]uQaC5{Drops}[i]*1E30;
+vector uigC0[i] = @[]ugC0{Drops}[i];
+vector uigC1[i] = @[]ugC1{Drops}[i]*1E6;
+vector uigC2[i] = @[]ugC2{Drops}[i]*1E12;
+vector uigC3[i] = @[]ugC3{Drops}[i]*1E18;
+vector uigC4[i] = @[]ugC4{Drops}[i]*1E24;
+vector uigC5[i] = @[]ugC5{Drops}[i]*1E30;
+
+vector rieC0[i] = @[]rQeC0{Drops}[i];
+vector rieC1[i] = @[]rQeC1{Drops}[i]*1E6;
+vector rieC2[i] = @[]rQeC2{Drops}[i]*1E12;
+vector rieC3[i] = @[]rQeC3{Drops}[i]*1E18;
+vector rieC4[i] = @[]rQeC4{Drops}[i]*1E24;
+vector rieC5[i] = @[]rQeC5{Drops}[i]*1E30;
+vector riaC0[i] = @[]rQaC0{Drops}[i];
+vector riaC1[i] = @[]rQaC1{Drops}[i]*1E6;
+vector riaC2[i] = @[]rQaC2{Drops}[i]*1E12;
+vector riaC3[i] = @[]rQaC3{Drops}[i]*1E18;
+vector riaC4[i] = @[]rQaC4{Drops}[i]*1E24;
+vector riaC5[i] = @[]rQaC5{Drops}[i]*1E30;
+vector rigC0[i] = @[]rgC0{Drops}[i];
+vector rigC1[i] = @[]rgC1{Drops}[i]*1E6;
+vector rigC2[i] = @[]rgC2{Drops}[i]*1E12;
+vector rigC3[i] = @[]rgC3{Drops}[i]*1E18;
+vector rigC4[i] = @[]rgC4{Drops}[i]*1E24;
+vector rigC5[i] = @[]rgC5{Drops}[i]*1E30;
+
+vector tieC0[i] = @[]tQeC0{Drops}[i];
+vector tieC1[i] = @[]tQeC1{Drops}[i]*1E6;
+vector tieC2[i] = @[]tQeC2{Drops}[i]*1E12;
+vector tieC3[i] = @[]tQeC3{Drops}[i]*1E18;
+vector tieC4[i] = @[]tQeC4{Drops}[i]*1E24;
+vector tieC5[i] = @[]tQeC5{Drops}[i]*1E30;
+vector tiaC0[i] = @[]tQaC0{Drops}[i];
+vector tiaC1[i] = @[]tQaC1{Drops}[i]*1E6;
+vector tiaC2[i] = @[]tQaC2{Drops}[i]*1E12;
+vector tiaC3[i] = @[]tQaC3{Drops}[i]*1E18;
+vector tiaC4[i] = @[]tQaC4{Drops}[i]*1E24;
+vector tiaC5[i] = @[]tQaC5{Drops}[i]*1E30;
+vector tigC0[i] = @[]tgC0{Drops}[i];
+vector tigC1[i] = @[]tgC1{Drops}[i]*1E6;
+vector tigC2[i] = @[]tgC2{Drops}[i]*1E12;
+vector tigC3[i] = @[]tgC3{Drops}[i]*1E18;
+vector tigC4[i] = @[]tgC4{Drops}[i]*1E24;
+vector tigC5[i] = @[]tgC5{Drops}[i]*1E30;
+
+vector iBeta[i] = Split{0.0,EMPTY[i] ? 0.0 :
+	   min(1E-2/max(HX[x],max(HY[y],HZ[z])), max(1E-5, Pi / 4.0*
+	   (
+	   Ann[i] * (ieC0[i] * XC6[i] + ieC1[i] * XC7[i] + ieC2[i] * XC8[i] + ieC3[i] * XC9[i] + ieC4[i] * XC10[i] + ieC5[i] * XC11[i]) +
+	   Bnn[i] * (ieC0[i] * XC5[i] + ieC1[i] * XC6[i] + ieC2[i] * XC7[i] + ieC3[i] * XC8[i] + ieC4[i] * XC9[i] + ieC5[i] * XC10[i]) +
+	   Cnn[i] * (ieC0[i] * XC4[i] + ieC1[i] * XC5[i] + ieC2[i] * XC6[i] + ieC3[i] * XC7[i] + ieC4[i] * XC8[i] + ieC5[i] * XC9[i]) +
+	   Dnn[i] * (ieC0[i] * XC3[i] + ieC1[i] * XC4[i] + ieC2[i] * XC5[i] + ieC3[i] * XC6[i] + ieC4[i] * XC7[i] + ieC5[i] * XC8[i]) +
+	   An[i] * (ieC0[i] * CY6[i] + ieC1[i] * CY7[i] + ieC2[i] * CY8[i] + ieC3[i] * CY9[i] + ieC4[i] * CY10[i] + ieC5[i] * CY11[i]) +
+	   Bn[i] * (ieC0[i] * CY5[i] + ieC1[i] * CY6[i] + ieC2[i] * CY7[i] + ieC3[i] * CY8[i] + ieC4[i] * CY9[i] + ieC5[i] * CY10[i]) +
+	   Cn[i] * (ieC0[i] * CY4[i] + ieC1[i] * CY5[i] + ieC2[i] * CY6[i] + ieC3[i] * CY7[i] + ieC4[i] * CY8[i] + ieC5[i] * CY9[i]) +
+	   Dn[i] * (ieC0[i] * CY3[i] + ieC1[i] * CY4[i] + ieC2[i] * CY5[i] + ieC3[i] * CY6[i] + ieC4[i] * CY7[i] + ieC5[i] * CY8[i])
+	   )))
+                  };
+vector uiBeta[i] = Split{0.0,EMPTY[i] ? 0.0 :
+	   min(1E-2/max(HX[x],max(HY[y], HZ[z])), max(1E-5, Pi / 4.0*
+	   (
+	   Ann[i] * (uieC0[i] * XC6[i] + uieC1[i] * XC7[i] + uieC2[i] * XC8[i] + uieC3[i] * XC9[i] + uieC4[i] * XC10[i] + uieC5[i] * XC11[i]) +
+	   Bnn[i] * (uieC0[i] * XC5[i] + uieC1[i] * XC6[i] + uieC2[i] * XC7[i] + uieC3[i] * XC8[i] + uieC4[i] * XC9[i] + uieC5[i] * XC10[i]) +
+	   Cnn[i] * (uieC0[i] * XC4[i] + uieC1[i] * XC5[i] + uieC2[i] * XC6[i] + uieC3[i] * XC7[i] + uieC4[i] * XC8[i] + uieC5[i] * XC9[i]) +
+	   Dnn[i] * (uieC0[i] * XC3[i] + uieC1[i] * XC4[i] + uieC2[i] * XC5[i] + uieC3[i] * XC6[i] + uieC4[i] * XC7[i] + uieC5[i] * XC8[i]) +
+	   An[i] * (uieC0[i] * CY6[i] + uieC1[i] * CY7[i] + uieC2[i] * CY8[i] + uieC3[i] * CY9[i] + uieC4[i] * CY10[i] + uieC5[i] * CY11[i]) +
+	   Bn[i] * (uieC0[i] * CY5[i] + uieC1[i] * CY6[i] + uieC2[i] * CY7[i] + uieC3[i] * CY8[i] + uieC4[i] * CY9[i] + uieC5[i] * CY10[i]) +
+	   Cn[i] * (uieC0[i] * CY4[i] + uieC1[i] * CY5[i] + uieC2[i] * CY6[i] + uieC3[i] * CY7[i] + uieC4[i] * CY8[i] + uieC5[i] * CY9[i]) +
+	   Dn[i] * (uieC0[i] * CY3[i] + uieC1[i] * CY4[i] + uieC2[i] * CY5[i] + uieC3[i] * CY6[i] + uieC4[i] * CY7[i] + uieC5[i] * CY8[i])
+	   )))
+                  };
+vector riBeta[i] = Split{0.0,EMPTY[i] ? 0.0 :
+	   min(1E-2/max(HX[x],max(HY[y], HZ[z])), max(1E-5, Pi / 4.0*
+	   (
+	   Ann[i] * (rieC0[i] * XC6[i] + rieC1[i] * XC7[i] + rieC2[i] * XC8[i] + rieC3[i] * XC9[i] + rieC4[i] * XC10[i] + rieC5[i] * XC11[i]) +
+	   Bnn[i] * (rieC0[i] * XC5[i] + rieC1[i] * XC6[i] + rieC2[i] * XC7[i] + rieC3[i] * XC8[i] + rieC4[i] * XC9[i] + rieC5[i] * XC10[i]) +
+	   Cnn[i] * (rieC0[i] * XC4[i] + rieC1[i] * XC5[i] + rieC2[i] * XC6[i] + rieC3[i] * XC7[i] + rieC4[i] * XC8[i] + rieC5[i] * XC9[i]) +
+	   Dnn[i] * (rieC0[i] * XC3[i] + rieC1[i] * XC4[i] + rieC2[i] * XC5[i] + rieC3[i] * XC6[i] + rieC4[i] * XC7[i] + rieC5[i] * XC8[i]) +
+	   An[i] * (rieC0[i] * CY6[i] + rieC1[i] * CY7[i] + rieC2[i] * CY8[i] + rieC3[i] * CY9[i] + rieC4[i] * CY10[i] + rieC5[i] * CY11[i]) +
+	   Bn[i] * (rieC0[i] * CY5[i] + rieC1[i] * CY6[i] + rieC2[i] * CY7[i] + rieC3[i] * CY8[i] + rieC4[i] * CY9[i] + rieC5[i] * CY10[i]) +
+	   Cn[i] * (rieC0[i] * CY4[i] + rieC1[i] * CY5[i] + rieC2[i] * CY6[i] + rieC3[i] * CY7[i] + rieC4[i] * CY8[i] + rieC5[i] * CY9[i]) +
+	   Dn[i] * (rieC0[i] * CY3[i] + rieC1[i] * CY4[i] + rieC2[i] * CY5[i] + rieC3[i] * CY6[i] + rieC4[i] * CY7[i] + rieC5[i] * CY8[i])
+	   )))
+                  };
+vector tiBeta[i] = Split{0.0,EMPTY[i] ? 0.0 :
+	   min(1E-2/max(HX[x],max(HY[y], HZ[z])), max(1E-5, Pi / 4.0*
+	   (
+	   Ann[i] * (tieC0[i] * XC6[i] + tieC1[i] * XC7[i] + tieC2[i] * XC8[i] + tieC3[i] * XC9[i] + tieC4[i] * XC10[i] + tieC5[i] * XC11[i]) +
+	   Bnn[i] * (tieC0[i] * XC5[i] + tieC1[i] * XC6[i] + tieC2[i] * XC7[i] + tieC3[i] * XC8[i] + tieC4[i] * XC9[i] + tieC5[i] * XC10[i]) +
+	   Cnn[i] * (tieC0[i] * XC4[i] + tieC1[i] * XC5[i] + tieC2[i] * XC6[i] + tieC3[i] * XC7[i] + tieC4[i] * XC8[i] + tieC5[i] * XC9[i]) +
+	   Dnn[i] * (tieC0[i] * XC3[i] + tieC1[i] * XC4[i] + tieC2[i] * XC5[i] + tieC3[i] * XC6[i] + tieC4[i] * XC7[i] + tieC5[i] * XC8[i]) +
+	   An[i] * (tieC0[i] * CY6[i] + tieC1[i] * CY7[i] + tieC2[i] * CY8[i] + tieC3[i] * CY9[i] + tieC4[i] * CY10[i] + tieC5[i] * CY11[i]) +
+	   Bn[i] * (tieC0[i] * CY5[i] + tieC1[i] * CY6[i] + tieC2[i] * CY7[i] + tieC3[i] * CY8[i] + tieC4[i] * CY9[i] + tieC5[i] * CY10[i]) +
+	   Cn[i] * (tieC0[i] * CY4[i] + tieC1[i] * CY5[i] + tieC2[i] * CY6[i] + tieC3[i] * CY7[i] + tieC4[i] * CY8[i] + tieC5[i] * CY9[i]) +
+	   Dn[i] * (tieC0[i] * CY3[i] + tieC1[i] * CY4[i] + tieC2[i] * CY5[i] + tieC3[i] * CY6[i] + tieC4[i] * CY7[i] + tieC5[i] * CY8[i])
+	   )))
+                  };
+vector iAbs[i] = Split{0.0,EMPTY[i] ? 0.0 :
+	   min(iBeta[i], max(0.0, Pi / 4.0*
+	   (
+	   Ann[i] * (iaC0[i] * XC6[i] + iaC1[i] * XC7[i] + iaC2[i] * XC8[i] + iaC3[i] * XC9[i] + iaC4[i] * XC10[i] + iaC5[i] * XC11[i]) +
+	   Bnn[i] * (iaC0[i] * XC5[i] + iaC1[i] * XC6[i] + iaC2[i] * XC7[i] + iaC3[i] * XC8[i] + iaC4[i] * XC9[i] + iaC5[i] * XC10[i]) +
+	   Cnn[i] * (iaC0[i] * XC4[i] + iaC1[i] * XC5[i] + iaC2[i] * XC6[i] + iaC3[i] * XC7[i] + iaC4[i] * XC8[i] + iaC5[i] * XC9[i]) +
+	   Dnn[i] * (iaC0[i] * XC3[i] + iaC1[i] * XC4[i] + iaC2[i] * XC5[i] + iaC3[i] * XC6[i] + iaC4[i] * XC7[i] + iaC5[i] * XC8[i]) +
+	   An[i] * (iaC0[i] * CY6[i] + iaC1[i] * CY7[i] + iaC2[i] * CY8[i] + iaC3[i] * CY9[i] + iaC4[i] * CY10[i] + iaC5[i] * CY11[i]) +
+	   Bn[i] * (iaC0[i] * CY5[i] + iaC1[i] * CY6[i] + iaC2[i] * CY7[i] + iaC3[i] * CY8[i] + iaC4[i] * CY9[i] + iaC5[i] * CY10[i]) +
+	   Cn[i] * (iaC0[i] * CY4[i] + iaC1[i] * CY5[i] + iaC2[i] * CY6[i] + iaC3[i] * CY7[i] + iaC4[i] * CY8[i] + iaC5[i] * CY9[i]) +
+	   Dn[i] * (iaC0[i] * CY3[i] + iaC1[i] * CY4[i] + iaC2[i] * CY5[i] + iaC3[i] * CY6[i] + iaC4[i] * CY7[i] + iaC5[i] * CY8[i])
+	   )))
+                 };
+vector uiAbs[i] = Split{0.0,EMPTY[i] ? 0.0 :
+	   min(uiBeta[i], max(0.0, Pi / 4.0*
+	   (
+	   Ann[i] * (uiaC0[i] * XC6[i] + uiaC1[i] * XC7[i] + uiaC2[i] * XC8[i] + uiaC3[i] * XC9[i] + uiaC4[i] * XC10[i] + uiaC5[i] * XC11[i]) +
+	   Bnn[i] * (uiaC0[i] * XC5[i] + uiaC1[i] * XC6[i] + uiaC2[i] * XC7[i] + uiaC3[i] * XC8[i] + uiaC4[i] * XC9[i] + uiaC5[i] * XC10[i]) +
+	   Cnn[i] * (uiaC0[i] * XC4[i] + uiaC1[i] * XC5[i] + uiaC2[i] * XC6[i] + uiaC3[i] * XC7[i] + uiaC4[i] * XC8[i] + uiaC5[i] * XC9[i]) +
+	   Dnn[i] * (uiaC0[i] * XC3[i] + uiaC1[i] * XC4[i] + uiaC2[i] * XC5[i] + uiaC3[i] * XC6[i] + uiaC4[i] * XC7[i] + uiaC5[i] * XC8[i]) +
+	   An[i] * (uiaC0[i] * CY6[i] + uiaC1[i] * CY7[i] + uiaC2[i] * CY8[i] + uiaC3[i] * CY9[i] + uiaC4[i] * CY10[i] + uiaC5[i] * CY11[i]) +
+	   Bn[i] * (uiaC0[i] * CY5[i] + uiaC1[i] * CY6[i] + uiaC2[i] * CY7[i] + uiaC3[i] * CY8[i] + uiaC4[i] * CY9[i] + uiaC5[i] * CY10[i]) +
+	   Cn[i] * (uiaC0[i] * CY4[i] + uiaC1[i] * CY5[i] + uiaC2[i] * CY6[i] + uiaC3[i] * CY7[i] + uiaC4[i] * CY8[i] + uiaC5[i] * CY9[i]) +
+	   Dn[i] * (uiaC0[i] * CY3[i] + uiaC1[i] * CY4[i] + uiaC2[i] * CY5[i] + uiaC3[i] * CY6[i] + uiaC4[i] * CY7[i] + uiaC5[i] * CY8[i])
+	   )))
+                 };
+vector riAbs[i] = Split{0.0,EMPTY[i] ? 0.0 :
+	   min(riBeta[i], max(0.0, Pi / 4.0*
+	   (
+	   Ann[i] * (riaC0[i] * XC6[i] + riaC1[i] * XC7[i] + riaC2[i] * XC8[i] + riaC3[i] * XC9[i] + riaC4[i] * XC10[i] + riaC5[i] * XC11[i]) +
+	   Bnn[i] * (riaC0[i] * XC5[i] + riaC1[i] * XC6[i] + riaC2[i] * XC7[i] + riaC3[i] * XC8[i] + riaC4[i] * XC9[i] + riaC5[i] * XC10[i]) +
+	   Cnn[i] * (riaC0[i] * XC4[i] + riaC1[i] * XC5[i] + riaC2[i] * XC6[i] + riaC3[i] * XC7[i] + riaC4[i] * XC8[i] + riaC5[i] * XC9[i]) +
+	   Dnn[i] * (riaC0[i] * XC3[i] + riaC1[i] * XC4[i] + riaC2[i] * XC5[i] + riaC3[i] * XC6[i] + riaC4[i] * XC7[i] + riaC5[i] * XC8[i]) +
+	   An[i] * (riaC0[i] * CY6[i] + riaC1[i] * CY7[i] + riaC2[i] * CY8[i] + riaC3[i] * CY9[i] + riaC4[i] * CY10[i] + riaC5[i] * CY11[i]) +
+	   Bn[i] * (riaC0[i] * CY5[i] + riaC1[i] * CY6[i] + riaC2[i] * CY7[i] + riaC3[i] * CY8[i] + riaC4[i] * CY9[i] + riaC5[i] * CY10[i]) +
+	   Cn[i] * (riaC0[i] * CY4[i] + riaC1[i] * CY5[i] + riaC2[i] * CY6[i] + riaC3[i] * CY7[i] + riaC4[i] * CY8[i] + riaC5[i] * CY9[i]) +
+	   Dn[i] * (riaC0[i] * CY3[i] + riaC1[i] * CY4[i] + riaC2[i] * CY5[i] + riaC3[i] * CY6[i] + riaC4[i] * CY7[i] + riaC5[i] * CY8[i])
+	   )))
+                 };
+vector tiAbs[i] = Split{0.0,EMPTY[i] ? 0.0 :
+	   min(tiBeta[i], max(0.0, Pi / 4.0*
+	   (
+	   Ann[i] * (tiaC0[i] * XC6[i] + tiaC1[i] * XC7[i] + tiaC2[i] * XC8[i] + tiaC3[i] * XC9[i] + tiaC4[i] * XC10[i] + tiaC5[i] * XC11[i]) +
+	   Bnn[i] * (tiaC0[i] * XC5[i] + tiaC1[i] * XC6[i] + tiaC2[i] * XC7[i] + tiaC3[i] * XC8[i] + tiaC4[i] * XC9[i] + tiaC5[i] * XC10[i]) +
+	   Cnn[i] * (tiaC0[i] * XC4[i] + tiaC1[i] * XC5[i] + tiaC2[i] * XC6[i] + tiaC3[i] * XC7[i] + tiaC4[i] * XC8[i] + tiaC5[i] * XC9[i]) +
+	   Dnn[i] * (tiaC0[i] * XC3[i] + tiaC1[i] * XC4[i] + tiaC2[i] * XC5[i] + tiaC3[i] * XC6[i] + tiaC4[i] * XC7[i] + tiaC5[i] * XC8[i]) +
+	   An[i] * (tiaC0[i] * CY6[i] + tiaC1[i] * CY7[i] + tiaC2[i] * CY8[i] + tiaC3[i] * CY9[i] + tiaC4[i] * CY10[i] + tiaC5[i] * CY11[i]) +
+	   Bn[i] * (tiaC0[i] * CY5[i] + tiaC1[i] * CY6[i] + tiaC2[i] * CY7[i] + tiaC3[i] * CY8[i] + tiaC4[i] * CY9[i] + tiaC5[i] * CY10[i]) +
+	   Cn[i] * (tiaC0[i] * CY4[i] + tiaC1[i] * CY5[i] + tiaC2[i] * CY6[i] + tiaC3[i] * CY7[i] + tiaC4[i] * CY8[i] + tiaC5[i] * CY9[i]) +
+	   Dn[i] * (tiaC0[i] * CY3[i] + tiaC1[i] * CY4[i] + tiaC2[i] * CY5[i] + tiaC3[i] * CY6[i] + tiaC4[i] * CY7[i] + tiaC5[i] * CY8[i])
+	   )))
+                 };
+vector iAsym[i] = Split{0.0,EMPTY[i] ? 0.0 :
+	   min(1.0, max(0.0, (
+	   Ann[i] * (igC0[i] * XC4[i] + igC1[i] * XC5[i] + igC2[i] * XC6[i] + igC3[i] * XC7[i] + igC4[i] * XC8[i] + igC5[i] * XC9[i]) +
+	   Bnn[i] * (igC0[i] * XC3[i] + igC1[i] * XC4[i] + igC2[i] * XC5[i] + igC3[i] * XC6[i] + igC4[i] * XC7[i] + igC5[i] * XC8[i]) +
+	   Cnn[i] * (igC0[i] * XC2[i] + igC1[i] * XC3[i] + igC2[i] * XC4[i] + igC3[i] * XC5[i] + igC4[i] * XC6[i] + igC5[i] * XC7[i]) +
+	   Dnn[i] * (igC0[i] * XC1[i] + igC1[i] * XC2[i] + igC2[i] * XC3[i] + igC3[i] * XC4[i] + igC4[i] * XC5[i] + igC5[i] * XC6[i]) +
+	   An[i] * (igC0[i] * CY4[i] + igC1[i] * CY5[i] + igC2[i] * CY6[i] + igC3[i] * CY7[i] + igC4[i] * CY8[i] + igC5[i] * CY9[i]) +
+	   Bn[i] * (igC0[i] * CY3[i] + igC1[i] * CY4[i] + igC2[i] * CY5[i] + igC3[i] * CY6[i] + igC4[i] * CY7[i] + igC5[i] * CY8[i]) +
+	   Cn[i] * (igC0[i] * CY2[i] + igC1[i] * CY3[i] + igC2[i] * CY4[i] + igC3[i] * CY5[i] + igC4[i] * CY6[i] + igC5[i] * CY7[i]) +
+	   Dn[i] * (igC0[i] * CY1[i] + igC1[i] * CY2[i] + igC2[i] * CY3[i] + igC3[i] * CY4[i] + igC4[i] * CY5[i] + igC5[i] * CY6[i])
+	   ) / Nk[i]))
+                  };
+vector uiAsym[i] = Split{0.0,EMPTY[i] ? 0.0 :
+	   min(1.0, max(0.0, (
+	   Ann[i] * (uigC0[i] * XC4[i] + uigC1[i] * XC5[i] + uigC2[i] * XC6[i] + uigC3[i] * XC7[i] + uigC4[i] * XC8[i] + uigC5[i] * XC9[i]) +
+	   Bnn[i] * (uigC0[i] * XC3[i] + uigC1[i] * XC4[i] + uigC2[i] * XC5[i] + uigC3[i] * XC6[i] + uigC4[i] * XC7[i] + uigC5[i] * XC8[i]) +
+	   Cnn[i] * (uigC0[i] * XC2[i] + uigC1[i] * XC3[i] + uigC2[i] * XC4[i] + uigC3[i] * XC5[i] + uigC4[i] * XC6[i] + uigC5[i] * XC7[i]) +
+	   Dnn[i] * (uigC0[i] * XC1[i] + uigC1[i] * XC2[i] + uigC2[i] * XC3[i] + uigC3[i] * XC4[i] + uigC4[i] * XC5[i] + uigC5[i] * XC6[i]) +
+	   An[i] * (uigC0[i] * CY4[i] + uigC1[i] * CY5[i] + uigC2[i] * CY6[i] + uigC3[i] * CY7[i] + uigC4[i] * CY8[i] + uigC5[i] * CY9[i]) +
+	   Bn[i] * (uigC0[i] * CY3[i] + uigC1[i] * CY4[i] + uigC2[i] * CY5[i] + uigC3[i] * CY6[i] + uigC4[i] * CY7[i] + uigC5[i] * CY8[i]) +
+	   Cn[i] * (uigC0[i] * CY2[i] + uigC1[i] * CY3[i] + uigC2[i] * CY4[i] + uigC3[i] * CY5[i] + uigC4[i] * CY6[i] + uigC5[i] * CY7[i]) +
+	   Dn[i] * (uigC0[i] * CY1[i] + uigC1[i] * CY2[i] + uigC2[i] * CY3[i] + uigC3[i] * CY4[i] + uigC4[i] * CY5[i] + uigC5[i] * CY6[i])
+	   ) / Nk[i]))
+                   };
+vector riAsym[i] = Split{0.0,EMPTY[i] ? 0.0 :
+	   min(1.0, max(0.0, (
+	   Ann[i] * (rigC0[i] * XC4[i] + rigC1[i] * XC5[i] + rigC2[i] * XC6[i] + rigC3[i] * XC7[i] + rigC4[i] * XC8[i] + rigC5[i] * XC9[i]) +
+	   Bnn[i] * (rigC0[i] * XC3[i] + rigC1[i] * XC4[i] + rigC2[i] * XC5[i] + rigC3[i] * XC6[i] + rigC4[i] * XC7[i] + rigC5[i] * XC8[i]) +
+	   Cnn[i] * (rigC0[i] * XC2[i] + rigC1[i] * XC3[i] + rigC2[i] * XC4[i] + rigC3[i] * XC5[i] + rigC4[i] * XC6[i] + rigC5[i] * XC7[i]) +
+	   Dnn[i] * (rigC0[i] * XC1[i] + rigC1[i] * XC2[i] + rigC2[i] * XC3[i] + rigC3[i] * XC4[i] + rigC4[i] * XC5[i] + rigC5[i] * XC6[i]) +
+	   An[i] * (rigC0[i] * CY4[i] + rigC1[i] * CY5[i] + rigC2[i] * CY6[i] + rigC3[i] * CY7[i] + rigC4[i] * CY8[i] + rigC5[i] * CY9[i]) +
+	   Bn[i] * (rigC0[i] * CY3[i] + rigC1[i] * CY4[i] + rigC2[i] * CY5[i] + rigC3[i] * CY6[i] + rigC4[i] * CY7[i] + rigC5[i] * CY8[i]) +
+	   Cn[i] * (rigC0[i] * CY2[i] + rigC1[i] * CY3[i] + rigC2[i] * CY4[i] + rigC3[i] * CY5[i] + rigC4[i] * CY6[i] + rigC5[i] * CY7[i]) +
+	   Dn[i] * (rigC0[i] * CY1[i] + rigC1[i] * CY2[i] + rigC2[i] * CY3[i] + rigC3[i] * CY4[i] + rigC4[i] * CY5[i] + rigC5[i] * CY6[i])
+	   ) / Nk[i]))
+                   };
+vector tiAsym[i] = Split{0.0,EMPTY[i] ? 0.0 :
+	   min(1.0, max( 0.0, (
+	   Ann[i] * (tigC0[i] * XC4[i] + tigC1[i] * XC5[i] + tigC2[i] * XC6[i] + tigC3[i] * XC7[i] + tigC4[i] * XC8[i] + tigC5[i] * XC9[i]) +
+	   Bnn[i] * (tigC0[i] * XC3[i] + tigC1[i] * XC4[i] + tigC2[i] * XC5[i] + tigC3[i] * XC6[i] + tigC4[i] * XC7[i] + tigC5[i] * XC8[i]) +
+	   Cnn[i] * (tigC0[i] * XC2[i] + tigC1[i] * XC3[i] + tigC2[i] * XC4[i] + tigC3[i] * XC5[i] + tigC4[i] * XC6[i] + tigC5[i] * XC7[i]) +
+	   Dnn[i] * (tigC0[i] * XC1[i] + tigC1[i] * XC2[i] + tigC2[i] * XC3[i] + tigC3[i] * XC4[i] + tigC4[i] * XC5[i] + tigC5[i] * XC6[i]) +
+	   An[i] * (tigC0[i] * CY4[i] + tigC1[i] * CY5[i] + tigC2[i] * CY6[i] + tigC3[i] * CY7[i] + tigC4[i] * CY8[i] + tigC5[i] * CY9[i]) +
+	   Bn[i] * (tigC0[i] * CY3[i] + tigC1[i] * CY4[i] + tigC2[i] * CY5[i] + tigC3[i] * CY6[i] + tigC4[i] * CY7[i] + tigC5[i] * CY8[i]) +
+	   Cn[i] * (tigC0[i] * CY2[i] + tigC1[i] * CY3[i] + tigC2[i] * CY4[i] + tigC3[i] * CY5[i] + tigC4[i] * CY6[i] + tigC5[i] * CY7[i]) +
+	   Dn[i] * (tigC0[i] * CY1[i] + tigC1[i] * CY2[i] + tigC2[i] * CY3[i] + tigC3[i] * CY4[i] + tigC4[i] * CY5[i] + tigC5[i] * CY6[i])
+	   ) / Nk[i]))
+                   };
+
+vector iAlbedo[i] = Split{0.0,EMPTY[i] ? 0.0 : min(1.0, max(0.0, (iBeta[i] - iAbs[i]) / iBeta[i]))};
+vector uiAlbedo[i] = Split{0.0,EMPTY[i] ? 0.0 : min(1.0, max(0.0, (uiBeta[i] - uiAbs[i]) / uiBeta[i]))};
+vector riAlbedo[i] = Split{0.0,EMPTY[i] ? 0.0 : min(1.0, max(0.0, (riBeta[i] - riAbs[i]) / riBeta[i]))};
+vector tiAlbedo[i] = Split{0.0,EMPTY[i] ? 0.0 : min(1.0, max(0.0, (tiBeta[i] - tiAbs[i]) / tiBeta[i]))};
+
+double eBeta = min(1E-2/max(HX[x],max(HY[y], HZ[z])), @AirBeta+Sum{iBeta[i]});
+double eScat = min(eBeta, @AirAlbedo*@AirBeta+Sum{iAlbedo[i]*iBeta[i]});
+double kAlbedo = min(1.0, eScat/eBeta);
+double kAsymm = min(1.0, (@AirAlbedo*@AirBeta*@AirAsymmetry+Sum{iAlbedo[i]*iBeta[i]*iAsym[i]})/eScat);
+
+double ueBeta = min(1E-2/max(HX[x],max(HY[y], HZ[z])), @uAirBeta+Sum{uiBeta[i]});
+double ueScat = min(ueBeta, @uAirAlbedo*@uAirBeta+Sum{uiAlbedo[i]*uiBeta[i]});
+double ukAlbedo = min(1.0, ueScat/ueBeta);
+double ukAsymm = min(1.0, (@uAirAlbedo*@uAirBeta*@uAirAsymmetry+Sum{uiAlbedo[i]*uiBeta[i]*uiAsym[i]})/ueScat);
+
+double reBeta = min(1E-2/max(HX[x],max(HY[y], HZ[z])), @rAirBeta+Sum{riBeta[i]});
+double reScat = min(reBeta, @rAirAlbedo*@rAirBeta+Sum{riAlbedo[i]*riBeta[i]});
+double rkAlbedo = min(1.0, reScat/reBeta);
+double rkAsymm = min(1.0, (@rAirAlbedo*@rAirBeta*@rAirAsymmetry+Sum{riAlbedo[i]*riBeta[i]*riAsym[i]})/reScat);
+
+double teBeta = min(1E-2/max(HX[x],max(HY[y], HZ[z])), @tAirBeta+Sum{tiBeta[i]});
+double teScat = min(teBeta, @tAirAlbedo*@tAirBeta+Sum{tiAlbedo[i]*tiBeta[i]});
+double tkAlbedo = min(1.0, teScat/teBeta);
+double tkAsymm = min(1.0, (@tAirAlbedo*@tAirBeta*@tAirAsymmetry+Sum{tiAlbedo[i]*tiBeta[i]*tiAsym[i]})/teScat);
+
+vector Dz2[i] = Dz[i]*Dz[i];
+vector Dz3[i] = Dz2[i]*Dz[i];
+vector Dzz2[i] = Dzz[i]*Dzz[i];
+vector Dzz3[i] = Dzz2[i]*Dzz[i];
+vector LDz[i] = EMPTY[i] || Mode[i]==0.0 ? 0.0 : LX[i]<0 ? LY[i] : 0.5*ROK*(1E6*Source/PkF-exp(PkF1/Dz[i]-PkF2[i]/(Dz[i]*Dz[i]*Dz[i])))/(PkF3[i]/Dvap0*(1.0+Dvap1/Dz[i])+PkF4[i]/Lambda0*(1.0+Lambda1/Dz[i]));
+vector nDz[i] = EMPTY[i] ? 0.0 : LX[i]<0 ? nY[i] : An[i] * Dz3[i] + Bn[i] * Dz2[i] + Cn[i] * Dz[i] + Dn[i];
+vector LDzz[i] = EMPTY[i] || Mode[i]==0.0 ? 0.0 : LX[i]<0 ? 0.5*ROK*(1E6*Source/PkF-exp(PkF1/Dzz[i]-PkF2[i]/(Dzz[i]*Dzz[i]*Dzz[i])))/(PkF3[i]/Dvap0*(1.0+Dvap1/Dzz[i])+PkF4[i]/Lambda0*(1.0+Lambda1/Dzz[i])) : LX[i];
+vector nDzz[i] = EMPTY[i] ? 0.0 : LX[i]<0 ? Ann[i] * Dzz3[i] + Bnn[i] * Dzz2[i] + Cnn[i] * Dzz[i] + Dnn[i] : nX[i];
+vector Dz4[i] = Dz3[i]*Dz[i];
+vector Dz5[i] = Dz4[i]*Dz[i];
+vector Dzz4[i] = Dzz3[i]*Dzz[i];
+vector Dzz5[i] = Dzz4[i]*Dzz[i];
+vector Dz6[i] = Dz5[i] * Dz[i];
+vector Dzz6[i] = Dzz5[i] * Dzz[i];
+vector Dz7[i] = Dz6[i] * Dz[i];
+vector Dzz7[i] = Dzz6[i] * Dzz[i];
+vector _PhiM[i] = EMPTY[i] ? 0.0 : Pi*0.5*(nDzz[i] * LDzz[i] * Dzz[i] + nX[i] * LX[i] * X[i])*(Dzz[i] - X[i]);
+vector PhiM[i] = EMPTY[i] ? 0.0 : fabs(Rok[i]*(Dzz[i] - X[i])/(Y[i]-X[i]) / TAU) < fabs(_PhiM[i]) ? sign(0.5*(LX[i]+LDzz[i]))*max(0.0, Rok[i]*(Dzz[i] - X[i])/(Y[i]-X[i]) / TAU) : _PhiM[i];
+vector _PhiP[i] = EMPTY[i] ? 0.0 : Pi*0.5*(nY[i] * LY[i] * Y[i] + nDz[i] * LDz[i] * Dz[i])*(Y[i] - Dz[i]);
+vector PhiP[i] = EMPTY[i] ? 0.0 : fabs(Rok[i]*(Y[i] - Dz[i])/(Y[i]-X[i]) / TAU) < fabs(_PhiP[i]) ? sign(0.5*(LY[i]+LDz[i]))*max(0.0, Rok[i]*(Y[i] - Dz[i])/(Y[i]-X[i]) / TAU) : _PhiP[i];
+vector NkM[i] = EMPTY[i] ? 0.0 : max(0.0, min(Nk[i]*(Dzz[i]-X[i])/(Y[i]-X[i]), Ann[i] / 4.0*(Dzz4[i] - X4[i]) + Bnn[i] / 3.0*(Dzz3[i] - X3[i]) + Cnn[i] / 2.0*(Dzz2[i] - X2[i]) + Dnn[i] * (Dzz[i] - X[i])));
+vector NkP[i] = EMPTY[i] ? 0.0 : max(0.0, min(Nk[i]*(Y[i]-Dz[i])/(Y[i]-X[i]), An[i] / 4.0*(Y4[i] - Dz4[i]) + Bn[i] / 3.0*(Y3[i] - Dz3[i]) + Cn[i] / 2.0*(Y2[i] - Dz2[i]) + Dn[i] * (Y[i] - Dz[i])));
+vector RZ[i] = EMPTY[i] ? 0.0 : max(0.0, min(Pi*Nk[i]*(Dz[i] - Dzz[i]), Pi*(
+	An[i] / 5.0*(Dz5[i] - XYC5[i]) + Bn[i] / 4.0*(Dz4[i] - XYC4[i]) + Cn[i] / 3.0*(Dz3[i] - XYC3[i]) + Dn[i] / 2.0*(Dz2[i] - XYC2[i]) +
+	Ann[i] / 5.0*(XYC5[i] - Dzz5[i]) + Bnn[i] / 4.0*(XYC4[i] - Dzz4[i]) + Cnn[i] / 3.0*(XYC3[i] - Dzz3[i]) + Dnn[i] / 2.0*(XYC2[i] - Dzz2[i])
+	)));
+vector RM[i] = EMPTY[i] ? 0.0 : max(0.0, min(Pi*Nk[i]*(Dzz[i]-X[i]), Pi*(Ann[i] / 5.0*(Dzz5[i] - X5[i]) + Bnn[i] / 4.0*(Dzz4[i] - X4[i]) + Cnn[i] / 3.0*(Dzz3[i] - X3[i]) + Dnn[i] / 2.0*(Dzz2[i] - X2[i]))));
+vector RP[i] = EMPTY[i] ? 0.0 : max(0.0, min(Pi*Nk[i]*(Y[i]-Dz[i]), Pi*(An[i] / 5.0*(Y5[i] - Dz5[i]) + Bn[i] / 4.0*(Y4[i] - Dz4[i]) + Cn[i] / 3.0*(Y3[i] - Dz3[i]) + Dn[i] / 2.0*(Y2[i] - Dz2[i]))));
+vector X1[i] = EMPTY[i] ? X[i] : LX[i]<0 ? X[i] : X[i]+TAU*2.0*LX[i]/ROK/X[i];
+vector Y1[i] = EMPTY[i] ? Y[i] : LX[i]<0 ? Y[i]+TAU*2.0*LY[i]/ROK/Y[i] : Y[i];
+vector PhiZ[i] = RZ[i]*LDp[i];
+vector RokM[i] = EMPTY[i] ? 0.0 : max(0.0, min(Rok[i], Pi / 6.0*ROK*(Ann[i] / 7.0*(Dzz7[i] - X7[i]) + Bnn[i] / 6.0*(Dzz6[i] - X6[i]) + Cnn[i] / 5.0*(Dzz5[i] - X5[i]) + Dnn[i] / 4.0*(Dzz4[i] - X4[i]))));
+vector RokP[i] = EMPTY[i] ? 0.0 : max(0.0, min(Rok[i], Pi / 6.0*ROK*(An[i] / 7.0*(Y7[i] - Dz7[i]) + Bn[i] / 6.0*(Y6[i] - Dz6[i]) + Cn[i] / 5.0*(Y5[i] - Dz5[i]) + Dn[i] / 4.0*(Y4[i] - Dz4[i]))));
+vector pdNk[i] = 1.0/TAU*(-NkP[i]-NkM[i])+
+                 (i>0.0 ? 1.0/TAU*NkP[i-1] : 0.0)+
+                 (i<Nc-1 ? 1.0/TAU*NkM[i+1] : 0.0);
+vector TOZERO[i] = X1[i]>=@Dk[i+1] || Y1[i]<=@Dk[i] || (Nk[i]<1.0 && pdNk[i]<=0.0);
+double dC = Sum{PhiZ[i]}+Sum{1,Nc-1,PhiP[i-1]}+Sum{0,Nc-2,PhiM[i+1]};
+
+vector ddN[i] = 0.0;
+vector dRo[i] = 0.0;
+double coalesc = calcCoalescense(Nc, Dk, X, Y, XYC, Ann, Bnn, Cnn, Dnn, An, Bn, Cn, Dn, Ptr, Ukx, Uky, Ukz, UwLight, ROK, ddN, dRo);

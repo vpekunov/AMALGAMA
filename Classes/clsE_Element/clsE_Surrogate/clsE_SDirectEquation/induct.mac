@@ -1,0 +1,12 @@
+@versions(Auto)
+@context(PREV,infinity):-
+  (((^)|(\.)+)(\s*\\n)*)\s*.
+@glue:-.
+@global_unique(MAIN,infinity):-
+   (([^\w\.]+(\w+)->{P0}[^\.]*\.)->{Grammar.ru{SENTENCE}}(*PRUNE))?=>{
+      xpathf(SENTENCE,'MVv1ii','зададим','схему','true')
+   }.
+ @auto:-MAIN:"//P0/text()" => "Var","DirectSolver" => "Handler",randomid() => "ID".
+ @goal:-xpath('MAIN','//P0/text()',[VVarText0]),assertz(e_sdirectequation(VVarText0,'DirectSolver','randomid')),!.
+ @done:-clear_db.
+

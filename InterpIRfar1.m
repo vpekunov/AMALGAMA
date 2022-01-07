@@ -1,0 +1,11 @@
+global LOAD;
+if exist('LOAD')==1;
+LOAD = load('water_ir_far.dat');
+end;
+X=LOAD(:,1)';
+Net10_5_1 = inline('sim(getfield(load(''c:\matlab6p5p1\work\Net10_5_1.mat''),''BestK''),X)','X');
+Poly7 = inline('polyval([-3.7589899041571055E-012,1.5836702001691558E-009,-2.6810223050108067E-007,2.3225094951541898E-005,-0.0010833713907771848,0.026141799363881123,-0.2757618684473841,2.1880805189836865],X)','X');
+Mul = inline('X1.*X2','X1','X2');
+Y=Mul(Poly7(X),Net10_5_1(X));
+plot(LOAD(:,1)', LOAD(:,2)', 'b:', LOAD(:,1)', Y, 'b-');
+legend('Интерполяция','Таблица');

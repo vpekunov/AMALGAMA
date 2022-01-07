@@ -1,0 +1,17 @@
+@versions(Auto)
+@fast(dbconsts_eco0,"dbconsts_eco0.csv").
+@fast(dbtables_eco0,"dbtables_eco0.csv").
+@context(PREV,infinity):-
+  (((^)|(\.)+)(\s*\\n)*)\s*.
+@glue:-.
+@global_unique(MAIN,infinity):-
+   ()->{V1}()->{V3}()->{VRES0}
+   (([^\w\.]+(\w+)->{P0}[^\x22\x27\.]+[\x22\x27]([^\x22\x27]+)->{P1}[\x22\x27][^\w\.]+(\w+)->{P2}[^\.]*\.)->{Grammar.ru{SENTENCE}}(*PRUNE))?=>{
+      xpathf(SENTENCE,'MVv1io','Введем',$V1,'true'),dbconsts_eco0(V1),
+      xpathf(SENTENCE,'Ew1Jt1ii','Введем','расширением','true'),
+      dbtables_eco0(V1,$VRES0)
+   }.
+ @auto:-MAIN:"//VRES0/text()" => "Type",MAIN:"//P0/text()" => "Name",MAIN:"//P1/text()" => "Ext",MAIN:"//P2/text()" => "Phase",randomid() => "ID".
+ @goal:-xpath('MAIN','//VRES0/text()',[VTypeText0]),xpath('MAIN','//P0/text()',[VNameText0]),xpath('MAIN','//P1/text()',[VExtText1]),xpath('MAIN','//P2/text()',[VPhaseText2]),assertz(e_svar(VTypeText0,VNameText0,VExtText1,VPhaseText2,'randomid')),!.
+ @done:-clear_db.
+

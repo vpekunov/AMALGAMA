@@ -1,0 +1,2216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE System [
+<!ELEMENT System (Elements)>
+<!ATTLIST System
+Lang CDATA #REQUIRED
+>
+<!ELEMENT Elements (Element*)>
+<!ATTLIST Elements
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT Element (Show,Position,Parameters,InternalInputs,InternalOutputs,PublishedInputs,PublishedOutputs,InputLinks,OutputLinks)>
+<!ATTLIST Element
+ClassID CDATA #REQUIRED
+ParentID CDATA #REQUIRED
+ID ID #REQUIRED
+Permanent (True | False) #REQUIRED
+>
+<!ELEMENT Show EMPTY>
+<!ATTLIST Show
+Class (True | False) #REQUIRED
+Name (True | False) #REQUIRED
+Image (True | False) #REQUIRED
+>
+<!ELEMENT Position EMPTY>
+<!ATTLIST Position
+Left CDATA #REQUIRED
+Top CDATA #REQUIRED
+>
+<!ELEMENT Parameters (Parameter*)>
+<!ATTLIST Parameters
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT Parameter (#PCDATA | EMPTY)*>
+<!ATTLIST Parameter
+ID CDATA #REQUIRED
+Indent CDATA #IMPLIED
+>
+<!ELEMENT InternalInputs (iContact*)>
+<!ATTLIST InternalInputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT InternalOutputs (iContact*)>
+<!ATTLIST InternalOutputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT iContact EMPTY>
+<!ATTLIST iContact
+ID CDATA #REQUIRED
+ElementID IDREF #REQUIRED
+ContID CDATA #REQUIRED
+>
+<!ELEMENT PublishedInputs (pContact*)>
+<!ATTLIST PublishedInputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT PublishedOutputs (pContact*)>
+<!ATTLIST PublishedOutputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT pContact EMPTY>
+<!ATTLIST pContact
+ID CDATA #REQUIRED
+PublicID CDATA #REQUIRED
+PublicName CDATA #REQUIRED
+>
+<!ELEMENT InputLinks (Contact*)>
+<!ELEMENT OutputLinks (Contact*)>
+<!ELEMENT Contact (Link*)>
+<!ATTLIST Contact
+ID CDATA #REQUIRED
+>
+<!ELEMENT Link (Points?)>
+<!ATTLIST Link
+ElementID IDREF #REQUIRED
+ContID CDATA #REQUIRED
+Color CDATA #IMPLIED
+Informational (True | False) #REQUIRED
+>
+<!ELEMENT Points (#PCDATA | EMPTY)*>
+<!ATTLIST Points
+NumItems CDATA #REQUIRED
+>
+]>
+<System Lang="">
+ <Elements NumItems="72">
+  <Element ClassID="clsE_Phase" ParentID="" ID="MainPhase" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="193" Top="106"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Uw" Indent="0">0</Parameter>
+    <Parameter ID="Nc" Indent="0">1</Parameter>
+    <Parameter ID="Source" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Model">
+     <Link ElementID="Model" ContID="Carrier" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Nu">
+     <Link ElementID="K_E_With_GbT" ContID="tNu" Color="#808040" Informational="False">
+      <Points NumItems="3">361,148,389,69,446,38</Points>
+     </Link>
+    </Contact>
+    <Contact ID="T">
+     <Link ElementID="T" ContID="PhasePrm" Color="clPurple" Informational="False">
+      <Points NumItems="4">369,165,369,3,718,3,718,28</Points>
+     </Link>
+    </Contact>
+    <Contact ID="U">
+     <Link ElementID="P_U" ContID="PrmU" Color="#0080FF" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+    <Contact ID="Define">
+     <Link ElementID="P_U" ContID="PhaseU" Color="#8000FF" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+     <Link ElementID="P_U" ContID="PhaseP" Color="#8000FF" Informational="False">
+      <Points NumItems="2">438,242,464,307</Points>
+     </Link>
+     <Link ElementID="K_E_With_GbT" ContID="NuPhase" Color="#8000FF" Informational="False">
+      <Points NumItems="2">395,75,432,55</Points>
+     </Link>
+     <Link ElementID="K_E_With_GbT" ContID="KtPhase" Color="#8000FF" Informational="False">
+      <Points NumItems="2">392,146,456,146</Points>
+     </Link>
+     <Link ElementID="K_E_With_GbT" ContID="EtPhase" Color="#8000FF" Informational="False">
+      <Points NumItems="2">397,155,458,155</Points>
+     </Link>
+     <Link ElementID="FUV" ContID="Phase" Color="#8000FF" Informational="False">
+      <Points NumItems="1">349,1030</Points>
+     </Link>
+     <Link ElementID="UV" ContID="Phase" Color="#8000FF" Informational="False">
+      <Points NumItems="1">349,1130</Points>
+     </Link>
+     <Link ElementID="F0" ContID="Phase" Color="#8000FF" Informational="False">
+      <Points NumItems="1">349,1283</Points>
+     </Link>
+     <Link ElementID="I" ContID="Phase" Color="#8000FF" Informational="False">
+      <Points NumItems="1">349,1341</Points>
+     </Link>
+     <Link ElementID="FIR" ContID="Phase" Color="#8000FF" Informational="False">
+      <Points NumItems="1">349,1454</Points>
+     </Link>
+     <Link ElementID="IR" ContID="Phase" Color="#8000FF" Informational="False">
+      <Points NumItems="1">349,1524</Points>
+     </Link>
+     <Link ElementID="IRt" ContID="Phase" Color="#8000FF" Informational="False">
+      <Points NumItems="1">349,1666</Points>
+     </Link>
+     <Link ElementID="T" ContID="Phase" Color="#8000FF" Informational="False">
+      <Points NumItems="4">504,219,575,174,710,174,710,44</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Solver" ParentID="" ID="Solver" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="922" Top="302"/>
+   <Parameters NumItems="1">
+    <Parameter ID="Functions" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Eqtn">
+     <Link ElementID="P_U" ContID="SolveP" Informational="False"/>
+     <Link ElementID="P_U" ContID="SolveUx" Informational="False"/>
+     <Link ElementID="P_U" ContID="SolveUy" Informational="False"/>
+     <Link ElementID="P_U" ContID="SolveUz" Informational="False"/>
+     <Link ElementID="K_E_With_GbT" ContID="KtSolve" Informational="False"/>
+     <Link ElementID="K_E_With_GbT" ContID="EtSolve" Informational="False"/>
+     <Link ElementID="K_E_With_GbT" ContID="NuSolve" Informational="False"/>
+     <Link ElementID="EqFUV" ContID="Solver" Informational="False"/>
+     <Link ElementID="EqUV" ContID="Solver" Informational="False"/>
+     <Link ElementID="EqF0" ContID="Solver" Informational="False"/>
+     <Link ElementID="EqI" ContID="Solver" Informational="False"/>
+     <Link ElementID="EqFIR" ContID="Solver" Informational="False"/>
+     <Link ElementID="EqIR" ContID="Solver" Informational="False"/>
+     <Link ElementID="EqIRt" ContID="Solver" Informational="False"/>
+     <Link ElementID="EqT" ContID="Solver" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks/>
+  </Element>
+  <Element ClassID="clsE_Model" ParentID="" ID="Model" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="1" Top="336"/>
+   <Parameters NumItems="0"/>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Carrier">
+     <Link ElementID="MainPhase" ContID="Model" Color="clRed" Informational="False">
+      <Points NumItems="2">160,361,160,137</Points>
+     </Link>
+    </Contact>
+    <Contact ID="Control">
+     <Link ElementID="K_E_With_GbT" ContID="tNu" Color="#404080" Informational="True">
+      <Points NumItems="2">182,395,182,38</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_PU" ParentID="" ID="P_U" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="559" Top="197"/>
+   <Parameters NumItems="0"/>
+   <InternalInputs NumItems="10">
+     <iContact ID="PrmU" ElementID="U" ContID="PhasePrm"/>
+     <iContact ID="PhaseU" ElementID="U" ContID="Phase"/>
+     <iContact ID="KoeffP" ElementID="P_U_EqP" ContID="K"/>
+     <iContact ID="BoundP" ElementID="P_U_EqP" ContID="Bound"/>
+     <iContact ID="PrmP" ElementID="P" ContID="PhasePrm"/>
+     <iContact ID="PhaseP" ElementID="P" ContID="Phase"/>
+     <iContact ID="BoundUx" ElementID="P_U_EqUx" ContID="Bound"/>
+     <iContact ID="BoundUy" ElementID="P_U_EqUy" ContID="Bound"/>
+     <iContact ID="KoeffUz" ElementID="P_U_EqUz" ContID="K"/>
+     <iContact ID="BoundUz" ElementID="P_U_EqUz" ContID="Bound"/>
+   </InternalInputs>
+   <InternalOutputs NumItems="4">
+     <iContact ID="SolveP" ElementID="P_U_EqP" ContID="Solver"/>
+     <iContact ID="SolveUx" ElementID="P_U_EqUx" ContID="Solver"/>
+     <iContact ID="SolveUy" ElementID="P_U_EqUy" ContID="Solver"/>
+     <iContact ID="SolveUz" ElementID="P_U_EqUz" ContID="Solver"/>
+   </InternalOutputs>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="PrmU">
+     <Link ElementID="MainPhase" ContID="U" Informational="False"/>
+    </Contact>
+    <Contact ID="PhaseU">
+     <Link ElementID="MainPhase" ContID="Define" Informational="False"/>
+    </Contact>
+    <Contact ID="KoeffP">
+     <Link ElementID="K_T_P" ContID="Val" Informational="False"/>
+    </Contact>
+    <Contact ID="PhaseP">
+     <Link ElementID="MainPhase" ContID="Define" Informational="False"/>
+    </Contact>
+    <Contact ID="BoundUx">
+     <Link ElementID="B_Ux" ContID="Val" Informational="False"/>
+    </Contact>
+    <Contact ID="BoundUy">
+     <Link ElementID="B_Uy" ContID="Val" Informational="False"/>
+    </Contact>
+    <Contact ID="KoeffUz">
+     <Link ElementID="K_T_Uz" ContID="Val" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="SolveP">
+     <Link ElementID="Solver" ContID="Eqtn" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+    <Contact ID="SolveUx">
+     <Link ElementID="Solver" ContID="Eqtn" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+    <Contact ID="SolveUy">
+     <Link ElementID="Solver" ContID="Eqtn" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+    <Contact ID="SolveUz">
+     <Link ElementID="Solver" ContID="Eqtn" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Vector" ParentID="P_U" ID="U" Permanent="True">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="407" Top="139"/>
+   <Parameters NumItems="2">
+    <Parameter ID="FBase" Indent="0">v</Parameter>
+    <Parameter ID="Desc" Indent="0">Скорость</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Vx">
+     <Link ElementID="Ux" ContID="Vector" Color="#FF8000" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+    <Contact ID="Vy">
+     <Link ElementID="Uy" ContID="Vector" Color="#FF8000" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+    <Contact ID="Vz">
+     <Link ElementID="Uz" ContID="Vector" Color="#FF8000" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Projection" ParentID="P_U" ID="Ux" Permanent="True">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="589" Top="150"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Init" Indent="0">double KScale = 0.208816;
+double Uref = KScale*0.5263;
+double Z0 = 0.05;
+double ZZ = z==0 &amp;&amp; _Z[0]==0.0 ? Z0 : (_Z[z]+_Z[z-1])*0.5+Z0;
+double K0 = Uref*ZZ;
+double K1 = log(ZZ/Z0);
+
+Result = 2.5*@Kx*Uref*K1;
+</Parameter>
+    <Parameter ID="Restrict" Indent="0">Any</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Vector">
+     <Link ElementID="U" ContID="Vx" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="P_U_EqUx" ContID="Calc" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Projection" ParentID="P_U" ID="Uy" Permanent="True">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="588" Top="208"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Init" Indent="0">double KScale = 0.208816;
+double Uref = KScale*0.5263;
+double Z0 = 0.05;
+double ZZ = z==0 &amp;&amp; _Z[0]==0.0 ? Z0 : (_Z[z]+_Z[z-1])*0.5+Z0;
+double K0 = Uref*ZZ;
+double K1 = log(ZZ/Z0);
+
+Result = 2.5*@Ky*Uref*K1;
+</Parameter>
+    <Parameter ID="Restrict" Indent="0">Any</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Vector">
+     <Link ElementID="U" ContID="Vy" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="P_U_EqUy" ContID="Calc" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Projection" ParentID="P_U" ID="Uz" Permanent="True">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="586" Top="269"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Init" Indent="0">0</Parameter>
+    <Parameter ID="Restrict" Indent="0">Any</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Vector">
+     <Link ElementID="U" ContID="Vz" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="P_U_EqUz" ContID="Calc" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="P_U" ID="P_U_K_Ux" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="739" Top="173"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Expression" Indent="0">Split{0.0,-1.0/@RO*dFdx(P)};</Parameter>
+    <Parameter ID="Vars" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="P_U_EqUx" ContID="K" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="P_U" ID="P_U_K_Uy" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="714" Top="257"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Expression" Indent="0">Split{0.0,-1.0/@RO*dFdy(P)};</Parameter>
+    <Parameter ID="Vars" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="P_U_EqUy" ContID="K" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="P_U" ID="P_U_K_Uz" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="704" Top="346"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Expression" Indent="0">Split{0.0,-1.0/@RO*dFdz(P)};</Parameter>
+    <Parameter ID="Vars" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="P_U_EqUz" ContID="K" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="P_U" ID="P_U_K_P" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="621" Top="485"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0">double dUxdx = Split{0.0,dFdx(Ux)};
+double dUydy = Split{0.0,dFdy(Uy)};
+double dUzdz = Split{0.0,dFdz(Uz)};
+
+double dUxdy = Split{0.0,dFdy(Ux)};
+double dUydz = Split{0.0,dFdz(Uy)};
+double dUzdx = Split{0.0,dFdx(Uz)};
+
+double dUxdz = Split{0.0,dFdz(Ux)};
+double dUydx = Split{0.0,dFdx(Uy)};
+double dUzdy = Split{0.0,dFdy(Uz)};
+</Parameter>
+    <Parameter ID="Expression" Indent="0">Result = Split{0.0,-@RO*(dUxdx*dUxdx+dUydy*dUydy+dUzdz*dUzdz+
+                            2.0*(dUydx*dUxdy+dUydz*dUzdy+dUxdz*dUzdx)
+                            -0.1*DIV/TAU
+                            -d2NFdx2(Nu,DIV)
+                            -d2NFdy2(Nu,DIV)
+                            -d2NFdz2(Nu,DIV))};
+</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="P_U_EqP" ContID="K" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_PoissonEquation" ParentID="P_U" ID="P_U_EqP" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="843" Top="423"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Handler" Indent="0">PoissonSolver</Parameter>
+    <Parameter ID="NuMol" Indent="0">0.0</Parameter>
+    <Parameter ID="Kappa" Indent="0">0.0</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="P" ContID="Calc" Informational="False"/>
+    </Contact>
+    <Contact ID="K">
+     <Link ElementID="P_U_K_P" ContID="Val" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks/>
+  </Element>
+  <Element ClassID="clsE_Var" ParentID="P_U" ID="P" Permanent="True">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="569" Top="394"/>
+   <Parameters NumItems="4">
+    <Parameter ID="Init" Indent="0">0</Parameter>
+    <Parameter ID="Restrict" Indent="0">Any</Parameter>
+    <Parameter ID="FBase" Indent="0">p</Parameter>
+    <Parameter ID="Desc" Indent="0">Давление</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="P_U_EqP" ContID="Calc" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_DynEquation" ParentID="P_U" ID="P_U_EqUx" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="843" Top="86"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Handler" Indent="0">NULL</Parameter>
+    <Parameter ID="NuMol" Indent="0">@D</Parameter>
+    <Parameter ID="Kappa" Indent="0">1</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="Ux" ContID="Calc" Informational="False"/>
+    </Contact>
+    <Contact ID="K">
+     <Link ElementID="P_U_K_Ux" ContID="Val" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks/>
+  </Element>
+  <Element ClassID="clsE_DynEquation" ParentID="P_U" ID="P_U_EqUy" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="843" Top="200"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Handler" Indent="0">NULL</Parameter>
+    <Parameter ID="NuMol" Indent="0">@D</Parameter>
+    <Parameter ID="Kappa" Indent="0">1</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="Uy" ContID="Calc" Informational="False"/>
+    </Contact>
+    <Contact ID="K">
+     <Link ElementID="P_U_K_Uy" ContID="Val" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks/>
+  </Element>
+  <Element ClassID="clsE_DynEquation" ParentID="P_U" ID="P_U_EqUz" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="843" Top="312"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Handler" Indent="0">NULL</Parameter>
+    <Parameter ID="NuMol" Indent="0">@D</Parameter>
+    <Parameter ID="Kappa" Indent="0">1</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="Uz" ContID="Calc" Informational="False"/>
+    </Contact>
+    <Contact ID="K">
+     <Link ElementID="P_U_K_Uz" ContID="Val" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks/>
+  </Element>
+  <Element ClassID="clsE_Turb_K_E" ParentID="" ID="K_E_With_GbT" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="540" Top="13"/>
+   <Parameters NumItems="0"/>
+   <InternalInputs NumItems="7">
+     <iContact ID="tNu" ElementID="Nu" ContID="PhasePrm"/>
+     <iContact ID="NuPhase" ElementID="Nu" ContID="Phase"/>
+     <iContact ID="KtBound" ElementID="K_E_With_GbT_EqKt" ContID="Bound"/>
+     <iContact ID="EtBound" ElementID="K_E_With_GbT_EqEt" ContID="Bound"/>
+     <iContact ID="KtPhase" ElementID="Kt" ContID="Phase"/>
+     <iContact ID="EtPhase" ElementID="Et" ContID="Phase"/>
+     <iContact ID="NuBound" ElementID="K_E_With_GbT_EqNu" ContID="Bound"/>
+   </InternalInputs>
+   <InternalOutputs NumItems="4">
+     <iContact ID="Val" ElementID="Nu" ContID="Val"/>
+     <iContact ID="KtSolve" ElementID="K_E_With_GbT_EqKt" ContID="Solver"/>
+     <iContact ID="EtSolve" ElementID="K_E_With_GbT_EqEt" ContID="Solver"/>
+     <iContact ID="NuSolve" ElementID="K_E_With_GbT_EqNu" ContID="Solver"/>
+   </InternalOutputs>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="tNu">
+     <Link ElementID="MainPhase" ContID="Nu" Informational="False"/>
+     <Link ElementID="Model" ContID="Control" Informational="True"/>
+    </Contact>
+    <Contact ID="NuPhase">
+     <Link ElementID="MainPhase" ContID="Define" Informational="False"/>
+    </Contact>
+    <Contact ID="KtBound">
+     <Link ElementID="B_Kt" ContID="Val" Informational="False"/>
+    </Contact>
+    <Contact ID="EtBound">
+     <Link ElementID="B_Et" ContID="Val" Informational="False"/>
+    </Contact>
+    <Contact ID="KtPhase">
+     <Link ElementID="MainPhase" ContID="Define" Informational="False"/>
+    </Contact>
+    <Contact ID="EtPhase">
+     <Link ElementID="MainPhase" ContID="Define" Informational="False"/>
+    </Contact>
+    <Contact ID="NuBound">
+     <Link ElementID="B_Nu" ContID="Val" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="KtSolve">
+     <Link ElementID="Solver" ContID="Eqtn" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+    <Contact ID="EtSolve">
+     <Link ElementID="Solver" ContID="Eqtn" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+    <Contact ID="NuSolve">
+     <Link ElementID="Solver" ContID="Eqtn" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Var" ParentID="K_E_With_GbT" ID="Nu" Permanent="True">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="393" Top="0"/>
+   <Parameters NumItems="4">
+    <Parameter ID="Init" Indent="0">double KT = _ZeroKt(i,x,y,z,Map);
+double ET = _ZeroEt(i,x,y,z,Map);
+
+Result = 0.0845*KT*KT/ET;
+</Parameter>
+    <Parameter ID="Restrict" Indent="0">Positive</Parameter>
+    <Parameter ID="FBase" Indent="0">nu</Parameter>
+    <Parameter ID="Desc" Indent="0">Турбулентная вязкость</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="K_E_With_GbT_EqNu" ContID="Calc" Color="clBlack" Informational="False">
+      <Points NumItems="1">565,27</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="K_E_With_GbT" ID="K_E_With_GbT_K_Kt" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="561" Top="140"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0">double dUxdx = Split{0.0,dFdx(Ux)};
+double dUydy = Split{0.0,dFdy(Uy)};
+double dUzdz = Split{0.0,dFdz(Uz)};
+
+double dUxdy = Split{0.0,dFdy(Ux)};
+double dUydz = Split{0.0,dFdz(Uy)};
+double dUzdx = Split{0.0,dFdx(Uz)};
+
+double dUxdz = Split{0.0,dFdz(Ux)};
+double dUydx = Split{0.0,dFdx(Uy)};
+double dUzdy = Split{0.0,dFdy(Uz)};
+
+double SSS2 =  2*(dUxdx*dUxdx+dUydy*dUydy+dUzdz*dUzdz)+
+               (dUxdy+dUydx)*(dUxdy+dUydx)+
+               (dUxdz+dUzdx)*(dUxdz+dUzdx)+
+               (dUydz+dUzdy)*(dUydz+dUzdy);
+double DDD =  Nu*SSS2;
+</Parameter>
+    <Parameter ID="Expression" Indent="0">Result = Split{0.0,DDD-Et-@BT*9.81*Nu/0.7194*dFdz(T)};</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="K_E_With_GbT_EqKt" ContID="K" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="K_E_With_GbT" ID="K_E_With_GbT_K_Nu" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="548" Top="38"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Expression" Indent="0">0.0845 * Kt * Kt/Et;</Parameter>
+    <Parameter ID="Vars" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="K_E_With_GbT_EqNu" ContID="K" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_DynEquation" ParentID="K_E_With_GbT" ID="K_E_With_GbT_EqKt" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="679" Top="99"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Handler" Indent="0">NULL</Parameter>
+    <Parameter ID="NuMol" Indent="0">@D</Parameter>
+    <Parameter ID="Kappa" Indent="0">1.0/0.7194</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="Kt" ContID="Calc" Informational="False"/>
+    </Contact>
+    <Contact ID="K">
+     <Link ElementID="K_E_With_GbT_K_Kt" ContID="Val" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks/>
+  </Element>
+  <Element ClassID="clsE_DynEquation" ParentID="K_E_With_GbT" ID="K_E_With_GbT_EqEt" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="681" Top="203"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Handler" Indent="0">NULL</Parameter>
+    <Parameter ID="NuMol" Indent="0">@D</Parameter>
+    <Parameter ID="Kappa" Indent="0">1.0/0.7194</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="Et" ContID="Calc" Informational="False"/>
+    </Contact>
+    <Contact ID="K">
+     <Link ElementID="K_E_With_GbT_K_Et" ContID="Val" Informational="False"/>
+    </Contact>
+    <Contact ID="Bound">
+     <Link ElementID="K_E_With_GbT_B_Et" ContID="Val" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks/>
+  </Element>
+  <Element ClassID="clsE_Var" ParentID="K_E_With_GbT" ID="Kt" Permanent="True">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="394" Top="73"/>
+   <Parameters NumItems="4">
+    <Parameter ID="Init" Indent="0">double KScale = 0.208816;
+double Z0 = 0.05;
+double ZZ = z==0 &amp;&amp; _Z[0]==0.0 ? Z0 : (_Z[z]+_Z[z-1])*0.5+Z0;
+
+Result = KScale*KScale*(1.09680767+(-0.008122677347+(0.0002099331724+(-0.000002208352551+(0.00000000906293221+(-9.749368416E-12+(-1.187063604E-14)*ZZ)*ZZ)*ZZ)*ZZ)*ZZ)*ZZ);
+</Parameter>
+    <Parameter ID="Restrict" Indent="0">Positive</Parameter>
+    <Parameter ID="FBase" Indent="0">k</Parameter>
+    <Parameter ID="Desc" Indent="0">Энергия пульсаций</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="K_E_With_GbT_EqKt" ContID="Calc" Color="clBlack" Informational="False">
+      <Points NumItems="1">552,124</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Var" ParentID="K_E_With_GbT" ID="Et" Permanent="True">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="393" Top="145"/>
+   <Parameters NumItems="4">
+    <Parameter ID="Init" Indent="0">double KScale = 0.208816;
+double Z0 = 0.05;
+double ZZ = z==0 &amp;&amp; _Z[0]==0.0 ? Z0 : (_Z[z]+_Z[z-1])*0.5+Z0;
+
+Result = KScale*KScale*KScale*0.3644/ZZ;
+</Parameter>
+    <Parameter ID="Restrict" Indent="0">Positive</Parameter>
+    <Parameter ID="FBase" Indent="0">e</Parameter>
+    <Parameter ID="Desc" Indent="0">Скорость диссипации</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="K_E_With_GbT_EqEt" ContID="Calc" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="K_E_With_GbT" ID="K_E_With_GbT_K_Et" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="563" Top="239"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0">double dUxdx = Split{0.0,dFdx(Ux)};
+double dUydy = Split{0.0,dFdy(Uy)};
+double dUzdz = Split{0.0,dFdz(Uz)};
+
+double dUxdy = Split{0.0,dFdy(Ux)};
+double dUydz = Split{0.0,dFdz(Uy)};
+double dUzdx = Split{0.0,dFdx(Uz)};
+
+double dUxdz = Split{0.0,dFdz(Ux)};
+double dUydx = Split{0.0,dFdx(Uy)};
+double dUzdy = Split{0.0,dFdy(Uz)};
+
+double SSS2 =  2*(dUxdx*dUxdx+dUydy*dUydy+dUzdz*dUzdz)+
+               (dUxdy+dUydx)*(dUxdy+dUydx)+
+               (dUxdz+dUzdx)*(dUxdz+dUzdx)+
+               (dUydz+dUzdy)*(dUydz+dUzdy);
+double DDD =  Nu*SSS2;
+double RNG  = sqrt(SSS2)*Kt/Et;
+double RNG3 = RNG*RNG*RNG;
+</Parameter>
+    <Parameter ID="Expression" Indent="0">Split{0.0, (1.42*DDD-(1.68+0.0845*RNG3*(1-RNG/4.38)/(1+0.012*RNG3))*Et)*Et/Kt};</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="K_E_With_GbT_EqEt" ContID="K" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_DirectEquation" ParentID="K_E_With_GbT" ID="K_E_With_GbT_EqNu" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="680" Top="2"/>
+   <Parameters NumItems="1">
+    <Parameter ID="Handler" Indent="0">DirectSolver</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="Nu" ContID="Calc" Informational="False"/>
+    </Contact>
+    <Contact ID="K">
+     <Link ElementID="K_E_With_GbT_K_Nu" ContID="Val" Informational="False"/>
+    </Contact>
+    <Contact ID="Bound">
+     <Link ElementID="K_E_With_GbT_B_Nu" ContID="Val" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks/>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="K_E_With_GbT" ID="K_E_With_GbT_B_Et" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="562" Top="292"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Expression" Indent="0">if (IsCond(Et,A))
+                    {
+                     if (IsForw)   _fw(Et) = pow(0.0845,0.75)*pow(_fw(Kt),1.5)/0.41/HY[YM];
+                     if (IsBack)   _bw(Et) = pow(0.0845,0.75)*pow(_bw(Kt),1.5)/0.41/HY[y];
+                     if (IsBottom) _bt(Et) = pow(0.0845,0.75)*pow(_bt(Kt),1.5)/0.41/HZ[z];
+                     if (IsTop)    _tp(Et) = pow(0.0845,0.75)*pow(_tp(Kt),1.5)/0.41/HZ_ZM;
+                     if (IsLeft)   _lf(Et) = pow(0.0845,0.75)*pow(_lf(Kt),1.5)/0.41/HX[x];
+                     if (IsRight)  _rg(Et) = pow(0.0845,0.75)*pow(_rg(Kt),1.5)/0.41/HX[XM];
+                    }
+</Parameter>
+    <Parameter ID="Vars" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="K_E_With_GbT_EqEt" ContID="Bound" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="K_E_With_GbT" ID="K_E_With_GbT_B_Nu" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="556" Top="78"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Expression" Indent="0">if (IsCond(Nu,A))
+                    {
+                     if (IsForw)   _fw(Nu) = 0.0845*pow(_fw(Kt),2)/_fw(Et);
+                     if (IsBack)   _bw(Nu) = 0.0845*pow(_bw(Kt),2)/_bw(Et);
+                     if (IsBottom) _bt(Nu) = 0.0845*pow(_bt(Kt),2)/_bt(Et);
+                     if (IsTop)    _tp(Nu) = 0.0845*pow(_tp(Kt),2)/_tp(Et);
+                     if (IsLeft)   _lf(Nu) = 0.0845*pow(_lf(Kt),2)/_lf(Et);
+                     if (IsRight)  _rg(Nu) = 0.0845*pow(_rg(Kt),2)/_rg(Et);
+                    }
+</Parameter>
+    <Parameter ID="Vars" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="K_E_With_GbT_EqNu" ContID="Bound" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="B_Kt" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="439" Top="62"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0">double KScale = 0.208816;
+double Z0 = 0.05;
+double ZZ = z==0 &amp;&amp; _Z[0]==0.0 ? Z0 : (_Z[z]+_Z[z-1])*0.5+Z0;
+double NuK = KScale*KScale*(1.09680767+(-0.008122677347+(0.0002099331724+(-0.000002208352551+(0.00000000906293221+(-9.749368416E-12+(-1.187063604E-14)*ZZ)*ZZ)*ZZ)*ZZ)*ZZ)*ZZ);
+double NuE = KScale*KScale*KScale*0.3644/ZZ;
+</Parameter>
+    <Parameter ID="Expression" Indent="0">Result =  IsCond(Nu,B) ? NuK : Kt;</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="K_E_With_GbT" ContID="KtBound" Color="#FF8080" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="B_Et" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="392" Top="102"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0">double KScale = 0.208816;
+double Z0 = 0.05;
+double ZZ = z==0 &amp;&amp; _Z[0]==0.0 ? Z0 : (_Z[z]+_Z[z-1])*0.5+Z0;
+double NuK = KScale*KScale*(1.09680767+(-0.008122677347+(0.0002099331724+(-0.000002208352551+(0.00000000906293221+(-9.749368416E-12+(-1.187063604E-14)*ZZ)*ZZ)*ZZ)*ZZ)*ZZ)*ZZ);
+double NuE = KScale*KScale*KScale*0.3644/ZZ;
+</Parameter>
+    <Parameter ID="Expression" Indent="0">Result =  IsCond(Nu,B) ? NuE : Et;</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="K_E_With_GbT" ContID="EtBound" Color="#FF8080" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="B_Nu" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="460" Top="162"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0">double KScale = 0.208816;
+double Z0 = 0.05;
+double ZZ = z==0 &amp;&amp; _Z[0]==0.0 ? Z0 : (_Z[z]+_Z[z-1])*0.5+Z0;
+double NuK = KScale*KScale*(1.09680767+(-0.008122677347+(0.0002099331724+(-0.000002208352551+(0.00000000906293221+(-9.749368416E-12+(-1.187063604E-14)*ZZ)*ZZ)*ZZ)*ZZ)*ZZ)*ZZ);
+double NuE = KScale*KScale*KScale*0.3644/ZZ;
+</Parameter>
+    <Parameter ID="Expression" Indent="0">Result =  IsCond(Nu,B) ? 0.0845*NuK*NuK/NuE : Nu;</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="K_E_With_GbT" ContID="NuBound" Color="#FF8080" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="B_Ux" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="365" Top="251"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0">double KScale = 0.208816;
+double Uref = KScale*0.5263;
+double Z0 = 0.05;
+double ZZ = z==0 &amp;&amp; _Z[0]==0.0 ? Z0 : (_Z[z]+_Z[z-1])*0.5+Z0;
+double K0 = Uref*ZZ;
+double K1 = log(ZZ/Z0);
+</Parameter>
+    <Parameter ID="Expression" Indent="0">Result =  IsCond(Ux,B) ?
+                       2.5*@Kx*Uref*K1 :
+                       Ux;
+</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="P_U" ContID="BoundUx" Color="#FF8080" Informational="False">
+      <Points NumItems="1">461,324</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="B_Uy" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="365" Top="292"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0">double KScale = 0.208816;
+double Uref = KScale*0.5263;
+double Z0 = 0.05;
+double ZZ = z==0 &amp;&amp; _Z[0]==0.0 ? Z0 : (_Z[z]+_Z[z-1])*0.5+Z0;
+double K0 = Uref*ZZ;
+double K1 = log(ZZ/Z0);
+</Parameter>
+    <Parameter ID="Expression" Indent="0">Result =  IsCond(Uy,B) ?
+                        2.5*@Ky*Uref*K1 :
+                        Uy;
+</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="P_U" ContID="BoundUy" Color="#FF8080" Informational="False">
+      <Points NumItems="1">454,341</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Var" ParentID="" ID="FUV" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="383" Top="988"/>
+   <Parameters NumItems="4">
+    <Parameter ID="Init" Indent="0">0</Parameter>
+    <Parameter ID="Restrict" Indent="0">Any</Parameter>
+    <Parameter ID="FBase" Indent="0">fuv</Parameter>
+    <Parameter ID="Desc" Indent="0">Интенсивность UV-прямого излучения</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Phase">
+     <Link ElementID="MainPhase" ContID="Define" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="EqFUV" ContID="Calc" Color="clBlack" Informational="False">
+      <Points NumItems="1">533,1025</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Var" ParentID="" ID="UV" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="383" Top="1088"/>
+   <Parameters NumItems="4">
+    <Parameter ID="Init" Indent="0">0</Parameter>
+    <Parameter ID="Restrict" Indent="0">Any</Parameter>
+    <Parameter ID="FBase" Indent="0">uv</Parameter>
+    <Parameter ID="Desc" Indent="0">Интенсивность UV-диффузного излучения</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Phase">
+     <Link ElementID="MainPhase" ContID="Define" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="EqUV" ContID="Calc" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_SolarEquation" ParentID="" ID="EqFUV" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="619" Top="983"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Handler" Indent="0">SolarSolver</Parameter>
+    <Parameter ID="NuMol" Indent="0">0.0</Parameter>
+    <Parameter ID="Kappa" Indent="0">0.0</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="FUV" ContID="Calc" Informational="False"/>
+    </Contact>
+    <Contact ID="K">
+     <Link ElementID="K_FUV" ContID="Val" Informational="False"/>
+    </Contact>
+    <Contact ID="S">
+     <Link ElementID="S_FUV" ContID="Val" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Solver">
+     <Link ElementID="Solver" ContID="Eqtn" Color="clBlack" Informational="False">
+      <Points NumItems="1">771,1051</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_PoissonEquation" ParentID="" ID="EqUV" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="567" Top="1092"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Handler" Indent="0">PoissonSolver</Parameter>
+    <Parameter ID="NuMol" Indent="0">0.0</Parameter>
+    <Parameter ID="Kappa" Indent="0">0.0</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="UV" ContID="Calc" Informational="False"/>
+    </Contact>
+    <Contact ID="K">
+     <Link ElementID="K_UV" ContID="Val" Informational="False"/>
+    </Contact>
+    <Contact ID="Bound">
+     <Link ElementID="B_UV" ContID="Val" Informational="False"/>
+    </Contact>
+    <Contact ID="S">
+     <Link ElementID="S_UV" ContID="Val" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Solver">
+     <Link ElementID="Solver" ContID="Eqtn" Color="clBlack" Informational="False">
+      <Points NumItems="1">761,1160</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="K_UV" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="365" Top="1200"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0">double Pi = 3.1415926535897932;
+double ukAlbAsm = ukAlbedo*ukAsymm;
+double utAlpha = ueBeta*(1-ukAlbedo);
+double utBeta = ueBeta*(1-ukAlbAsm);
+double u_Ft = 3.0*ueBeta*ukAlbedo/4.0/Pi;
+double uFt = u_Ft*FUV;
+</Parameter>
+    <Parameter ID="Expression" Indent="0">Split{0.0,-uFt*utBeta};</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqUV" ContID="K" Color="clBlack" Informational="False">
+      <Points NumItems="2">441,1225,441,1151</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="S_UV" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="447" Top="1201"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0">double Pi = 3.1415926535897932;
+double ukAlbAsm = ukAlbedo*ukAsymm;
+double utAlpha = ueBeta*(1-ukAlbedo);
+double utBeta = ueBeta*(1-ukAlbAsm);
+double u_Ft = 3.0*ueBeta*ukAlbedo/4.0/Pi;
+double uFt = u_Ft*FUV;
+</Parameter>
+    <Parameter ID="Expression" Indent="0">Split{0.0,3.0*utAlpha*utBeta};</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqUV" ContID="S" Color="clYellow" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="B_UV" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="453" Top="1156"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0">double uk1 = 2.0/3.0/utBeta;
+double uk1a = uk1*(1+@SurfaceAlbedo);
+double uFluxPi = @uDiffuseFlux/Pi;
+</Parameter>
+    <Parameter ID="Expression" Indent="6">if (IsClosed(UV))
+        {
+         if (IsForw)   _fw(UV) = (uk1a*UV[back]+HY[y-1]*SolarY*_fw(FUV)*@SurfaceAlbedo/Pi)/(uk1a+HY[y-1]*(1-@SurfaceAlbedo));
+         if (IsBack)   _bw(UV) = (uk1a*UV[forw]-HY[y]*SolarY*  _bw(FUV)*@SurfaceAlbedo/Pi)/(uk1a+HY[y]*(1-@SurfaceAlbedo));
+         if (IsBottom) _bt(UV) = (uk1a*UV[up]-HZ[z]*SolarZ*  _bt(FUV)*@SurfaceAlbedo/Pi)/(uk1a+HZ[z]*(1-@SurfaceAlbedo));
+         if (IsTop)    _tp(UV) = (uk1a*UV[down]+HZ_ZM*SolarZ*  _tp(FUV)*@SurfaceAlbedo/Pi)/(uk1a+HZ_ZM*(1-@SurfaceAlbedo));
+         if (IsLeft)   _lf(UV) = (uk1a*UV[right]-HX[x]*SolarX*  _lf(FUV)*@SurfaceAlbedo/Pi)/(uk1a+HX[x]*(1-@SurfaceAlbedo));
+         if (IsRight)  _rg(UV) = (uk1a*UV[left]+HX[x-1]*SolarX*_rg(FUV)*@SurfaceAlbedo/Pi)/(uk1a+HX[x-1]*(1-@SurfaceAlbedo));
+        }
+      else
+        {
+         if (IsForw)   _fw(UV) = (uk1*UV[back]+HY[y-1]*uFluxPi)/(uk1+HY[y-1]);
+         if (IsBack)   _bw(UV) = (uk1*UV[forw]+HY[y]*uFluxPi)/(uk1+HY[y]);
+         if (IsBottom) _bt(UV) = (uk1*UV[up]+HZ[z]*uFluxPi)/(uk1+HZ[z]);
+         if (IsTop)    _tp(UV) = (uk1*UV[down]+HZ_ZM*uFluxPi)/(uk1+HZ_ZM);
+         if (IsLeft)   _lf(UV) = (uk1*UV[right]+HX[x]*uFluxPi)/(uk1+HX[x]);
+         if (IsRight)  _rg(UV) = (uk1*UV[left]+HX[x-1]*uFluxPi)/(uk1+HX[x-1]);
+        }
+</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqUV" ContID="Bound" Color="#FF8080" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="K_FUV" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="416" Top="1047"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0">double ueBeta = @uAirBeta/*+Sum{iBeta[i]}*/;
+double ueScat = @uAirAlbedo*@uAirBeta/*+Sum{iAlbedo[i]*iBeta[i]}*/;
+double ukAlbedo = ueScat/ueBeta;
+double ukAsymm = (@uAirAlbedo*@uAirBeta*@uAirAsymmetry/*+Sum{iAlbedo[i]*iBeta[i]*iAsym[i]}*/)/ueScat;
+</Parameter>
+    <Parameter ID="Expression" Indent="0">ueBeta;</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqFUV" ContID="K" Color="clBlack" Informational="False">
+      <Points NumItems="1">506,1042</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="S_FUV" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="518" Top="1051"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Expression" Indent="0">@uSolarIntensity;</Parameter>
+    <Parameter ID="Vars" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqFUV" ContID="S" Color="clYellow" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_SolarEquation" ParentID="" ID="EqF0" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="619" Top="1202"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Handler" Indent="0">SolarSolver</Parameter>
+    <Parameter ID="NuMol" Indent="0">0.0</Parameter>
+    <Parameter ID="Kappa" Indent="0">0.0</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="F0" ContID="Calc" Informational="False"/>
+    </Contact>
+    <Contact ID="K">
+     <Link ElementID="K_F0" ContID="Val" Informational="False"/>
+    </Contact>
+    <Contact ID="S">
+     <Link ElementID="S_F0" ContID="Val" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Solver">
+     <Link ElementID="Solver" ContID="Eqtn" Color="clBlack" Informational="False">
+      <Points NumItems="1">752,1270</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Var" ParentID="" ID="F0" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="385" Top="1241"/>
+   <Parameters NumItems="4">
+    <Parameter ID="Init" Indent="0">0</Parameter>
+    <Parameter ID="Restrict" Indent="0">Any</Parameter>
+    <Parameter ID="FBase" Indent="0">f0</Parameter>
+    <Parameter ID="Desc" Indent="0">Интенсивность VIS-прямого излучения</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Phase">
+     <Link ElementID="MainPhase" ContID="Define" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="EqF0" ContID="Calc" Color="clBlack" Informational="False">
+      <Points NumItems="1">522,1244</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="K_F0" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="526" Top="1257"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0">double eBeta = @AirBeta/*+Sum{iBeta[i]}*/;
+double eScat = @AirAlbedo*@AirBeta/*+Sum{iAlbedo[i]*iBeta[i]}*/;
+double kAlbedo = eScat/eBeta;
+double kAsymm = (@AirAlbedo*@AirBeta*@AirAsymmetry/*+Sum{iAlbedo[i]*iBeta[i]*iAsym[i]}*/)/eScat;
+</Parameter>
+    <Parameter ID="Expression" Indent="0">eBeta;</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqF0" ContID="K" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="S_F0" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="521" Top="1300"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Expression" Indent="0">@SolarIntensity;</Parameter>
+    <Parameter ID="Vars" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqF0" ContID="S" Color="clYellow" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_PoissonEquation" ParentID="" ID="EqI" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="619" Top="1310"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Handler" Indent="0">PoissonSolver</Parameter>
+    <Parameter ID="NuMol" Indent="0">0.0</Parameter>
+    <Parameter ID="Kappa" Indent="0">0.0</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="I" ContID="Calc" Informational="False"/>
+    </Contact>
+    <Contact ID="K">
+     <Link ElementID="K_I" ContID="Val" Informational="False"/>
+    </Contact>
+    <Contact ID="Bound">
+     <Link ElementID="B_I" ContID="Val" Informational="False"/>
+    </Contact>
+    <Contact ID="S">
+     <Link ElementID="S_I" ContID="Val" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Solver">
+     <Link ElementID="Solver" ContID="Eqtn" Color="clBlack" Informational="False">
+      <Points NumItems="1">740,1378</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="K_I" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="385" Top="1359"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0">double Pi = 3.1415926535897932;
+double kAlbAsm = kAlbedo*kAsymm;
+double tAlpha = eBeta*(1-kAlbedo);
+double tBeta = eBeta*(1-kAlbAsm);
+double _Ft = 3.0*eBeta*kAlbedo/4.0/Pi;
+double Ft = _Ft*F0;
+</Parameter>
+    <Parameter ID="Expression" Indent="0">Split{0.0,-Ft*tBeta};</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqI" ContID="K" Color="clBlack" Informational="False">
+      <Points NumItems="2">471,1362,569,1362</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="B_I" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="477" Top="1368"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0">double k1 = 2.0/3.0/tBeta;
+double k1a = k1*(1+@SurfaceAlbedo);
+double FluxPi = @DiffuseFlux/Pi;
+</Parameter>
+    <Parameter ID="Expression" Indent="6">if (IsClosed(I))
+        {
+         if (IsForw)   _fw(I) = (k1a*I[back]+HY[y-1]*SolarY*_fw(F0)*@SurfaceAlbedo/Pi)/(k1a+HY[y-1]*(1-@SurfaceAlbedo));
+         if (IsBack)   _bw(I) = (k1a*I[forw]-HY[y]*SolarY*  _bw(F0)*@SurfaceAlbedo/Pi)/(k1a+HY[y]*(1-@SurfaceAlbedo));
+         if (IsBottom) _bt(I) = (k1a*I[up]-HZ[z]*SolarZ*    _bt(F0)*@SurfaceAlbedo/Pi)/(k1a+HZ[z]*(1-@SurfaceAlbedo));
+         if (IsTop)    _tp(I) = (k1a*I[down]+HZ_ZM*SolarZ*  _tp(F0)*@SurfaceAlbedo/Pi)/(k1a+HZ_ZM*(1-@SurfaceAlbedo));
+         if (IsLeft)   _lf(I) = (k1a*I[right]-HX[x]*SolarX* _lf(F0)*@SurfaceAlbedo/Pi)/(k1a+HX[x]*(1-@SurfaceAlbedo));
+         if (IsRight)  _rg(I) = (k1a*I[left]+HX[x-1]*SolarX*_rg(F0)*@SurfaceAlbedo/Pi)/(k1a+HX[x-1]*(1-@SurfaceAlbedo));
+        }
+      else
+        {
+         if (IsForw)   _fw(I) = (k1*I[back]+HY[y-1]*FluxPi)/(k1+HY[y-1]);
+         if (IsBack)   _bw(I) = (k1*I[forw]+HY[y]*FluxPi)/(k1+HY[y]);
+         if (IsBottom) _bt(I) = (k1*I[up]+HZ[z]*FluxPi)/(k1+HZ[z]);
+         if (IsTop)    _tp(I) = (k1*I[down]+HZ_ZM*FluxPi)/(k1+HZ_ZM);
+         if (IsLeft)   _lf(I) = (k1*I[right]+HX[x]*FluxPi)/(k1+HX[x]);
+         if (IsRight)  _rg(I) = (k1*I[left]+HX[x-1]*FluxPi)/(k1+HX[x-1]);
+        }
+</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqI" ContID="Bound" Color="#FF8080" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="S_I" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="513" Top="1406"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0">double Pi = 3.1415926535897932;
+double kAlbAsm = kAlbedo*kAsymm;
+double tAlpha = eBeta*(1-kAlbedo);
+double tBeta = eBeta*(1-kAlbAsm);
+double _Ft = 3.0*eBeta*kAlbedo/4.0/Pi;
+double Ft = _Ft*F0;
+</Parameter>
+    <Parameter ID="Expression" Indent="0">Split{0.0,3.0*tAlpha*tBeta};</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqI" ContID="S" Color="clYellow" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Var" ParentID="" ID="I" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="385" Top="1299"/>
+   <Parameters NumItems="4">
+    <Parameter ID="Init" Indent="0">0</Parameter>
+    <Parameter ID="Restrict" Indent="0">Any</Parameter>
+    <Parameter ID="FBase" Indent="0">i</Parameter>
+    <Parameter ID="Desc" Indent="0">Интенсивность VIS-диффузного излучения</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Phase">
+     <Link ElementID="MainPhase" ContID="Define" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="EqI" ContID="Calc" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_SolarEquation" ParentID="" ID="EqFIR" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="618" Top="1420"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Handler" Indent="0">SolarSolver</Parameter>
+    <Parameter ID="NuMol" Indent="0">0.0</Parameter>
+    <Parameter ID="Kappa" Indent="0">0.0</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="FIR" ContID="Calc" Informational="False"/>
+    </Contact>
+    <Contact ID="K">
+     <Link ElementID="K_FIR" ContID="Val" Informational="False"/>
+    </Contact>
+    <Contact ID="S">
+     <Link ElementID="S_FIR" ContID="Val" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Solver">
+     <Link ElementID="Solver" ContID="Eqtn" Color="clBlack" Informational="False">
+      <Points NumItems="1">731,1488</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_PoissonEquation" ParentID="" ID="EqIR" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="619" Top="1530"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Handler" Indent="0">PoissonSolver</Parameter>
+    <Parameter ID="NuMol" Indent="0">0.0</Parameter>
+    <Parameter ID="Kappa" Indent="0">0.0</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="IR" ContID="Calc" Informational="False"/>
+    </Contact>
+    <Contact ID="K">
+     <Link ElementID="K_IR" ContID="Val" Informational="False"/>
+    </Contact>
+    <Contact ID="Bound">
+     <Link ElementID="B_IR" ContID="Val" Informational="False"/>
+    </Contact>
+    <Contact ID="S">
+     <Link ElementID="S_IR" ContID="Val" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Solver">
+     <Link ElementID="Solver" ContID="Eqtn" Color="clBlack" Informational="False">
+      <Points NumItems="1">737,1598</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Var" ParentID="" ID="FIR" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="384" Top="1412"/>
+   <Parameters NumItems="4">
+    <Parameter ID="Init" Indent="0">0</Parameter>
+    <Parameter ID="Restrict" Indent="0">Any</Parameter>
+    <Parameter ID="FBase" Indent="0">fir</Parameter>
+    <Parameter ID="Desc" Indent="0">Интенсивность IR-прямого излучения</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Phase">
+     <Link ElementID="MainPhase" ContID="Define" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="EqFIR" ContID="Calc" Color="clBlack" Informational="False">
+      <Points NumItems="1">549,1454</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="K_FIR" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="502" Top="1462"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0">double reBeta = @rAirBeta/*+Sum{riBeta[i]}*/;
+double reScat = @rAirAlbedo*@rAirBeta/*+Sum{riAlbedo[i]*riBeta[i]}*/;
+double rkAlbedo = reScat/reBeta;
+double rkAsymm = (@rAirAlbedo*@rAirBeta*@rAirAsymmetry/*+Sum{riAlbedo[i]*riBeta[i]*riAsym[i]}*/)/reScat;
+</Parameter>
+    <Parameter ID="Expression" Indent="0">reBeta;</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqFIR" ContID="K" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="S_FIR" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="525" Top="1504"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Expression" Indent="0">@rSolarIntensity;</Parameter>
+    <Parameter ID="Vars" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqFIR" ContID="S" Color="clYellow" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Var" ParentID="" ID="IR" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="383" Top="1482"/>
+   <Parameters NumItems="4">
+    <Parameter ID="Init" Indent="0">0</Parameter>
+    <Parameter ID="Restrict" Indent="0">Any</Parameter>
+    <Parameter ID="FBase" Indent="0">ir</Parameter>
+    <Parameter ID="Desc" Indent="0">Интенсивность IR-диффузного излучения</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Phase">
+     <Link ElementID="MainPhase" ContID="Define" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="EqIR" ContID="Calc" Color="clBlack" Informational="False">
+      <Points NumItems="2">510,1524,510,1572</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="K_IR" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="384" Top="1538"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0">double Pi = 3.1415926535897932;
+double rkAlbAsm = rkAlbedo*rkAsymm;
+double rtAlpha = reBeta*(1-rkAlbedo);
+double rtBeta = reBeta*(1-rkAlbAsm);
+double r_Ft = 3.0*reBeta*rkAlbedo/4.0/Pi;
+double rFt = r_Ft*FIR;
+</Parameter>
+    <Parameter ID="Expression" Indent="0">Split{0.0,-rFt*rtBeta};</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqIR" ContID="K" Color="clBlack" Informational="False">
+      <Points NumItems="2">483,1563,483,1589</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="S_IR" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="518" Top="1613"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0">double Pi = 3.1415926535897932;
+double rkAlbAsm = rkAlbedo*rkAsymm;
+double rtAlpha = reBeta*(1-rkAlbedo);
+double rtBeta = reBeta*(1-rkAlbAsm);
+double r_Ft = 3.0*reBeta*rkAlbedo/4.0/Pi;
+double rFt = r_Ft*FIR;
+</Parameter>
+    <Parameter ID="Expression" Indent="0">Split{0.0,3.0*rtAlpha*rtBeta};</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqIR" ContID="S" Color="clYellow" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="B_IR" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="398" Top="1581"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0">double rk1 = 2.0/3.0/rtBeta;
+double rk1a = rk1*(1+@SurfaceAlbedo);
+double rFluxPi = @rDiffuseFlux/Pi;
+</Parameter>
+    <Parameter ID="Expression" Indent="6">if (IsClosed(IR))
+        {
+         if (IsForw)   _fw(IR) = (rk1a*IR[back]+HY[y-1]*SolarY*_fw(FIR)*@SurfaceAlbedo/Pi)/(rk1a+HY[y-1]*(1-@SurfaceAlbedo));
+         if (IsBack)   _bw(IR) = (rk1a*IR[forw]-HY[y]*SolarY*  _bw(FIR)*@SurfaceAlbedo/Pi)/(rk1a+HY[y]*(1-@SurfaceAlbedo));
+         if (IsBottom) _bt(IR) = (rk1a*IR[up]-HZ[z]*SolarZ*    _bt(FIR)*@SurfaceAlbedo/Pi)/(rk1a+HZ[z]*(1-@SurfaceAlbedo));
+         if (IsTop)    _tp(IR) = (rk1a*IR[down]+HZ_ZM*SolarZ*  _tp(FIR)*@SurfaceAlbedo/Pi)/(rk1a+HZ_ZM*(1-@SurfaceAlbedo));
+         if (IsLeft)   _lf(IR) = (rk1a*IR[right]-HX[x]*SolarX* _lf(FIR)*@SurfaceAlbedo/Pi)/(rk1a+HX[x]*(1-@SurfaceAlbedo));
+         if (IsRight)  _rg(IR) = (rk1a*IR[left]+HX[x-1]*SolarX*_rg(FIR)*@SurfaceAlbedo/Pi)/(rk1a+HX[x-1]*(1-@SurfaceAlbedo));
+        }
+      else
+        {
+         if (IsForw)   _fw(IR) = (rk1*IR[back]+HY[y-1]*rFluxPi)/(rk1+HY[y-1]);
+         if (IsBack)   _bw(IR) = (rk1*IR[forw]+HY[y]*rFluxPi)/(rk1+HY[y]);
+         if (IsBottom) _bt(IR) = (rk1*IR[up]+HZ[z]*rFluxPi)/(rk1+HZ[z]);
+         if (IsTop)    _tp(IR) = (rk1*IR[down]+HZ_ZM*rFluxPi)/(rk1+HZ_ZM);
+         if (IsLeft)   _lf(IR) = (rk1*IR[right]+HX[x]*rFluxPi)/(rk1+HX[x]);
+         if (IsRight)  _rg(IR) = (rk1*IR[left]+HX[x-1]*rFluxPi)/(rk1+HX[x-1]);
+        }
+</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqIR" ContID="Bound" Color="#FF8080" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_PoissonEquation" ParentID="" ID="EqIRt" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="618" Top="1641"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Handler" Indent="0">PoissonSolver</Parameter>
+    <Parameter ID="NuMol" Indent="0">0.0</Parameter>
+    <Parameter ID="Kappa" Indent="0">0.0</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="IRt" ContID="Calc" Informational="False"/>
+    </Contact>
+    <Contact ID="K">
+     <Link ElementID="K_IRt" ContID="Val" Informational="False"/>
+    </Contact>
+    <Contact ID="Bound">
+     <Link ElementID="B_IRt" ContID="Val" Informational="False"/>
+    </Contact>
+    <Contact ID="S">
+     <Link ElementID="S_IRt" ContID="Val" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Solver">
+     <Link ElementID="Solver" ContID="Eqtn" Color="clBlack" Informational="False">
+      <Points NumItems="1">736,1692</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Var" ParentID="" ID="IRt" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="383" Top="1624"/>
+   <Parameters NumItems="4">
+    <Parameter ID="Init" Indent="0">0</Parameter>
+    <Parameter ID="Restrict" Indent="0">Any</Parameter>
+    <Parameter ID="FBase" Indent="0">irt</Parameter>
+    <Parameter ID="Desc" Indent="0">Интенсивность IR-теплового излучения</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Phase">
+     <Link ElementID="MainPhase" ContID="Define" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="EqIRt" ContID="Calc" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="K_IRt" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="502" Top="1673"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0">double teBeta = @tAirBeta/*+Sum{tiBeta[i]}*/;
+double teScat = @tAirAlbedo*@tAirBeta/*+Sum{tiAlbedo[i]*tiBeta[i]}*/;
+double tkAlbedo = teScat/teBeta;
+double tkAsymm = (@tAirAlbedo*@tAirBeta*@tAirAsymmetry/*+Sum{tiAlbedo[i]*tiBeta[i]*tiAsym[i]}*/)/teScat;
+double tkAlbAsm = tkAlbedo*tkAsymm;
+double ttAlpha = teBeta*(1-tkAlbedo);
+double ttBeta = teBeta*(1-tkAlbAsm);
+double tPlanck = (@[]IntPlanck[0]+TK*(@IntPlanck[1]+TK*(@IntPlanck[2]+TK*@IntPlanck[3])));
+double tFt = 3.0*ttAlpha*tPlanck;
+</Parameter>
+    <Parameter ID="Expression" Indent="0">Split{0.0,-tFt*ttBeta};</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqIRt" ContID="K" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="B_IRt" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="407" Top="1685"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0">double tk1 = 2.0/3.0/ttBeta;
+double tk1a = tk1*(2.0-@SurfaceEmissivity);
+double tFluxPi = @tDiffuseFlux/Pi;
+</Parameter>
+    <Parameter ID="Expression" Indent="6">if (IsClosed(IRt))
+        {
+         if (IsForw)   _fw(IRt) = (tk1a*IRt[back]+HY[y-1]*@SurfaceEmissivity*(@[]IntPlanck[0]+(273.15+_fw(T))*(@IntPlanck[1]+(273.15+_fw(T))*(@IntPlanck[2]+(273.15+_fw(T))*@IntPlanck[3])))/Pi)/(tk1a+HY[y-1]*@SurfaceEmissivity);
+         if (IsBack)   _bw(IRt) = (tk1a*IRt[forw]+HY[y]*  @SurfaceEmissivity*(@[]IntPlanck[0]+(273.15+_bw(T))*(@IntPlanck[1]+(273.15+_bw(T))*(@IntPlanck[2]+(273.15+_bw(T))*@IntPlanck[3])))/Pi)/(tk1a+HY[y]*@SurfaceEmissivity);
+         if (IsBottom) _bt(IRt) = (tk1a*IRt[up]+HZ[z]*    @SurfaceEmissivity*(@[]IntPlanck[0]+(273.15+_bt(T))*(@IntPlanck[1]+(273.15+_bt(T))*(@IntPlanck[2]+(273.15+_bt(T))*@IntPlanck[3])))/Pi)/(tk1a+HZ[z]*@SurfaceEmissivity);
+         if (IsTop)    _tp(IRt) = (tk1a*IRt[down]+HZ_ZM*  @SurfaceEmissivity*(@[]IntPlanck[0]+(273.15+_tp(T))*(@IntPlanck[1]+(273.15+_tp(T))*(@IntPlanck[2]+(273.15+_tp(T))*@IntPlanck[3])))/Pi)/(tk1a+HZ_ZM*@SurfaceEmissivity);
+         if (IsLeft)   _lf(IRt) = (tk1a*IRt[right]+HX[x]* @SurfaceEmissivity*(@[]IntPlanck[0]+(273.15+_lf(T))*(@IntPlanck[1]+(273.15+_lf(T))*(@IntPlanck[2]+(273.15+_lf(T))*@IntPlanck[3])))/Pi)/(tk1a+HX[x]*@SurfaceEmissivity);
+         if (IsRight)  _rg(IRt) = (tk1a*IRt[left]+HX[x-1]*@SurfaceEmissivity*(@[]IntPlanck[0]+(273.15+_rg(T))*(@IntPlanck[1]+(273.15+_rg(T))*(@IntPlanck[2]+(273.15+_rg(T))*@IntPlanck[3])))/Pi)/(tk1a+HX[x-1]*@SurfaceEmissivity);
+        }
+      else
+        {
+         if (IsForw)   _fw(IRt) = (tk1*IRt[back]+HY[y-1]*tFluxPi)/(tk1+HY[y-1]);
+         if (IsBack)   _bw(IRt) = (tk1*IRt[forw]+HY[y]*tFluxPi)/(tk1+HY[y]);
+         if (IsBottom) _bt(IRt) = (tk1*IRt[up]+HZ[z]*tFluxPi)/(tk1+HZ[z]);
+         if (IsTop)    _tp(IRt) = (tk1*IRt[down]+HZ_ZM*tFluxPi)/(tk1+HZ_ZM);
+         if (IsLeft)   _lf(IRt) = (tk1*IRt[right]+HX[x]*tFluxPi)/(tk1+HX[x]);
+         if (IsRight)  _rg(IRt) = (tk1*IRt[left]+HX[x-1]*tFluxPi)/(tk1+HX[x-1]);
+        }
+</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqIRt" ContID="Bound" Color="#FF8080" Informational="False">
+      <Points NumItems="2">495,1716,577,1716</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="S_IRt" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="502" Top="1724"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0">double tkAlbAsm = tkAlbedo*tkAsymm;
+double ttAlpha = teBeta*(1-tkAlbedo);
+double ttBeta = teBeta*(1-tkAlbAsm);
+double tPlanck = (@[]IntPlanck[0]+TK*(@IntPlanck[1]+TK*(@IntPlanck[2]+TK*@IntPlanck[3])));
+double tFt = 3.0*ttAlpha*tPlanck;
+</Parameter>
+    <Parameter ID="Expression" Indent="0">Split{0.0,3.0*ttAlpha*ttBeta};</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqIRt" ContID="S" Color="clYellow" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Var" ParentID="" ID="T" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="734" Top="2"/>
+   <Parameters NumItems="4">
+    <Parameter ID="Init" Indent="0">@ZeroT</Parameter>
+    <Parameter ID="Restrict" Indent="0">Any</Parameter>
+    <Parameter ID="FBase" Indent="0">t</Parameter>
+    <Parameter ID="Desc" Indent="0">Температура (градусы Цельсия)</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="PhasePrm">
+     <Link ElementID="MainPhase" ContID="T" Informational="False"/>
+    </Contact>
+    <Contact ID="Phase">
+     <Link ElementID="MainPhase" ContID="Define" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="EqT" ContID="Calc" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_DynEquation" ParentID="" ID="EqT" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="929" Top="59"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Handler" Indent="0">NULL</Parameter>
+    <Parameter ID="NuMol" Indent="0">1.978E-5</Parameter>
+    <Parameter ID="Kappa" Indent="0">1.393</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="T" ContID="Calc" Informational="False"/>
+    </Contact>
+    <Contact ID="K">
+     <Link ElementID="K_T" ContID="Val" Informational="False"/>
+    </Contact>
+    <Contact ID="Bound">
+     <Link ElementID="B_T" ContID="Val" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Solver">
+     <Link ElementID="Solver" ContID="Eqtn" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="K_T" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="777" Top="76"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0">double TK = 273.15+T;
+double RO0 = 352.984/TK;
+double CC0 = 1.4*(718+0.1167*RO0);
+</Parameter>
+    <Parameter ID="Expression" Indent="0">Split{0.0,(tAlpha*(4.0*Pi*I+F0)+rtAlpha*(4.0*Pi*IR+FIR)+4.0*Pi*(ttAlpha*IRt-tFt/3.0))/RO0/CC0};</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqT" ContID="K" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="B_T" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="800" Top="124"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Expression" Indent="3">if (IsClosed(T) &amp;&amp; SlowMode)
+      {
+       if (IsForw)
+          {
+           double TKK = 273.15+_fw(T);
+           double LambdaT = 1E-3*(4.39+0.071*TKK);
+
+           _fw(T) += TAU/@SurfaceCC/@SurfaceRO*(@SurfaceLambda*(_d2Fdx2(_forw,T)  +_d2Fdz2(_forw,T))+((1-@SurfaceAlbedo)*  (Pi*(_fw(I)+_fw(IR)+_fw(UV)-k1*dFdyf(I)-rk1*dFdyf(IR)-uk1*dFdyf(UV))+(_fw(F0)+_fw(FIR)+_fw(FUV))*SolarY)+@SurfaceEmissivity*(Pi*(_fw(IRt)-tk1*dFdyf(IRt))-(@[]IntPlanck[0]+TKK*(@IntPlanck[1]+TKK*(@IntPlanck[2]+TKK*@IntPlanck[3]))))+LambdaT/HY[YM]*(T[back]-_fw(T)))/HY[YM]);
+          }
+       if (IsBack)
+          {
+           double TKK = 273.15+_bw(T);
+           double LambdaT = 1E-3*(4.39+0.071*TKK);
+
+           _bw(T) += TAU/@SurfaceCC/@SurfaceRO*(@SurfaceLambda*(_d2Fdx2(_back,T)  +_d2Fdz2(_back,T))+((1-@SurfaceAlbedo)*  (Pi*(_bw(I)+_bw(IR)+_bw(UV)+k1*dFdyb(I)+rk1*dFdyb(IR)+uk1*dFdyb(UV))-(_bw(F0)+_bw(FIR)+_bw(FUV))*SolarY)+@SurfaceEmissivity*(Pi*(_bw(IRt)+tk1*dFdyb(IRt))-(@[]IntPlanck[0]+TKK*(@IntPlanck[1]+TKK*(@IntPlanck[2]+TKK*@IntPlanck[3]))))+LambdaT/HY[y]*(T[forw]- _bw(T)))/HY[y]);
+          }
+       if (IsBottom)
+          {
+           double TKK = 273.15+_bt(T);
+           double LambdaT = 1E-3*(4.39+0.071*TKK);
+
+           _bt(T) += TAU/@SurfaceCC/@SurfaceRO*(@SurfaceLambda*(_d2Fdx2(_bottom,T)+_d2Fdy2(_bottom,T))+((1-@SurfaceAlbedo)*(Pi*(_bt(I)+_bt(IR)+_bt(UV)+k1*dFdzb(I)+rk1*dFdzb(IR)+uk1*dFdzb(UV))-(_bt(F0)+_bt(FIR)+_bt(FUV))*SolarZ)+@SurfaceEmissivity*(Pi*(_bt(IRt)+tk1*dFdzb(IRt))-(@[]IntPlanck[0]+TKK*(@IntPlanck[1]+TKK*(@IntPlanck[2]+TKK*@IntPlanck[3]))))+LambdaT/HZ[z]*(T[up]-   _bt(T)))/HZ[z]);
+          }
+       if (IsTop)
+          {
+           double TKK = 273.15+_tp(T);
+           double LambdaT = 1E-3*(4.39+0.071*TKK);
+
+           _tp(T) += TAU/@SurfaceCC/@SurfaceRO*(@SurfaceLambda*(_d2Fdx2(_top,T)   +_d2Fdy2(_top,T))+((1-@SurfaceAlbedo)*   (Pi*(_tp(I)+_tp(IR)+_tp(UV)-k1*dFdzt(I)-rk1*dFdzt(IR)-uk1*dFdzt(UV))+(_tp(F0)+_tp(FIR)+_tp(FUV))*SolarZ)+@SurfaceEmissivity*(Pi*(_tp(IRt)-tk1*dFdzt(IRt))-(@[]IntPlanck[0]+TKK*(@IntPlanck[1]+TKK*(@IntPlanck[2]+TKK*@IntPlanck[3]))))+LambdaT/HZ_ZM*(T[down]- _tp(T)))/HZ_ZM);
+          }
+       if (IsLeft)
+          {
+           double TKK = 273.15+_lf(T);
+           double LambdaT = 1E-3*(4.39+0.071*TKK);
+
+           _lf(T) += TAU/@SurfaceCC/@SurfaceRO*(@SurfaceLambda*(_d2Fdy2(_left,T)  +_d2Fdz2(_left,T))+((1-@SurfaceAlbedo)*  (Pi*(_lf(I)+_lf(IR)+_lf(UV)+k1*dFdxl(I)+rk1*dFdxl(IR)+uk1*dFdxl(UV))-(_lf(F0)+_lf(FIR)+_lf(FUV))*SolarX)+@SurfaceEmissivity*(Pi*(_lf(IRt)+tk1*dFdxl(IRt))-(@[]IntPlanck[0]+TKK*(@IntPlanck[1]+TKK*(@IntPlanck[2]+TKK*@IntPlanck[3]))))+LambdaT/HX[x]*(T[right]-_lf(T)))/HX[x]);
+          }
+       if (IsRight)
+          {
+           double TKK = 273.15+_rg(T);
+           double LambdaT = 1E-3*(4.39+0.071*TKK);
+
+           _rg(T) += TAU/@SurfaceCC/@SurfaceRO*(@SurfaceLambda*(_d2Fdy2(_right,T) +_d2Fdz2(_right,T))+((1-@SurfaceAlbedo)* (Pi*(_rg(I)+_rg(IR)+_rg(UV)-k1*dFdxr(I)-rk1*dFdxr(IR)-uk1*dFdxr(UV))+(_rg(F0)+_rg(FIR)+_rg(FUV))*SolarX)+@SurfaceEmissivity*(Pi*(_rg(IRt)-tk1*dFdxr(IRt))-(@[]IntPlanck[0]+TKK*(@IntPlanck[1]+TKK*(@IntPlanck[2]+TKK*@IntPlanck[3]))))+LambdaT/HX[XM]*(T[left]-_rg(T)))/HX[XM]);
+          }
+      }
+</Parameter>
+    <Parameter ID="Vars" Indent="3"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqT" ContID="Bound" Color="#FF8080" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="K_T_Uz" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="365" Top="333"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Expression" Indent="0">@BT*9.81*(T-@T0);</Parameter>
+    <Parameter ID="Vars" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="P_U" ContID="KoeffUz" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="K_T_P" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="461" Top="246"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Expression" Indent="0">Split{0.0,@RO*@BT*9.81*dFdz(T)};</Parameter>
+    <Parameter ID="Vars" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="P_U" ContID="KoeffP" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+ </Elements>
+</System>

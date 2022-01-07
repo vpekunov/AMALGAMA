@@ -1,0 +1,63 @@
+Clearing MatLAB workspace... wait for 1 sec.
+NewItemNET1234[newff(minmax(X),[4 1],{'tansig' 'purelin'})] with Goal(YY') gives K=[c:\matlab\work\NewItemNET1234.mat] with R2Norm = 59340.307950784329
+Clearing MatLAB workspace... wait for 1 sec.
+NewItemNET1245[newff(minmax(X),[4 1],{'tansig' 'purelin'})] with Goal(YY') gives K=[c:\matlab\work\NewItemNET1245.mat] with R2Norm = 47981.90371817939
+Clearing MatLAB workspace... wait for 1 sec.
+NewItemNET1345[newff(minmax(X),[4 1],{'tansig' 'purelin'})] with Goal(YY') gives K=[c:\matlab\work\NewItemNET1345.mat] with R2Norm = 44068.747471610193
+Clearing MatLAB workspace... wait for 1 sec.
+NewItemNET2345[newff(minmax(X),[4 1],{'tansig' 'purelin'})] with Goal(YY') gives K=[c:\matlab\work\NewItemNET2345.mat] with R2Norm = 50171.725981472511
+Clearing MatLAB workspace... wait for 1 sec.
+NewItem1235[newff(minmax(X),[4 1],{'tansig' 'purelin'})] with Goal(YY') gives K=[c:\matlab\work\NewItem1235.mat] with R2Norm = 42971.309735175593
+Clearing MatLAB workspace... wait for 1 sec.
+NewItem1236[newff(minmax(X),[4 1],{'tansig' 'purelin'})] with Goal(YY') gives K=[c:\matlab\work\NewItem1236.mat] with R2Norm = 30105.625216473411
+Clearing MatLAB workspace... wait for 1 sec.
+NewItem1246[newff(minmax(X),[4 1],{'tansig' 'purelin'})] with Goal(YY') gives K=[c:\matlab\work\NewItem1246.mat] with R2Norm = 34460.258417304874
+Clearing MatLAB workspace... wait for 1 sec.
+NewItem2346[newff(minmax(X),[4 1],{'tansig' 'purelin'})] with Goal(YY') gives K=[c:\matlab\work\NewItem2346.mat] with R2Norm = 33136.707697206104
+Clearing MatLAB workspace... wait for 1 sec.
+NewItem1346[newff(minmax(X),[4 1],{'tansig' 'purelin'})] with Goal(YY') gives K=[c:\matlab\work\NewItem1346.mat] with R2Norm = 29746.381633514316
+Clearing MatLAB workspace... wait for 1 sec.
+NewItem1256[newff(minmax(X),[4 1],{'tansig' 'purelin'})] with Goal(YY') gives K=[c:\matlab\work\NewItem1256.mat] with R2Norm = 34081.758864546973
+Clearing MatLAB workspace... wait for 1 sec.
+NewItem1356[newff(minmax(X),[4 1],{'tansig' 'purelin'})] with Goal(YY') gives K=[c:\matlab\work\NewItem1356.mat] with R2Norm = 28693.75381450346
+Clearing MatLAB workspace... wait for 1 sec.
+NewItem1456[newff(minmax(X),[4 1],{'tansig' 'purelin'})] with Goal(YY') gives K=[c:\matlab\work\NewItem1456.mat] with R2Norm = 34319.245360344219
+Clearing MatLAB workspace... wait for 1 sec.
+NewItem2356[newff(minmax(X),[4 1],{'tansig' 'purelin'})] with Goal(YY') gives K=[c:\matlab\work\NewItem2356.mat] with R2Norm = 30095.717881504646
+Clearing MatLAB workspace... wait for 1 sec.
+NewItem2456[newff(minmax(X),[4 1],{'tansig' 'purelin'})] with Goal(YY') gives K=[c:\matlab\work\NewItem2456.mat] with R2Norm = 365896.64101245714
+Clearing MatLAB workspace... wait for 1 sec.
+NewItem3456[newff(minmax(X),[4 1],{'tansig' 'purelin'})] with Goal(YY') gives K=[c:\matlab\work\NewItem3456.mat] with R2Norm = 30024.30124037102
+Filter(NewItem33). Selected: [NewItem1356,NewItem1346,NewItem3456,NewItem2356,NewItem1236,NewItem2346,NewItem1256,NewItem1456]
+Clearing MatLAB workspace... wait for 1 sec.
+NewItemNET1[newff(minmax(X),[4 2 1],{'tansig' 'tansig' 'purelin'})] with Goal(YY') gives K=[c:\matlab\work\NewItemNET1.mat] with R2Norm = 27744.68164000033
+Clearing MatLAB workspace... wait for 1 sec.
+NewItemNET2[newff(minmax(X),[4 2 1],{'tansig' 'tansig' 'purelin'})] with Goal(YY') gives K=[c:\matlab\work\NewItemNET2.mat] with R2Norm = 29000.922758199489
+Clearing MatLAB workspace... wait for 1 sec.
+NewItem24[X1+X2] has Goal(YY') with K=[0] and R2Norm = 501282.09364354389
+... fix X1=[25.314566025400296 17.311456870359141 17.969283111647197 20.263563086144785 22.080133379276777 19.715618853153607 21.325972212007773 19.399411674532704 14.623023032154995 17.185791351561623 22.345...]. Plan to enhance in [NewItemNET2] 
+Clearing MatLAB workspace... wait for 1 sec.
+  NewItemNET2[newff(minmax(X),[4 2 1],{'tansig' 'tansig' 'purelin'})] with Goal([-9.3145660254002962 -2.3114568703591409 5.0307168883528028 -0.26356308614478507 -2.0801333792767771 -1.7156188531536074 -4.3259722120077733 -3.3994116745327041 -0.62302303215499499 4.8142086484383775...]) gives K=[c:\matlab\work\NewItemNET2.mat] with R2Norm = 27169.730642981638
+Clearing MatLAB workspace... wait for 1 sec.
+NewItem24[X1+X2] has Goal(YY') with K=[0] and R2Norm = 27169.730642981638
+... R2Norm successfully enhanced.
+NewItemNET1234 = inline('sim(getfield(load(''c:\matlab\work\NewItemNET1234.mat''),''BestK''),[X1;X2;X3;X4])','X1,'''X2,'''X3,'''X4'');
+NewItemNET1245 = inline('sim(getfield(load(''c:\matlab\work\NewItemNET1245.mat''),''BestK''),[X1;X2;X3;X4])','X1,'''X2,'''X3,'''X4'');
+NewItemNET1345 = inline('sim(getfield(load(''c:\matlab\work\NewItemNET1345.mat''),''BestK''),[X1;X2;X3;X4])','X1,'''X2,'''X3,'''X4'');
+NewItemNET2345 = inline('sim(getfield(load(''c:\matlab\work\NewItemNET2345.mat''),''BestK''),[X1;X2;X3;X4])','X1,'''X2,'''X3,'''X4'');
+NewItem1235 = inline('sim(getfield(load(''c:\matlab\work\NewItem1235.mat''),''BestK''),[X1;X2;X3;X4])','X1,'''X2,'''X3,'''X4'');
+NewItem1236 = inline('sim(getfield(load(''c:\matlab\work\NewItem1236.mat''),''BestK''),[X1;X2;X3;X4])','X1,'''X2,'''X3,'''X4'');
+NewItem1246 = inline('sim(getfield(load(''c:\matlab\work\NewItem1246.mat''),''BestK''),[X1;X2;X3;X4])','X1,'''X2,'''X3,'''X4'');
+NewItem2346 = inline('sim(getfield(load(''c:\matlab\work\NewItem2346.mat''),''BestK''),[X1;X2;X3;X4])','X1,'''X2,'''X3,'''X4'');
+NewItem1346 = inline('sim(getfield(load(''c:\matlab\work\NewItem1346.mat''),''BestK''),[X1;X2;X3;X4])','X1,'''X2,'''X3,'''X4'');
+NewItem1256 = inline('sim(getfield(load(''c:\matlab\work\NewItem1256.mat''),''BestK''),[X1;X2;X3;X4])','X1,'''X2,'''X3,'''X4'');
+NewItem1356 = inline('sim(getfield(load(''c:\matlab\work\NewItem1356.mat''),''BestK''),[X1;X2;X3;X4])','X1,'''X2,'''X3,'''X4'');
+NewItem1456 = inline('sim(getfield(load(''c:\matlab\work\NewItem1456.mat''),''BestK''),[X1;X2;X3;X4])','X1,'''X2,'''X3,'''X4'');
+NewItem2356 = inline('sim(getfield(load(''c:\matlab\work\NewItem2356.mat''),''BestK''),[X1;X2;X3;X4])','X1,'''X2,'''X3,'''X4'');
+NewItem2456 = inline('sim(getfield(load(''c:\matlab\work\NewItem2456.mat''),''BestK''),X)','X');
+NewItem3456 = inline('sim(getfield(load(''c:\matlab\work\NewItem3456.mat''),''BestK''),[X1;X2;X3;X4])','X1,'''X2,'''X3,'''X4'');
+NewItemNET1 = inline('sim(getfield(load(''c:\matlab\work\NewItemNET1.mat''),''BestK''),[X1;X2;X3;X4])','X1,'''X2,'''X3,'''X4'');
+NewItemNET2 = inline('sim(getfield(load(''c:\matlab\work\NewItemNET2.mat''),''BestK''),[X1;X2;X3;X4])','X1,'''X2,'''X3,'''X4'');
+NewItem24 = inline('X1+X2','X1','X2');
+Elapsed time = 219 sec.
+  NewItem24(NewItemNET1(NewItem1356(X1,X3,X5,X6),NewItem1346(X1,X3,X4,X6),NewItem3456(X3,X4,X5,X6),NewItem2356(X2,X3,X5,X6)),NewItemNET2(NewItem1236(X1,X2,X3,X6),NewItem2346(X2,X3,X4,X6),NewItem1256(X1,X2,X5,X6),NewItem1456(X1,X4,X5,X6))) 

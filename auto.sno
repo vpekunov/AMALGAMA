@@ -1,0 +1,396 @@
+	&ANCHOR		= 1
+	&TRIM		= 1
+
+	DATA("MODULE(NAME,USED)")
+	DATA("FUNC(fPAT,fMOD,fUSED)")
+
+	FUNCS		= TABLE()
+
+	INPUT("READLN", 1, 250, "_.GEN")
+	OUTPUT("WRITELN", 2, 250, "_.$$$")
+
+	INPUT("DEFS", 3, 150, HOST(0))
+INCLUDE Line		= DEFS					:f(DONE)
+	CODE("ENTRY " Line " :(INCLUDE)")			:s(ENTRY) f(CERROR)
+CERROR	WRITELN		= &ERRTEXT				:(END)
+DONE	ENDFILE(3)
+
+	Numbers		= "0123456789"
+	Letters		= &UCASE &LCASE
+	AlNums		= Numbers Letters
+	AlNumsU		= AlNums "_"
+
+	Ident		= ANY(Letters "_") (SPAN(AlNumsU) | "")
+	CommonIdent	= ("#" | "") Ident
+	SysIdent	= "#" Ident
+
+	Number		= SPAN(Numbers)
+	Sign		= ("+" | "-")
+	IntNumber	= (Sign | "") Number
+	RealNumber	= IntNumber ("." Number | "") ("E" IntNumber | "")
+	AnyNumber	= RealNumber | IntNumber
+	String		= "'" BREAK("'") "'"
+
+	FunctionCall	= CommonIdent "(" BAL ")"
+
+	UnaryOp		= "+" | "-"
+	BinaryOp	= "+" | "-" | "*" | "/"
+	RelOp		= " #EQ# " | " #NE# " | " #LE# " | " #GE# " | " #GT# " | " #LT# "
+	LogOp		= " #AND# " | " #OR# "
+
+	Indexes		= "[" *Expression "]" (*Indexes | "")
+	CommonItem	= Ident (Indexes | "")
+
+	Operand		= AnyNumber | String | FunctionCall |
++			CommonItem | SysIdent
+	BrExpression	= "(" *Expression ")"
+	Expression	= (UnaryOp *Expression) |
++			((BrExpression | Operand) ((BinaryOp *Expression) | ""))
+
+	RelExpression	= (Expression RelOp Expression) | Expression
+	LogExpression	= (RelExpression LogOp *LogExpression) | RelExpression
+
+	Parameter	= (("#BYREF(" | "#BYREFARRAY(") Ident ")") | Ident
+
+	DATA("HANDLE(CONSTRUCT,VALUE,REST)")
+
+	Stack		= "Nil"
+
+	hProcedure	= "Procedure"
+	hFor		= "For"
+
+	cUnknown	= 0
+	cDef		= 1
+	cOp		= 2
+	cSelect		= 3
+	cSelector	= 4
+	cEndSelect	= 5
+
+	DEFINE("TOP(C)")					:(TOP_END)
+TOP	IDENT(Stack,"Nil")					:s(FRETURN)
+	IDENT(CONSTRUCT(Stack),C)				:s(RETURN) f(FRETURN)
+TOP_END
+
+	DEFINE("PUSH(C,V)")					:(PUSH_END)
+PUSH	Stack		= HANDLE(C,V,Stack)			:(RETURN)
+PUSH_END
+
+	DEFINE("POP(C)")					:(POP_END)
+POP	IDENT(Stack,"Nil")					:s(P_UNDRF)
+	IDENT(CONSTRUCT(Stack))					:s(P_POP)
+	IDENT(C)						:s(P_POP)
+	IDENT(CONSTRUCT(Stack),C)				:f(P_NON)
+P_POP	POP		= VALUE(Stack)
+	Stack		= REST(Stack)				:(RETURN)
+P_UNDRF	WRITELN		= "!Error: Handle stack underflow"	:(END)
+P_NON	WRITELN		= "!Error: Unexpected end of '" C "'"	:(END)
+POP_END
+
+	DEFINE("FNCALL(S)ID,Params,FN,Counter,T,A")		:(FNCALL_END)
+FNCALL	A		= ARRAY("20")
+	S	(Ident . ID) "(" (BAL . Params) ")"		:f(FRETURN)
+	Counter		= 0
+FNLOOP	IDENT(Params)						:s(F_CALL)
+FNNEXT	Counter		= Counter + 1
+	A[Counter]	= EXPR(Params,.T)			:f(FRETURN)
+	Params		= T
+	Params	"," =						:s(FNNEXT) f(FNLOOP)
+F_CALL	FN		= FUNCS[ID]
+	IDENT(FN)						:s(FRETURN)
+	fUSED(FN)	= 1
+	USED(MODULES[fMOD(FN)]) = 1
+	FNCALL		= EVAL(fPAT(FN))			:s(RETURN) f(FRETURN)
+FNCALL_END
+
+	DEFINE("OPER(S)Dim,Str,E,P,T")				:(OPER_END)
+OPER	OPER		= S
+	OPER	"'" =						:s(STR.OP)
+	OPER	"#" =						:s(SPEC.OP)
+	OPER	Ident "["					:f(RETURN)
+	OPER	Ident . Ret =
+IND.OP	OPER	"[" =						:f(O_THEN)
+	Ret		= Ret LeftIdx EXPR(OPER,.T) RightIdx	:f(FRETURN)
+	T	"]" =						:f(FRETURN)
+	OPER		= T					:(IND.OP)
+O_THEN	OPER		= Ret					:(RETURN)
+
+STR.OP	OPER	@P (BREAK("'") . Str) @E "'"			:f(FRETURN)
+	OPER		= EQ(E - P,1) SymbolQ Str SymbolQ	:s(RETURN)
+	OPER		= StringQ Str StringQ			:(RETURN)
+
+SPEC.OP	OPER	"LOWDIM" = LowDim				:s(RETURN)
+	OPER	"HIGHDIM(" ((Number | Ident) . Dim) ")" =
++			Dim HighDimTag				:s(RETURN)
+	OPER	"REFARRAY(" (Operand . Str) ")"			:s(REFNRM)
+	OPER	"REF(" (Operand . Str) ")"			:f(OP.THEN)
+	OPER		= PtrStr EXPR(Str,.T)			:s(RETURN) f(FRETURN)
+REFNRM	OPER		= EXPR(Str,.T)				:s(RETURN) f(FRETURN)
+OP.THEN	OPER	Ident "("					:s(OP.CALL)
+	OPER		= TYPE("#" OPER)			:s(RETURN) f(FRETURN)
+OP.CALL	OPER		= FNCALL(OPER)				:s(RETURN) f(FRETURN)
+OPER_END
+
+	DEFINE("EXPR(S,Tag)Op,Oprnd,E,BrE,Ret")			:(EXPR_END)
+EXPR	S	UnaryOp . Op =					:s(E_UN)
+	S	"#DEREF(" (Operand . Oprnd) ")" =		:s(E_DEREF)
+	S	"#DEREFARRAY(" (Operand . Oprnd) ")" =		:s(E_OPRND)
+	S	"("						:f(E_OP)
+	S	BAL . BrE =					:s(E_BRCKT) f(FRETURN)
+E_OP	S	Operand . Oprnd =				:s(E_OPRND) f(FRETURN)
+
+E_BRCKT	BrE	"(" =
+	E		= EXPR(BrE,Tag)				:f(FRETURN)
+	$Tag	")" =						:f(FRETURN)
+	Ret		= "(" E ")"				:(E_THEN)
+
+E_DEREF	Ret		= DerefStr OPER(Oprnd)			:(E_THEN)
+
+E_OPRND	Ret		= OPER(Oprnd)				:f(FRETURN)
+E_THEN	S	BinaryOp . Op =					:s(E_BIN)
+	$Tag		= S
+	EXPR		= Ret					:(RETURN)
+
+E_UN	EXPR		= Op EXPR(S,Tag)			:s(RETURN) f(FRETURN)
+
+E_BIN	E		= EXPR(S,Tag)				:f(FRETURN)
+	EXPR		= Ret Op E				:s(RETURN) f(FRETURN)
+EXPR_END
+
+	DEFINE("RELOP(S)")					:(RELOP_END)
+RELOP	RELOP		= S
+	RELOP	" #EQ# " = EQ_OP				:s(RETURN)
+	RELOP	" #NE# " = NE_OP				:s(RETURN)
+	RELOP	" #GE# " = GE_OP				:s(RETURN)
+	RELOP	" #LE# " = LE_OP				:s(RETURN)
+	RELOP	" #GT# " = GT_OP				:s(RETURN)
+	RELOP	" #LT# " = LT_OP				:s(RETURN) f(FRETURN)
+RELOP_END
+
+	DEFINE("LOGOP(S)")					:(LOGOP_END)
+LOGOP	LOGOP		= S
+	LOGOP	" #AND# " = AND_OP				:s(RETURN)
+	LOGOP	" #OR# " = OR_OP				:s(RETURN) f(FRETURN)
+LOGOP_END
+
+	DEFINE("RELEXPR(S,Tag)E,Op,E1,T")			:(RELEXPR_END)
+RELEXPR	S	(Expression . E) =				:f(FRETURN)
+	S	(RelOp . Op) (Expression . E1) =		:f(R_EXPR)
+	RELEXPR		= EXPR(E,.T) RELOP(Op) EXPR(E1,.T)	:(R_RET)
+R_EXPR	RELEXPR		= EXPR(E,.T)
+R_RET	$Tag		= S					:(RETURN)
+RELEXPR_END
+
+	DEFINE("LOGEXPR(S,Tag)Rel,Op,Log,T")			:(LOGEXPR_END)
+LOGEXPR	S	RelExpression . Rel =				:f(FRETURN)
+	S	(LogOp . Op) (LogExpression . Log) =		:f(L_REL)
+	LOGEXPR		= LogLQ RELEXPR(Rel,.T) LogRQ LOGOP(Op)
++			LOGEXPR(Log,.T)				:(L_RET)
+L_REL	LOGEXPR		= LogLQ RELEXPR(Rel,.T) LogRQ
+L_RET	$Tag		= S					:(RETURN)
+LOGEXPR_END
+
+	DEFINE("TYPE(ID)")					:(TYPE_END)
+TYPE	TYPE		= ID
+	TYPE	"#" =						:f(RETURN)
+	TYPE	"FILE" = T_FILE					:s(RETURN)
+	TYPE	"CHAR" = T_CHAR					:s(RETURN)
+	TYPE	"INT" = T_INT					:s(RETURN)
+	TYPE	"LONGINT" = T_LONGINT				:s(RETURN)
+	TYPE	"LONGLONGINT" = T_LONGLONGINT			:s(RETURN)
+	TYPE	"FLOAT" = T_FLOAT				:s(RETURN)
+	TYPE	"DOUBLE" = T_DOUBLE				:s(RETURN)
+	TYPE	"LONGDOUBLE" = T_LONGDOUBLE			:s(RETURN) f(FRETURN)
+TYPE_END
+
+	DEFINE("PARAM(Tp,ID)NTp")				:(PARAM_END)
+PARAM	NTp		= TYPE(Tp)
+	ID	"#BYREFARRAY(" (Ident . ID) ")"			:s(P_AREF)
+	ID	"#BYREF(" (Ident . ID) ")"			:f(PNORMAL)
+	PARAM		= EVAL(PrmByRefTmpl)			:(RETURN)
+P_AREF	PARAM		= EVAL(PrmByRefArrTmpl)			:(RETURN)
+PNORMAL	PARAM		= EVAL(PrmByValTmpl)			:(RETURN)
+PARAM_END
+
+	DEFINE("CONSULT(NewOpClass)")				:(CONSULT_END)
+CONSULT	(NE(NewOpClass,cDef) EQ(PrevOpClass,cDef)
++	TOP(hProcedure))					:f(CONS_1)
+	EQ(SeparateDefs,0)					:s(CONS_E)
+	WRITELN		= BegStr				:(CONS_E)
+CONS_1	(NE(PrevOpClass,cSelect) EQ(NewOpClass,cSelector))	:s(CONS_2)
+	(NE(PrevOpClass,cSelect) EQ(NewOpClass,cEndSelect))	:f(CONS_E)
+CONS_2	WRITELN		= Spaces EndSelector
+CONS_E	PrevOpClass	= NewOpClass				:(RETURN)
+CONSULT_END
+
+*	Начало программы
+BEGIN	PrevOpClass	= cUnknown
+Read	Line		= READLN				:f(A_END)
+	Line	((SPAN(" ") | "") . Spaces) "#" =		:s(Anlz0)
+Store	WRITELN		= Line					:(Read)
+
+Anlz0   Line	"DEFARRAYTYPE(" (CommonIdent . BaseTypeID) ","
++		(ARB . Dims) (Ident . TypeID) ")"		:f(Anlz1)
+	Dims	(Number . Dim) "," =				:f(AnlzN)
+	Idxs		= BeforeDim Dim
+	CONSULT(cDef)
+Loop0	Dims	(Number . Dim) "," =				:f(Stop0)
+	Idxs		= Idxs SeparateDim BeforeDim Dim	:(Loop0)
+Stop0	WRITELN		= Spaces EVAL(TypedefTmpl)		:(Read)
+
+Anlz1	Line	"DEFARRAYVAR(" (CommonIdent . TypeID) ","
++		(Ident . VarID) "," (Number . Dim) ")"		:f(Anlz2)
+	CONSULT(cDef)
+	WRITELN		= Spaces EVAL(ArrayVarDefTmpl)		:(Read)
+
+Anlz2	Line	"DEFVAR(" (CommonIdent . TypeID) ","
++		(Ident . VarID) ")"				:f(Anlz3)
+	CONSULT(cDef)
+	WRITELN		= EVAL(VarDefTmpl)			:(Read)
+
+Anlz3	Line	"PROCEDURE" SPAN(" ") (Ident . Name)
++		"(" (BAL . Params) ")"					:f(Anlz4)
+	CONSULT(cOp)
+	PUSH(hProcedure,Name)
+	Out		= Spaces ProcedureHdr Name "("
+	Params	(CommonIdent . TypeID) "," (Parameter . PrmID) =	:f(Stop3)
+	Out		= Out PARAM(TypeID,PrmID)
+Loop3	Params	";" (CommonIdent . TypeID) "," (Parameter . PrmID) =	:f(Stop3)
+	Out		= Out PrmSeparator PARAM(TypeID,PrmID)		:(Loop3)
+Stop3	WRITELN		= Out ")" ProcedureTag				:(Read)
+
+Anlz4	Line	"FOR(" (CommonItem . VarID) "," (Expression . FromE) ","
++		(Expression . ToE) "," (Expression . StepE) ")"	:f(Anlz5)
+	E1		= EXPR(FromE,.FE) IDENT(FE,"")		:f(Anlz5)
+	E2		= EXPR(ToE,.TE) IDENT(TE,"")		:f(Anlz5)
+	Step		= EXPR(StepE,.SE) IDENT(SE,"")		:f(Anlz5)
+	CONSULT(cOp)
+	Step	"1" (REM $ Tag) IDENT(Tag,"")			:s(Anlz4I)
+	Step	"-1" (REM $ Tag) IDENT(Tag,"")			:s(Anlz4D)
+	EQ(AnyForUnwrap,0)					:s(Anlz40)
+	WRITELN		= Spaces EVAL(SetTmpl)
+Anlz40	WRITELN		= Spaces EVAL(AnyForHeaderTmpl)
+	E		= Step
+	PUSH(hFor,Eval(AddForTmpl))				:(Read)
+Anlz4D	WRITELN		= Spaces EVAL(DecForHeaderTmpl)		:(Anlz4E)
+Anlz4I	WRITELN		= Spaces EVAL(IncForHeaderTmpl)
+Anlz4E	PUSH(hFor,"")						:(Read)
+
+Anlz5	Line	"SET(" (Expression . VarID) "," (Expression . E) ")"	:f(Anlz6)
+	E1		= EXPR(E,.EE) IDENT(EE,"")		:f(Anlz6)
+	CONSULT(cOp)
+	WRITELN		= Spaces EVAL(SetTmpl)			:(Read)
+
+Anlz6	Line	"ENDFOR" (REM $ Tag) IDENT(TAG,"")		:f(Anlz7)
+	S		= POP(hFor)
+	IDENT(S,"")						:s(END_OP)
+	WRITELN		= Spaces S
+END_OP	CONSULT(cOp)
+	WRITELN		= Spaces EndStr				:(Read)
+
+Anlz7	Line	"ENDPROCEDURE" (REM $ Tag) IDENT(TAG,"")	:f(Anlz8)
+	POP(hProcedure)						:(END_OP)
+
+Anlz8	Line	"ENDPROGRAM" (REM $ Tag) IDENT(TAG,"")		:f(Anlz9)
+	CONSULT(cOp)
+	POP(hProcedure)
+	WRITELN		= Spaces EndProgStr			:(Read)
+
+Anlz9	Line	"ENDWHILE" (REM $ Tag) IDENT(TAG,"")		:s(END_OP) f(Anlz10)
+
+Anlz10	Line	"INCREMENT(" (CommonItem . VarID) ","
++		(Expression . E) ")"				:f(Anlz11)
+	E1		= EXPR(E,.EE) IDENT(EE,"")		:f(Anlz11)
+	CONSULT(cOp)
+	E1	"1" (REM $ Tag) IDENT(Tag,"") = EVAL(IncTmpl)	:s(Anlz10W)
+	E1	"-1" (REM $ Tag) IDENT(Tag,"") = EVAL(DecTmpl)	:s(Anlz10W)
+	E1		= EVAL(AddTmpl)
+Anlz10W	WRITELN		= Spaces E1				:(Read)
+
+Anlz11	Line	"CALL" SPAN(" ") (Ident . Name)
++		 "(" (BAL . Params) ")"				:f(Anlz12)
+	Out		= Spaces Name "("
+	CONSULT(cOp)
+	Params	(Expression . PrmID) =				:f(Stop11)
+	Out		= Out EXPR(PrmID,.T)			:f(Stop11)
+Loop11	Params	"," (Expression . PrmID) =			:f(Stop11)
+	Out		= Out ", " EXPR(PrmID,.T)		:s(Loop11)
+Stop11	WRITELN		= Out ");"				:(Read)
+
+Anlz12	Line	"SELECT(" (Expression . Sel) ")"		:f(Anlz13)
+	CONSULT(cSelect)
+	WRITELN		= Spaces EVAL(SelectTmpl)		:(Read)
+
+Anlz13	Line	"ENDSELECT" (REM $ Tag) IDENT(TAG,"")		:f(Anlz14)
+	CONSULT(cEndSelect)					:(END_OP)
+
+Anlz14	Line	"SELECTOR(" (Expression . Val) ")"		:f(Anlz15)
+	CONSULT(cSelector)
+	Val	"#ELSE"						:s(Anlz14E)
+	WRITELN		= Spaces EVAL(SelectorTmpl)		:(Read)
+Anlz14E	WRITELN		= Spaces ElseSelector			:(Read)
+
+Anlz15	Line	"WHILE(" (LogExpression . Log) ")"		:f(Anlz16)
+	CONSULT(cOp)
+	WRITELN		= Spaces EVAL(WhileTmpl)		:(Read)
+
+Anlz16	Line	"IF(" (LogExpression . Log) ")"			:f(Anlz17)
+	CONSULT(cOp)
+	WRITELN		= Spaces EVAL(IfTmpl)			:(Read)
+
+Anlz17	Line	"ELSE"						:f(Anlz18)
+	CONSULT(cOp)
+	WRITELN		= Spaces ElseStr			:(Read)
+
+Anlz18	Line	"ENDIF"						:s(END_OP) f(Anlz19)
+
+Anlz19	Line	"PROGRAM"					:f(Anlz20)
+	CONSULT(cOp)
+	PUSH(hProcedure,"Main")
+	WRITELN		= Spaces MainPartStr			:(Read)
+
+Anlz20	Line	"DEFCONST(" (CommonIdent . TypeID) ","
++		(Ident . ConstID) "," (AnyNumber . Val) ")"	:f(Anlz21)
+	CONSULT(cDef)
+	WRITELN		= Spaces EVAL(ConstTmpl)		:(Read)
+
+Anlz21
+
+AnlzN	CONSULT(cOp)
+	WRITELN		= Spaces FNCALL(Line) EndLineStr	:s(Read)
+	WRITELN		= "!Error: unrecognized: #" Line	:(A_END)
+
+A_END	IDENT(Stack,"Nil")					:s(BIND)
+	WRITELN		= "!Error: disbalance at '"
++			CONSTRUCT(Stack) "'"
+	POP("")							:(A_END)
+
+BIND	ENDFILE(1)
+	ENDFILE(2)
+
+	INPUT("READLN", 1, 250, "_.$$$")
+	OUTPUT("WRITELN", 2, 250, "_.OUT")
+
+	IDENT(ProgHeader)					:s(NOHEAD)
+	WRITELN		= ProgHeader
+NOHEAD	Counter		= 1
+	NUsed		= 0
+M_COUNT	NUsed		= NUsed + USED(MODULES[Counter])	:f(M_THEN)
+	Counter		= Counter + 1				:(M_COUNT)
+M_THEN	EQ(NUsed,0)						:s(COPY)
+	Counter		= 1
+	UsedCounter	= 1
+M_LOOP	NE(USED(MODULES[Counter]),0)				:f(M_END)
+	Out		= EQ(UsedCounter,1) BeforeFirstIncl	:s(M_FF)
+M_NF	Out		= BeforeOtherIncl
+M_FF	Out		= Out NAME(MODULES[Counter])
+	WRITELN		= EQ(UsedCounter,NUsed) Out
++			AfterLastIncl				:s(COPY)
+	WRITELN		= Out AfterOtherIncl
+	UsedCounter	= UsedCounter + 1
+M_END	Counter		= Counter + 1				:(M_LOOP)
+
+COPY	WRITELN		= READLN				:s(COPY)
+	ENDFILE(1)
+	ENDFILE(2)
+
+END

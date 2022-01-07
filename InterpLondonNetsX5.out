@@ -1,0 +1,42 @@
+Clearing MatLAB workspace... wait for 1 sec.
+Warning: Polynomial is badly conditioned. Remove repeated data points
+         or try centering and scaling as described in HELP POLYFIT.
+(Type "warning off MATLAB:polyfit:RepeatedPointsOrRescale" to suppress this warning.)
+> In c:\matlab\toolbox\matlab\polyfun\polyfit.m at line 75
+NewItem37[polyval(K,X)] with Goal(YY') gives K=[-1279657854.720469,477528748.34458184,92359025917.595016,-199458147556.84137,-1544894852710.8013,5218734177386.1797,870804972009.4082,-15339880823721.117,10903137777859.08] with R2Norm = 6379174.0933761597
+Clearing MatLAB workspace... wait for 1 sec.
+Warning: Polynomial is badly conditioned. Remove repeated data points
+         or try centering and scaling as described in HELP POLYFIT.
+(Type "warning off MATLAB:polyfit:RepeatedPointsOrRescale" to suppress this warning.)
+> In c:\matlab\toolbox\matlab\polyfun\polyfit.m at line 75
+NewItem36[polyval(K,X)] with Goal(YY') gives K=[1.6805855542489236E-007,-2.2919836602256796E-005,0.0012845207076050105,-0.038031635973789696,0.63690201155370096,-6.0078774764852776,30.115289998057612,-70.344379210365531,118.0764739555249] with R2Norm = 6478064.0877841273
+Clearing MatLAB workspace... wait for 1 sec.
+Warning: Polynomial is badly conditioned. Remove repeated data points
+         or try centering and scaling as described in HELP POLYFIT.
+(Type "warning off MATLAB:polyfit:RepeatedPointsOrRescale" to suppress this warning.)
+> In c:\matlab\toolbox\matlab\polyfun\polyfit.m at line 75
+NewItem35[polyval(K,X)] with Goal(YY') gives K=[-2.615439452481503E-006,0.00027741441856871378,-0.01209262666232847,0.27812205939026308,-3.5967693960181126,25.688794346021083,-92.402100422216364,141.8368144602473,-35.362998772196526] with R2Norm = 5173694.4537664028
+Clearing MatLAB workspace... wait for 1 sec.
+Warning: Polynomial is badly conditioned. Remove repeated data points
+         or try centering and scaling as described in HELP POLYFIT.
+(Type "warning off MATLAB:polyfit:RepeatedPointsOrRescale" to suppress this warning.)
+> In c:\matlab\toolbox\matlab\polyfun\polyfit.m at line 75
+NewItem34[polyval(K,X)] with Goal(YY') gives K=[-1.6903971386681115E-016,2.4485631635585514E-013,-1.3616890495923552E-010,3.7580936608877118E-008,-5.5613219563079787E-006,0.00044566429503294162,-0.018850128853000917,1.0926339966662564,15.856741126334743] with R2Norm = 3570939.4871207606
+Clearing MatLAB workspace... wait for 1 sec.
+NewItemLondon16_8_1x5[newff(minmax(X),[16 8 1],{'tansig' 'tansig' 'purelin'})] with Goal(YY') gives K=[c:\matlab\work\NewItemLondon16_8_1x5.mat] with R2Norm = 1464727.6172296673
+Clearing MatLAB workspace... wait for 1 sec.
+NewItem38[X1+X2] has Goal(YY') with K=[0] and R2Norm = 17082961.945950441
+... fix X2=[15.856741126334743 119.90910102262592 114.19619462191176 122.11207945577375 129.67872977579935 104.05610708132126 149.27040317377893 139.08486038383495 134.35317748569184 146.17368246366772 120.63...]. Plan to enhance in [NewItemLondon16_8_1x5] 
+Clearing MatLAB workspace... wait for 1 sec.
+  NewItemLondon16_8_1x5[newff(minmax(X),[16 8 1],{'tansig' 'tansig' 'purelin'})] with Goal([123.14325887366526 30.090898977374081 45.803805378088242 1.8879205442262474 55.321270224200646 67.943892918678742 16.729596826221069 41.91513961616505 13.646822514308155 -9.173682463667717 27.3602300...]) gives K=[c:\matlab\work\NewItemLondon16_8_1x5.mat] with R2Norm = 1320273.9831118518
+Clearing MatLAB workspace... wait for 1 sec.
+NewItem38[X1+X2] has Goal(YY') with K=[0] and R2Norm = 1320273.9831118518
+... R2Norm successfully enhanced.
+NewItem37 = inline('polyval([-1279657854.720469,477528748.34458184,92359025917.595016,-199458147556.84137,-1544894852710.8013,5218734177386.1797,870804972009.4082,-15339880823721.117,10903137777859.08],X)','X');
+NewItem36 = inline('polyval([1.6805855542489236E-007,-2.2919836602256796E-005,0.0012845207076050105,-0.038031635973789696,0.63690201155370096,-6.0078774764852776,30.115289998057612,-70.344379210365531,118.0764739555249],X)','X');
+NewItem35 = inline('polyval([-2.615439452481503E-006,0.00027741441856871378,-0.01209262666232847,0.27812205939026308,-3.5967693960181126,25.688794346021083,-92.402100422216364,141.8368144602473,-35.362998772196526],X)','X');
+NewItem34 = inline('polyval([-1.6903971386681115E-016,2.4485631635585514E-013,-1.3616890495923552E-010,3.7580936608877118E-008,-5.5613219563079787E-006,0.00044566429503294162,-0.018850128853000917,1.0926339966662564,15.856741126334743],X)','X');
+NewItemLondon16_8_1x5 = inline('sim(getfield(load(''c:\matlab\work\NewItemLondon16_8_1x5.mat''),''BestK''),[X1;X2;X3;X4;X5])','X1','X2','X3','X4','X5');
+NewItem38 = inline('X1+X2','X1','X2');
+Elapsed time = 1067 sec.
+  NewItem38(NewItemLondon16_8_1x5(X1,X2,X3,X4,X5),NewItem34(X4)) 

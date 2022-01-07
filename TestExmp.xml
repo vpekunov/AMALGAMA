@@ -1,0 +1,767 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE System [
+<!ELEMENT System (Elements)>
+<!ATTLIST System
+Lang CDATA #REQUIRED
+>
+<!ELEMENT Elements (Element*)>
+<!ATTLIST Elements
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT Element (Show,Position,Parameters,InternalInputs,InternalOutputs,PublishedInputs,PublishedOutputs,InputLinks,OutputLinks)>
+<!ATTLIST Element
+ClassID CDATA #REQUIRED
+ParentID CDATA #REQUIRED
+ID ID #REQUIRED
+Permanent (True | False) #REQUIRED
+>
+<!ELEMENT Show EMPTY>
+<!ATTLIST Show
+Class (True | False) #REQUIRED
+Name (True | False) #REQUIRED
+Image (True | False) #REQUIRED
+>
+<!ELEMENT Position EMPTY>
+<!ATTLIST Position
+Left CDATA #REQUIRED
+Top CDATA #REQUIRED
+>
+<!ELEMENT Parameters (Parameter*)>
+<!ATTLIST Parameters
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT Parameter (#PCDATA | EMPTY)*>
+<!ATTLIST Parameter
+ID CDATA #REQUIRED
+Indent CDATA #IMPLIED
+>
+<!ELEMENT InternalInputs (iContact*)>
+<!ATTLIST InternalInputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT InternalOutputs (iContact*)>
+<!ATTLIST InternalOutputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT iContact EMPTY>
+<!ATTLIST iContact
+ID CDATA #REQUIRED
+ElementID IDREF #REQUIRED
+ContID CDATA #REQUIRED
+>
+<!ELEMENT PublishedInputs (pContact*)>
+<!ATTLIST PublishedInputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT PublishedOutputs (pContact*)>
+<!ATTLIST PublishedOutputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT pContact EMPTY>
+<!ATTLIST pContact
+ID CDATA #REQUIRED
+PublicID CDATA #REQUIRED
+PublicName CDATA #REQUIRED
+>
+<!ELEMENT InputLinks (Contact*)>
+<!ELEMENT OutputLinks (Contact*)>
+<!ELEMENT Contact (Link*)>
+<!ATTLIST Contact
+ID CDATA #REQUIRED
+>
+<!ELEMENT Link (Points?)>
+<!ATTLIST Link
+ElementID IDREF #REQUIRED
+ContID CDATA #REQUIRED
+Color CDATA #IMPLIED
+Informational (True | False) #REQUIRED
+>
+<!ELEMENT Points (#PCDATA | EMPTY)*>
+<!ATTLIST Points
+NumItems CDATA #REQUIRED
+>
+]>
+<System Lang="">
+ <Elements NumItems="25">
+  <Element ClassID="clsP_Test" ParentID="" ID="Test" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="11" Top="14"/>
+   <Parameters NumItems="7">
+    <Parameter ID="TestID" Indent="0">Test2</Parameter>
+    <Parameter ID="Description" Indent="0">Описание теста
+(очень интересного)
+</Parameter>
+    <Parameter ID="Prompt" Indent="0">ret</Parameter>
+    <Parameter ID="Instruction" Indent="0">Something,double</Parameter>
+    <Parameter ID="Title" Indent="0">Descriptovos</Parameter>
+    <Parameter ID="Width" Indent="0">800</Parameter>
+    <Parameter ID="Height" Indent="0">600</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="qa0" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_Handler" ParentID="" ID="Handler" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="1125" Top="286"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Save" Indent="0">No</Parameter>
+    <Parameter ID="Event" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="HandleA" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="C0" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+     <Link ElementID="C1" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+     <Link ElementID="C2" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_Question" ParentID="" ID="Q1" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="133" Top="165"/>
+   <Parameters NumItems="4">
+    <Parameter ID="Number" Indent="0">1</Parameter>
+    <Parameter ID="Descriptor" Indent="0">descQ1</Parameter>
+    <Parameter ID="Prefix" Indent="0"></Parameter>
+    <Parameter ID="Event" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="Stop2" ContID="Out" Informational="False"/>
+    </Contact>
+    <Contact ID="Answ">
+     <Link ElementID="A1" ContID="Quest" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="Handle1" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="2">178,239,178,337</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_Answer" ParentID="" ID="A1" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="7" Top="277"/>
+   <Parameters NumItems="2">
+    <Parameter ID="MaxAnswers" Indent="0">1</Parameter>
+    <Parameter ID="Descriptor" Indent="0">descA1</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Quest">
+     <Link ElementID="Q1" ContID="Answ" Color="clOlive" Informational="False">
+      <Points NumItems="2">113,269,109,207</Points>
+     </Link>
+     <Link ElementID="Q2" ContID="Answ" Color="clOlive" Informational="False">
+      <Points NumItems="1">306,235</Points>
+     </Link>
+     <Link ElementID="Q3" ContID="Answ" Color="clOlive" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+     <Link ElementID="Q4" ContID="Answ" Color="clOlive" Informational="False">
+      <Points NumItems="1">302,253</Points>
+     </Link>
+     <Link ElementID="qa1" ContID="Answ" Color="clOlive" Informational="False">
+      <Points NumItems="4">100,267,100,99,298,99,298,70</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_If" ParentID="" ID="If1" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="227" Top="159"/>
+   <Parameters NumItems="5">
+    <Parameter ID="Vars" Indent="0">define A:Integer
+define B:String
+</Parameter>
+    <Parameter ID="Condition" Indent="0">&amp;Q1=2</Parameter>
+    <Parameter ID="Prefix" Indent="0"></Parameter>
+    <Parameter ID="Event" Indent="0"></Parameter>
+    <Parameter ID="EventElse" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="Handle1" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="Q2" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+    <Contact ID="Rev">
+     <Link ElementID="Q3" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_Question" ParentID="" ID="Q2" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="349" Top="117"/>
+   <Parameters NumItems="4">
+    <Parameter ID="Number" Indent="0">1</Parameter>
+    <Parameter ID="Prefix" Indent="0"></Parameter>
+    <Parameter ID="Event" Indent="0"></Parameter>
+    <Parameter ID="Descriptor" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="If1" ContID="Out" Informational="False"/>
+    </Contact>
+    <Contact ID="Answ">
+     <Link ElementID="A1" ContID="Quest" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="Q4" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_Question" ParentID="" ID="Q3" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="333" Top="247"/>
+   <Parameters NumItems="4">
+    <Parameter ID="Number" Indent="0">1</Parameter>
+    <Parameter ID="Descriptor" Indent="0">jljl,kkkkkk</Parameter>
+    <Parameter ID="Prefix" Indent="0"></Parameter>
+    <Parameter ID="Event" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="If1" ContID="Rev" Informational="False"/>
+    </Contact>
+    <Contact ID="Answ">
+     <Link ElementID="A1" ContID="Quest" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="endif1" ContID="Rev" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_EndIf" ParentID="" ID="endif1" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="433" Top="205"/>
+   <Parameters NumItems="3">
+    <Parameter ID="EventElse" Indent="0"></Parameter>
+    <Parameter ID="Prefix" Indent="0"></Parameter>
+    <Parameter ID="Event" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="Q4" ContID="Out" Informational="False"/>
+    </Contact>
+    <Contact ID="Rev">
+     <Link ElementID="Q3" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="HandleA" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_Question" ParentID="" ID="Q4" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="450" Top="127"/>
+   <Parameters NumItems="4">
+    <Parameter ID="Number" Indent="0">1</Parameter>
+    <Parameter ID="Prefix" Indent="0"></Parameter>
+    <Parameter ID="Event" Indent="0"></Parameter>
+    <Parameter ID="Descriptor" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="Q2" ContID="Out" Informational="False"/>
+    </Contact>
+    <Contact ID="Answ">
+     <Link ElementID="A1" ContID="Quest" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="endif1" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="4">548,161,548,199,420,199,406,229</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_Question" ParentID="" ID="qa0" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="112" Top="27"/>
+   <Parameters NumItems="4">
+    <Parameter ID="Number" Indent="0">1</Parameter>
+    <Parameter ID="Event" Indent="0"></Parameter>
+    <Parameter ID="Prefix" Indent="0"></Parameter>
+    <Parameter ID="Descriptor" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="Test" ContID="Out" Informational="False"/>
+    </Contact>
+    <Contact ID="Answ">
+     <Link ElementID="A2" ContID="Quest" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="Timer2" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_StartTimer" ParentID="" ID="Timer2" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="210" Top="31"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Time" Indent="0">10</Parameter>
+    <Parameter ID="Event" Indent="0"></Parameter>
+    <Parameter ID="Prefix" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="qa0" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="qa1" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_Question" ParentID="" ID="qa1" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="312" Top="29"/>
+   <Parameters NumItems="4">
+    <Parameter ID="Number" Indent="0">1</Parameter>
+    <Parameter ID="Event" Indent="0"></Parameter>
+    <Parameter ID="Prefix" Indent="0"></Parameter>
+    <Parameter ID="Descriptor" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="Timer2" ContID="Out" Informational="False"/>
+    </Contact>
+    <Contact ID="Answ">
+     <Link ElementID="A1" ContID="Quest" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="qa2" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_Question" ParentID="" ID="qa2" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="422" Top="39"/>
+   <Parameters NumItems="4">
+    <Parameter ID="Number" Indent="0">1</Parameter>
+    <Parameter ID="Event" Indent="0"></Parameter>
+    <Parameter ID="Prefix" Indent="0"></Parameter>
+    <Parameter ID="Descriptor" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="qa1" ContID="Out" Informational="False"/>
+    </Contact>
+    <Contact ID="Answ">
+     <Link ElementID="A2" ContID="Quest" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="Stop2" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_StopTimer" ParentID="" ID="Stop2" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="528" Top="53"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Save" Indent="0">No</Parameter>
+    <Parameter ID="Event" Indent="0"></Parameter>
+    <Parameter ID="Prefix" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="qa2" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="Q1" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="3">554,105,114,105,114,187</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_Answer" ParentID="" ID="A2" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="10" Top="67"/>
+   <Parameters NumItems="2">
+    <Parameter ID="MaxAnswers" Indent="0">2</Parameter>
+    <Parameter ID="Descriptor" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Quest">
+     <Link ElementID="qa0" ContID="Answ" Color="clOlive" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+     <Link ElementID="qa2" ContID="Answ" Color="clOlive" Informational="False">
+      <Points NumItems="1">394,91</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_HandlePanel" ParentID="" ID="Handle1" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="200" Top="312"/>
+   <Parameters NumItems="7">
+    <Parameter ID="Instruction" Indent="0">Yes</Parameter>
+    <Parameter ID="Back" Indent="0">Yes</Parameter>
+    <Parameter ID="Forward" Indent="0">Yes</Parameter>
+    <Parameter ID="Save" Indent="0">Yes</Parameter>
+    <Parameter ID="Exit" Indent="0">Yes</Parameter>
+    <Parameter ID="Event" Indent="0"></Parameter>
+    <Parameter ID="Prefix" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="Q1" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="If1" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="1">307,337</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_PanelDecor" ParentID="" ID="HandleA" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="569" Top="282"/>
+   <Parameters NumItems="14">
+    <Parameter ID="Panel" Indent="0">Answer</Parameter>
+    <Parameter ID="Left" Indent="0">12</Parameter>
+    <Parameter ID="Top" Indent="0">2</Parameter>
+    <Parameter ID="Width" Indent="0">200</Parameter>
+    <Parameter ID="Height" Indent="0">200</Parameter>
+    <Parameter ID="Color" Indent="0">clBlack</Parameter>
+    <Parameter ID="FontName" Indent="0">Times New Roman Cyr</Parameter>
+    <Parameter ID="FontSize" Indent="0">14</Parameter>
+    <Parameter ID="FontColor" Indent="0">clBlack</Parameter>
+    <Parameter ID="Bold" Indent="0">Yes</Parameter>
+    <Parameter ID="Italic" Indent="0">No</Parameter>
+    <Parameter ID="Underline" Indent="0">No</Parameter>
+    <Parameter ID="Event" Indent="0"></Parameter>
+    <Parameter ID="Prefix" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="endif1" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="Handler" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_PrimaryCalc" ParentID="" ID="C0" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="1250" Top="207"/>
+   <Parameters NumItems="5">
+    <Parameter ID="Name" Indent="0">Параметр 0</Parameter>
+    <Parameter ID="QList" Indent="0">Q3,qa1,qa2</Parameter>
+    <Parameter ID="Scheme" Indent="0">1=&gt;1</Parameter>
+    <Parameter ID="Answers" Indent="0">1,2,3</Parameter>
+    <Parameter ID="Scores" Indent="0">4,3,8</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="Handler" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="S0" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_PrimaryCalc" ParentID="" ID="C1" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="1251" Top="281"/>
+   <Parameters NumItems="5">
+    <Parameter ID="Name" Indent="0">Параметр 1</Parameter>
+    <Parameter ID="QList" Indent="0">Q3,qa2</Parameter>
+    <Parameter ID="Scheme" Indent="0">1=&gt;Все</Parameter>
+    <Parameter ID="Answers" Indent="0">1,2,3,4</Parameter>
+    <Parameter ID="Scores" Indent="0">5,6,7,8</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="Handler" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="Show" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_StenCalc" ParentID="" ID="S0" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="1388" Top="183"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Name" Indent="0"></Parameter>
+    <Parameter ID="Bounds" Indent="0">5,8,13,25,27,28</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="C0" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="Show" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_Show" ParentID="" ID="Show" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="1526" Top="245"/>
+   <Parameters NumItems="0"/>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="C1" ContID="Out" Informational="False"/>
+     <Link ElementID="S0" ContID="Out" Informational="False"/>
+     <Link ElementID="MapC2" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks/>
+  </Element>
+  <Element ClassID="clsP_PrimaryCalc" ParentID="" ID="C2" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="1250" Top="347"/>
+   <Parameters NumItems="5">
+    <Parameter ID="Name" Indent="0">Нечто</Parameter>
+    <Parameter ID="QList" Indent="0">Q1,Q2,Q3,Q4,qa0,qa1,qa2</Parameter>
+    <Parameter ID="Scheme" Indent="0">1=&gt;1</Parameter>
+    <Parameter ID="Answers" Indent="0">1</Parameter>
+    <Parameter ID="Scores" Indent="0">3</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="Handler" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="MapC2" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_MapStrings" ParentID="" ID="MapC2" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="1404" Top="345"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Min" Indent="0">1</Parameter>
+    <Parameter ID="Texts" Indent="0">&apos;ab&apos;,&apos;cd&apos;,&apos;ef&apos;,T1,T2</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="C2" ContID="Out" Informational="False"/>
+    </Contact>
+    <Contact ID="Texts">
+     <Link ElementID="T1" ContID="Map" Informational="False"/>
+     <Link ElementID="T2" ContID="Map" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="Show" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_Text" ParentID="" ID="T1" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="1278" Top="419"/>
+   <Parameters NumItems="1">
+    <Parameter ID="Descriptor" Indent="0">d1,d2,d3</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Map">
+     <Link ElementID="MapC2" ContID="Texts" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsP_Text" ParentID="" ID="T2" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="1348" Top="495"/>
+   <Parameters NumItems="1">
+    <Parameter ID="Descriptor" Indent="0">r1,r2,r3</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Map">
+     <Link ElementID="MapC2" ContID="Texts" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+ </Elements>
+</System>

@@ -1,0 +1,68 @@
+object LearnTroubleForm: TLearnTroubleForm
+  Left = 475
+  Height = 244
+  Top = 199
+  Width = 320
+  Caption = 'Исправьте скрипт вручную'
+  ClientHeight = 244
+  ClientWidth = 320
+  OnCreate = FormCreate
+  Position = poScreenCenter
+  LCLVersion = '1.6.4.0'
+  object ListBox: TListBox
+    Left = 0
+    Height = 200
+    Top = 0
+    Width = 320
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    ItemHeight = 0
+    OnDrawItem = ListBoxDrawItem
+    Style = lbOwnerDrawFixed
+    TabOrder = 0
+  end
+  object OKBtn: TBitBtn
+    Left = 160
+    Height = 30
+    Top = 208
+    Width = 75
+    Anchors = [akBottom]
+    Caption = 'OK'
+    ModalResult = 1
+    TabOrder = 1
+  end
+  object CancelBtn: TBitBtn
+    Left = 240
+    Height = 30
+    Top = 207
+    Width = 75
+    Anchors = [akBottom]
+    Caption = 'Cancel'
+    ModalResult = 2
+    TabOrder = 2
+  end
+  object ModeBtn: TSpeedButton
+    Left = 7
+    Height = 28
+    Top = 209
+    Width = 145
+    AllowAllUp = True
+    Anchors = [akBottom]
+    Caption = 'Редактор'
+    GroupIndex = 1
+    Transparent = False
+    OnClick = ModeBtnClick
+  end
+  object EditMemo: TMemo
+    Left = 0
+    Height = 202
+    Top = 0
+    Width = 318
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Lines.Strings = (
+      'EditMemo'
+    )
+    OnChange = EditMemoChange
+    TabOrder = 3
+    Visible = False
+  end
+end

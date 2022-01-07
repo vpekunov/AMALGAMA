@@ -1,0 +1,1501 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE System [
+<!ELEMENT System (Elements)>
+<!ATTLIST System
+Lang CDATA #REQUIRED
+>
+<!ELEMENT Elements (Element*)>
+<!ATTLIST Elements
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT Element (Show,Position,Parameters,InternalInputs,InternalOutputs,PublishedInputs,PublishedOutputs,InputLinks,OutputLinks)>
+<!ATTLIST Element
+ClassID CDATA #REQUIRED
+ParentID CDATA #REQUIRED
+ID ID #REQUIRED
+Permanent (True | False) #REQUIRED
+>
+<!ELEMENT Show EMPTY>
+<!ATTLIST Show
+Class (True | False) #REQUIRED
+Name (True | False) #REQUIRED
+Image (True | False) #REQUIRED
+>
+<!ELEMENT Position EMPTY>
+<!ATTLIST Position
+Left CDATA #REQUIRED
+Top CDATA #REQUIRED
+>
+<!ELEMENT Parameters (Parameter*)>
+<!ATTLIST Parameters
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT Parameter (#PCDATA | EMPTY)*>
+<!ATTLIST Parameter
+ID CDATA #REQUIRED
+Indent CDATA #IMPLIED
+>
+<!ELEMENT InternalInputs (iContact*)>
+<!ATTLIST InternalInputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT InternalOutputs (iContact*)>
+<!ATTLIST InternalOutputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT iContact EMPTY>
+<!ATTLIST iContact
+ID CDATA #REQUIRED
+ElementID IDREF #REQUIRED
+ContID CDATA #REQUIRED
+>
+<!ELEMENT PublishedInputs (pContact*)>
+<!ATTLIST PublishedInputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT PublishedOutputs (pContact*)>
+<!ATTLIST PublishedOutputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT pContact EMPTY>
+<!ATTLIST pContact
+ID CDATA #REQUIRED
+PublicID CDATA #REQUIRED
+PublicName CDATA #REQUIRED
+>
+<!ELEMENT InputLinks (Contact*)>
+<!ELEMENT OutputLinks (Contact*)>
+<!ELEMENT Contact (Link*)>
+<!ATTLIST Contact
+ID CDATA #REQUIRED
+>
+<!ELEMENT Link (Points?)>
+<!ATTLIST Link
+ElementID IDREF #REQUIRED
+ContID CDATA #REQUIRED
+Color CDATA #IMPLIED
+Informational (True | False) #REQUIRED
+>
+<!ELEMENT Points (#PCDATA | EMPTY)*>
+<!ATTLIST Points
+NumItems CDATA #REQUIRED
+>
+]>
+<System Lang="">
+ <Elements NumItems="54">
+  <Element ClassID="clsE_Vector" ParentID="" ID="U" Permanent="True">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="407" Top="139"/>
+   <Parameters NumItems="2">
+    <Parameter ID="FBase" Indent="0">v</Parameter>
+    <Parameter ID="Desc" Indent="0">Скорость</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="2">
+     <pContact ID="PhasePrm" PublicID="PrmU" PublicName="Скорость"/>
+     <pContact ID="Phase" PublicID="PhaseU" PublicName="Фаза (U)"/>
+   </PublishedInputs>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Vx">
+     <Link ElementID="Ux" ContID="Vector" Color="#FF8000" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+    <Contact ID="Vy">
+     <Link ElementID="Uy" ContID="Vector" Color="#FF8000" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+    <Contact ID="Vz">
+     <Link ElementID="Uz" ContID="Vector" Color="#FF8000" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Projection" ParentID="" ID="Ux" Permanent="True">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="589" Top="150"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Init" Indent="0">0</Parameter>
+    <Parameter ID="Restrict" Indent="0">Any</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Vector">
+     <Link ElementID="U" ContID="Vx" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="EqUx" ContID="Calc" Color="clBlack" Informational="False">
+      <Points NumItems="1">712,146</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Projection" ParentID="" ID="Uy" Permanent="True">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="588" Top="208"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Init" Indent="0">0</Parameter>
+    <Parameter ID="Restrict" Indent="0">Any</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Vector">
+     <Link ElementID="U" ContID="Vy" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="EqUy" ContID="Calc" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Projection" ParentID="" ID="Uz" Permanent="True">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="586" Top="269"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Init" Indent="0">0</Parameter>
+    <Parameter ID="Restrict" Indent="0">Any</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Vector">
+     <Link ElementID="U" ContID="Vz" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="EqUz" ContID="Calc" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="K_Ux" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="714" Top="166"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">Split{0.0,dFdy(Psiz)-dFdz(Psiy)};</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqUx" ContID="K" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="K_Uy" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="722" Top="270"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">Split{0.0,dFdz(Psix)-dFdx(Psiz)};</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqUy" ContID="K" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="K_Uz" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="716" Top="352"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">Split{0.0,dFdx(Psiy)-dFdy(Psix)};</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqUz" ContID="K" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_DirectEquation" ParentID="" ID="EqUx" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="858" Top="103"/>
+   <Parameters NumItems="1">
+    <Parameter ID="Handler" Indent="0">DirectSolver</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="1">
+     <pContact ID="Bound" PublicID="BoundUx" PublicName="Гран (Ux)"/>
+   </PublishedInputs>
+   <PublishedOutputs NumItems="1">
+     <pContact ID="Solver" PublicID="SolveUx" PublicName="Реш (Ux)"/>
+   </PublishedOutputs>
+   <InputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="Ux" ContID="Calc" Informational="False"/>
+    </Contact>
+    <Contact ID="K">
+     <Link ElementID="K_Ux" ContID="Val" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks/>
+  </Element>
+  <Element ClassID="clsE_DirectEquation" ParentID="" ID="EqUy" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="902" Top="235"/>
+   <Parameters NumItems="1">
+    <Parameter ID="Handler" Indent="0">DirectSolver</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="1">
+     <pContact ID="Bound" PublicID="BoundUy" PublicName="Гран (Uy)"/>
+   </PublishedInputs>
+   <PublishedOutputs NumItems="1">
+     <pContact ID="Solver" PublicID="SolveUy" PublicName="Реш (Uy)"/>
+   </PublishedOutputs>
+   <InputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="Uy" ContID="Calc" Informational="False"/>
+    </Contact>
+    <Contact ID="K">
+     <Link ElementID="K_Uy" ContID="Val" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks/>
+  </Element>
+  <Element ClassID="clsE_DirectEquation" ParentID="" ID="EqUz" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="806" Top="305"/>
+   <Parameters NumItems="1">
+    <Parameter ID="Handler" Indent="0">DirectSolver</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="1">
+     <pContact ID="Bound" PublicID="BoundUz" PublicName="Гран (Uz)"/>
+   </PublishedInputs>
+   <PublishedOutputs NumItems="1">
+     <pContact ID="Solver" PublicID="SolveUz" PublicName="Реш (Uz)"/>
+   </PublishedOutputs>
+   <InputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="Uz" ContID="Calc" Informational="False"/>
+    </Contact>
+    <Contact ID="K">
+     <Link ElementID="K_Uz" ContID="Val" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks/>
+  </Element>
+  <Element ClassID="clsE_Vector" ParentID="" ID="Omega" Permanent="True">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="397" Top="313"/>
+   <Parameters NumItems="2">
+    <Parameter ID="FBase" Indent="0">om</Parameter>
+    <Parameter ID="Desc" Indent="0">Вектор вихря</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="1">
+     <pContact ID="Phase" PublicID="PhaseOmega" PublicName="Фаза (Omega)"/>
+   </PublishedInputs>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Vx">
+     <Link ElementID="Omegax" ContID="Vector" Color="#FF8000" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+    <Contact ID="Vy">
+     <Link ElementID="Omegay" ContID="Vector" Color="#FF8000" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+    <Contact ID="Vz">
+     <Link ElementID="Omegaz" ContID="Vector" Color="#FF8000" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Projection" ParentID="" ID="Omegax" Permanent="True">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="588" Top="363"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Init" Indent="0">0</Parameter>
+    <Parameter ID="Restrict" Indent="0">Any</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Vector">
+     <Link ElementID="Omega" ContID="Vx" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="EqOmegax" ContID="Calc" Color="clBlack" Informational="False">
+      <Points NumItems="1">884,405</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Projection" ParentID="" ID="Omegay" Permanent="True">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="590" Top="426"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Init" Indent="0">0</Parameter>
+    <Parameter ID="Restrict" Indent="0">Any</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Vector">
+     <Link ElementID="Omega" ContID="Vy" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="EqOmegay" ContID="Calc" Color="clBlack" Informational="False">
+      <Points NumItems="1">771,480</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Projection" ParentID="" ID="Omegaz" Permanent="True">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="582" Top="558"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Init" Indent="0">0</Parameter>
+    <Parameter ID="Restrict" Indent="0">Any</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Vector">
+     <Link ElementID="Omega" ContID="Vz" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="EqOmegaz" ContID="Calc" Color="clBlack" Informational="False">
+      <Points NumItems="3">701,593,791,593,821,575</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Vector" ParentID="" ID="Psi" Permanent="True">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="402" Top="538"/>
+   <Parameters NumItems="2">
+    <Parameter ID="FBase" Indent="0">psi</Parameter>
+    <Parameter ID="Desc" Indent="0">Векторный потенциал</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="1">
+     <pContact ID="Phase" PublicID="PhasePsi" PublicName="Фаза (Psi)"/>
+   </PublishedInputs>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Vx">
+     <Link ElementID="Psix" ContID="Vector" Color="#FF8000" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+    <Contact ID="Vy">
+     <Link ElementID="Psiy" ContID="Vector" Color="#FF8000" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+    <Contact ID="Vz">
+     <Link ElementID="Psiz" ContID="Vector" Color="#FF8000" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Projection" ParentID="" ID="Psix" Permanent="True">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="584" Top="637"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Init" Indent="0">0</Parameter>
+    <Parameter ID="Restrict" Indent="0">Any</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Vector">
+     <Link ElementID="Psi" ContID="Vx" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="EqPsix" ContID="Calc" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Projection" ParentID="" ID="Psiy" Permanent="True">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="590" Top="693"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Init" Indent="0">0</Parameter>
+    <Parameter ID="Restrict" Indent="0">Any</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Vector">
+     <Link ElementID="Psi" ContID="Vy" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="EqPsiy" ContID="Calc" Color="clBlack" Informational="False">
+      <Points NumItems="2">780,739,786,760</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Projection" ParentID="" ID="Psiz" Permanent="True">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="590" Top="749"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Init" Indent="0">0</Parameter>
+    <Parameter ID="Restrict" Indent="0">Any</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Vector">
+     <Link ElementID="Psi" ContID="Vz" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="EqPsiz" ContID="Calc" Color="clBlack" Informational="False">
+      <Points NumItems="1">825,796</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_PoissonEquation" ParentID="" ID="EqPsix" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="795" Top="651"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Handler" Indent="0">PoissonSolver</Parameter>
+    <Parameter ID="NuMol" Indent="0">0.0</Parameter>
+    <Parameter ID="Kappa" Indent="0">0.0</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="1">
+     <pContact ID="Bound" PublicID="BoundPsix" PublicName="Гран (Psix)"/>
+   </PublishedInputs>
+   <PublishedOutputs NumItems="1">
+     <pContact ID="Solver" PublicID="SolvePsix" PublicName="Реш (Psix)"/>
+   </PublishedOutputs>
+   <InputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="Psix" ContID="Calc" Informational="False"/>
+    </Contact>
+    <Contact ID="K">
+     <Link ElementID="K_Psix" ContID="Val" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks/>
+  </Element>
+  <Element ClassID="clsE_PoissonEquation" ParentID="" ID="EqPsiy" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="916" Top="718"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Handler" Indent="0">PoissonSolver</Parameter>
+    <Parameter ID="NuMol" Indent="0">0.0</Parameter>
+    <Parameter ID="Kappa" Indent="0">0.0</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="1">
+     <pContact ID="Bound" PublicID="BoundPsiy" PublicName="Гран (Psiy)"/>
+   </PublishedInputs>
+   <PublishedOutputs NumItems="1">
+     <pContact ID="Solver" PublicID="SolvePsiy" PublicName="Реш (Psiy)"/>
+   </PublishedOutputs>
+   <InputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="Psiy" ContID="Calc" Informational="False"/>
+    </Contact>
+    <Contact ID="K">
+     <Link ElementID="K_Psiy" ContID="Val" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks/>
+  </Element>
+  <Element ClassID="clsE_PoissonEquation" ParentID="" ID="EqPsiz" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="917" Top="827"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Handler" Indent="0">PoissonSolver</Parameter>
+    <Parameter ID="NuMol" Indent="0">0.0</Parameter>
+    <Parameter ID="Kappa" Indent="0">0.0</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="1">
+     <pContact ID="Bound" PublicID="BoundPsiz" PublicName="Гран (Psiz)"/>
+   </PublishedInputs>
+   <PublishedOutputs NumItems="1">
+     <pContact ID="Solver" PublicID="SolvePsiz" PublicName="Реш (Psiz)"/>
+   </PublishedOutputs>
+   <InputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="Psiz" ContID="Calc" Informational="False"/>
+    </Contact>
+    <Contact ID="K">
+     <Link ElementID="K_Psiz" ContID="Val" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks/>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="K_Omegax" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="735" Top="410"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0">double dUxdx = Split{0.0,dFdx(Ux)};
+double dUydy = Split{0.0,dFdy(Uy)};
+double dUzdz = Split{0.0,dFdz(Uz)};
+
+double dUxdy = Split{0.0,dFdy(Ux)};
+double dUydz = Split{0.0,dFdz(Uy)};
+double dUzdx = Split{0.0,dFdx(Uz)};
+
+double dUxdz = Split{0.0,dFdz(Ux)};
+double dUydx = Split{0.0,dFdx(Uy)};
+double dUzdy = Split{0.0,dFdy(Uz)};
+</Parameter>
+    <Parameter ID="Expression" Indent="0">Split{0.0,Omegay*dUxdy+Omegaz*dUxdz+(dRdFdx2(Omegax,Nu)+dRdFdy2(Omegax,Nu)+dRdFdz2(Omegax,Nu))};</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqOmegax" ContID="K" Color="clBlack" Informational="False">
+      <Points NumItems="2">824,417,874,417</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="K_Omegay" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="611" Top="482"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0">double dUxdx = Split{0.0,dFdx(Ux)};
+double dUydy = Split{0.0,dFdy(Uy)};
+double dUzdz = Split{0.0,dFdz(Uz)};
+
+double dUxdy = Split{0.0,dFdy(Ux)};
+double dUydz = Split{0.0,dFdz(Uy)};
+double dUzdx = Split{0.0,dFdx(Uz)};
+
+double dUxdz = Split{0.0,dFdz(Ux)};
+double dUydx = Split{0.0,dFdx(Uy)};
+double dUzdy = Split{0.0,dFdy(Uz)};
+</Parameter>
+    <Parameter ID="Expression" Indent="0">Split{0.0,Omegax*dUydx+Omegaz*dUydz+(dRdFdx2(Omegay,Nu)+dRdFdy2(Omegay,Nu)+dRdFdz2(Omegay,Nu))};</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqOmegay" ContID="K" Color="clBlack" Informational="False">
+      <Points NumItems="2">698,491,795,503</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="K_Omegaz" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="717" Top="600"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0">double dUxdx = Split{0.0,dFdx(Ux)};
+double dUydy = Split{0.0,dFdy(Uy)};
+double dUzdz = Split{0.0,dFdz(Uz)};
+
+double dUxdy = Split{0.0,dFdy(Ux)};
+double dUydz = Split{0.0,dFdz(Uy)};
+double dUzdx = Split{0.0,dFdx(Uz)};
+
+double dUxdz = Split{0.0,dFdz(Ux)};
+double dUydx = Split{0.0,dFdx(Uy)};
+double dUzdy = Split{0.0,dFdy(Uz)};
+</Parameter>
+    <Parameter ID="Expression" Indent="0">Split{0.0,Omegax*dUzdx+Omegay*dUzdy+(dRdFdx2(Omegaz,Nu)+dRdFdy2(Omegaz,Nu)+dRdFdz2(Omegaz,Nu))};</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqOmegaz" ContID="K" Color="clBlack" Informational="False">
+      <Points NumItems="1">813,591</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="K_Psix" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="701" Top="694"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">dFdx(DivPsi)-Omegax;</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqPsix" ContID="K" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="K_Psiy" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="707" Top="748"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">dFdy(DivPsi)-Omegay;</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqPsiy" ContID="K" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="K_Psiz" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="829" Top="863"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">dFdz(DivPsi)-Omegaz;</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqPsiz" ContID="K" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="S_Omegax" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="931" Top="465"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0">double dUxdx = Split{0.0,dFdx(Ux)};
+double dUydy = Split{0.0,dFdy(Uy)};
+double dUzdz = Split{0.0,dFdz(Uz)};
+
+double dUxdy = Split{0.0,dFdy(Ux)};
+double dUydz = Split{0.0,dFdz(Uy)};
+double dUzdx = Split{0.0,dFdx(Uz)};
+
+double dUxdz = Split{0.0,dFdz(Ux)};
+double dUydx = Split{0.0,dFdx(Uy)};
+double dUzdy = Split{0.0,dFdy(Uz)};
+</Parameter>
+    <Parameter ID="Expression" Indent="0">Split{0.0,dUxdx};</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqOmegax" ContID="S" Color="#8080FF" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="S_Omegaz" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="927" Top="653"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0">double dUxdx = Split{0.0,dFdx(Ux)};
+double dUydy = Split{0.0,dFdy(Uy)};
+double dUzdz = Split{0.0,dFdz(Uz)};
+
+double dUxdy = Split{0.0,dFdy(Ux)};
+double dUydz = Split{0.0,dFdz(Uy)};
+double dUzdx = Split{0.0,dFdx(Uz)};
+
+double dUxdz = Split{0.0,dFdz(Ux)};
+double dUydx = Split{0.0,dFdx(Uy)};
+double dUzdy = Split{0.0,dFdy(Uz)};
+</Parameter>
+    <Parameter ID="Expression" Indent="0">Split{0.0,dUzdz};</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqOmegaz" ContID="S" Color="#8080FF" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="S_Omegay" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="718" Top="555"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0">double dUxdx = Split{0.0,dFdx(Ux)};
+double dUydy = Split{0.0,dFdy(Uy)};
+double dUzdz = Split{0.0,dFdz(Uz)};
+
+double dUxdy = Split{0.0,dFdy(Ux)};
+double dUydz = Split{0.0,dFdz(Uy)};
+double dUzdx = Split{0.0,dFdx(Uz)};
+
+double dUxdz = Split{0.0,dFdz(Ux)};
+double dUydx = Split{0.0,dFdx(Uy)};
+double dUzdy = Split{0.0,dFdy(Uz)};
+</Parameter>
+    <Parameter ID="Expression" Indent="0">Split{0.0,dUydy};</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqOmegay" ContID="S" Color="#8080FF" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_WhirlEquation" ParentID="" ID="EqOmegax" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="920" Top="361"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Handler" Indent="0">NULL</Parameter>
+    <Parameter ID="NuMol" Indent="0">@D</Parameter>
+    <Parameter ID="Kappa" Indent="0">1</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="1">
+     <pContact ID="K" PublicID="K_Omegax" PublicName="K (Omegax)"/>
+   </PublishedInputs>
+   <PublishedOutputs NumItems="1">
+     <pContact ID="Solver" PublicID="SolveOmegax" PublicName="Реш (Omegax)"/>
+   </PublishedOutputs>
+   <InputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="Omegax" ContID="Calc" Informational="False"/>
+    </Contact>
+    <Contact ID="K">
+     <Link ElementID="K_Omegax" ContID="Val" Informational="False"/>
+    </Contact>
+    <Contact ID="Bound">
+     <Link ElementID="B_Omegax_R" ContID="Val" Informational="False"/>
+     <Link ElementID="B_Omegax_L" ContID="Val" Informational="False"/>
+     <Link ElementID="B_Omegax_F" ContID="Val" Informational="False"/>
+     <Link ElementID="B_Omegax_B" ContID="Val" Informational="False"/>
+     <Link ElementID="B_Omegax_U" ContID="Val" Informational="False"/>
+     <Link ElementID="B_Omegax_D" ContID="Val" Informational="False"/>
+    </Contact>
+    <Contact ID="S">
+     <Link ElementID="S_Omegax" ContID="Val" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks/>
+  </Element>
+  <Element ClassID="clsE_WhirlEquation" ParentID="" ID="EqOmegay" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="817" Top="482"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Handler" Indent="0">NULL</Parameter>
+    <Parameter ID="NuMol" Indent="0">@D</Parameter>
+    <Parameter ID="Kappa" Indent="0">1</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="1">
+     <pContact ID="K" PublicID="K_Omegay" PublicName="K (Omegay)"/>
+   </PublishedInputs>
+   <PublishedOutputs NumItems="1">
+     <pContact ID="Solver" PublicID="SolveOmegay" PublicName="Реш (Omegay)"/>
+   </PublishedOutputs>
+   <InputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="Omegay" ContID="Calc" Informational="False"/>
+    </Contact>
+    <Contact ID="K">
+     <Link ElementID="K_Omegay" ContID="Val" Informational="False"/>
+    </Contact>
+    <Contact ID="Bound">
+     <Link ElementID="B_Omegay_R" ContID="Val" Informational="False"/>
+     <Link ElementID="B_Omegay_L" ContID="Val" Informational="False"/>
+     <Link ElementID="B_Omegay_F" ContID="Val" Informational="False"/>
+     <Link ElementID="B_Omegay_B" ContID="Val" Informational="False"/>
+     <Link ElementID="B_Omegay_U" ContID="Val" Informational="False"/>
+     <Link ElementID="B_Omegay_D" ContID="Val" Informational="False"/>
+    </Contact>
+    <Contact ID="S">
+     <Link ElementID="S_Omegay" ContID="Val" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks/>
+  </Element>
+  <Element ClassID="clsE_WhirlEquation" ParentID="" ID="EqOmegaz" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="927" Top="549"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Handler" Indent="0">NULL</Parameter>
+    <Parameter ID="NuMol" Indent="0">@D</Parameter>
+    <Parameter ID="Kappa" Indent="0">1</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="1">
+     <pContact ID="K" PublicID="K_Omegaz" PublicName="K (Omegaz)"/>
+   </PublishedInputs>
+   <PublishedOutputs NumItems="1">
+     <pContact ID="Solver" PublicID="SolveOmegaz" PublicName="Реш (Omegaz)"/>
+   </PublishedOutputs>
+   <InputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="Omegaz" ContID="Calc" Informational="False"/>
+    </Contact>
+    <Contact ID="K">
+     <Link ElementID="K_Omegaz" ContID="Val" Informational="False"/>
+    </Contact>
+    <Contact ID="Bound">
+     <Link ElementID="B_Omegaz_R" ContID="Val" Informational="False"/>
+     <Link ElementID="B_Omegaz_L" ContID="Val" Informational="False"/>
+     <Link ElementID="B_Omegaz_F" ContID="Val" Informational="False"/>
+     <Link ElementID="B_Omegaz_B" ContID="Val" Informational="False"/>
+     <Link ElementID="B_Omegaz_U" ContID="Val" Informational="False"/>
+     <Link ElementID="B_Omegaz_D" ContID="Val" Informational="False"/>
+    </Contact>
+    <Contact ID="S">
+     <Link ElementID="S_Omegaz" ContID="Val" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks/>
+  </Element>
+  <Element ClassID="clsE_Var" ParentID="" ID="DivPsi" Permanent="True">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="407" Top="28"/>
+   <Parameters NumItems="4">
+    <Parameter ID="Init" Indent="0">0</Parameter>
+    <Parameter ID="Restrict" Indent="0">Any</Parameter>
+    <Parameter ID="FBase" Indent="0">dpsi</Parameter>
+    <Parameter ID="Desc" Indent="0">Дивергенция потенциала</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="1">
+     <pContact ID="Phase" PublicID="PhaseDivPsi" PublicName="Фаза (DivPsi)"/>
+   </PublishedInputs>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="EqDivPsi" ContID="Calc" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_DirectEquation" ParentID="" ID="EqDivPsi" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="695" Top="3"/>
+   <Parameters NumItems="1">
+    <Parameter ID="Handler" Indent="0">DirectSolver</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="1">
+     <pContact ID="Bound" PublicID="BoundDivPsi" PublicName="Гран (DivPsi)"/>
+   </PublishedInputs>
+   <PublishedOutputs NumItems="1">
+     <pContact ID="Solver" PublicID="SolveDivPsi" PublicName="Реш (DivPsi)"/>
+   </PublishedOutputs>
+   <InputLinks>
+    <Contact ID="Calc">
+     <Link ElementID="DivPsi" ContID="Calc" Informational="False"/>
+    </Contact>
+    <Contact ID="K">
+     <Link ElementID="K_DivPsi" ContID="Val" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks/>
+  </Element>
+  <Element ClassID="clsE_Function" ParentID="" ID="K_DivPsi" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="579" Top="85"/>
+   <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">Split{0.0, dFdx(Psix)+dFdy(Psiy)+dFdz(Psiz)};</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqDivPsi" ContID="K" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_BoundFunction" ParentID="" ID="B_Omegay_R" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="683" Top="516"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">Result = IsCond(Omegay,A) ? 2.0*(-Psiy[left]-HX[XM]*(_dFdy(_right,Psix)+_rg(Uz)))/HX[XM]/HX[XM] :
+         IsCond(Omegay,B) ? 2.0*(-Psiy[left]+_rg(Psiy)-HX[XM]*_rg(Uz))/HX[XM]/HX[XM]+_dFdz(_right,Ux) :
+         _rg(Omegay);
+</Parameter>
+    <Parameter ID="Bound" Indent="0">Right(X+)</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqOmegay" ContID="Bound" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_BoundFunction" ParentID="" ID="B_Omegay_L" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="690" Top="509"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">Result = IsCond(Omegay,A) ?
+            2.0*(-Psiy[right]+HX[x]* (_dFdy(_left,Psix)+_lf(Uz)))/HX[x]/HX[x]
+         : IsCond(Omegay,B) ?
+            2.0*(-Psiy[right]+_lf(Psiy)+HX[x]* _lf(Uz))/HX[x]/HX[x]+_dFdz(_left,Ux)
+         : _lf(Omegay);
+</Parameter>
+    <Parameter ID="Bound" Indent="0">Left(X-)</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqOmegay" ContID="Bound" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_BoundFunction" ParentID="" ID="B_Omegay_F" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="696" Top="502"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">Result = IsCond(Omegay,A) ?
+            _dFdz(_forw,Ux)-_dFdx(_forw,Uz)
+         : IsCond(Omegay,B) ?
+            _dFdz(_forw,Ux)-_dFdx(_forw,Uz)
+         : _fw(Omegay);
+</Parameter>
+    <Parameter ID="Bound" Indent="0">Forw(Y+)</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqOmegay" ContID="Bound" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_BoundFunction" ParentID="" ID="B_Omegay_B" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="705" Top="510"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">Result = IsCond(Omegay,A) ?
+            _dFdz(_back,Ux)-_dFdx(_back,Uz)
+         : IsCond(Omegay,B) ?
+            _dFdz(_back,Ux)-_dFdx(_back,Uz)
+         : _bw(Omegay);
+</Parameter>
+    <Parameter ID="Bound" Indent="0">Backw(Y-)</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqOmegay" ContID="Bound" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_BoundFunction" ParentID="" ID="B_Omegay_U" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="716" Top="518"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">Result = IsCond(Omegay,A) ?
+            2.0*(-Psiy[down]-HZ_ZM* (_dFdy(_top,Psiz)-_tp(Ux)))/HZ_ZM/HZ_ZM
+         : IsCond(Omegay,B) ?
+            2.0*(-Psiy[down]+_tp(Psiy)+HZ_ZM* _tp(Ux))/HZ_ZM/HZ_ZM-_dFdx(_top,Uz)
+         : _tp(Omegay);
+</Parameter>
+    <Parameter ID="Bound" Indent="0">Up(Z+)</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqOmegay" ContID="Bound" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_BoundFunction" ParentID="" ID="B_Omegay_D" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="730" Top="516"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">Result = IsCond(Omegay,A) ?
+            2.0*(-Psiy[up]+HZ[z]* (_dFdy(_bottom,Psiz)-_bt(Ux)))/HZ[z]/HZ[z]
+         : IsCond(Omegay,B) ?
+            2.0*(-Psiy[up]+_bt(Psiy)-HZ[z]* _bt(Ux))/HZ[z]/HZ[z]-_dFdx(_bottom,Uz)
+         : _bt(Omegay);
+</Parameter>
+    <Parameter ID="Bound" Indent="0">Down(Z-)</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqOmegay" ContID="Bound" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_BoundFunction" ParentID="" ID="B_Omegax_R" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="829" Top="423"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">Result = IsCond(Omegax,A) ?
+            _dFdy(_right,Uz)-_dFdz(_right,Uy)
+         : IsCond(Omegax,B) ?
+            _dFdy(_right,Uz)-_dFdz(_right,Uy)
+         : _rg(Omegax);
+</Parameter>
+    <Parameter ID="Bound" Indent="0">Right(X+)</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqOmegax" ContID="Bound" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_BoundFunction" ParentID="" ID="B_Omegax_L" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="817" Top="432"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">Result = IsCond(Omegax,A) ?
+            _dFdy(_left,Uz)-_dFdz(_left,Uy)
+         : IsCond(Omegax,B) ?
+            _dFdy(_left,Uz)-_dFdz(_left,Uy)
+         : _lf(Omegax);
+</Parameter>
+    <Parameter ID="Bound" Indent="0">Left(X-)</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqOmegax" ContID="Bound" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_BoundFunction" ParentID="" ID="B_Omegax_F" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="828" Top="440"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">Result = IsCond(Omegax,A) ?
+            2.0*(-Psix[back]-HY[YM]*(_dFdx(_forw,Psiy)-_fw(Uz)))/HY[YM]/HY[YM]
+         : IsCond(Omegax,B) ?
+            2.0*(-Psix[back]+_fw(Psix)+HY[YM]*_fw(Uz))/HY[YM]/HY[YM]-_dFdz(_forw,Uy)
+         : _fw(Omegax);
+</Parameter>
+    <Parameter ID="Bound" Indent="0">Forw(Y+)</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqOmegax" ContID="Bound" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_BoundFunction" ParentID="" ID="B_Omegax_B" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="839" Top="445"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">Result = IsCond(Omegax,A) ?
+            2.0*(-Psix[forw]+HY[y]* (_dFdx(_back,Psiy)-_bw(Uz)))/HY[y]/HY[y]
+         : IsCond(Omegax,B) ?
+            2.0*(-Psix[forw]+_bw(Psix)-HY[y] *_bw(Uz))/HY[y]/HY[y]-_dFdz(_back,Uy)
+         : _bw(Omegax);
+</Parameter>
+    <Parameter ID="Bound" Indent="0">Backw(Y-)</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqOmegax" ContID="Bound" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_BoundFunction" ParentID="" ID="B_Omegax_U" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="850" Top="432"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">Result = IsCond(Omegax,A) ?
+            2.0*(-Psix[down]-HZ_ZM* (_dFdx(_top,Psiz)+_tp(Uy)))/HZ_ZM/HZ_ZM
+         : IsCond(Omegax,B) ?
+            2.0*(-Psix[down]+_tp(Psix)-HZ_ZM *_tp(Uy))/HZ_ZM/HZ_ZM+_dFdy(_top,Uz)
+         : _tp(Omegax);
+</Parameter>
+    <Parameter ID="Bound" Indent="0">Up(Z+)</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqOmegax" ContID="Bound" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_BoundFunction" ParentID="" ID="B_Omegax_D" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="804" Top="453"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">Result = IsCond(Omegax,A) ?
+            2.0*(-Psix[up]+HZ[z]* (_dFdx(_bottom,Psiz)+_bt(Uy)))/HZ[z]/HZ[z]
+         : IsCond(Omegax,B) ?
+            2.0*(-Psix[up]+_bt(Psix)+HZ[z] *_bt(Uy))/HZ[z]/HZ[z]+_dFdy(_bottom,Uz)
+         : _bt(Omegax);
+</Parameter>
+    <Parameter ID="Bound" Indent="0">Down(Z-)</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqOmegax" ContID="Bound" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_BoundFunction" ParentID="" ID="B_Omegaz_R" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="815" Top="597"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">Result = IsCond(Omegaz,A) ?
+            2.0*(-Psiz[left]-HX[XM]*(_dFdz(_right,Psix)-_rg(Uy)))/HX[XM]/HX[XM]
+         : IsCond(Omegaz,B) ?
+            2.0*(-Psiz[left]+_rg(Psiz)+HX[XM]*_rg(Uy))/HX[XM]/HX[XM]-_dFdy(_right,Ux)
+         : _rg(Omegaz);
+</Parameter>
+    <Parameter ID="Bound" Indent="0">Right(X+)</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqOmegaz" ContID="Bound" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_BoundFunction" ParentID="" ID="B_Omegaz_L" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="807" Top="607"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">Result = IsCond(Omegaz,A) ?
+            2.0*(-Psiz[right]+HX[x]*(_dFdz(_left,Psix)- _lf(Uy)))/HX[x]/HX[x]
+         : IsCond(Omegaz,B) ?
+            2.0*(-Psiz[right]+_lf(Psiz)-HX[x] *_lf(Uy))/HX[x]/HX[x]-_dFdy(_left,Ux)
+         : _lf(Omegaz);
+</Parameter>
+    <Parameter ID="Bound" Indent="0">Left(X-)</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqOmegaz" ContID="Bound" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_BoundFunction" ParentID="" ID="B_Omegaz_F" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="799" Top="618"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">Result = IsCond(Omegaz,A) ?
+            2.0*(-Psiz[back]-HY[YM]*(_dFdz(_forw,Psiy)+_fw(Ux)))/HY[YM]/HY[YM]
+         : IsCond(Omegaz,B) ?
+            2.0*(-Psiz[back]+_fw(Psiz)-HY[YM]*_fw(Ux))/HY[YM]/HY[YM]+_dFdx(_forw,Uy)
+         : _fw(Omegaz);
+</Parameter>
+    <Parameter ID="Bound" Indent="0">Forw(Y+)</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqOmegaz" ContID="Bound" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_BoundFunction" ParentID="" ID="B_Omegaz_B" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="831" Top="594"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">Result = IsCond(Omegaz,A) ?
+            2.0*(-Psiz[forw]+HY[y]*(_dFdz(_back,Psiy)+ _bw(Ux)))/HY[y]/HY[y]
+         : IsCond(Omegaz,B) ?
+            2.0*(-Psiz[forw]+_bw(Psiz)+HY[y] *_bw(Ux))/HY[y]/HY[y]+_dFdx(_back,Uy)
+         : _bw(Omegaz);
+</Parameter>
+    <Parameter ID="Bound" Indent="0">Backw(Y-)</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqOmegaz" ContID="Bound" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_BoundFunction" ParentID="" ID="B_Omegaz_U" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="847" Top="600"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">Result = IsCond(Omegaz,A) ?
+            _dFdx(_top,Uy)-_dFdy(_top,Ux)
+         : IsCond(Omegaz,B) ?
+            _dFdx(_top,Uy)-_dFdy(_top,Ux)
+         : _tp(Omegaz);
+</Parameter>
+    <Parameter ID="Bound" Indent="0">Up(Z+)</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqOmegaz" ContID="Bound" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsE_BoundFunction" ParentID="" ID="B_Omegaz_D" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="833" Top="616"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">Result = IsCond(Omegaz,A) ?
+            _dFdx(_bottom,Uy)-_dFdy(_bottom,Ux)
+         : IsCond(Omegaz,B) ?
+            _dFdx(_bottom,Uy)-_dFdy(_bottom,Ux)
+         : _bt(Omegaz);
+</Parameter>
+    <Parameter ID="Bound" Indent="0">Down(Z-)</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="EqOmegaz" ContID="Bound" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+ </Elements>
+</System>

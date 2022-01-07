@@ -1,0 +1,110 @@
+	MODULES		= ARRAY('1')
+	MODULES[1]	= MODULE("Auto",0)
+
+	FUNCS["BOUND2_1D"]	= FUNC('"Bound2_1D(" A[1] "," A[2] "," A[3] "," A[4] ")"',1,0)
+	FUNCS["BOUND2_2D"]	= FUNC('"Bound2_2D(" A[1] "," A[2] "," A[3] "," A[4] "," A[5] "," A[6] ")"',1,0)
+	FUNCS["BOUND2_3D"]	= FUNC('"Bound2_3D(" A[1] "," A[2] "," A[3] "," A[4] "," A[5] "," A[6] "," A[7] "," A[8] ")"',1,0)
+	FUNCS["ISNOTBOUND"]	= FUNC('"IsNotBound(" A[1] ")"',1,0)
+	FUNCS["COPY"]		= FUNC('A[1] " := " A[2]',0,0)
+	FUNCS["TRUNC"]		= FUNC('"Trunc(" A[1] ")"',0,0)
+	FUNCS["SIZE"]		= FUNC('"SizeOf(" A[1] ")"',0,0)
+	FUNCS["FILEOPEN"]	= FUNC('"Assign(" A[1] "," A[2] "); Reset(" A[1] ",1)"',0,0)
+	FUNCS["FILEREAD"]	= FUNC('"BlockRead(" A[1] "," A[2] "," A[3] ")"',0,0)
+	FUNCS["FILECLOSE"]	= FUNC('"Close(" A[1] ")"',0,0)
+	FUNCS["ABS"]		= FUNC('"Abs(" A[1] ")"',0,0)
+	FUNCS["GRADX_1D"]	= FUNC('"GradX_1D(" A[1] "," A[2] "," A[3] "," A[4] ")"',1,0)
+	FUNCS["GRADX_2D"]	= FUNC('"GradX_2D(" A[1] "," A[2] "," A[3] "," A[4] "," A[5] "," A[6] "," A[7] ")"',1,0)
+	FUNCS["GRADY_2D"]	= FUNC('"GradY_2D(" A[1] "," A[2] "," A[3] "," A[4] "," A[5] "," A[6] "," A[7] ")"',1,0)
+	FUNCS["GRADX_3D"]	= FUNC('"GradX_3D(" A[1] "," A[2] "," A[3] "," A[4] "," A[5] "," A[6] "," A[7] "," A[8] "," A[9] "," A[10] ")"',1,0)
+	FUNCS["GRADY_3D"]	= FUNC('"GradY_3D(" A[1] "," A[2] "," A[3] "," A[4] "," A[5] "," A[6] "," A[7] "," A[8] "," A[9] "," A[10] ")"',1,0)
+	FUNCS["GRADZ_3D"]	= FUNC('"GradZ_3D(" A[1] "," A[2] "," A[3] "," A[4] "," A[5] "," A[6] "," A[7] "," A[8] "," A[9] "," A[10] ")"',1,0)
+
+	SymbolQ		= "'"
+	StringQ		= "'"
+
+	LeftIdx		= "["
+	RightIdx	= "]"
+
+	LowDim		= "1"
+	HighDimTag	= ""
+
+	DerefStr	= ""
+	PtrStr		= ""
+
+	EQ_OP		= " = "
+	NE_OP		= " <> "
+	GE_OP		= " >= "
+	LE_OP		= " <= "
+	GT_OP		= " > "
+	LT_OP		= " < "
+
+	AND_OP		= " And "
+	OR_OP		= " Or "
+
+	LogLQ		= "("
+	LogRQ		= ")"
+
+	T_FILE		= "File"
+	T_CHAR		= "Char"
+	T_INT		= "Integer"
+	T_LONGINT	= "LongInt"
+	T_LONGLONGINT	= "Comp"
+	T_FLOAT		= "Single"
+	T_DOUBLE	= "Double"
+	T_LONGDOUBLE	= "Extended"
+
+	PrmByRefTmpl	= '"Var " ID ":" NTp'
+	PrmByValTmpl	= '"Const " ID ":" NTp'
+	PrmByRefArrTmpl	= PrmByRefTmpl
+
+	BeforeDim	= "1.."
+	SeparateDim	= ","
+	TypedefTmpl	= '"Type " TypeID " = Array[" Idxs "] Of " TYPE(BaseTypeID) ";"'
+
+	ArrayVarDefTmpl	= '"Var " VarID ":Array[1.." Dim "] Of " TYPE(TypeID) ";"'
+	VarDefTmpl	= '"Var " VarID ":" TYPE(TypeID) ";"'
+
+	ProcedureHdr	= "Procedure "
+	PrmSeparator	= ";"
+	ProcedureTag	= ";"
+
+	SetTmpl		= 'EXPR(VarID,.EE) " := " E1 ";"'
+
+	AnyForUnwrap	= 1
+	SeparateDefs	= 1
+
+	AnyForHeaderTmpl = '"While " VarID " <= " E2 " Do Begin"'
+	IncForHeaderTmpl = '"For " VarID " := " E1 " To " E2 " Do Begin"'
+	DecForHeaderTmpl = '"For " VarID " := " E1 " Downto " E2 " Do Begin"'
+	AddForTmpl	= '"Inc(" VarID "," E ");"'
+
+	BegStr		= "Begin"
+	EndStr		= "End;"
+
+	MainPartStr	= ""
+	EndProgStr	= 'End.'
+
+	BeforeFirstIncl	= 'Uses '
+	BeforeOtherIncl	= '     '
+	AfterLastIncl	= ';'
+	AfterOtherIncl	= ','
+
+	IfTmpl		= '"If " LOGEXPR(Log,.T) " Then Begin"'
+	ElseStr		= "End Else Begin"
+
+	WhileTmpl	= '"While " LOGEXPR(Log,.T) " Do Begin"'
+
+	SelectTmpl	= '"Case " EXPR(Sel,.T) " Of"'
+	SelectorTmpl	= 'Val ": Begin"'
+	ElseSelector	= 'Else Begin'
+	EndSelector	= 'End;'
+
+	IncTmpl		= '"Inc(" VarID ");"'
+	DecTmpl		= '"Dec(" VarID ");"'
+	AddTmpl		= '"Inc(" VarID "," E1 ");"'
+
+	EndLineStr	= ";"
+
+	ConstTmpl	= '"Const " ConstID " = " Val ";"'
+
+	ProgHeader	= "Program AutoGen;"

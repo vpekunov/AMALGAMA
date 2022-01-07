@@ -1,0 +1,23 @@
+@versions(Auto)
+
+* Afv0io($i0,&$o1): (count(/*/Link[Name/text()="Afv" and Right/Value/text()=$i0 and set($o1,Left/Value/text())]) > 0).
+
+* Ami0io($i0,&$o1): (count(/*/Link[Name/text()="Ami" and Right/Value/text()=$i0 and set($o1,Left/Value/text())]) > 0).
+
+* Anv0ii($i0,$i1): (count(/*/Link[Name/text()="Anv" and Right/Value/text()=$i0 and Left/Value/text()=$i1]) > 0).
+
+* Ew1Jt1ii($i0,$i1): (count(/*/Link[Name/text()="Ew" and Left/Value/text()=$i0 and set($j0,Right/Value/text())]) > 0) and (count(/*/Link[Name/text()="Jt" and Left/Value/text()=$j0 and Right/Value/text()=$i1]) > 0).
+
+* MVat1io($i0,&$o1): (count(/*/Link[Name/text()="MVat" and Left/Value/text()=$i0 and set($o1,Right/Value/text())]) > 0).
+
+* MVIat0ii($i0,$i1): (count(/*/Link[Name/text()="MVIat" and Right/Value/text()=$i0 and Left/Value/text()=$i1]) > 0).
+
+* MVIv1ii($i0,$i1): (count(/*/Link[Name/text()="MVIv" and Left/Value/text()=$i0 and Right/Value/text()=$i1]) > 0).
+
+* MVv1ii($i0,$i1): (count(/*/Link[Name/text()="MVv" and Left/Value/text()=$i0 and Right/Value/text()=$i1]) > 0).
+
+* MVv1io($i0,&$o1): (count(/*/Link[Name/text()="MVv" and Left/Value/text()=$i0 and set($o1,Right/Value/text())]) > 0).
+
+* MVv1oo(&$o0,&$o1): (count(/*/Link[Name/text()="MVv" and set($o0,Left/Value/text()) and set($o1,Right/Value/text())]) > 0).
+
+

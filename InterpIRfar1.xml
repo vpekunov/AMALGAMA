@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE System [
+<!ELEMENT System (Elements)>
+<!ATTLIST System
+Lang CDATA #REQUIRED
+>
+<!ELEMENT Elements (Element*)>
+<!ATTLIST Elements
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT Element (Show,Position,Parameters,InternalInputs,InternalOutputs,PublishedInputs,PublishedOutputs,InputLinks,OutputLinks)>
+<!ATTLIST Element
+ClassID CDATA #REQUIRED
+ParentID CDATA #REQUIRED
+ID ID #REQUIRED
+Permanent (True | False) #REQUIRED
+>
+<!ELEMENT Show EMPTY>
+<!ATTLIST Show
+Class (True | False) #REQUIRED
+Name (True | False) #REQUIRED
+Image (True | False) #REQUIRED
+>
+<!ELEMENT Position EMPTY>
+<!ATTLIST Position
+Left CDATA #REQUIRED
+Top CDATA #REQUIRED
+>
+<!ELEMENT Parameters (Parameter*)>
+<!ATTLIST Parameters
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT Parameter (#PCDATA | EMPTY)*>
+<!ATTLIST Parameter
+ID CDATA #REQUIRED
+Indent CDATA #IMPLIED
+>
+<!ELEMENT InternalInputs (iContact*)>
+<!ATTLIST InternalInputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT InternalOutputs (iContact*)>
+<!ATTLIST InternalOutputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT iContact EMPTY>
+<!ATTLIST iContact
+ID CDATA #REQUIRED
+ElementID IDREF #REQUIRED
+ContID CDATA #REQUIRED
+>
+<!ELEMENT PublishedInputs (pContact*)>
+<!ATTLIST PublishedInputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT PublishedOutputs (pContact*)>
+<!ATTLIST PublishedOutputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT pContact EMPTY>
+<!ATTLIST pContact
+ID CDATA #REQUIRED
+PublicID CDATA #REQUIRED
+PublicName CDATA #REQUIRED
+>
+<!ELEMENT InputLinks (Contact*)>
+<!ELEMENT OutputLinks (Contact*)>
+<!ELEMENT Contact (Link*)>
+<!ATTLIST Contact
+ID CDATA #REQUIRED
+>
+<!ELEMENT Link (Points?)>
+<!ATTLIST Link
+ElementID IDREF #REQUIRED
+ContID CDATA #REQUIRED
+Color CDATA #IMPLIED
+Informational (True | False) #REQUIRED
+>
+<!ELEMENT Points (#PCDATA | EMPTY)*>
+<!ATTLIST Points
+NumItems CDATA #REQUIRED
+>
+]>
+<System Lang="">
+ <Elements NumItems="7">
+  <Element ClassID="clsI_Value" ParentID="" ID="X" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="22" Top="158"/>
+   <Parameters NumItems="5">
+    <Parameter ID="MLab" Indent="0"></Parameter>
+    <Parameter ID="MLabDir" Indent="0"></Parameter>
+    <Parameter ID="MLabFuns" Indent="0"></Parameter>
+    <Parameter ID="Init" Indent="0">global LOAD;
+if exist(&apos;LOAD&apos;)==1;
+   LOAD = load(&apos;water_ir_far.dat&apos;);
+end;
+</Parameter>
+    <Parameter ID="Inp" Indent="0">LOAD(:,1)&apos;</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="Net12_7_1" ContID="X" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+     <Link ElementID="Net10_5_1" ContID="X" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+     <Link ElementID="Poly7" ContID="X" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+     <Link ElementID="Poly16" ContID="X" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsI_Dest" ParentID="" ID="Y" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="477" Top="194"/>
+   <Parameters NumItems="5">
+    <Parameter ID="MLab" Indent="0"></Parameter>
+    <Parameter ID="MLabDir" Indent="0"></Parameter>
+    <Parameter ID="MLabFuns" Indent="0"></Parameter>
+    <Parameter ID="Init" Indent="0">global LOAD;
+if exist(&apos;LOAD&apos;)==1;
+   LOAD = load(&apos;water_ir_far.dat&apos;);
+end;
+</Parameter>
+    <Parameter ID="Out" Indent="0">LOAD(:,2)&apos;</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Y">
+     <Link ElementID="Net12_7_1" ContID="Val" Informational="False"/>
+     <Link ElementID="Mul" ContID="Val" Informational="False"/>
+     <Link ElementID="Poly16" ContID="Val" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks/>
+  </Element>
+  <Element ClassID="clsI_UnaryNetwork" ParentID="" ID="Net10_5_1" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="176" Top="169"/>
+   <Parameters NumItems="17">
+    <Parameter ID="MLab" Indent="0"></Parameter>
+    <Parameter ID="MLabDir" Indent="0"></Parameter>
+    <Parameter ID="MLabFuns" Indent="0"></Parameter>
+    <Parameter ID="Inp" Indent="0"></Parameter>
+    <Parameter ID="Res" Indent="0"></Parameter>
+    <Parameter ID="Initialization" Indent="0"></Parameter>
+    <Parameter ID="Goal" Indent="0"></Parameter>
+    <Parameter ID="K" Indent="0"></Parameter>
+    <Parameter ID="R2Norm" Indent="0">1E30</Parameter>
+    <Parameter ID="Selected" Indent="0"></Parameter>
+    <Parameter ID="Stopped" Indent="0">true</Parameter>
+    <Parameter ID="Stack" Indent="0"></Parameter>
+    <Parameter ID="Function" Indent="0">newff(minmax(X),[10 5 1],{&apos;tansig&apos; &apos;tansig&apos; &apos;purelin&apos;})</Parameter>
+    <Parameter ID="Init" Indent="0">network</Parameter>
+    <Parameter ID="NP" Indent="0">3</Parameter>
+    <Parameter ID="Rad" Indent="0">0</Parameter>
+    <Parameter ID="Epochs" Indent="0">80</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="X">
+     <Link ElementID="X" ContID="Val" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="Mul" ContID="X2" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsI_UnaryNetwork" ParentID="" ID="Net12_7_1" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="174" Top="234"/>
+   <Parameters NumItems="17">
+    <Parameter ID="MLab" Indent="0"></Parameter>
+    <Parameter ID="MLabDir" Indent="0"></Parameter>
+    <Parameter ID="MLabFuns" Indent="0"></Parameter>
+    <Parameter ID="Inp" Indent="0"></Parameter>
+    <Parameter ID="Res" Indent="0"></Parameter>
+    <Parameter ID="Initialization" Indent="0"></Parameter>
+    <Parameter ID="Goal" Indent="0"></Parameter>
+    <Parameter ID="K" Indent="0"></Parameter>
+    <Parameter ID="R2Norm" Indent="0">1E30</Parameter>
+    <Parameter ID="Selected" Indent="0"></Parameter>
+    <Parameter ID="Stopped" Indent="0">true</Parameter>
+    <Parameter ID="Stack" Indent="0"></Parameter>
+    <Parameter ID="Function" Indent="0">newff(minmax(X),[12 7 1],{&apos;tansig&apos; &apos;tansig&apos; &apos;purelin&apos;})</Parameter>
+    <Parameter ID="Init" Indent="0">network</Parameter>
+    <Parameter ID="NP" Indent="0">3</Parameter>
+    <Parameter ID="Rad" Indent="0">0</Parameter>
+    <Parameter ID="Epochs" Indent="0">80</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="X">
+     <Link ElementID="X" ContID="Val" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="Y" ContID="Y" Color="clBlack" Informational="False">
+      <Points NumItems="1">366,260</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsI_BinaryFunction" ParentID="" ID="Mul" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="332" Top="135"/>
+   <Parameters NumItems="23">
+    <Parameter ID="MLab" Indent="0"></Parameter>
+    <Parameter ID="MLabDir" Indent="0"></Parameter>
+    <Parameter ID="MLabFuns" Indent="0"></Parameter>
+    <Parameter ID="Inp1" Indent="0"></Parameter>
+    <Parameter ID="Inp2" Indent="0"></Parameter>
+    <Parameter ID="Res" Indent="0"></Parameter>
+    <Parameter ID="Initialization" Indent="0"></Parameter>
+    <Parameter ID="Goal" Indent="0"></Parameter>
+    <Parameter ID="K" Indent="0"></Parameter>
+    <Parameter ID="Recalc" Indent="0">true</Parameter>
+    <Parameter ID="R2Norm" Indent="0">1E30</Parameter>
+    <Parameter ID="Selected" Indent="0"></Parameter>
+    <Parameter ID="State" Indent="0"></Parameter>
+    <Parameter ID="Stopped" Indent="0">true</Parameter>
+    <Parameter ID="Stack" Indent="0"></Parameter>
+    <Parameter ID="Fix" Indent="0"></Parameter>
+    <Parameter ID="Function" Indent="0">X1.*X2</Parameter>
+    <Parameter ID="Init" Indent="0">[]</Parameter>
+    <Parameter ID="VarX" Indent="0">X2</Parameter>
+    <Parameter ID="RevF1" Indent="0">Y./X2</Parameter>
+    <Parameter ID="RevF2" Indent="0">Y./X1</Parameter>
+    <Parameter ID="NP" Indent="0">1</Parameter>
+    <Parameter ID="Rad" Indent="0">[]</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="X1">
+     <Link ElementID="Poly7" ContID="Val" Informational="False"/>
+    </Contact>
+    <Contact ID="X2">
+     <Link ElementID="Net10_5_1" ContID="Val" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="Y" ContID="Y" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsI_UnaryPoly" ParentID="" ID="Poly7" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="176" Top="110"/>
+   <Parameters NumItems="17">
+    <Parameter ID="MLab" Indent="0"></Parameter>
+    <Parameter ID="MLabDir" Indent="0"></Parameter>
+    <Parameter ID="MLabFuns" Indent="0"></Parameter>
+    <Parameter ID="Inp" Indent="0"></Parameter>
+    <Parameter ID="Res" Indent="0"></Parameter>
+    <Parameter ID="Initialization" Indent="0"></Parameter>
+    <Parameter ID="Goal" Indent="0"></Parameter>
+    <Parameter ID="K" Indent="0"></Parameter>
+    <Parameter ID="R2Norm" Indent="0">1E30</Parameter>
+    <Parameter ID="Selected" Indent="0"></Parameter>
+    <Parameter ID="Stopped" Indent="0">true</Parameter>
+    <Parameter ID="Stack" Indent="0"></Parameter>
+    <Parameter ID="Function" Indent="0">polyval(K,X)</Parameter>
+    <Parameter ID="Init" Indent="0">polynom</Parameter>
+    <Parameter ID="NP" Indent="0">1</Parameter>
+    <Parameter ID="Rad" Indent="0">0</Parameter>
+    <Parameter ID="PolyN" Indent="0">7</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="X">
+     <Link ElementID="X" ContID="Val" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="Mul" ContID="X1" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsI_UnaryPoly" ParentID="" ID="Poly16" Permanent="False">
+   <Show Class="False" Name="True" Image="False"/>
+   <Position Left="176" Top="298"/>
+   <Parameters NumItems="17">
+    <Parameter ID="MLab" Indent="0"></Parameter>
+    <Parameter ID="MLabDir" Indent="0"></Parameter>
+    <Parameter ID="MLabFuns" Indent="0"></Parameter>
+    <Parameter ID="Inp" Indent="0"></Parameter>
+    <Parameter ID="Res" Indent="0"></Parameter>
+    <Parameter ID="Initialization" Indent="0"></Parameter>
+    <Parameter ID="Goal" Indent="0"></Parameter>
+    <Parameter ID="K" Indent="0"></Parameter>
+    <Parameter ID="R2Norm" Indent="0">1E30</Parameter>
+    <Parameter ID="Selected" Indent="0"></Parameter>
+    <Parameter ID="Stopped" Indent="0">true</Parameter>
+    <Parameter ID="Stack" Indent="0"></Parameter>
+    <Parameter ID="Function" Indent="0">polyval(K,X)</Parameter>
+    <Parameter ID="Init" Indent="0">polynom</Parameter>
+    <Parameter ID="NP" Indent="0">1</Parameter>
+    <Parameter ID="Rad" Indent="0">0</Parameter>
+    <Parameter ID="PolyN" Indent="0">16</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="X">
+     <Link ElementID="X" ContID="Val" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Val">
+     <Link ElementID="Y" ContID="Y" Color="clBlack" Informational="False">
+      <Points NumItems="1">365,323</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+ </Elements>
+</System>

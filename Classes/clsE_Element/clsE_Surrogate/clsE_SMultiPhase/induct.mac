@@ -1,0 +1,12 @@
+@versions(Auto)
+@context(PREV,infinity):-
+  (((^)|(\.)+)(\s*\\n)*)\s*.
+@glue:-.
+@global_unique(MAIN,infinity):-
+   (([^\w\.]+(\w+)->{P0}[^\w\.]+(\w+)->{P1}[^\w\.]+(\w+)->{P2}[^\.]*\.)->{Grammar.ru{SENTENCE}}(*PRUNE))?=>{
+      xpathf(SENTENCE,'MVv1ii','Введем','мультифазу','true')
+   }.
+ @auto:-"Other" => "Mode",MAIN:"//P0/text()" => "Name",MAIN:"//P1/text()" => "Nc",MAIN:"//P2/text()" => "Model","ID1"+MAIN:"//P1/text()"+"4" => "ID".
+ @goal:-xpath('MAIN','//P0/text()',[VNameText0]),xpath('MAIN','//P1/text()',[VNcText1]),xpath('MAIN','//P2/text()',[VModelText2]),xpath('MAIN','//P1/text()',[VIDText1]),atom_concat('ID1',VIDText1,OPSVPW),atom_concat(OPSVPW,'4',OWLQQJ),assertz(e_smultiphase('Other',VNameText0,VNcText1,VModelText2,OWLQQJ)),!.
+ @done:-clear_db.
+

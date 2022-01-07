@@ -1,0 +1,239 @@
+Clearing MatLAB workspace... wait for 1 sec.
+Warning: Polynomial is badly conditioned. Remove repeated data points
+         or try centering and scaling as described in HELP POLYFIT.
+(Type "warning off MATLAB:polyfit:RepeatedPointsOrRescale" to suppress this warning.)
+> In c:\matlab\toolbox\matlab\polyfun\polyfit.m at line 75
+NewItem37[polyval(K,X)] with Goal(YY') gives K=[-1588320963.7652955,31530078198.133156,-239531619167.23395,903736785011.02405,-2087788180660.4182,4679648362849.5664,-10773863566239.855,14356228455449.15,-6868371994396.8936] with R2Norm = 6375494.0273122787
+Clearing MatLAB workspace... wait for 1 sec.
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+NewItem15[cos(X.*X.*X.*K(1)+X.*X.*K(2)+X.*K(3)+K(4)).*(X.^3*K(5)+X.^2*K(6)+X.*K(7)+K(8))] with Goal(YY') gives K=[1.5764008570879051,2.2504877177077613,1.8743783803698073,-2.8489302206515519,-0.82531599169115,3.7166487109433919,6.462375682149708,-92.22087670756251] with R2Norm = 6360923.8538486622
+Clearing MatLAB workspace... wait for 1 sec.
+NewItem190[X1+X2] has Goal(YY') with K=[0] and R2Norm = 18629083.384486321
+... fix X1=[79.7080078125 79.7080078125 79.7080078125 79.7080078125 79.7080078125 79.7080078125 79.7080078125 79.7080078125 79.7080078125 79.7080078125 79.7080078125 79.7080078125 79.7080078125 79.7080078125 ...]. Plan to enhance in [NewItem15] 
+Clearing MatLAB workspace... wait for 1 sec.
+Warning: Polynomial is badly conditioned. Remove repeated data points
+         or try centering and scaling as described in HELP POLYFIT.
+(Type "warning off MATLAB:polyfit:RepeatedPointsOrRescale" to suppress this warning.)
+> In c:\matlab\toolbox\matlab\polyfun\polyfit.m at line 75
+NewItem36[polyval(K,X)] with Goal(YY') gives K=[1.6998517149755261E-007,-2.3182026607715322E-005,0.0012993774767347777,-0.03848552982371034,0.64498979419900593,-6.0927197281989152,30.617341683988478,-71.838106937708645,119.73057017718538] with R2Norm = 6483579.7004627446
+Clearing MatLAB workspace... wait for 1 sec.
+Maximum number of function evaluations exceeded;
+   increase options.MaxFunEvals
+Maximum number of function evaluations exceeded;
+   increase options.MaxFunEvals
+Maximum number of function evaluations exceeded;
+   increase options.MaxFunEvals
+NewItem14[cos(X.*X.*X.*K(1)+X.*X.*K(2)+X.*K(3)+K(4)).*(X.^3*K(5)+X.^2*K(6)+X.*K(7)+K(8))] with Goal(YY') gives K=[1.9970428903775967,1.8231986204283077,1.1829119003163755,3.8289245439011728,-0.004744248608958627,0.12339166350712809,4.046954698775477,-77.159395358741804] with R2Norm = 16809426.107696399
+Clearing MatLAB workspace... wait for 1 sec.
+NewItem18[X1+X2] has Goal(YY') with K=[0] and R2Norm = 8618122.5110012367
+... fix X1=[73.024865825076901 73.024865825076901 73.024865825076901 73.024865825076901 73.024865825076901 73.024865825076901 73.024865825076901 73.024865825076901 73.024865825076901 73.024865825076901 73.024...]. Plan to enhance in [NewItem14] 
+Clearing MatLAB workspace... wait for 1 sec.
+Warning: Polynomial is badly conditioned. Remove repeated data points
+         or try centering and scaling as described in HELP POLYFIT.
+(Type "warning off MATLAB:polyfit:RepeatedPointsOrRescale" to suppress this warning.)
+> In c:\matlab\toolbox\matlab\polyfun\polyfit.m at line 75
+NewItem35[polyval(K,X)] with Goal(YY') gives K=[-2.6529229210112842E-006,0.00028135280501515383,-0.012264293239633189,0.2821328851633747,-3.6508916662759305,26.111279612086076,-94.199228705562717,145.38680129836669,-37.403451818475176] with R2Norm = 5186221.2640083656
+Clearing MatLAB workspace... wait for 1 sec.
+Maximum number of function evaluations exceeded;
+   increase options.MaxFunEvals
+Maximum number of function evaluations exceeded;
+   increase options.MaxFunEvals
+Maximum number of function evaluations exceeded;
+   increase options.MaxFunEvals
+NewItem13[cos(X.*X.*X.*K(1)+X.*X.*K(2)+X.*K(3)+K(4)).*(X.^3*K(5)+X.^2*K(6)+X.*K(7)+K(8))] with Goal(YY') gives K=[1.6507652400795139,2.0092460423222795,0.9505599551678342,-0.05294668688871744,0.14873667378139221,-7.2015577067697762,93.345388988118955,-265.07631301045916] with R2Norm = 12920527.478456253
+Clearing MatLAB workspace... wait for 1 sec.
+NewItem17[X1+X2] has Goal(YY') with K=[0] and R2Norm = 9989989.6069228575
+... fix X1=[35.327877760946691 20.461752364825003 16.555074391433706 27.632571264659433 48.193255970354173 70.258092898392889 87.313648623346509 95.981433574070692 96.135674690382857 90.085293312711357 81.328...]. Plan to enhance in [NewItem13] 
+Clearing MatLAB workspace... wait for 1 sec.
+Warning: Polynomial is badly conditioned. Remove repeated data points
+         or try centering and scaling as described in HELP POLYFIT.
+(Type "warning off MATLAB:polyfit:RepeatedPointsOrRescale" to suppress this warning.)
+> In c:\matlab\toolbox\matlab\polyfun\polyfit.m at line 75
+NewItem34[polyval(K,X)] with Goal(YY') gives K=[6.0751496477944694E-018,-1.4983903991484439E-014,1.6304324275803526E-011,-8.1477978400144664E-009,1.986838210520504E-006,-0.00023793716890904034,0.01273681560255558,0.64395601406464786,8.3659000142923698] with R2Norm = 1827934.5832976231
+Clearing MatLAB workspace... wait for 1 sec.
+Optimization terminated successfully:
+ Norm of the current step is less than OPTIONS.TolX
+Optimization terminated successfully:
+ Norm of the current step is less than OPTIONS.TolX
+Optimization terminated successfully:
+ Norm of the current step is less than OPTIONS.TolX
+NewItem12[cos(X.*X.*X.*K(1)+X.*X.*K(2)+X.*K(3)+K(4)).*(X.^3*K(5)+X.^2*K(6)+X.*K(7)+K(8))] with Goal(YY') gives K=[1.0000001216885666,0.99993312319967786,1.0095068998247783,1.0245162122054632,-1.2399746685839096E-005,0.0048328716546398032,-0.36670579529918212,-0.56692494861714726] with R2Norm = 19208158.10528772
+Clearing MatLAB workspace... wait for 1 sec.
+NewItem16[X1+X2] has Goal(YY') with K=[0] and R2Norm = 1890668.9791339156
+... fix X1=[8.3659000142923698 134.5342214330343 127.28448443041377 137.28518711479018 146.53477670486038 114.12419766909908 169.38220195694279 157.64556015200503 152.10334006654529 165.82720365340344 135.449...]. Plan to enhance in [NewItem12] 
+Clearing MatLAB workspace... wait for 1 sec.
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+  NewItem15[cos(X.*X.*X.*K(1)+X.*X.*K(2)+X.*K(3)+K(4)).*(X.^3*K(5)+X.^2*K(6)+X.*K(7)+K(8))] with Goal([67.2919921875 59.2919921875 70.2919921875 80.2919921875 44.2919921875 105.2919921875 92.2919921875 86.2919921875 101.2919921875 68.2919921875 57.2919921875 68.2919921875 57.2919921875 28.2919921875 3...]) gives K=[1.7467277859337524,2.2186325206314748,2.3450285960350414,1.9384675819292732,1.9136979649766801,-1.6485213784509019,-16.970395505025326,17.409041148750809] with R2Norm = 6360924.3746238304
+Clearing MatLAB workspace... wait for 1 sec.
+NewItem190[X1+X2] has Goal(YY') with K=[0] and R2Norm = 6360924.3746238304
+... R2Norm successfully enhanced.
+Clearing MatLAB workspace... wait for 1 sec.
+Warning: Polynomial is badly conditioned. Remove repeated data points
+         or try centering and scaling as described in HELP POLYFIT.
+(Type "warning off MATLAB:polyfit:RepeatedPointsOrRescale" to suppress this warning.)
+> In c:\matlab\toolbox\matlab\polyfun\polyfit.m at line 75
+  NewItem23[polyval(K,X)] with Goal(YY') gives K=[1.9696234390834058,-296.22926987177544,-243.45059901615659,1467412.8406418287,329452.77322409843,-4351435436.5127897,-84260499255.187149,15509333762415.887,-322847124060664.94] with R2Norm = 6380897.28125
+Clearing MatLAB workspace... wait for 1 sec.
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Maximum number of function evaluations exceeded;
+   increase options.MaxFunEvals
+  NewItem14[cos(X.*X.*X.*K(1)+X.*X.*K(2)+X.*K(3)+K(4)).*(X.^3*K(5)+X.^2*K(6)+X.*K(7)+K(8))] with Goal([73.975134174923099 65.975134174923099 76.975134174923099 86.975134174923099 50.975134174923099 111.9751341749231 98.975134174923099 92.975134174923099 107.9751341749231 74.975134174923099 63.97513417...]) gives K=[1.8238926643394597,1.811395466134579,1.4769449051508305,4.5895634618981305,-0.0056261953566628317,0.32422014741657001,-4.7519272708524927,8.48507232041643] with R2Norm = 6414752.6155901933
+Clearing MatLAB workspace... wait for 1 sec.
+NewItem18[X1+X2] has Goal(YY') with K=[0] and R2Norm = 6414752.6155901933
+... R2Norm successfully enhanced.
+Clearing MatLAB workspace... wait for 1 sec.
+Warning: Polynomial is badly conditioned. Remove repeated data points
+         or try centering and scaling as described in HELP POLYFIT.
+(Type "warning off MATLAB:polyfit:RepeatedPointsOrRescale" to suppress this warning.)
+> In c:\matlab\toolbox\matlab\polyfun\polyfit.m at line 75
+  NewItem22[polyval(K,X)] with Goal(YY') gives K=[5.759363865640543E-010,-1.816598072535219E-007,2.0273233047859294E-005,-0.00057576787927671581,-0.072266167848567417,7.8186645510613628,-329.67264209173794,6711.4478666126824,-54425.085598638238] with R2Norm = 6391924.3218651395
+Clearing MatLAB workspace... wait for 1 sec.
+  NewItem25[X1+X2] has Goal(YY') with K=[0] and R2Norm = 18425645.434390496
+  ... fix X2=[76.5 76.5 76.5 76.5 76.5 76.5 76.5 76.5 76.5 76.5 76.5 76.5 76.5 76.5 76.5 76.5 76.5 76.5 76.5 76.5 76.5 76.5 76.5 76.5 76.5 76.5 76.5 76.5 76.5 76.5 76.5 76.5 76.5 76.5 76.5 76.5 76.5 76.5 76.5 7...]. Plan to enhance in [NewItem22,NewItem36,NewItem14] 
+Clearing MatLAB workspace... wait for 1 sec.
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+  NewItem13[cos(X.*X.*X.*K(1)+X.*X.*K(2)+X.*K(3)+K(4)).*(X.^3*K(5)+X.^2*K(6)+X.*K(7)+K(8))] with Goal([111.67212223905331 118.538247635175 133.44492560856628 132.36742873534058 75.806744029645827 114.74190710160711 84.686351376653491 70.018566425929308 84.864325309617143 57.914706687288643 55.67110330...]) gives K=[1.4169174495804762,0.84385995712218054,2.8910779494471033,-0.62244364204931002,4.984447628262508E-005,-0.0565165864374736,1.6151190161503743,-11.981779454547901] with R2Norm = 5170955.780124736
+Clearing MatLAB workspace... wait for 1 sec.
+NewItem17[X1+X2] has Goal(YY') with K=[0] and R2Norm = 5170955.780124736
+... R2Norm successfully enhanced.
+Clearing MatLAB workspace... wait for 1 sec.
+Warning: Polynomial is badly conditioned. Remove repeated data points
+         or try centering and scaling as described in HELP POLYFIT.
+(Type "warning off MATLAB:polyfit:RepeatedPointsOrRescale" to suppress this warning.)
+> In c:\matlab\toolbox\matlab\polyfun\polyfit.m at line 75
+  NewItem21[polyval(K,X)] with Goal(YY') gives K=[1.4894818498430085E-011,-7.6685757470540693E-009,1.6716574784735172E-006,-0.00020080686675184544,0.014483990456976042,-0.63990689065358297,16.850418515687249,-240.04955654869556,1429.0827272549866] with R2Norm = 5163375.840069361
+Clearing MatLAB workspace... wait for 1 sec.
+Optimization terminated successfully:
+ Norm of the current step is less than OPTIONS.TolX
+Optimization terminated successfully:
+ Norm of the current step is less than OPTIONS.TolX
+Optimization terminated successfully:
+ Norm of the current step is less than OPTIONS.TolX
+  NewItem12[cos(X.*X.*X.*K(1)+X.*X.*K(2)+X.*K(3)+K(4)).*(X.^3*K(5)+X.^2*K(6)+X.*K(7)+K(8))] with Goal([138.63409998570762 4.465778566965696 22.715515569586231 22.714812885209824 -22.534776704860377 70.875802330900925 2.6177980430572063 8.3544398479949677 28.896659933454714 -17.827203653403444 1.550473...]) gives K=[1.0000006366060772,0.99982060304434373,1.0101838674237074,1.0259724547792308,-1.4597934245190337E-006,0.0011476259582532324,-0.11753818631443064,1.0466941299495145] with R2Norm = 1821469.3298653681
+Clearing MatLAB workspace... wait for 1 sec.
+NewItem16[X1+X2] has Goal(YY') with K=[0] and R2Norm = 1821469.3298653676
+... R2Norm successfully enhanced.
+Clearing MatLAB workspace... wait for 1 sec.
+Warning: Polynomial is badly conditioned. Remove repeated data points
+         or try centering and scaling as described in HELP POLYFIT.
+(Type "warning off MATLAB:polyfit:RepeatedPointsOrRescale" to suppress this warning.)
+> In c:\matlab\toolbox\matlab\polyfun\polyfit.m at line 75
+  NewItem20[polyval(K,X)] with Goal(YY') gives K=[1.8492838261206607E-016,-2.1394526601677711E-013,9.8773059520753959E-011,-2.3204730361854349E-008,2.9304323505702825E-006,-0.00019449545079147526,0.0061458176838965145,0.93169582338070001,-0.16896117953191117] with R2Norm = 1820060.8776147838
+Clearing MatLAB workspace... wait for 1 sec.
+  NewItem24[X1+X2] has Goal(YY') with K=[0] and R2Norm = 15255064.480682947
+  ... fix X1=[8.4983552908618947 138.74812807870441 128.76804179851953 140.9791745458235 141.87703153412718 113.8174124164793 175.51787947361669 150.92017597447949 157.7697617010767 157.87661255314453 139.77021...]. Plan to enhance in [NewItem21,NewItem35,NewItem13] 
+Clearing MatLAB workspace... wait for 1 sec.
+Warning: Polynomial is badly conditioned. Remove repeated data points
+         or try centering and scaling as described in HELP POLYFIT.
+(Type "warning off MATLAB:polyfit:RepeatedPointsOrRescale" to suppress this warning.)
+> In c:\matlab\toolbox\matlab\polyfun\polyfit.m at line 75
+    NewItem36[polyval(K,X)] with Goal([70.5 62.5 73.5 83.5 47.5 108.5 95.5 89.5 104.5 71.5 60.5 71.5 60.5 31.5 41.5 63.5 67.5 51.5 16.5 7.5 -4.5 -2.5 2.5 -5.5 -36.5 -37.5 -52.5 -59.5 -54.5 -35.5 8.5 43.5 41.5 21.5 3.5 11.5 -10.5 -8.5 -7.5...]) gives K=[1.8051950758368724E-007,-2.4473915712124337E-005,0.001362562315947193,-0.040058783932645954,0.66620465068751666,-6.2470997397966519,31.194540577351354,-72.844571796585683,60.460225868887818] with R2Norm = 6043787.6886734972
+Clearing MatLAB workspace... wait for 1 sec.
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+    NewItem14[cos(X.*X.*X.*K(1)+X.*X.*K(2)+X.*K(3)+K(4)).*(X.^3*K(5)+X.^2*K(6)+X.*K(7)+K(8))] with Goal([70.5 62.5 73.5 83.5 47.5 108.5 95.5 89.5 104.5 71.5 60.5 71.5 60.5 31.5 41.5 63.5 67.5 51.5 16.5 7.5 -4.5 -2.5 2.5 -5.5 -36.5 -37.5 -52.5 -59.5 -54.5 -35.5 8.5 43.5 41.5 21.5 3.5 11.5 -10.5 -8.5 -7.5...]) gives K=[0.99919120589854726,1.0363574654306851,0.82993506669675143,-0.041222400271847495,-0.0017319283866446872,-0.049390025174772471,2.612140459668153,-15.324127708018764] with R2Norm = 6183944.9042295804
+Clearing MatLAB workspace... wait for 1 sec.
+    NewItem18[X1+X2] has Goal([70.5 62.5 73.5 83.5 47.5 108.5 95.5 89.5 104.5 71.5 60.5 71.5 60.5 31.5 41.5 63.5 67.5 51.5 16.5 7.5 -4.5 -2.5 2.5 -5.5 -36.5 -37.5 -52.5 -59.5 -54.5 -35.5 8.5 43.5 41.5 21.5 3.5 11.5 -10.5 -8.5 -7.5...]) with K=[0] and R2Norm = 6194189.6888528615
+    ... fix X1=[13.19057904553145 13.19057904553145 13.19057904553145 13.19057904553145 13.19057904553145 13.19057904553145 13.19057904553145 13.19057904553145 13.19057904553145 13.19057904553145 13.1905790455314...]. Plan to enhance in [NewItem14] 
+Clearing MatLAB workspace... wait for 1 sec.
+Warning: Polynomial is badly conditioned. Remove repeated data points
+         or try centering and scaling as described in HELP POLYFIT.
+(Type "warning off MATLAB:polyfit:RepeatedPointsOrRescale" to suppress this warning.)
+> In c:\matlab\toolbox\matlab\polyfun\polyfit.m at line 75
+    NewItem35[polyval(K,X)] with Goal([138.50164470913811 0.25187192129558866 21.231958201480467 19.020825454176503 -17.877031534127184 71.1825875835207 -3.5178794736166878 15.079824025520509 23.230238298923297 -9.8766125531445255 -2.7702...]) gives K=[-1.9653684007246219E-006,0.0001923598303773157,-0.0076407390379893839,0.15753887785628948,-1.78720773157405,10.883848552569651,-32.441610758777635,43.050546507656264,-31.140014514882068] with R2Norm = 1558539.152939986
+Clearing MatLAB workspace... wait for 1 sec.
+Maximum number of function evaluations exceeded;
+   increase options.MaxFunEvals
+Maximum number of function evaluations exceeded;
+   increase options.MaxFunEvals
+Maximum number of function evaluations exceeded;
+   increase options.MaxFunEvals
+    NewItem13[cos(X.*X.*X.*K(1)+X.*X.*K(2)+X.*K(3)+K(4)).*(X.^3*K(5)+X.^2*K(6)+X.*K(7)+K(8))] with Goal([138.50164470913811 0.25187192129558866 21.231958201480467 19.020825454176503 -17.877031534127184 71.1825875835207 -3.5178794736166878 15.079824025520509 23.230238298923297 -9.8766125531445255 -2.7702...]) gives K=[2.4553286082433492,1.8917205746732566,0.96754512997584363,-1.3840135276080934,-0.01803962774672796,0.74179120922434616,-8.761272515231779,24.078716062326869] with R2Norm = 1709751.4626998839
+Clearing MatLAB workspace... wait for 1 sec.
+    NewItem17[X1+X2] has Goal([138.50164470913811 0.25187192129558866 21.231958201480467 19.020825454176503 -17.877031534127184 71.1825875835207 -3.5178794736166878 15.079824025520509 23.230238298923297 -9.8766125531445255 -2.7702...]) with K=[0] and R2Norm = 1598885.8173157168
+    ... fix X1=[-11.753544102360024 -11.743142431687353 -5.9163076405703805 3.731521440398673 13.038715368963409 18.566420997508359 18.823307410073085 14.359744338640375 7.1858228533265134 -0.11161553279750791 -5...]. Plan to enhance in [NewItem13] 
+Clearing MatLAB workspace... wait for 1 sec.
+Maximum number of function evaluations exceeded;
+   increase options.MaxFunEvals
+Maximum number of function evaluations exceeded;
+   increase options.MaxFunEvals
+Maximum number of function evaluations exceeded;
+   increase options.MaxFunEvals
+      NewItem14[cos(X.*X.*X.*K(1)+X.*X.*K(2)+X.*K(3)+K(4)).*(X.^3*K(5)+X.^2*K(6)+X.*K(7)+K(8))] with Goal([57.30942095446855 49.30942095446855 60.30942095446855 70.30942095446855 34.30942095446855 95.30942095446855 82.30942095446855 76.30942095446855 91.30942095446855 58.30942095446855 47.30942095446855 5...]) gives K=[1.4848905514622242,2.482097885225703,2.9418501454016517,4.5068202690964263,-0.00062378489387577489,0.11261453086539125,-2.6248875310531572,5.3311625124236679] with R2Norm = 5986042.9741088422
+Clearing MatLAB workspace... wait for 1 sec.
+    NewItem18[X1+X2] has Goal([70.5 62.5 73.5 83.5 47.5 108.5 95.5 89.5 104.5 71.5 60.5 71.5 60.5 31.5 41.5 63.5 67.5 51.5 16.5 7.5 -4.5 -2.5 2.5 -5.5 -36.5 -37.5 -52.5 -59.5 -54.5 -35.5 8.5 43.5 41.5 21.5 3.5 11.5 -10.5 -8.5 -7.5...]) with K=[0] and R2Norm = 5986042.9741088422
+    ... R2Norm successfully enhanced.
+Clearing MatLAB workspace... wait for 1 sec.
+Warning: Polynomial is badly conditioned. Remove repeated data points
+         or try centering and scaling as described in HELP POLYFIT.
+(Type "warning off MATLAB:polyfit:RepeatedPointsOrRescale" to suppress this warning.)
+> In c:\matlab\toolbox\matlab\polyfun\polyfit.m at line 75
+      NewItem22[polyval(K,X)] with Goal([70.5 62.5 73.5 83.5 47.5 108.5 95.5 89.5 104.5 71.5 60.5 71.5 60.5 31.5 41.5 63.5 67.5 51.5 16.5 7.5 -4.5 -2.5 2.5 -5.5 -36.5 -37.5 -52.5 -59.5 -54.5 -35.5 8.5 43.5 41.5 21.5 3.5 11.5 -10.5 -8.5 -7.5...]) gives K=[-7.0995997675695043E-010,-6.6776697292266684E-009,6.494603389489109E-007,-5.505286698134972E-007,-0.00021251324345629842,0.0027351585664578872,0.035661980360560744,0.58819560015449701,-1.6312136624513827] with R2Norm = 5974326.6238940302
+Clearing MatLAB workspace... wait for 1 sec.
+  NewItem25[X1+X2] has Goal(YY') with K=[0] and R2Norm = 5974326.6238940293
+  ... R2Norm successfully enhanced.
+Clearing MatLAB workspace... wait for 1 sec.
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+      NewItem13[cos(X.*X.*X.*K(1)+X.*X.*K(2)+X.*K(3)+K(4)).*(X.^3*K(5)+X.^2*K(6)+X.*K(7)+K(8))] with Goal([150.25518881149813 11.995014352982942 27.148265842050847 15.28930401377783 -30.915746903090593 52.616166586012341 -22.341186883689772 0.72007968688013335 16.044415445596783 -9.7649970203470176 2.4868...]) gives K=[1.5452300442923135,1.762968096130245,1.6270173816789391,4.1278562799148526,-0.0092837635328933479,0.30066869247670058,-2.4401633787624317,2.8525361719278459] with R2Norm = 1550089.1460165863
+Clearing MatLAB workspace... wait for 1 sec.
+    NewItem17[X1+X2] has Goal([138.50164470913811 0.25187192129558866 21.231958201480467 19.020825454176503 -17.877031534127184 71.1825875835207 -3.5178794736166878 15.079824025520509 23.230238298923297 -9.8766125531445255 -2.7702...]) with K=[0] and R2Norm = 1550089.1460165863
+    ... R2Norm successfully enhanced.
+Clearing MatLAB workspace... wait for 1 sec.
+Warning: Polynomial is badly conditioned. Remove repeated data points
+         or try centering and scaling as described in HELP POLYFIT.
+(Type "warning off MATLAB:polyfit:RepeatedPointsOrRescale" to suppress this warning.)
+> In c:\matlab\toolbox\matlab\polyfun\polyfit.m at line 75
+      NewItem21[polyval(K,X)] with Goal([138.50164470913811 0.25187192129558866 21.231958201480467 19.020825454176503 -17.877031534127184 71.1825875835207 -3.5178794736166878 15.079824025520509 23.230238298923297 -9.8766125531445255 -2.7702...]) gives K=[4.2381948460061199E-010,1.2875536074035209E-007,-2.2952287407217171E-006,-3.3226566332328435E-005,0.00022185040088578952,0.0054309581988512007,0.019604924497792341,0.5098694184476662,-1.5262981564663904] with R2Norm = 1535086.0311928422
+Clearing MatLAB workspace... wait for 1 sec.
+  NewItem24[X1+X2] has Goal(YY') with K=[0] and R2Norm = 1535086.0311928422
+  ... R2Norm successfully enhanced.
+Clearing MatLAB workspace... wait for 1 sec.
+      NewItem26[newff(minmax(X),[4 1],{'tansig' 'purelin'})] with Goal(YY') gives K=[c:\matlab\work\NewItem26.mat] with R2Norm = 1526227.5193299272
+NewItem37 = inline('polyval([-1588320963.7652955,31530078198.133156,-239531619167.23395,903736785011.02405,-2087788180660.4182,4679648362849.5664,-10773863566239.855,14356228455449.15,-6868371994396.8936],X)','X');
+NewItem15 = inline('cos(X.*X.*X.*(1.7467277859337524)+X.*X.*(2.2186325206314748)+X.*(2.3450285960350414)+(1.9384675819292732)).*(X.^3*(1.9136979649766801)+X.^2*(-1.6485213784509019)+X.*(-16.970395505025326)+(17.409041148750809))','X');
+NewItem190 = inline('X1+X2','X1','X2');
+NewItem23 = inline('polyval([1.9696234390834058,-296.22926987177544,-243.45059901615659,1467412.8406418287,329452.77322409843,-4351435436.5127897,-84260499255.187149,15509333762415.887,-322847124060664.94],X)','X');
+NewItem36 = inline('polyval([1.8051950758368724E-007,-2.4473915712124337E-005,0.001362562315947193,-0.040058783932645954,0.66620465068751666,-6.2470997397966519,31.194540577351354,-72.844571796585683,60.460225868887818],X)','X');
+NewItem14 = inline('cos(X.*X.*X.*(1.4848905514622242)+X.*X.*(2.482097885225703)+X.*(2.9418501454016517)+(4.5068202690964263)).*(X.^3*(-0.00062378489387577489)+X.^2*(0.11261453086539125)+X.*(-2.6248875310531572)+(5.3311625124236679))','X');
+NewItem18 = inline('X1+X2','X1','X2');
+NewItem22 = inline('polyval([-7.0995997675695043E-010,-6.6776697292266684E-009,6.494603389489109E-007,-5.505286698134972E-007,-0.00021251324345629842,0.0027351585664578872,0.035661980360560744,0.58819560015449701,-1.6312136624513827],X)','X');
+NewItem25 = inline('X1+X2','X1','X2');
+NewItem35 = inline('polyval([-1.9653684007246219E-006,0.0001923598303773157,-0.0076407390379893839,0.15753887785628948,-1.78720773157405,10.883848552569651,-32.441610758777635,43.050546507656264,-31.140014514882068],X)','X');
+NewItem13 = inline('cos(X.*X.*X.*(1.5452300442923135)+X.*X.*(1.762968096130245)+X.*(1.6270173816789391)+(4.1278562799148526)).*(X.^3*(-0.0092837635328933479)+X.^2*(0.30066869247670058)+X.*(-2.4401633787624317)+(2.8525361719278459))','X');
+NewItem17 = inline('X1+X2','X1','X2');
+NewItem21 = inline('polyval([4.2381948460061199E-010,1.2875536074035209E-007,-2.2952287407217171E-006,-3.3226566332328435E-005,0.00022185040088578952,0.0054309581988512007,0.019604924497792341,0.5098694184476662,-1.5262981564663904],X)','X');
+NewItem34 = inline('polyval([6.0751496477944694E-018,-1.4983903991484439E-014,1.6304324275803526E-011,-8.1477978400144664E-009,1.986838210520504E-006,-0.00023793716890904034,0.01273681560255558,0.64395601406464786,8.3659000142923698],X)','X');
+NewItem12 = inline('cos(X.*X.*X.*(1.0000006366060772)+X.*X.*(0.99982060304434373)+X.*(1.0101838674237074)+(1.0259724547792308)).*(X.^3*(-1.4597934245190337E-006)+X.^2*(0.0011476259582532324)+X.*(-0.11753818631443064)+(1.0466941299495145))','X');
+NewItem16 = inline('X1+X2','X1','X2');
+NewItem20 = inline('polyval([1.8492838261206607E-016,-2.1394526601677711E-013,9.8773059520753959E-011,-2.3204730361854349E-008,2.9304323505702825E-006,-0.00019449545079147526,0.0061458176838965145,0.93169582338070001,-0.16896117953191117],X)','X');
+NewItem24 = inline('X1+X2','X1','X2');
+NewItem26 = inline('sim(getfield(load(''c:\matlab\work\NewItem26.mat''),''BestK''),X)','X');
+Elapsed time = 268 sec.
+  NewItem26(NewItem24(NewItem20(NewItem16(NewItem34(X4),NewItem12(X4))),NewItem21(NewItem17(NewItem35(X3),NewItem13(X3))))) 

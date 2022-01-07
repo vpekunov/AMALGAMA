@@ -1,0 +1,74 @@
+0,body,"#include <stdio.h>\n"
+1,body,"#include <math.h>\n"
+2,body,"#include <omp.h>\n"
+3,body,"#define PI 3.14159265358\n"
+4,body,"#define NX 100\n"
+5,body,"#define NY 100\n"
+6,body,"#define MaxT 0.001\n"
+7,body,"#define h 0.01\n"
+8,body,"#define tau 0.00001\n"
+9,body,"#define cilk_spawn _Cilk_spawn\n"
+10,body,"#define cilk_sync _Cilk_sync\n"
+11,arg,x
+11,idxs,
+11,arg,y
+11,idxs,
+11,arg,t
+11,idxs,
+11,arg,*
+11,arg,val
+11,idxs,
+11,args,"double x, double y, double t, double * val"
+11,ret,"void "
+11,name,F
+13,op,"double r = sqrt(x*x + y*y)"
+14,op,"double result = 0.0"
+15,op,"int i"
+16,init,"i = 0"
+16,cond,"i < 300"
+16,chng,i++
+17,op,"result += exp(-r*t)*sin(0.1*i*r + 0.5*PI)"
+18,op,"*val = result"
+20,args,
+20,ret,"int "
+20,name,main
+22,op,"double f[NY][NX] = {0.0}"
+23,op,"double v[NY][NX] = {0.0}"
+24,op,"double v1[NY][NX] = {0.0}"
+25,op,"double t"
+26,op,"int x, y"
+27,op,"double start = omp_get_wtime()"
+28,init,"t = 0.0"
+28,cond,"t < MaxT"
+28,chng,"t += tau"
+30,init,"y = 1"
+30,cond,"y < NY-1"
+30,chng,y++
+31,init,"x = 1"
+31,cond,"x < NX-1"
+31,chng,x++
+32,op,"F(x*h, y*h, t, &f[y][x])"
+33,init,"y = 1"
+33,cond,"y < NY-1"
+33,chng,y++
+34,init,"x = 1"
+34,cond,"x < NX-1"
+34,chng,x++
+35,op,"v1[y][x] = v[y][x] + tau*((v[y-1][x]+v[y+1][x]+v[y][x-1]+v[y][x+1]-4.0*v[y][x])/h/h - f[y][x])"
+36,init,"y = 1"
+36,cond,"y < NY-1"
+36,chng,y++
+37,init,"x = 1"
+37,cond,"x < NX-1"
+37,chng,x++
+38,op,"v[y][x] = v1[y][x]"
+40,init,"y = 0"
+40,cond,"y < NY"
+40,chng,y++
+42,init,"x = 0"
+42,cond,"x < NX"
+42,chng,x++
+43,op,"printf(""%lf "", v[y][x])"
+44,op,"printf(""\\n"")"
+46,op,"printf(""Total time = %lf\\n"", omp_get_wtime() - start)"
+47,arg,0

@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE System [
+<!ELEMENT System (Elements)>
+<!ATTLIST System
+Lang CDATA #REQUIRED
+>
+<!ELEMENT Elements (Element*)>
+<!ATTLIST Elements
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT Element (Show,Position,Parameters,InternalInputs,InternalOutputs,PublishedInputs,PublishedOutputs,InputLinks,OutputLinks)>
+<!ATTLIST Element
+ClassID CDATA #REQUIRED
+ParentID CDATA #REQUIRED
+ID ID #REQUIRED
+Permanent (True | False) #REQUIRED
+>
+<!ELEMENT Show EMPTY>
+<!ATTLIST Show
+Class (True | False) #REQUIRED
+Name (True | False) #REQUIRED
+Image (True | False) #REQUIRED
+>
+<!ELEMENT Position EMPTY>
+<!ATTLIST Position
+Left CDATA #REQUIRED
+Top CDATA #REQUIRED
+>
+<!ELEMENT Parameters (Parameter*)>
+<!ATTLIST Parameters
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT Parameter (#PCDATA | EMPTY)*>
+<!ATTLIST Parameter
+ID CDATA #REQUIRED
+Indent CDATA #IMPLIED
+>
+<!ELEMENT InternalInputs (iContact*)>
+<!ATTLIST InternalInputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT InternalOutputs (iContact*)>
+<!ATTLIST InternalOutputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT iContact EMPTY>
+<!ATTLIST iContact
+ID CDATA #REQUIRED
+ElementID IDREF #REQUIRED
+ContID CDATA #REQUIRED
+>
+<!ELEMENT PublishedInputs (pContact*)>
+<!ATTLIST PublishedInputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT PublishedOutputs (pContact*)>
+<!ATTLIST PublishedOutputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT pContact EMPTY>
+<!ATTLIST pContact
+ID CDATA #REQUIRED
+PublicID CDATA #REQUIRED
+PublicName CDATA #REQUIRED
+>
+<!ELEMENT InputLinks (Contact*)>
+<!ELEMENT OutputLinks (Contact*)>
+<!ELEMENT Contact (Link*)>
+<!ATTLIST Contact
+ID CDATA #REQUIRED
+>
+<!ELEMENT Link (Points?)>
+<!ATTLIST Link
+ElementID IDREF #REQUIRED
+ContID CDATA #REQUIRED
+Color CDATA #IMPLIED
+Informational (True | False) #REQUIRED
+>
+<!ELEMENT Points (#PCDATA | EMPTY)*>
+<!ATTLIST Points
+NumItems CDATA #REQUIRED
+>
+]>
+<System Lang="">
+ <Elements NumItems="11">
+  <Element ClassID="clsNNetData" ParentID="" ID="DT" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="34" Top="71"/>
+   <Parameters NumItems="1">
+    <Parameter ID="File" Indent="0">water_ir_far.dat</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Inp">
+     <Link ElementID="X0" ContID="Data" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+    <Contact ID="Out">
+     <Link ElementID="Y" ContID="Data" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsNNetInput" ParentID="" ID="X0" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="160" Top="79"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Num" Indent="0">0</Parameter>
+    <Parameter ID="NNum" Indent="0">0</Parameter>
+    <Parameter ID="Normalize" Indent="0">Yes</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Data">
+     <Link ElementID="DT" ContID="Inp" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="N11" ContID="Inp" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+     <Link ElementID="N12" ContID="Inp" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+     <Link ElementID="N13" ContID="Inp" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+     <Link ElementID="N14" ContID="Inp" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsNNetOutput" ParentID="" ID="Y" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="162" Top="284"/>
+   <Parameters NumItems="3">
+    <Parameter ID="Num" Indent="0">1</Parameter>
+    <Parameter ID="NNum" Indent="0">0</Parameter>
+    <Parameter ID="Normalize" Indent="0">Yes</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Data">
+     <Link ElementID="DT" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="Teacher" ContID="Out" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsNNetNeuron" ParentID="" ID="N11" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="299" Top="39"/>
+   <Parameters NumItems="1">
+    <Parameter ID="Num" Indent="0">0</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Inp">
+     <Link ElementID="X0" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="N21" ContID="Inp" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+     <Link ElementID="N22" ContID="Inp" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsNNetNeuron" ParentID="" ID="N21" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="422" Top="80"/>
+   <Parameters NumItems="1">
+    <Parameter ID="Num" Indent="0">0</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Inp">
+     <Link ElementID="N11" ContID="Out" Informational="False"/>
+     <Link ElementID="N12" ContID="Out" Informational="False"/>
+     <Link ElementID="N13" ContID="Out" Informational="False"/>
+     <Link ElementID="N14" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="N31" ContID="Inp" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsNNetTeacher" ParentID="" ID="Teacher" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="635" Top="266"/>
+   <Parameters NumItems="5">
+    <Parameter ID="nEpochs" Indent="0">10</Parameter>
+    <Parameter ID="alpha" Indent="0">0.2</Parameter>
+    <Parameter ID="nu" Indent="0">0.05</Parameter>
+    <Parameter ID="TapeF" Indent="0"></Parameter>
+    <Parameter ID="TapeB" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Inp">
+     <Link ElementID="N31" ContID="Out" Informational="False"/>
+    </Contact>
+    <Contact ID="Out">
+     <Link ElementID="Y" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks/>
+  </Element>
+  <Element ClassID="clsNNetNeuron" ParentID="" ID="N12" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="299" Top="124"/>
+   <Parameters NumItems="1">
+    <Parameter ID="Num" Indent="0">1</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Inp">
+     <Link ElementID="X0" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="N21" ContID="Inp" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+     <Link ElementID="N22" ContID="Inp" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsNNetNeuron" ParentID="" ID="N13" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="300" Top="200"/>
+   <Parameters NumItems="1">
+    <Parameter ID="Num" Indent="0">2</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Inp">
+     <Link ElementID="X0" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="N21" ContID="Inp" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+     <Link ElementID="N22" ContID="Inp" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsNNetNeuron" ParentID="" ID="N14" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="301" Top="267"/>
+   <Parameters NumItems="1">
+    <Parameter ID="Num" Indent="0">3</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Inp">
+     <Link ElementID="X0" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="N22" ContID="Inp" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+     <Link ElementID="N21" ContID="Inp" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsNNetNeuron" ParentID="" ID="N22" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="424" Top="215"/>
+   <Parameters NumItems="1">
+    <Parameter ID="Num" Indent="0">1</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Inp">
+     <Link ElementID="N11" ContID="Out" Informational="False"/>
+     <Link ElementID="N12" ContID="Out" Informational="False"/>
+     <Link ElementID="N13" ContID="Out" Informational="False"/>
+     <Link ElementID="N14" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="N31" ContID="Inp" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsNNetNeuron" ParentID="" ID="N31" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="540" Top="146"/>
+   <Parameters NumItems="1">
+    <Parameter ID="Num" Indent="0">0</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Inp">
+     <Link ElementID="N21" ContID="Out" Informational="False"/>
+     <Link ElementID="N22" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="Teacher" ContID="Inp" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+ </Elements>
+</System>

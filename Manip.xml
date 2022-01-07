@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE System [
+<!ELEMENT System (Elements)>
+<!ATTLIST System
+Lang CDATA #REQUIRED
+>
+<!ELEMENT Elements (Element*)>
+<!ATTLIST Elements
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT Element (Show,Position,Parameters,InternalInputs,InternalOutputs,PublishedInputs,PublishedOutputs,InputLinks,OutputLinks)>
+<!ATTLIST Element
+ClassID CDATA #REQUIRED
+ParentID CDATA #REQUIRED
+ID ID #REQUIRED
+Permanent (True | False) #REQUIRED
+>
+<!ELEMENT Show EMPTY>
+<!ATTLIST Show
+Class (True | False) #REQUIRED
+Name (True | False) #REQUIRED
+Image (True | False) #REQUIRED
+>
+<!ELEMENT Position EMPTY>
+<!ATTLIST Position
+Left CDATA #REQUIRED
+Top CDATA #REQUIRED
+>
+<!ELEMENT Parameters (Parameter*)>
+<!ATTLIST Parameters
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT Parameter (#PCDATA | EMPTY)*>
+<!ATTLIST Parameter
+ID CDATA #REQUIRED
+Indent CDATA #IMPLIED
+>
+<!ELEMENT InternalInputs (iContact*)>
+<!ATTLIST InternalInputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT InternalOutputs (iContact*)>
+<!ATTLIST InternalOutputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT iContact EMPTY>
+<!ATTLIST iContact
+ID CDATA #REQUIRED
+ElementID IDREF #REQUIRED
+ContID CDATA #REQUIRED
+>
+<!ELEMENT PublishedInputs (pContact*)>
+<!ATTLIST PublishedInputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT PublishedOutputs (pContact*)>
+<!ATTLIST PublishedOutputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT pContact EMPTY>
+<!ATTLIST pContact
+ID CDATA #REQUIRED
+PublicID CDATA #REQUIRED
+PublicName CDATA #REQUIRED
+>
+<!ELEMENT InputLinks (Contact*)>
+<!ELEMENT OutputLinks (Contact*)>
+<!ELEMENT Contact (Link*)>
+<!ATTLIST Contact
+ID CDATA #REQUIRED
+>
+<!ELEMENT Link (Points?)>
+<!ATTLIST Link
+ElementID IDREF #REQUIRED
+ContID CDATA #REQUIRED
+Color CDATA #IMPLIED
+Informational (True | False) #REQUIRED
+>
+<!ELEMENT Points (#PCDATA | EMPTY)*>
+<!ATTLIST Points
+NumItems CDATA #REQUIRED
+>
+]>
+<System Lang="">
+ <Elements NumItems="10">
+  <Element ClassID="clsLinkBuilder" ParentID="" ID="Builder" Permanent="False">
+   <Show Class="True" Name="False" Image="True"/>
+   <Position Left="882" Top="151"/>
+   <Parameters NumItems="0"/>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="StX2" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Eqtns">
+     <Link ElementID="View" ContID="View" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsLinkRotZ" ParentID="" ID="RotZ" Permanent="False">
+   <Show Class="True" Name="False" Image="True"/>
+   <Position Left="29" Top="294"/>
+   <Parameters NumItems="10">
+    <Parameter ID="Var" Indent="0">Q1</Parameter>
+    <Parameter ID="Matrix" Indent="0">[cos(a) sin(a) 0 0; -sin(a) cos(a) 0 0; 0 0 1 0; 0 0 0 1]</Parameter>
+    <Parameter ID="Type" Indent="0">Dynamic</Parameter>
+    <Parameter ID="Moving" Indent="0">No</Parameter>
+    <Parameter ID="Kind" Indent="0">r</Parameter>
+    <Parameter ID="Axe" Indent="0">3</Parameter>
+    <Parameter ID="vMin" Indent="0"></Parameter>
+    <Parameter ID="vMax" Indent="0"></Parameter>
+    <Parameter ID="F0" Indent="0"></Parameter>
+    <Parameter ID="V0" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="MoveZ" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsLinkMoveZ" ParentID="" ID="MoveZ" Permanent="False">
+   <Show Class="True" Name="False" Image="True"/>
+   <Position Left="71" Top="151"/>
+   <Parameters NumItems="14">
+    <Parameter ID="Var" Indent="0">S2</Parameter>
+    <Parameter ID="Matrix" Indent="0">[1 0 0 0; 0 1 0 0; 0 0 1 a; 0 0 0 1]</Parameter>
+    <Parameter ID="Type" Indent="0">Dynamic</Parameter>
+    <Parameter ID="Moving" Indent="0">No</Parameter>
+    <Parameter ID="Kind" Indent="0">l</Parameter>
+    <Parameter ID="Axe" Indent="0">3</Parameter>
+    <Parameter ID="L" Indent="0">L2</Parameter>
+    <Parameter ID="P" Indent="0">P2</Parameter>
+    <Parameter ID="M" Indent="0">M2</Parameter>
+    <Parameter ID="J" Indent="0">J2</Parameter>
+    <Parameter ID="vMin" Indent="0"></Parameter>
+    <Parameter ID="vMax" Indent="0"></Parameter>
+    <Parameter ID="F0" Indent="0"></Parameter>
+    <Parameter ID="V0" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="RotZ" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="StX" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsLinkMoveX" ParentID="" ID="StX" Permanent="False">
+   <Show Class="True" Name="False" Image="True"/>
+   <Position Left="186" Top="161"/>
+   <Parameters NumItems="14">
+    <Parameter ID="Var" Indent="0">L1</Parameter>
+    <Parameter ID="Matrix" Indent="0">[1 0 0 a; 0 1 0 0; 0 0 1 0; 0 0 0 1]</Parameter>
+    <Parameter ID="Type" Indent="0">Static</Parameter>
+    <Parameter ID="Moving" Indent="0">No</Parameter>
+    <Parameter ID="Kind" Indent="0">l</Parameter>
+    <Parameter ID="Axe" Indent="0">1</Parameter>
+    <Parameter ID="L" Indent="0">L1</Parameter>
+    <Parameter ID="P" Indent="0">P1</Parameter>
+    <Parameter ID="M" Indent="0">M1</Parameter>
+    <Parameter ID="J" Indent="0">J1</Parameter>
+    <Parameter ID="vMin" Indent="0"></Parameter>
+    <Parameter ID="vMax" Indent="0"></Parameter>
+    <Parameter ID="F0" Indent="0"></Parameter>
+    <Parameter ID="V0" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="MoveZ" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="RotY1" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsLinkRotY" ParentID="" ID="RotY1" Permanent="False">
+   <Show Class="True" Name="False" Image="True"/>
+   <Position Left="301" Top="208"/>
+   <Parameters NumItems="10">
+    <Parameter ID="Var" Indent="0">Q3</Parameter>
+    <Parameter ID="Matrix" Indent="0">[cos(a) 0 -sin(a) 0; 0 1 0 0; sin(a) 0 cos(a) 0; 0 0 0 1]</Parameter>
+    <Parameter ID="Type" Indent="0">Dynamic</Parameter>
+    <Parameter ID="Moving" Indent="0">No</Parameter>
+    <Parameter ID="Kind" Indent="0">r</Parameter>
+    <Parameter ID="Axe" Indent="0">2</Parameter>
+    <Parameter ID="vMin" Indent="0"></Parameter>
+    <Parameter ID="vMax" Indent="0"></Parameter>
+    <Parameter ID="F0" Indent="0"></Parameter>
+    <Parameter ID="V0" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="StX" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="MovX" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsLinkMoveX" ParentID="" ID="MovX" Permanent="False">
+   <Show Class="True" Name="False" Image="True"/>
+   <Position Left="428" Top="208"/>
+   <Parameters NumItems="14">
+    <Parameter ID="Var" Indent="0">S4</Parameter>
+    <Parameter ID="Matrix" Indent="0">[1 0 0 a; 0 1 0 0; 0 0 1 0; 0 0 0 1]</Parameter>
+    <Parameter ID="Type" Indent="0">Dynamic</Parameter>
+    <Parameter ID="Moving" Indent="0">No</Parameter>
+    <Parameter ID="Kind" Indent="0">l</Parameter>
+    <Parameter ID="Axe" Indent="0">1</Parameter>
+    <Parameter ID="L" Indent="0">L4</Parameter>
+    <Parameter ID="P" Indent="0">P4</Parameter>
+    <Parameter ID="M" Indent="0">M4</Parameter>
+    <Parameter ID="J" Indent="0">J4</Parameter>
+    <Parameter ID="vMin" Indent="0"></Parameter>
+    <Parameter ID="vMax" Indent="0"></Parameter>
+    <Parameter ID="F0" Indent="0"></Parameter>
+    <Parameter ID="V0" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="RotY1" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="StX1" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsLinkMoveX" ParentID="" ID="StX1" Permanent="False">
+   <Show Class="True" Name="False" Image="True"/>
+   <Position Left="533" Top="206"/>
+   <Parameters NumItems="14">
+    <Parameter ID="Var" Indent="0">L2</Parameter>
+    <Parameter ID="Matrix" Indent="0">[1 0 0 a; 0 1 0 0; 0 0 1 0; 0 0 0 1]</Parameter>
+    <Parameter ID="Type" Indent="0">Static</Parameter>
+    <Parameter ID="Moving" Indent="0">No</Parameter>
+    <Parameter ID="Kind" Indent="0">l</Parameter>
+    <Parameter ID="Axe" Indent="0">1</Parameter>
+    <Parameter ID="L" Indent="0">L2</Parameter>
+    <Parameter ID="P" Indent="0">P2</Parameter>
+    <Parameter ID="M" Indent="0">M2</Parameter>
+    <Parameter ID="J" Indent="0">J2</Parameter>
+    <Parameter ID="vMin" Indent="0"></Parameter>
+    <Parameter ID="vMax" Indent="0"></Parameter>
+    <Parameter ID="F0" Indent="0"></Parameter>
+    <Parameter ID="V0" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="MovX" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="RotY2" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsLinkRotY" ParentID="" ID="RotY2" Permanent="False">
+   <Show Class="True" Name="False" Image="True"/>
+   <Position Left="640" Top="206"/>
+   <Parameters NumItems="10">
+    <Parameter ID="Var" Indent="0">Q4</Parameter>
+    <Parameter ID="Matrix" Indent="0">[cos(a) 0 -sin(a) 0; 0 1 0 0; sin(a) 0 cos(a) 0; 0 0 0 1]</Parameter>
+    <Parameter ID="Type" Indent="0">Dynamic</Parameter>
+    <Parameter ID="Moving" Indent="0">No</Parameter>
+    <Parameter ID="Kind" Indent="0">r</Parameter>
+    <Parameter ID="Axe" Indent="0">2</Parameter>
+    <Parameter ID="vMin" Indent="0"></Parameter>
+    <Parameter ID="vMax" Indent="0"></Parameter>
+    <Parameter ID="F0" Indent="0"></Parameter>
+    <Parameter ID="V0" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="StX1" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="StX2" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsLinkMoveX" ParentID="" ID="StX2" Permanent="False">
+   <Show Class="True" Name="False" Image="True"/>
+   <Position Left="773" Top="166"/>
+   <Parameters NumItems="14">
+    <Parameter ID="Var" Indent="0">L3</Parameter>
+    <Parameter ID="Matrix" Indent="0">[1 0 0 a; 0 1 0 0; 0 0 1 0; 0 0 0 1]</Parameter>
+    <Parameter ID="Type" Indent="0">Static</Parameter>
+    <Parameter ID="Moving" Indent="0">No</Parameter>
+    <Parameter ID="Kind" Indent="0">l</Parameter>
+    <Parameter ID="Axe" Indent="0">1</Parameter>
+    <Parameter ID="L" Indent="0">L3</Parameter>
+    <Parameter ID="P" Indent="0">P3</Parameter>
+    <Parameter ID="M" Indent="0">M3</Parameter>
+    <Parameter ID="J" Indent="0">J3</Parameter>
+    <Parameter ID="vMin" Indent="0"></Parameter>
+    <Parameter ID="vMax" Indent="0"></Parameter>
+    <Parameter ID="F0" Indent="0"></Parameter>
+    <Parameter ID="V0" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="RotY2" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="Builder" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsView" ParentID="" ID="View" Permanent="False">
+   <Show Class="False" Name="True" Image="True"/>
+   <Position Left="990" Top="151"/>
+   <Parameters NumItems="1">
+    <Parameter ID="Disp" Indent="0">Yes</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="View">
+     <Link ElementID="Builder" ContID="Eqtns" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks/>
+  </Element>
+ </Elements>
+</System>

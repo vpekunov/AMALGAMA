@@ -1,0 +1,114 @@
+	MODULES		= ARRAY('6')
+	MODULES[1]	= MODULE("auto.h",0)
+	MODULES[2]	= MODULE("stdlib.h",0)
+	MODULES[3]	= MODULE("stdio.h",0)
+	MODULES[4]	= MODULE("ctype.h",0)
+	MODULES[5]	= MODULE("mem.h",0)
+	MODULES[6]	= MODULE("math.h",0)
+	FUNCS["BOUND2_1D"]	= FUNC('"Bound2_1D(" A[1] "," A[2] "," A[3] "," A[4] ")"',1,0)
+	FUNCS["BOUND2_2D"]	= FUNC('"Bound2_2D(" A[1] "," A[2] "," A[3] "," A[4] "," A[5] "," A[6] ")"',1,0)
+	FUNCS["BOUND2_3D"]	= FUNC('"Bound2_3D(" A[1] "," A[2] "," A[3] "," A[4] "," A[5] "," A[6] "," A[7] "," A[8] ")"',1,0)
+	FUNCS["ISNOTBOUND"]	= FUNC('"islower(" A[1] ")"',4,0)
+	FUNCS["COPY"]		= FUNC('"memmove(" A[1] "," A[2] ",sizeof(" A[1] "))"',5,0)
+	FUNCS["TRUNC"]		= FUNC('"(int) (" A[1] ")"',0,0)
+	FUNCS["SIZE"]		= FUNC('"sizeof(" A[1] ")"',0,0)
+	FUNCS["FILEOPEN"]	= FUNC('A[1] " = fopen(" A[2] "," CHAR(34) "r" CHAR(34) ")"',3,0)
+	FUNCS["FILEREAD"]	= FUNC('"fread(" A[2] "," A[3] ",1," A[1] ")"',3,0)
+	FUNCS["FILECLOSE"]	= FUNC('"fclose(" A[1] ")"',3,0)
+	FUNCS["ABS"]		= FUNC('"fabs(" A[1] ")"',6,0)
+	FUNCS["GRADX_1D"]	= FUNC('"GradX_1D(" A[1] "," A[2] "," A[3] "," A[4] ")"',1,0)
+	FUNCS["GRADX_2D"]	= FUNC('"GradX_2D(" A[1] "," A[2] "," A[3] "," A[4] "," A[5] "," A[6] "," A[7] ")"',1,0)
+	FUNCS["GRADY_2D"]	= FUNC('"GradY_2D(" A[1] "," A[2] "," A[3] "," A[4] "," A[5] "," A[6] "," A[7] ")"',1,0)
+	FUNCS["GRADX_3D"]	= FUNC('"GradX_3D(" A[1] "," A[2] "," A[3] "," A[4] "," A[5] "," A[6] "," A[7] "," A[8] "," A[9] "," A[10] ")"',1,0)
+	FUNCS["GRADY_3D"]	= FUNC('"GradY_3D(" A[1] "," A[2] "," A[3] "," A[4] "," A[5] "," A[6] "," A[7] "," A[8] "," A[9] "," A[10] ")"',1,0)
+	FUNCS["GRADZ_3D"]	= FUNC('"GradZ_3D(" A[1] "," A[2] "," A[3] "," A[4] "," A[5] "," A[6] "," A[7] "," A[8] "," A[9] "," A[10] ")"',1,0)
+
+	SymbolQ		= "'"
+	StringQ		= '"'
+
+	LeftIdx		= "["
+	RightIdx	= "]"
+
+	LowDim		= "0"
+	HighDimTag	= "-1"
+
+	DerefStr	= "*"
+	PtrStr		= "&"
+
+	EQ_OP		= " == "
+	NE_OP		= " != "
+	GE_OP		= " >= "
+	LE_OP		= " <= "
+	GT_OP		= " > "
+	LT_OP		= " < "
+
+	AND_OP		= " && "
+	OR_OP		= " || "
+
+	LogLQ		= ""
+	LogRQ		= ""
+
+	T_FILE		= "FILE *"
+	T_CHAR		= "char"
+	T_INT		= "int"
+	T_LONGINT	= "long int"
+	T_LONGLONGINT	= "long long int"
+	T_FLOAT		= "float"
+	T_DOUBLE	= "double"
+	T_LONGDOUBLE	= "long double"
+
+	PrmByRefTmpl	= 'NTp " * " ID'
+	PrmByValTmpl	= 'NTp " " ID'
+	PrmByRefArrTmpl	= PrmByValTmpl
+
+	BeforeDim	= ""
+	SeparateDim	= "]["
+	TypedefTmpl	= '"typedef " TYPE(BaseTypeID) " " TypeID "[" Idxs "];"'
+
+	ArrayVarDefTmpl	= 'Spaces TYPE(TypeID) " " VarID "[" Dim "];"'
+	VarDefTmpl	= 'Spaces TYPE(TypeID) " " VarID ";"'
+
+	ProcedureHdr	= "void "
+	PrmSeparator	= ","
+	ProcedureTag	= " {"
+
+	SetTmpl		= 'EXPR(VarID,.EE) " = " E1 ";"'
+
+	AnyForUnwrap	= 0
+	SeparateDefs	= 0
+
+	AnyForHeaderTmpl = '"for (" VarID " = " E1 "; " VarID " <= " E2 "; " VarID " += " Step ") {"'
+	IncForHeaderTmpl = '"for (" VarID " = " E1 "; " VarID " <= " E2 "; " VarID "++) {"'
+	DecForHeaderTmpl = '"for (" VarID " = " E1 "; " VarID " <= " E2 "; " VarID "--) {"'
+	AddForTmpl	= ""
+
+	BegStr		= "{"
+	EndStr		= "}"
+
+	MainPartStr	= "void main(int argc, char ** argv) {"
+	EndProgStr	= "}"
+
+	BeforeFirstIncl	= '#include "'
+	BeforeOtherIncl	= BeforeFirstIncl
+	AfterLastIncl	= '"'
+	AfterOtherIncl	= AfterLastIncl
+
+	IfTmpl		= '"if (" LOGEXPR(Log,.T) ") {"'
+	ElseStr		= "} else {"
+
+	WhileTmpl	= '"while (" LOGEXPR(Log,.T) ") {"'
+
+	SelectTmpl	= '"switch(" EXPR(Sel,.T) ") {"'
+	SelectorTmpl	= '"case " Val " :"'
+	ElseSelector	= 'default :'
+	EndSelector	= 'break;'
+
+	IncTmpl		= 'VarID "++;"'
+	DecTmpl		= 'VarID "--;"'
+	AddTmpl		= 'VarID " += " E1 ";"'
+
+	EndLineStr	= ";"
+
+	ConstTmpl	= '"const " TYPE(TypeID) " " ConstID " = " Val ";"'
+
+	ProgHeader	= ""

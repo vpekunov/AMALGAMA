@@ -1,0 +1,33 @@
+Clearing MatLAB workspace... wait for 1 sec.
+NewItem_12[newff(minmax(X),[3 1],{'tansig' 'purelin'})] with Goal(YY') gives K=[c:\matlab\work\NewItem_12.mat] with R2Norm = 6419709.6289582038
+Clearing MatLAB workspace... wait for 1 sec.
+NewItem_13[newff(minmax(X),[3 1],{'tansig' 'purelin'})] with Goal(YY') gives K=[c:\matlab\work\NewItem_13.mat] with R2Norm = 6362305.1645365767
+Clearing MatLAB workspace... wait for 1 sec.
+NewItem_23[newff(minmax(X),[3 1],{'tansig' 'purelin'})] with Goal(YY') gives K=[c:\matlab\work\NewItem_23.mat] with R2Norm = 6696690.1098669404
+Clearing MatLAB workspace... wait for 1 sec.
+NewItemLondon16_8_1twonets[newff(minmax(X),[16 8 1],{'tansig' 'tansig' 'purelin'})] with Goal(YY') gives K=[c:\matlab\work\NewItemLondon16_8_1twonets.mat] with R2Norm = 1501707.1752061264
+Clearing MatLAB workspace... wait for 1 sec.
+NewItem_14[newff(minmax(X),[3 1],{'tansig' 'purelin'})] with Goal(YY') gives K=[c:\matlab\work\NewItem_14.mat] with R2Norm = 6436877.9380370071
+Clearing MatLAB workspace... wait for 1 sec.
+NewItem_24[newff(minmax(X),[3 1],{'tansig' 'purelin'})] with Goal(YY') gives K=[c:\matlab\work\NewItem_24.mat] with R2Norm = 6597977.0593341021
+Clearing MatLAB workspace... wait for 1 sec.
+NewItem_34[newff(minmax(X),[3 1],{'tansig' 'purelin'})] with Goal(YY') gives K=[c:\matlab\work\NewItem_34.mat] with R2Norm = 5217354.4033826003
+Filter(NewItem17). Selected: [NewItem_34]
+Clearing MatLAB workspace... wait for 1 sec.
+NewItem38[X1+X2] has Goal(YY') with K=[0] and R2Norm = 15660930.910021957
+... fix X2=[31.347933869061215 25.750248302515303 21.699006393761501 23.455189403832811 40.401648070445567 71.220794145360671 90.853249500222674 94.605161058942258 92.014654207965947 87.892675502782367 83.650...]. Plan to enhance in [NewItemLondon16_8_1twonets] 
+Clearing MatLAB workspace... wait for 1 sec.
+  NewItemLondon16_8_1twonets[newff(minmax(X),[16 8 1],{'tansig' 'tansig' 'purelin'})] with Goal([115.65206613093878 113.2497516974847 128.30099360623851 136.5448105961672 83.59835192955444 113.77920585463933 81.146750499777326 71.394838941057742 88.985345792034053 60.107324497217633 53.349206834...]) gives K=[c:\matlab\work\NewItemLondon16_8_1twonets.mat] with R2Norm = 1320179.561342149
+Clearing MatLAB workspace... wait for 1 sec.
+NewItem38[X1+X2] has Goal(YY') with K=[0] and R2Norm = 1320179.5613421493
+... R2Norm successfully enhanced.
+NewItem_12 = inline('sim(getfield(load(''c:\matlab\work\NewItem_12.mat''),''BestK''),X)','X');
+NewItem_13 = inline('sim(getfield(load(''c:\matlab\work\NewItem_13.mat''),''BestK''),X)','X');
+NewItem_23 = inline('sim(getfield(load(''c:\matlab\work\NewItem_23.mat''),''BestK''),X)','X');
+NewItemLondon16_8_1twonets = inline('sim(getfield(load(''c:\matlab\work\NewItemLondon16_8_1twonets.mat''),''BestK''),[X1;X2;X3;X4])','X1','X2','X3','X4');
+NewItem_14 = inline('sim(getfield(load(''c:\matlab\work\NewItem_14.mat''),''BestK''),X)','X');
+NewItem_24 = inline('sim(getfield(load(''c:\matlab\work\NewItem_24.mat''),''BestK''),X)','X');
+NewItem_34 = inline('sim(getfield(load(''c:\matlab\work\NewItem_34.mat''),''BestK''),X)','X');
+NewItem38 = inline('X1+X2','X1','X2');
+Elapsed time = 1051 sec.
+  NewItem38(NewItemLondon16_8_1twonets(X1,X2,X3,X4),NewItem_34(X3)) 

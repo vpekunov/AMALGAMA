@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE System [
+<!ELEMENT System (Elements)>
+<!ATTLIST System
+Lang CDATA #REQUIRED
+>
+<!ELEMENT Elements (Element*)>
+<!ATTLIST Elements
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT Element (Show,Position,Parameters,InternalInputs,InternalOutputs,PublishedInputs,PublishedOutputs,InputLinks,OutputLinks)>
+<!ATTLIST Element
+ClassID CDATA #REQUIRED
+ParentID CDATA #REQUIRED
+ID ID #REQUIRED
+Permanent (True | False) #REQUIRED
+>
+<!ELEMENT Show EMPTY>
+<!ATTLIST Show
+Class (True | False) #REQUIRED
+Name (True | False) #REQUIRED
+Image (True | False) #REQUIRED
+>
+<!ELEMENT Position EMPTY>
+<!ATTLIST Position
+Left CDATA #REQUIRED
+Top CDATA #REQUIRED
+>
+<!ELEMENT Parameters (Parameter*)>
+<!ATTLIST Parameters
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT Parameter (#PCDATA | EMPTY)*>
+<!ATTLIST Parameter
+ID CDATA #REQUIRED
+Indent CDATA #IMPLIED
+>
+<!ELEMENT InternalInputs (iContact*)>
+<!ATTLIST InternalInputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT InternalOutputs (iContact*)>
+<!ATTLIST InternalOutputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT iContact EMPTY>
+<!ATTLIST iContact
+ID CDATA #REQUIRED
+ElementID IDREF #REQUIRED
+ContID CDATA #REQUIRED
+>
+<!ELEMENT PublishedInputs (pContact*)>
+<!ATTLIST PublishedInputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT PublishedOutputs (pContact*)>
+<!ATTLIST PublishedOutputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT pContact EMPTY>
+<!ATTLIST pContact
+ID CDATA #REQUIRED
+PublicID CDATA #REQUIRED
+PublicName CDATA #REQUIRED
+>
+<!ELEMENT InputLinks (Contact*)>
+<!ELEMENT OutputLinks (Contact*)>
+<!ELEMENT Contact (Link*)>
+<!ATTLIST Contact
+ID CDATA #REQUIRED
+>
+<!ELEMENT Link (Points?)>
+<!ATTLIST Link
+ElementID IDREF #REQUIRED
+ContID CDATA #REQUIRED
+Color CDATA #IMPLIED
+Informational (True | False) #REQUIRED
+>
+<!ELEMENT Points (#PCDATA | EMPTY)*>
+<!ATTLIST Points
+NumItems CDATA #REQUIRED
+>
+]>
+<System Lang="">
+ <Elements NumItems="6">
+  <Element ClassID="clsS_Page" ParentID="" ID="LoginPage" Permanent="False">
+   <Show Class="True" Name="False" Image="False"/>
+   <Position Left="271" Top="170"/>
+   <Parameters NumItems="2">
+    <Parameter ID="FName" Indent="0">Index.html</Parameter>
+    <Parameter ID="Template" Indent="0">&lt;HTML&gt;
+&lt;BODY&gt;
+&lt;FORM&gt;
+$Login
+$Password
+$LoginBtn
+&lt;/FORM&gt;
+&lt;/BODY&gt;
+&lt;/HTML&gt;
+</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Forms">
+     <Link ElementID="LoginForm" ContID="Page" Informational="False"/>
+    </Contact>
+    <Contact ID="From">
+     <Link ElementID="LoginToMain" ContID="Go" Informational="True"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Go">
+     <Link ElementID="LoginToMain" ContID="Page" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsS_Form" ParentID="" ID="LoginForm" Permanent="False">
+   <Show Class="True" Name="False" Image="False"/>
+   <Position Left="126" Top="130"/>
+   <Parameters NumItems="0"/>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Items">
+     <Link ElementID="Login" ContID="Form" Informational="False"/>
+     <Link ElementID="Password" ContID="Form" Informational="False"/>
+     <Link ElementID="LoginBtn" ContID="Form" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Go">
+     <Link ElementID="LoginToMain" ContID="Initiate" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+    <Contact ID="Page">
+     <Link ElementID="LoginPage" ContID="Forms" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsS_Input" ParentID="" ID="Login" Permanent="False">
+   <Show Class="True" Name="False" Image="False"/>
+   <Position Left="8" Top="70"/>
+   <Parameters NumItems="1">
+    <Parameter ID="Type" Indent="0">Обычный</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Form">
+     <Link ElementID="LoginForm" ContID="Items" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsS_Input" ParentID="" ID="Password" Permanent="False">
+   <Show Class="True" Name="False" Image="False"/>
+   <Position Left="7" Top="116"/>
+   <Parameters NumItems="1">
+    <Parameter ID="Type" Indent="0">Пароль</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Form">
+     <Link ElementID="LoginForm" ContID="Items" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsS_Button" ParentID="" ID="LoginBtn" Permanent="False">
+   <Show Class="True" Name="False" Image="False"/>
+   <Position Left="9" Top="163"/>
+   <Parameters NumItems="1">
+    <Parameter ID="Text" Indent="0">Вход</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Form">
+     <Link ElementID="LoginForm" ContID="Items" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsS_Transition" ParentID="" ID="LoginToMain" Permanent="False">
+   <Show Class="True" Name="False" Image="False"/>
+   <Position Left="416" Top="98"/>
+   <Parameters NumItems="0"/>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Initiate">
+     <Link ElementID="LoginForm" ContID="Go" Informational="False"/>
+    </Contact>
+    <Contact ID="Page">
+     <Link ElementID="LoginPage" ContID="Go" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Go">
+     <Link ElementID="LoginPage" ContID="From" Color="clBlack" Informational="True">
+      <Points NumItems="4">566,156,522,312,253,315,253,246</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+ </Elements>
+</System>

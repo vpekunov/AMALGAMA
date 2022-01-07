@@ -1,0 +1,103 @@
+object EditProps: TEditProps
+  Left = 262
+  Height = 116
+  Top = 248
+  Width = 242
+  ActiveControl = edtIdent
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsDialog
+  Caption = 'Параметры'
+  ClientHeight = 116
+  ClientWidth = 242
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  OnCloseQuery = FormCloseQuery
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  Position = poScreenCenter
+  LCLVersion = '0.9.28.2'
+  object IdentLabel: TLabel
+    Left = 8
+    Height = 12
+    Top = 4
+    Width = 81
+    AutoSize = False
+    Caption = 'Идентификатор'
+    Font.CharSet = 14
+    Font.Height = -9
+    Font.Name = 'MS Sans Serif'
+    ParentColor = False
+    ParentFont = False
+  end
+  object ItemsLabel: TLabel
+    Left = 8
+    Height = 14
+    Top = 40
+    Width = 70
+    Caption = 'Субэлементы'
+    ParentColor = False
+    Visible = False
+  end
+  object ItemEdit: TSpeedButton
+    Left = 209
+    Height = 22
+    Top = 55
+    Width = 23
+    Caption = '...'
+    Color = clBtnFace
+    NumGlyphs = 0
+    Visible = False
+    OnClick = ItemEditClick
+  end
+  object edtIdent: TEdit
+    Left = 7
+    Height = 21
+    Top = 19
+    Width = 225
+    TabOrder = 1
+  end
+  object OKBtn: TButton
+    Left = 41
+    Height = 25
+    Top = 88
+    Width = 75
+    Anchors = [akBottom]
+    Caption = 'OK'
+    Default = True
+    ModalResult = 1
+    TabOrder = 2
+  end
+  object CancelBtn: TButton
+    Left = 130
+    Height = 25
+    Top = 88
+    Width = 75
+    Anchors = [akBottom]
+    Cancel = True
+    Caption = 'Отмена'
+    ModalResult = 2
+    TabOrder = 3
+  end
+  object chkPermanent: TCheckBox
+    Left = 96
+    Height = 19
+    Top = 0
+    Width = 139
+    Caption = 'Не менять при вставке'
+    Font.CharSet = 19
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    ParentFont = False
+    TabOrder = 0
+  end
+  object ItemsComboBox: TComboBox
+    Left = 8
+    Height = 21
+    Top = 56
+    Width = 198
+    ItemHeight = 13
+    Style = csDropDownList
+    TabOrder = 4
+    Visible = False
+  end
+end

@@ -1,0 +1,339 @@
+ Определим модель Model. Введем несущую фазу MainPhase на модели Model. Скорость витания фазы MainPhase приравняем "0". Введем скаляр Nu с расширением "nu" на фазе MainPhase. Назначением переменной Nu сделаем турбулентной вязкостью фазы MainPhase. Зададим контроль фазы MainPhase по переменной Nu. Дадим описание переменной Nu как "Турбулентная вязкость". Определим начальное значение переменной Nu как "double KT = _ZeroKt(i,x,y,z,Map);
+double ET = _ZeroEt(i,x,y,z,Map);
+
+Result = 0.0845*KT*KT/ET;". Пусть переменная Nu будет иметь положительное значение. Введем скаляр T с расширением "t" на фазе MainPhase. Назначением переменной T сделаем температурой фазы MainPhase. Дадим описание переменной T как "Температура (градусы Цельсия)". Определим начальное значение переменной T как "@ZeroT - _Z[z]*3.0/44.0". Введем вектор U с расширением "v" на фазе MainPhase. Назначением переменной U сделаем скоростью фазы MainPhase. Дадим описание переменной U как "Скорость". Введем проекцию Vx вектора "U" с именем Ux. Определим начальное значение переменной Ux как "double KScale = 0.208816;
+double Uref = KScale*0.5263;
+double Z0 = 0.05;
+double ZZ = z==0 && _Z[0]==0.0 ? Z0 : (_Z[z]+_Z[z-1])*0.5+Z0;
+double K0 = Uref*ZZ;
+double K1 = log(ZZ/Z0);
+
+Result = 2.5*@Kx*Uref*K1;". Введем проекцию Vy вектора "U" с именем Uy. Определим начальное значение переменной Uy как "double KScale = 0.208816;
+double Uref = KScale*0.5263;
+double Z0 = 0.05;
+double ZZ = z==0 && _Z[0]==0.0 ? Z0 : (_Z[z]+_Z[z-1])*0.5+Z0;
+double K0 = Uref*ZZ;
+double K1 = log(ZZ/Z0);
+
+Result = 2.5*@Ky*Uref*K1;". Введем проекцию Vz вектора "U" с именем Uz. Определим начальное значение переменной Uz как "0". Введем скаляр P с расширением "p" на фазе MainPhase. Дадим описание переменной P как "Давление". Определим начальное значение переменной P как "0". Введем скаляр Kt с расширением "k" на фазе MainPhase. Дадим описание переменной Kt как "Энергия пульсаций". Определим начальное значение переменной Kt как "double KScale = 0.208816;
+double Z0 = 0.05;
+double ZZ = z==0 && _Z[0]==0.0 ? Z0 : (_Z[z]+_Z[z-1])*0.5+Z0;
+
+Result = KScale*KScale*(1.09680767+(-0.008122677347+(0.0002099331724+(-0.000002208352551+(0.00000000906293221+(-9.749368416E-12+(-1.187063604E-14)*ZZ)*ZZ)*ZZ)*ZZ)*ZZ)*ZZ);". Пусть переменная Kt будет иметь положительное значение. Введем скаляр Et с расширением "e" на фазе MainPhase. Дадим описание переменной Et как "Скорость диссипации". Определим начальное значение переменной Et как "double KScale = 0.208816;
+double Z0 = 0.05;
+double ZZ = z==0 && _Z[0]==0.0 ? Z0 : (_Z[z]+_Z[z-1])*0.5+Z0;
+
+Result = KScale*KScale*KScale*0.3644/ZZ;". Пусть переменная Et будет иметь положительное значение. Введем вещество SO2 с обозначением "SO2" на фазе MainPhase. Введем скаляр FUV с расширением "fuv" на фазе MainPhase. Дадим описание переменной FUV как "Интенсивность UV-прямого излучения". Определим начальное значение переменной FUV как "0". Введем скаляр UV с расширением "uv" на фазе MainPhase. Дадим описание переменной UV как "Интенсивность UV-диффузного излучения". Определим начальное значение переменной UV как "0". Пусть переменная UV будет иметь положительное значение. Введем скаляр F0 с расширением "f0" на фазе MainPhase. Дадим описание переменной F0 как "Интенсивность VIS-прямого излучения". Определим начальное значение переменной F0 как "0". Введем скаляр I с расширением "i" на фазе MainPhase. Дадим описание переменной I как "Интенсивность VIS-диффузного излучения". Определим начальное значение переменной I как "0". Пусть переменная I будет иметь положительное значение. Введем скаляр FIR с расширением "fir" на фазе MainPhase. Дадим описание переменной FIR как "Интенсивность IR-прямого излучения". Определим начальное значение переменной FIR как "0". Введем скаляр IR с расширением "ir" на фазе MainPhase. Дадим описание переменной IR как "Интенсивность IR-диффузного излучения". Определим начальное значение переменной IR как "0". Пусть переменная IR будет иметь положительное значение. Введем скаляр IRt с расширением "irt" на фазе MainPhase. Дадим описание переменной IRt как "Интенсивность IR-теплового излучения". Определим начальное значение переменной IRt как "0". Пусть переменная IRt будет иметь положительное значение. Введем функцию P_U_K_Ux, возвращающую выражение "Split{0.0,-1.0/@RO*dFdx(P)};" на фазе "-". Введем функцию P_U_K_Uy, возвращающую выражение "Split{0.0,-1.0/@RO*dFdy(P)};" на фазе "-". Введем функцию P_U_K_Uz, возвращающую выражение "Split{0.0,-1.0/@RO*dFdz(P)};" на фазе "-". Введем функцию P_U_K_P, возвращающую выражение "Result = Split{0.0,-@RO*(dUxdx*dUxdx+dUydy*dUydy+dUzdz*dUzdz+
+                            2.0*(dUydx*dUxdy+dUydz*dUzdy+dUxdz*dUzdx)
+                            -0.1*DIV/TAU
+                            -d2NFdx2(Nu,DIV)
+                            -d2NFdy2(Nu,DIV)
+                            -d2NFdz2(Nu,DIV))};" на фазе "-". Введем для функции P_U_K_P вспомогательные определения "double dUxdx = Split{0.0,dFdx(Ux)};
+double dUydy = Split{0.0,dFdy(Uy)};
+double dUzdz = Split{0.0,dFdz(Uz)};
+
+double dUxdy = Split{0.0,dFdy(Ux)};
+double dUydz = Split{0.0,dFdz(Uy)};
+double dUzdx = Split{0.0,dFdx(Uz)};
+
+double dUxdz = Split{0.0,dFdz(Ux)};
+double dUydx = Split{0.0,dFdx(Uy)};
+double dUzdy = Split{0.0,dFdy(Uz)};". Введем функцию K_E_With_GbT_K_Kt, возвращающую выражение "Result = Split{0.0,DDD-Et-@BT*9.81*Nu/0.7194*dFdz(T)};" на фазе "-". Введем для функции K_E_With_GbT_K_Kt вспомогательные определения "double dUxdx = Split{0.0,dFdx(Ux)};
+double dUydy = Split{0.0,dFdy(Uy)};
+double dUzdz = Split{0.0,dFdz(Uz)};
+
+double dUxdy = Split{0.0,dFdy(Ux)};
+double dUydz = Split{0.0,dFdz(Uy)};
+double dUzdx = Split{0.0,dFdx(Uz)};
+
+double dUxdz = Split{0.0,dFdz(Ux)};
+double dUydx = Split{0.0,dFdx(Uy)};
+double dUzdy = Split{0.0,dFdy(Uz)};
+
+double SSS2 =  2*(dUxdx*dUxdx+dUydy*dUydy+dUzdz*dUzdz)+
+               (dUxdy+dUydx)*(dUxdy+dUydx)+
+               (dUxdz+dUzdx)*(dUxdz+dUzdx)+
+               (dUydz+dUzdy)*(dUydz+dUzdy);
+double DDD =  Nu*SSS2;". Введем функцию K_E_With_GbT_K_Nu, возвращающую выражение "0.0845 * Kt * Kt/Et;" на фазе "-". Введем функцию K_E_With_GbT_K_Et, возвращающую выражение "Split{0.0, (1.42*DDD-(1.68+0.0845*RNG3*(1-RNG/4.38)/(1+0.012*RNG3))*Et)*Et/Kt};" на фазе "-". Введем для функции K_E_With_GbT_K_Et вспомогательные определения "double dUxdx = Split{0.0,dFdx(Ux)};
+double dUydy = Split{0.0,dFdy(Uy)};
+double dUzdz = Split{0.0,dFdz(Uz)};
+
+double dUxdy = Split{0.0,dFdy(Ux)};
+double dUydz = Split{0.0,dFdz(Uy)};
+double dUzdx = Split{0.0,dFdx(Uz)};
+
+double dUxdz = Split{0.0,dFdz(Ux)};
+double dUydx = Split{0.0,dFdx(Uy)};
+double dUzdy = Split{0.0,dFdy(Uz)};
+
+double SSS2 =  2*(dUxdx*dUxdx+dUydy*dUydy+dUzdz*dUzdz)+
+               (dUxdy+dUydx)*(dUxdy+dUydx)+
+               (dUxdz+dUzdx)*(dUxdz+dUzdx)+
+               (dUydz+dUzdy)*(dUydz+dUzdy);
+double DDD =  Nu*SSS2;
+double RNG  = sqrt(SSS2)*Kt/Et;
+double RNG3 = RNG*RNG*RNG;". Введем функцию K_E_With_GbT_B_Et, возвращающую выражение "if (IsCond(Et,A))
+                    {
+                     if (IsForw)   _fw(Et) = pow(0.0845,0.75)*pow(_fw(Kt),1.5)/0.41/HY[YM];
+                     if (IsBack)   _bw(Et) = pow(0.0845,0.75)*pow(_bw(Kt),1.5)/0.41/HY[y];
+                     if (IsBottom) _bt(Et) = pow(0.0845,0.75)*pow(_bt(Kt),1.5)/0.41/HZ[z];
+                     if (IsTop)    _tp(Et) = pow(0.0845,0.75)*pow(_tp(Kt),1.5)/0.41/HZ_ZM;
+                     if (IsLeft)   _lf(Et) = pow(0.0845,0.75)*pow(_lf(Kt),1.5)/0.41/HX[x];
+                     if (IsRight)  _rg(Et) = pow(0.0845,0.75)*pow(_rg(Kt),1.5)/0.41/HX[XM];
+                    }" на фазе "-". Введем функцию K_E_With_GbT_B_Nu, возвращающую выражение "if (IsCond(Nu,A))
+                    {
+                     if (IsForw)   _fw(Nu) = 0.0845*pow(_fw(Kt),2)/_fw(Et);
+                     if (IsBack)   _bw(Nu) = 0.0845*pow(_bw(Kt),2)/_bw(Et);
+                     if (IsBottom) _bt(Nu) = 0.0845*pow(_bt(Kt),2)/_bt(Et);
+                     if (IsTop)    _tp(Nu) = 0.0845*pow(_tp(Kt),2)/_tp(Et);
+                     if (IsLeft)   _lf(Nu) = 0.0845*pow(_lf(Kt),2)/_lf(Et);
+                     if (IsRight)  _rg(Nu) = 0.0845*pow(_rg(Kt),2)/_rg(Et);
+                    }" на фазе "-". Введем функцию B_Kt, возвращающую выражение "Result =  IsCond(Nu,B) ? NuK : Kt;" на фазе "-". Введем для функции B_Kt вспомогательные определения "double KScale = 0.208816;
+double Z0 = 0.05;
+double ZZ = z==0 && _Z[0]==0.0 ? Z0 : (_Z[z]+_Z[z-1])*0.5+Z0;
+double NuK = KScale*KScale*(1.09680767+(-0.008122677347+(0.0002099331724+(-0.000002208352551+(0.00000000906293221+(-9.749368416E-12+(-1.187063604E-14)*ZZ)*ZZ)*ZZ)*ZZ)*ZZ)*ZZ);
+double NuE = KScale*KScale*KScale*0.3644/ZZ;". Для переменной Kt с вязкостью "@D" и каппой "1.0/0.7194" зададим параболический решатель. Присоединим правую функцию K_E_With_GbT_K_Kt к уравнению переменной Kt. Присоединим граничную функцию B_Kt к уравнению переменной Kt. Введем функцию B_Et, возвращающую выражение "Result =  IsCond(Nu,B) ? NuE : Et;" на фазе "-". Введем для функции B_Et вспомогательные определения "double KScale = 0.208816;
+double Z0 = 0.05;
+double ZZ = z==0 && _Z[0]==0.0 ? Z0 : (_Z[z]+_Z[z-1])*0.5+Z0;
+double NuK = KScale*KScale*(1.09680767+(-0.008122677347+(0.0002099331724+(-0.000002208352551+(0.00000000906293221+(-9.749368416E-12+(-1.187063604E-14)*ZZ)*ZZ)*ZZ)*ZZ)*ZZ)*ZZ);
+double NuE = KScale*KScale*KScale*0.3644/ZZ;". Для переменной Et с вязкостью "@D" и каппой "1.0/0.7194" зададим параболический решатель. Присоединим правую функцию K_E_With_GbT_K_Et к уравнению переменной Et. Присоединим граничную функцию K_E_With_GbT_B_Et к уравнению переменной Et. Присоединим граничную функцию B_Et к уравнению переменной Et. Введем функцию B_Nu, возвращающую выражение "Result =  IsCond(Nu,B) ? 0.0845*NuK*NuK/NuE : Nu;" на фазе "-". Введем для функции B_Nu вспомогательные определения "double KScale = 0.208816;
+double Z0 = 0.05;
+double ZZ = z==0 && _Z[0]==0.0 ? Z0 : (_Z[z]+_Z[z-1])*0.5+Z0;
+double NuK = KScale*KScale*(1.09680767+(-0.008122677347+(0.0002099331724+(-0.000002208352551+(0.00000000906293221+(-9.749368416E-12+(-1.187063604E-14)*ZZ)*ZZ)*ZZ)*ZZ)*ZZ)*ZZ);
+double NuE = KScale*KScale*KScale*0.3644/ZZ;". Для переменной Nu зададим прямую схему решения. Присоединим правую функцию K_E_With_GbT_K_Nu к уравнению переменной Nu. Присоединим граничную функцию K_E_With_GbT_B_Nu к уравнению переменной Nu. Присоединим граничную функцию B_Nu к уравнению переменной Nu. Введем функцию B_Ux, возвращающую выражение "Result =  IsCond(Ux,B) ?
+                       2.5*@Kx*Uref*K1 :
+                       Ux;" на фазе "-". Введем для функции B_Ux вспомогательные определения "double KScale = 0.208816;
+double Uref = KScale*0.5263;
+double Z0 = 0.05;
+double ZZ = z==0 && _Z[0]==0.0 ? Z0 : (_Z[z]+_Z[z-1])*0.5+Z0;
+double K0 = Uref*ZZ;
+double K1 = log(ZZ/Z0);". Для переменной Ux с вязкостью "@D" и каппой "1" зададим параболический решатель. Присоединим правую функцию P_U_K_Ux к уравнению переменной Ux. Присоединим граничную функцию B_Ux к уравнению переменной Ux. Введем функцию B_Uy, возвращающую выражение "Result =  IsCond(Uy,B) ?
+                        2.5*@Ky*Uref*K1 :
+                        Uy;" на фазе "-". Введем для функции B_Uy вспомогательные определения "double KScale = 0.208816;
+double Uref = KScale*0.5263;
+double Z0 = 0.05;
+double ZZ = z==0 && _Z[0]==0.0 ? Z0 : (_Z[z]+_Z[z-1])*0.5+Z0;
+double K0 = Uref*ZZ;
+double K1 = log(ZZ/Z0);". Для переменной Uy с вязкостью "@D" и каппой "1" зададим параболический решатель. Присоединим правую функцию P_U_K_Uy к уравнению переменной Uy. Присоединим граничную функцию B_Uy к уравнению переменной Uy. Введем функцию K_SO2, возвращающую выражение "(_Z[0]==0.0 && z==1 ? 1.114E-14 : 0.0);" на фазе "-". Введем функцию K_UV, возвращающую выражение "Split{0.0,-uFt*utBeta};" на фазе "-". Введем для функции K_UV вспомогательные определения "double Pi = 3.1415926535897932;
+double ukAlbAsm = ukAlbedo*ukAsymm;
+double utAlpha = ueBeta*(1-ukAlbedo);
+double utBeta = ueBeta*(1-ukAlbAsm);
+double u_Ft = 3.0*ueBeta*ukAlbedo/4.0/Pi;
+double uFt = u_Ft*FUV;". Введем функцию S_UV, возвращающую выражение "Split{0.0,3.0*utAlpha*utBeta};" на фазе "-". Введем для функции S_UV вспомогательные определения "double Pi = 3.1415926535897932;
+double ukAlbAsm = ukAlbedo*ukAsymm;
+double utAlpha = ueBeta*(1-ukAlbedo);
+double utBeta = ueBeta*(1-ukAlbAsm);
+double u_Ft = 3.0*ueBeta*ukAlbedo/4.0/Pi;
+double uFt = u_Ft*FUV;". Введем функцию B_UV, возвращающую выражение "if (IsClosed(UV))
+        {
+         if (IsForw)   _fw(UV) = (uk1a*UV[back]+HY[y-1]*SolarY*_fw(FUV)*@SurfaceAlbedo/Pi)/(uk1a+HY[y-1]*(1-@SurfaceAlbedo));
+         if (IsBack)   _bw(UV) = (uk1a*UV[forw]-HY[y]*SolarY*  _bw(FUV)*@SurfaceAlbedo/Pi)/(uk1a+HY[y]*(1-@SurfaceAlbedo));
+         if (IsBottom) _bt(UV) = (uk1a*UV[up]-HZ[z]*SolarZ*  _bt(FUV)*@SurfaceAlbedo/Pi)/(uk1a+HZ[z]*(1-@SurfaceAlbedo));
+         if (IsTop)    _tp(UV) = (uk1a*UV[down]+HZ_ZM*SolarZ*  _tp(FUV)*@SurfaceAlbedo/Pi)/(uk1a+HZ_ZM*(1-@SurfaceAlbedo));
+         if (IsLeft)   _lf(UV) = (uk1a*UV[right]-HX[x]*SolarX*  _lf(FUV)*@SurfaceAlbedo/Pi)/(uk1a+HX[x]*(1-@SurfaceAlbedo));
+         if (IsRight)  _rg(UV) = (uk1a*UV[left]+HX[x-1]*SolarX*_rg(FUV)*@SurfaceAlbedo/Pi)/(uk1a+HX[x-1]*(1-@SurfaceAlbedo));
+        }
+      else
+        {
+         if (IsForw)   _fw(UV) = (uk1*UV[back]+HY[y-1]*uFluxPi)/(uk1+HY[y-1]);
+         if (IsBack)   _bw(UV) = (uk1*UV[forw]+HY[y]*uFluxPi)/(uk1+HY[y]);
+         if (IsBottom) _bt(UV) = (uk1*UV[up]+HZ[z]*uFluxPi)/(uk1+HZ[z]);
+         if (IsTop)    _tp(UV) = (uk1*UV[down]+HZ_ZM*uFluxPi)/(uk1+HZ_ZM);
+         if (IsLeft)   _lf(UV) = (uk1*UV[right]+HX[x]*uFluxPi)/(uk1+HX[x]);
+         if (IsRight)  _rg(UV) = (uk1*UV[left]+HX[x-1]*uFluxPi)/(uk1+HX[x-1]);
+        }" на фазе "-". Введем для функции B_UV вспомогательные определения "double uk1 = 2.0/3.0/utBeta;
+double uk1a = uk1*(1+@SurfaceAlbedo);
+double uFluxPi = @uDiffuseFlux/Pi;". Для переменной UV с вязкостью "0.0" и каппой "0.0" зададим пуассоновский решатель. Присоединим правую функцию K_UV к уравнению переменной UV. Присоединим базовую функцию S_UV к уравнению переменной UV. Присоединим граничную функцию B_UV к уравнению переменной UV. Введем функцию K_FUV, возвращающую выражение "ueBeta;" на фазе "-". Введем функцию S_FUV, возвращающую выражение "@uSolarIntensity;" на фазе "-". Для переменной FUV с вязкостью "0.0" и каппой "0.0" зададим солнечный решатель. Присоединим правую функцию K_FUV к уравнению переменной FUV. Присоединим базовую функцию S_FUV к уравнению переменной FUV. Введем функцию K_F0, возвращающую выражение "eBeta;" на фазе "-". Введем функцию S_F0, возвращающую выражение "@SolarIntensity;" на фазе "-". Для переменной F0 с вязкостью "0.0" и каппой "0.0" зададим солнечный решатель. Присоединим правую функцию K_F0 к уравнению переменной F0. Присоединим базовую функцию S_F0 к уравнению переменной F0. Введем функцию K_I, возвращающую выражение "Split{0.0,-Ft*tBeta};" на фазе "-". Введем для функции K_I вспомогательные определения "double Pi = 3.1415926535897932;
+double kAlbAsm = kAlbedo*kAsymm;
+double tAlpha = eBeta*(1-kAlbedo);
+double tBeta = eBeta*(1-kAlbAsm);
+double _Ft = 3.0*eBeta*kAlbedo/4.0/Pi;
+double Ft = _Ft*F0;". Введем функцию B_I, возвращающую выражение "if (IsClosed(I))
+        {
+         if (IsForw)   _fw(I) = (k1a*I[back]+HY[y-1]*SolarY*_fw(F0)*@SurfaceAlbedo/Pi)/(k1a+HY[y-1]*(1-@SurfaceAlbedo));
+         if (IsBack)   _bw(I) = (k1a*I[forw]-HY[y]*SolarY*  _bw(F0)*@SurfaceAlbedo/Pi)/(k1a+HY[y]*(1-@SurfaceAlbedo));
+         if (IsBottom) _bt(I) = (k1a*I[up]-HZ[z]*SolarZ*    _bt(F0)*@SurfaceAlbedo/Pi)/(k1a+HZ[z]*(1-@SurfaceAlbedo));
+         if (IsTop)    _tp(I) = (k1a*I[down]+HZ_ZM*SolarZ*  _tp(F0)*@SurfaceAlbedo/Pi)/(k1a+HZ_ZM*(1-@SurfaceAlbedo));
+         if (IsLeft)   _lf(I) = (k1a*I[right]-HX[x]*SolarX* _lf(F0)*@SurfaceAlbedo/Pi)/(k1a+HX[x]*(1-@SurfaceAlbedo));
+         if (IsRight)  _rg(I) = (k1a*I[left]+HX[x-1]*SolarX*_rg(F0)*@SurfaceAlbedo/Pi)/(k1a+HX[x-1]*(1-@SurfaceAlbedo));
+        }
+      else
+        {
+         if (IsForw)   _fw(I) = (k1*I[back]+HY[y-1]*FluxPi)/(k1+HY[y-1]);
+         if (IsBack)   _bw(I) = (k1*I[forw]+HY[y]*FluxPi)/(k1+HY[y]);
+         if (IsBottom) _bt(I) = (k1*I[up]+HZ[z]*FluxPi)/(k1+HZ[z]);
+         if (IsTop)    _tp(I) = (k1*I[down]+HZ_ZM*FluxPi)/(k1+HZ_ZM);
+         if (IsLeft)   _lf(I) = (k1*I[right]+HX[x]*FluxPi)/(k1+HX[x]);
+         if (IsRight)  _rg(I) = (k1*I[left]+HX[x-1]*FluxPi)/(k1+HX[x-1]);
+        }" на фазе "-". Введем для функции B_I вспомогательные определения "double k1 = 2.0/3.0/tBeta;
+double k1a = k1*(1+@SurfaceAlbedo);
+double FluxPi = @DiffuseFlux/Pi;". Введем функцию S_I, возвращающую выражение "Split{0.0,3.0*tAlpha*tBeta};" на фазе "-". Введем для функции S_I вспомогательные определения "double Pi = 3.1415926535897932;
+double kAlbAsm = kAlbedo*kAsymm;
+double tAlpha = eBeta*(1-kAlbedo);
+double tBeta = eBeta*(1-kAlbAsm);
+double _Ft = 3.0*eBeta*kAlbedo/4.0/Pi;
+double Ft = _Ft*F0;". Для переменной I с вязкостью "0.0" и каппой "0.0" зададим пуассоновский решатель. Присоединим правую функцию K_I к уравнению переменной I. Присоединим базовую функцию S_I к уравнению переменной I. Присоединим граничную функцию B_I к уравнению переменной I. Введем функцию K_FIR, возвращающую выражение "reBeta;" на фазе "-". Введем функцию S_FIR, возвращающую выражение "@rSolarIntensity;" на фазе "-". Для переменной FIR с вязкостью "0.0" и каппой "0.0" зададим солнечный решатель. Присоединим правую функцию K_FIR к уравнению переменной FIR. Присоединим базовую функцию S_FIR к уравнению переменной FIR. Введем функцию K_IR, возвращающую выражение "Split{0.0,-rFt*rtBeta};" на фазе "-". Введем для функции K_IR вспомогательные определения "double Pi = 3.1415926535897932;
+double rkAlbAsm = rkAlbedo*rkAsymm;
+double rtAlpha = reBeta*(1-rkAlbedo);
+double rtBeta = reBeta*(1-rkAlbAsm);
+double r_Ft = 3.0*reBeta*rkAlbedo/4.0/Pi;
+double rFt = r_Ft*FIR;". Введем функцию S_IR, возвращающую выражение "Split{0.0,3.0*rtAlpha*rtBeta};" на фазе "-". Введем для функции S_IR вспомогательные определения "double Pi = 3.1415926535897932;
+double rkAlbAsm = rkAlbedo*rkAsymm;
+double rtAlpha = reBeta*(1-rkAlbedo);
+double rtBeta = reBeta*(1-rkAlbAsm);
+double r_Ft = 3.0*reBeta*rkAlbedo/4.0/Pi;
+double rFt = r_Ft*FIR;". Введем функцию B_IR, возвращающую выражение "if (IsClosed(IR))
+        {
+         if (IsForw)   _fw(IR) = (rk1a*IR[back]+HY[y-1]*SolarY*_fw(FIR)*@SurfaceAlbedo/Pi)/(rk1a+HY[y-1]*(1-@SurfaceAlbedo));
+         if (IsBack)   _bw(IR) = (rk1a*IR[forw]-HY[y]*SolarY*  _bw(FIR)*@SurfaceAlbedo/Pi)/(rk1a+HY[y]*(1-@SurfaceAlbedo));
+         if (IsBottom) _bt(IR) = (rk1a*IR[up]-HZ[z]*SolarZ*    _bt(FIR)*@SurfaceAlbedo/Pi)/(rk1a+HZ[z]*(1-@SurfaceAlbedo));
+         if (IsTop)    _tp(IR) = (rk1a*IR[down]+HZ_ZM*SolarZ*  _tp(FIR)*@SurfaceAlbedo/Pi)/(rk1a+HZ_ZM*(1-@SurfaceAlbedo));
+         if (IsLeft)   _lf(IR) = (rk1a*IR[right]-HX[x]*SolarX* _lf(FIR)*@SurfaceAlbedo/Pi)/(rk1a+HX[x]*(1-@SurfaceAlbedo));
+         if (IsRight)  _rg(IR) = (rk1a*IR[left]+HX[x-1]*SolarX*_rg(FIR)*@SurfaceAlbedo/Pi)/(rk1a+HX[x-1]*(1-@SurfaceAlbedo));
+        }
+      else
+        {
+         if (IsForw)   _fw(IR) = (rk1*IR[back]+HY[y-1]*rFluxPi)/(rk1+HY[y-1]);
+         if (IsBack)   _bw(IR) = (rk1*IR[forw]+HY[y]*rFluxPi)/(rk1+HY[y]);
+         if (IsBottom) _bt(IR) = (rk1*IR[up]+HZ[z]*rFluxPi)/(rk1+HZ[z]);
+         if (IsTop)    _tp(IR) = (rk1*IR[down]+HZ_ZM*rFluxPi)/(rk1+HZ_ZM);
+         if (IsLeft)   _lf(IR) = (rk1*IR[right]+HX[x]*rFluxPi)/(rk1+HX[x]);
+         if (IsRight)  _rg(IR) = (rk1*IR[left]+HX[x-1]*rFluxPi)/(rk1+HX[x-1]);
+        }" на фазе "-". Введем для функции B_IR вспомогательные определения "double rk1 = 2.0/3.0/rtBeta;
+double rk1a = rk1*(1+@SurfaceAlbedo);
+double rFluxPi = @rDiffuseFlux/Pi;". Для переменной IR с вязкостью "0.0" и каппой "0.0" зададим пуассоновский решатель. Присоединим правую функцию K_IR к уравнению переменной IR. Присоединим базовую функцию S_IR к уравнению переменной IR. Присоединим граничную функцию B_IR к уравнению переменной IR. Введем функцию K_IRt, возвращающую выражение "Split{0.0,-tFt*ttBeta};" на фазе "-". Введем для функции K_IRt вспомогательные определения "double tkAlbAsm = tkAlbedo*tkAsymm;
+double ttAlpha = teBeta*(1-tkAlbedo);
+double ttBeta = teBeta*(1-tkAlbAsm);
+double tPlanck = (@[]IntPlanck[0]+TK*(@IntPlanck[1]+TK*(@IntPlanck[2]+TK*@IntPlanck[3])));
+double tFt = 3.0*ttAlpha*tPlanck;". Введем функцию B_IRt, возвращающую выражение "if (IsClosed(IRt))
+        {
+         if (IsForw)   _fw(IRt) = (tk1a*IRt[back]+HY[y-1]*@SurfaceEmissivity*(@[]IntPlanck[0]+(273.15+_fw(T))*(@IntPlanck[1]+(273.15+_fw(T))*(@IntPlanck[2]+(273.15+_fw(T))*@IntPlanck[3])))/Pi)/(tk1a+HY[y-1]*@SurfaceEmissivity);
+         if (IsBack)   _bw(IRt) = (tk1a*IRt[forw]+HY[y]*  @SurfaceEmissivity*(@[]IntPlanck[0]+(273.15+_bw(T))*(@IntPlanck[1]+(273.15+_bw(T))*(@IntPlanck[2]+(273.15+_bw(T))*@IntPlanck[3])))/Pi)/(tk1a+HY[y]*@SurfaceEmissivity);
+         if (IsBottom) _bt(IRt) = (tk1a*IRt[up]+HZ[z]*    @SurfaceEmissivity*(@[]IntPlanck[0]+(273.15+_bt(T))*(@IntPlanck[1]+(273.15+_bt(T))*(@IntPlanck[2]+(273.15+_bt(T))*@IntPlanck[3])))/Pi)/(tk1a+HZ[z]*@SurfaceEmissivity);
+         if (IsTop)    _tp(IRt) = (tk1a*IRt[down]+HZ_ZM*  @SurfaceEmissivity*(@[]IntPlanck[0]+(273.15+_tp(T))*(@IntPlanck[1]+(273.15+_tp(T))*(@IntPlanck[2]+(273.15+_tp(T))*@IntPlanck[3])))/Pi)/(tk1a+HZ_ZM*@SurfaceEmissivity);
+         if (IsLeft)   _lf(IRt) = (tk1a*IRt[right]+HX[x]* @SurfaceEmissivity*(@[]IntPlanck[0]+(273.15+_lf(T))*(@IntPlanck[1]+(273.15+_lf(T))*(@IntPlanck[2]+(273.15+_lf(T))*@IntPlanck[3])))/Pi)/(tk1a+HX[x]*@SurfaceEmissivity);
+         if (IsRight)  _rg(IRt) = (tk1a*IRt[left]+HX[x-1]*@SurfaceEmissivity*(@[]IntPlanck[0]+(273.15+_rg(T))*(@IntPlanck[1]+(273.15+_rg(T))*(@IntPlanck[2]+(273.15+_rg(T))*@IntPlanck[3])))/Pi)/(tk1a+HX[x-1]*@SurfaceEmissivity);
+        }
+      else
+        {
+         if (IsForw)   _fw(IRt) = (tk1*IRt[back]+HY[y-1]*tFluxPi)/(tk1+HY[y-1]);
+         if (IsBack)   _bw(IRt) = (tk1*IRt[forw]+HY[y]*tFluxPi)/(tk1+HY[y]);
+         if (IsBottom) _bt(IRt) = (tk1*IRt[up]+HZ[z]*tFluxPi)/(tk1+HZ[z]);
+         if (IsTop)    _tp(IRt) = (tk1*IRt[down]+HZ_ZM*tFluxPi)/(tk1+HZ_ZM);
+         if (IsLeft)   _lf(IRt) = (tk1*IRt[right]+HX[x]*tFluxPi)/(tk1+HX[x]);
+         if (IsRight)  _rg(IRt) = (tk1*IRt[left]+HX[x-1]*tFluxPi)/(tk1+HX[x-1]);
+        }" на фазе "-". Введем для функции B_IRt вспомогательные определения "double tk1 = 2.0/3.0/ttBeta;
+double tk1a = tk1*(2.0-@SurfaceEmissivity);
+double tFluxPi = @tDiffuseFlux/Pi;". Введем функцию S_IRt, возвращающую выражение "Split{0.0,3.0*ttAlpha*ttBeta};" на фазе "-". Введем для функции S_IRt вспомогательные определения "double tkAlbAsm = tkAlbedo*tkAsymm;
+double ttAlpha = teBeta*(1-tkAlbedo);
+double ttBeta = teBeta*(1-tkAlbAsm);
+double tPlanck = (@[]IntPlanck[0]+TK*(@IntPlanck[1]+TK*(@IntPlanck[2]+TK*@IntPlanck[3])));
+double tFt = 3.0*ttAlpha*tPlanck;". Для переменной IRt с вязкостью "0.0" и каппой "0.0" зададим пуассоновский решатель. Присоединим правую функцию K_IRt к уравнению переменной IRt. Присоединим базовую функцию S_IRt к уравнению переменной IRt. Присоединим граничную функцию B_IRt к уравнению переменной IRt. Введем функцию K_T, возвращающую выражение "Split{0.0,(tAlpha*(4.0*Pi*I+F0)+rtAlpha*(4.0*Pi*IR+FIR)+4.0*Pi*(ttAlpha*IRt-tFt/3.0))/RO0/CC0};" на фазе "-". Введем для функции K_T вспомогательные определения "double TK = 273.15+T;
+double RO0 = 352.984/TK;
+double CC0 = 1.4*(718+0.1167*RO0);". Введем функцию B_T, возвращающую выражение "if (IsClosed(T) && SlowMode)
+      {
+       if (IsForw)
+          {
+           double TKK = 273.15+_fw(T);
+           double LambdaT = 1E-3*(4.39+0.071*TKK);
+
+           _fw(T) += TAU/@SurfaceCC/@SurfaceRO*(@SurfaceLambda*(_d2Fdx2(_forw,T)  +_d2Fdz2(_forw,T))+((1-@SurfaceAlbedo)*  (Pi*(_fw(I)+_fw(IR)+_fw(UV)-k1*dFdyf(I)-rk1*dFdyf(IR)-uk1*dFdyf(UV))+(_fw(F0)+_fw(FIR)+_fw(FUV))*SolarY)+@SurfaceEmissivity*(Pi*(_fw(IRt)-tk1*dFdyf(IRt))-(@[]IntPlanck[0]+TKK*(@IntPlanck[1]+TKK*(@IntPlanck[2]+TKK*@IntPlanck[3]))))+LambdaT/HY[YM]*(T[back]-_fw(T)))/HY[YM]);
+          }
+       if (IsBack)
+          {
+           double TKK = 273.15+_bw(T);
+           double LambdaT = 1E-3*(4.39+0.071*TKK);
+
+           _bw(T) += TAU/@SurfaceCC/@SurfaceRO*(@SurfaceLambda*(_d2Fdx2(_back,T)  +_d2Fdz2(_back,T))+((1-@SurfaceAlbedo)*  (Pi*(_bw(I)+_bw(IR)+_bw(UV)+k1*dFdyb(I)+rk1*dFdyb(IR)+uk1*dFdyb(UV))-(_bw(F0)+_bw(FIR)+_bw(FUV))*SolarY)+@SurfaceEmissivity*(Pi*(_bw(IRt)+tk1*dFdyb(IRt))-(@[]IntPlanck[0]+TKK*(@IntPlanck[1]+TKK*(@IntPlanck[2]+TKK*@IntPlanck[3]))))+LambdaT/HY[y]*(T[forw]- _bw(T)))/HY[y]);
+          }
+       if (IsBottom)
+          {
+           double TKK = 273.15+_bt(T);
+           double LambdaT = 1E-3*(4.39+0.071*TKK);
+
+           _bt(T) += TAU/@SurfaceCC/@SurfaceRO*(@SurfaceLambda*(_d2Fdx2(_bottom,T)+_d2Fdy2(_bottom,T))+((1-@SurfaceAlbedo)*(Pi*(_bt(I)+_bt(IR)+_bt(UV)+k1*dFdzb(I)+rk1*dFdzb(IR)+uk1*dFdzb(UV))-(_bt(F0)+_bt(FIR)+_bt(FUV))*SolarZ)+@SurfaceEmissivity*(Pi*(_bt(IRt)+tk1*dFdzb(IRt))-(@[]IntPlanck[0]+TKK*(@IntPlanck[1]+TKK*(@IntPlanck[2]+TKK*@IntPlanck[3]))))+LambdaT/HZ[z]*(T[up]-   _bt(T)))/HZ[z]);
+          }
+       if (IsTop)
+          {
+           double TKK = 273.15+_tp(T);
+           double LambdaT = 1E-3*(4.39+0.071*TKK);
+
+           _tp(T) += TAU/@SurfaceCC/@SurfaceRO*(@SurfaceLambda*(_d2Fdx2(_top,T)   +_d2Fdy2(_top,T))+((1-@SurfaceAlbedo)*   (Pi*(_tp(I)+_tp(IR)+_tp(UV)-k1*dFdzt(I)-rk1*dFdzt(IR)-uk1*dFdzt(UV))+(_tp(F0)+_tp(FIR)+_tp(FUV))*SolarZ)+@SurfaceEmissivity*(Pi*(_tp(IRt)-tk1*dFdzt(IRt))-(@[]IntPlanck[0]+TKK*(@IntPlanck[1]+TKK*(@IntPlanck[2]+TKK*@IntPlanck[3]))))+LambdaT/HZ_ZM*(T[down]- _tp(T)))/HZ_ZM);
+          }
+       if (IsLeft)
+          {
+           double TKK = 273.15+_lf(T);
+           double LambdaT = 1E-3*(4.39+0.071*TKK);
+
+           _lf(T) += TAU/@SurfaceCC/@SurfaceRO*(@SurfaceLambda*(_d2Fdy2(_left,T)  +_d2Fdz2(_left,T))+((1-@SurfaceAlbedo)*  (Pi*(_lf(I)+_lf(IR)+_lf(UV)+k1*dFdxl(I)+rk1*dFdxl(IR)+uk1*dFdxl(UV))-(_lf(F0)+_lf(FIR)+_lf(FUV))*SolarX)+@SurfaceEmissivity*(Pi*(_lf(IRt)+tk1*dFdxl(IRt))-(@[]IntPlanck[0]+TKK*(@IntPlanck[1]+TKK*(@IntPlanck[2]+TKK*@IntPlanck[3]))))+LambdaT/HX[x]*(T[right]-_lf(T)))/HX[x]);
+          }
+       if (IsRight)
+          {
+           double TKK = 273.15+_rg(T);
+           double LambdaT = 1E-3*(4.39+0.071*TKK);
+
+           _rg(T) += TAU/@SurfaceCC/@SurfaceRO*(@SurfaceLambda*(_d2Fdy2(_right,T) +_d2Fdz2(_right,T))+((1-@SurfaceAlbedo)* (Pi*(_rg(I)+_rg(IR)+_rg(UV)-k1*dFdxr(I)-rk1*dFdxr(IR)-uk1*dFdxr(UV))+(_rg(F0)+_rg(FIR)+_rg(FUV))*SolarX)+@SurfaceEmissivity*(Pi*(_rg(IRt)-tk1*dFdxr(IRt))-(@[]IntPlanck[0]+TKK*(@IntPlanck[1]+TKK*(@IntPlanck[2]+TKK*@IntPlanck[3]))))+LambdaT/HX[XM]*(T[left]-_rg(T)))/HX[XM]);
+          }
+      }" на фазе "-". Для переменной T с вязкостью "1.978E-5" и каппой "1.393" зададим параболический решатель. Присоединим правую функцию K_T к уравнению переменной T. Присоединим граничную функцию B_T к уравнению переменной T. Введем функцию K_T_Uz, возвращающую выражение "@BT*9.81*(T-@T0);" на фазе "-". Для переменной Uz с вязкостью "@D" и каппой "1" зададим параболический решатель. Присоединим правую функцию P_U_K_Uz к уравнению переменной Uz. Присоединим правую функцию K_T_Uz к уравнению переменной Uz. Введем функцию K_T_P, возвращающую выражение "Split{0.0,@RO*@BT*9.81*dFdz(T)};" на фазе "-". Для переменной P с вязкостью "0.0" и каппой "0.0" зададим пуассоновский решатель. Присоединим правую функцию P_U_K_P к уравнению переменной P. Присоединим правую функцию K_T_P к уравнению переменной P. Введем функцию K_Ukx, возвращающую выражение "Ux;" на фазе "-". Введем функцию K_Uky, возвращающую выражение "Uy;" на фазе "-". Введем функцию K_Ukz, возвращающую выражение "Split{0.0,fabs(@UwLight[i]) > 1E-8 ? Uz - @UwLight[i] : Uz - GetdU(9.81, RO0, ROK, _Sigma, @D, DD[i], Uz - Ukz[i])};" на фазе "-". Введем функцию Drops_Source, возвращающую выражение "Split{-1E-6/Mk*dC,0.0};" на фазе "-". Введем для функции Drops_Source вспомогательные определения "?(EcologyGoettSO2RadFogDrops_exported.text2)". Введем прочую мультифазу Drops из 7 компонент на модели Model. Скорость витания фазы Drops приравняем "@UwLight{Drops}". Источником фазы Drops сделаем вещество H2O. Присоединим правую функцию Drops_Source к фазе Drops. Введем скаляр Rok с расширением "rok" на фазе Drops. Назначением переменной Rok сделаем плотностью фазы Drops. Дадим описание переменной Rok как "Плотность капель". Определим начальное значение переменной Rok как "@[]InitRok{Drops}[i]". Пусть переменная Rok будет иметь положительное значение. Введем вектор Uk с расширением "uk" на фазе Drops. Назначением переменной Uk сделаем скоростью фазы Drops. Дадим описание переменной Uk как "Скорость капель". Введем проекцию Vx вектора "Uk" с именем Ukx. Определим начальное значение переменной Ukx как "0". Для переменной Ukx зададим прямую схему решения. Присоединим правую функцию K_Ukx к уравнению переменной Ukx. Введем проекцию Vy вектора "Uk" с именем Uky. Определим начальное значение переменной Uky как "0". Для переменной Uky зададим прямую схему решения. Присоединим правую функцию K_Uky к уравнению переменной Uky. Введем проекцию Vz вектора "Uk" с именем Ukz. Определим начальное значение переменной Ukz как "0". Для переменной Ukz зададим прямую схему решения. Присоединим правую функцию K_Ukz к уравнению переменной Ukz. Введем скаляр Nk с расширением "nk" на фазе Drops. Дадим описание переменной Nk как "Концентрация капель". Определим начальное значение переменной Nk как "@[]InitNk{Drops}[i]". Пусть переменная Nk будет иметь положительное значение. Введем функцию K_Drops_SO2, возвращающую выражение "Split{-1E-6*dSO2,0.0};" на фазе "Drops". Введем для функции K_Drops_SO2 вспомогательные определения "vector CTOZERO[i] = SO2k[i] + TAU*(1E-6*dSO2kg[i] + SO2k[i] * (1E-6*dSO2kf[i] + dRo[i] / ROK)) < 0;
+vector CTOMAX[i] = SO2k[i] + TAU*(1E-6*dSO2kg[i] + SO2k[i] * (1E-6*dSO2kf[i] + dRo[i] / ROK)) > maxSO2k[i];
+double dSO2 = Sum{0,Nc-1,(CTOZERO[i] ? 0.0 : (RZ[i] * (LSO2f[i] * max(0.0, SO2k[i]) + LSO2g[i])))}+
+              Sum{1,Nc-1,(CTOZERO[i-1] ? 0.0 : (RP[i-1] * (LSO2f[i-1] * max(0.0, SO2k[i-1]) + LSO2g[i-1])))}+
+              Sum{0,Nc-2,(CTOZERO[i+1] ? 0.0 : (RM[i+1] * (LSO2f[i+1] * max(0.0, SO2k[i+1]) + LSO2g[i+1])))};". Для вещества SO2 зададим модификатор EqSO2. Присоединим правую функцию K_SO2 к уравнению переменной SO2. Присоединим правую функцию K_Drops_SO2 к уравнению переменной SO2. Введем скаляр SO2k с расширением "so2k" на фазе Drops. Дадим описание переменной SO2k как "Концентрация SO2 в каплях". Определим начальное значение переменной SO2k как "@[]InitSO2k{Drops}[i]". Пусть переменная SO2k будет иметь положительное значение. Введем функцию K_Rok, возвращающую выражение "Split{dRok[i]+dRo[i],0.0};" на фазе "-". Введем для функции K_Rok вспомогательные определения "vector dUkxdx[i] = Split{0.0,dFdx(Ukx[i])};
+vector dUkydy[i] = Split{0.0,dFdy(Uky[i])};
+vector dUkzdz[i] = Split{0.0,dFdz(Ukz[i])};
+vector dRok[i] = TOZERO[i] ? -Rok[i]/TAU :
+                   PhiZ[i]+1.0/TAU*(-RokP[i]-RokM[i])+
+                   (i>0.0 ? PhiP[i-1]+1.0/TAU*RokP[i-1] : 0.0)+
+                   (i<Nc-1 ? PhiM[i+1]+1.0/TAU*RokM[i+1] : 0.0);". Введем функцию S_Rok, возвращающую выражение "Split{0.0,0.0};" на фазе "-". Введем для функции S_Rok вспомогательные определения "vector dUkxdx[i] = Split{0.0,dFdx(Ukx[i])};
+vector dUkydy[i] = Split{0.0,dFdy(Uky[i])};
+vector dUkzdz[i] = Split{0.0,dFdz(Ukz[i])};
+vector dRok[i] = TOZERO[i] ? -Rok[i]/TAU :
+                   PhiZ[i]+1.0/TAU*(-RokP[i]-RokM[i])+
+                   (i>0.0 ? PhiP[i-1]+1.0/TAU*RokP[i-1] : 0.0)+
+                   (i<Nc-1 ? PhiM[i+1]+1.0/TAU*RokM[i+1] : 0.0);". Введем функцию K_Nk, возвращающую выражение "Split{dNk[i]+ddN[i],0.0};" на фазе "-". Введем для функции K_Nk вспомогательные определения "vector dUkxdx[i] = Split{0.0,dFdx(Ukx[i])};
+vector dUkydy[i] = Split{0.0,dFdy(Uky[i])};
+vector dUkzdz[i] = Split{0.0,dFdz(Ukz[i])};
+vector dNk[i] = TOZERO[i] ? -Nk[i]/TAU : pdNk[i];". Введем функцию S_Nk, возвращающую выражение "Split{0.0,0.0};" на фазе "-". Введем для функции S_Nk вспомогательные определения "vector dUkxdx[i] = Split{0.0,dFdx(Ukx[i])};
+vector dUkydy[i] = Split{0.0,dFdy(Uky[i])};
+vector dUkzdz[i] = Split{0.0,dFdz(Ukz[i])};
+vector dNk[i] = TOZERO[i] ? -Nk[i]/TAU : pdNk[i];". Введем функцию K_SO2k, возвращающую выражение "Split{(CTOZERO[i] ? -SO2k[i] / TAU : CTOMAX[i] ? maxSO2k[i]/TAU : 1E-6*dSO2kg[i]),0.0};" на фазе "-". Введем для функции K_SO2k вспомогательные определения "double H298_SO2 = 0.012177;
+double dH_SO2 = -25942.8;
+double _DfSO2 = 5.518E-10*pow(TK,1.75);
+
+double ScSO2 = @D/_DfSO2;
+double tScSO2 = pow(ScSO2,1.0/3.0);
+vector Nuss1SO2[i] = fabs(@UwLight[i]) > 1E-8 ? 2.0 : 2.0 + 0.6*sRek[i] * tScSO2;
+vector _HenrySO2[i] = EMPTY[i] ? 0.0 : H298_SO2*exp(dH_SO2/_R*(1.0/298.0-1/TK))*_R*TK;
+vector LSO2f[i] = EMPTY[i] ? 0.0 : -Nuss1SO2[i] * _DfSO2*1E6*kCSubst[i] / _HenrySO2[i];
+vector LSO2g[i] = EMPTY[i] ? 0.0 : Nuss1SO2[i] * _DfSO2*1E6*max(0.0, SO2);
+vector maxSO2k[i] = EMPTY[i] ? 0.0 : max(0.0, SO2)*_HenrySO2[i] / kCSubst[i];
+vector dSO2kf[i] = TOZERO[i] ? 0.0 :
+                     RZ[i]*LSO2f[i]+1E6/(TAU*ROK)*(-RokP[i]-RokM[i])+
+                     (i>0 ? RP[i-1]*LSO2f[i-1]+1E6/TAU*RokP[i-1]/ROK : 0.0)+
+                     (i<Nc-1 ? RM[i+1]*LSO2f[i+1]+1E6/TAU*RokM[i+1]/ROK : 0.0);
+vector dSO2kg[i] = TOZERO[i] ? -1E6*SO2k[i]/TAU :
+                     RZ[i]*LSO2g[i]+
+                     (i>0 ? RP[i-1]*LSO2g[i-1] : 0.0)+
+                     (i<Nc-1 ? RM[i+1]*LSO2g[i+1] : 0.0);". Введем функцию S_SO2k, возвращающую выражение "Split{(CTOZERO[i] ? 0.0 : CTOMAX[i] ? -1.0/TAU : (1E-6*dSO2kf[i] + dRo[i] / ROK)),0.0};" на фазе "-". Введем для функции S_SO2k вспомогательные определения "double H298_SO2 = 0.012177;
+double dH_SO2 = -25942.8;
+double _DfSO2 = 5.518E-10*pow(TK,1.75);
+
+double ScSO2 = @D/_DfSO2;
+double tScSO2 = pow(ScSO2,1.0/3.0);
+vector Nuss1SO2[i] = fabs(@UwLight[i]) > 1E-8 ? 2.0 : 2.0 + 0.6*sRek[i] * tScSO2;
+vector _HenrySO2[i] = EMPTY[i] ? 0.0 : H298_SO2*exp(dH_SO2/_R*(1.0/298.0-1/TK))*_R*TK;
+vector LSO2f[i] = EMPTY[i] ? 0.0 : -Nuss1SO2[i] * _DfSO2*1E6*kCSubst[i] / _HenrySO2[i];
+vector LSO2g[i] = EMPTY[i] ? 0.0 : Nuss1SO2[i] * _DfSO2*1E6*max(0.0, SO2);
+vector maxSO2k[i] = EMPTY[i] ? 0.0 : max(0.0, SO2)*_HenrySO2[i] / kCSubst[i];
+vector dSO2kf[i] = TOZERO[i] ? 0.0 :
+                     RZ[i]*LSO2f[i]+1E6/(TAU*ROK)*(-RokP[i]-RokM[i])+
+                     (i>0 ? RP[i-1]*LSO2f[i-1]+1E6/TAU*RokP[i-1]/ROK : 0.0)+
+                     (i<Nc-1 ? RM[i+1]*LSO2f[i+1]+1E6/TAU*RokM[i+1]/ROK : 0.0);
+vector dSO2kg[i] = TOZERO[i] ? -1E6*SO2k[i]/TAU :
+                     RZ[i]*LSO2g[i]+
+                     (i>0 ? RP[i-1]*LSO2g[i-1] : 0.0)+
+                     (i<Nc-1 ? RM[i+1]*LSO2g[i+1] : 0.0);". Для переменной SO2k с вязкостью "0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0" и каппой "0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0" зададим параболический решатель. Присоединим правую функцию K_SO2k к уравнению переменной SO2k. Присоединим базовую функцию S_SO2k к уравнению переменной SO2k. Введем функцию Inject_Rok, возвращающую выражение "Split{0.0,_Z[0]==0.0 && z==1 && @InjectStartTime{Drops}<=ModelTime ? (
+   EMPTY[i] ? @[]InjectN{Drops}[i]/24.0/(@Dk[i+1]-@Dk[i])*Pi*ROK*(@Dk[i+1]*@Dk[i+1]*@Dk[i+1]*@Dk[i+1]-@Dk[i]*@Dk[i]*@Dk[i]*@Dk[i]) :
+   @InjectN[i] / 6.0 / XY1[i] * Pi*ROK*XY4[i]
+) : 0.0};" на фазе "-". Введем для функции Inject_Rok вспомогательные определения "double YCell = floor((ModelTime-@InjectStartTime{Drops})*@InjectV{Drops}/@InjectCellLength{Drops});". Для переменной Rok с вязкостью "0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0" и каппой "0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0" зададим параболический решатель. Присоединим правую функцию K_Rok к уравнению переменной Rok. Присоединим правую функцию Inject_Rok к уравнению переменной Rok. Присоединим базовую функцию S_Rok к уравнению переменной Rok. Введем функцию Inject_Nk, возвращающую выражение "Split{0.0,_Z[0]==0.0 && z==1 && @InjectStartTime{Drops}<=ModelTime ? @[]InjectN{Drops}[i] : 0.0};" на фазе "-". Введем для функции Inject_Nk вспомогательные определения "double YCell = floor((ModelTime-@InjectStartTime{Drops})*@InjectV{Drops}/@InjectCellLength{Drops});". Для переменной Nk с вязкостью "0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0" и каппой "0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0" зададим параболический решатель. Присоединим правую функцию K_Nk к уравнению переменной Nk. Присоединим правую функцию Inject_Nk к уравнению переменной Nk. Присоединим базовую функцию S_Nk к уравнению переменной Nk. Добавим в решение новые функции "?(EcologyGoettSO2RadFogDrops_exported.text1)
+". Решим полученную систему уравнений.

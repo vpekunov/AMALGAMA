@@ -1,0 +1,121 @@
+Clearing MatLAB workspace... wait for 1 sec.
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Nj[K(1).*X1+K(2).*X2+K(3).*X1.*X2] has Goal(LOAD(:,5)') with K=[-0.098958589966214081,-0.39000496477418001,1.4217176057359346] and R2Norm = 2826.5428297467838
+Clearing MatLAB workspace... wait for 1 sec.
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Np[K(1).*X1+K(2).*X2+K(3).*X1.*X2] has Goal(LOAD(:,5)') with K=[1.0128429566505768,-2.2241503185481664,1.3392241737558377] and R2Norm = 5223.4845974175078
+Clearing MatLAB workspace... wait for 1 sec.
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+jp[K(1).*X1+K(2).*X2+K(3).*X1.*X2] has Goal(LOAD(:,5)') with K=[1.9098624039854912,-0.31859776488372366,1.9139554536955707] and R2Norm = 765.7581416042467
+Clearing MatLAB workspace... wait for 1 sec.
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Ns[K(1).*X1+K(2).*X2+K(3).*X1.*X2] has Goal(LOAD(:,5)') with K=[1.8845121831728557,-3.8071067253322219,1.3052524471587648] and R2Norm = 6392.2367283036519
+Clearing MatLAB workspace... wait for 1 sec.
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+js[K(1).*X1+K(2).*X2+K(3).*X1.*X2] has Goal(LOAD(:,5)') with K=[3.5373775312948759,-0.43644043339662353,1.2677329611678259] and R2Norm = 2226.3925723791776
+Clearing MatLAB workspace... wait for 1 sec.
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+ps[K(1).*X1+K(2).*X2+K(3).*X1.*X2] has Goal(LOAD(:,5)') with K=[3.4338509912019806,1.6885127062136485,0.40611051137841303] and R2Norm = 4875.6686978958332
+Filter(Layer1). Selected: [jp,js,Nj,ps]
+Clearing MatLAB workspace... wait for 1 sec.
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+L21[K(1).*X1+K(2).*X2+K(3).*X1.*X2] has Goal(LOAD(:,5)') with K=[0.58155365305458062,0.22613136407797754,0.010475128616688589] and R2Norm = 391.24839827904196
+Clearing MatLAB workspace... wait for 1 sec.
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+L22[K(1).*X1+K(2).*X2+K(3).*X1.*X2] has Goal(LOAD(:,5)') with K=[0.91280336215037494,0.05085078709394078,0.0019785835738447724] and R2Norm = 756.01803477323551
+Clearing MatLAB workspace... wait for 1 sec.
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+L23[K(1).*X1+K(2).*X2+K(3).*X1.*X2] has Goal(LOAD(:,5)') with K=[0.75176165377446336,0.18186217673534599,0.0035456169433259834] and R2Norm = 2177.9073401804499
+Clearing MatLAB workspace... wait for 1 sec.
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+L24[K(1).*X1+K(2).*X2+K(3).*X1.*X2] has Goal(LOAD(:,5)') with K=[0.64808795962079779,0.11685959990369993,0.014785000084938322] and R2Norm = 496.07053554188133
+Clearing MatLAB workspace... wait for 1 sec.
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+L25[K(1).*X1+K(2).*X2+K(3).*X1.*X2] has Goal(LOAD(:,5)') with K=[0.30260078659563822,0.16089593875409186,0.036173948809618786] and R2Norm = 633.50386599978674
+Clearing MatLAB workspace... wait for 1 sec.
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+L26[K(1).*X1+K(2).*X2+K(3).*X1.*X2] has Goal(LOAD(:,5)') with K=[0.14684724318750103,0.08393779123800614,0.053072601402364673] and R2Norm = 184.8296252406862
+Filter(Layer2). Selected: [L26,L21]
+Clearing MatLAB workspace... wait for 1 sec.
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+Optimization terminated successfully:
+ Relative function value changing by less than OPTIONS.TolFun
+L31[K(1).*X1+K(2).*X2+K(3).*X1.*X2] has Goal(LOAD(:,5)') with K=[0.68386255984385091,0.32956540921662958,-0.0003490076903239558] and R2Norm = 122.60730565216532
+Nj = inline('(-0.098958589966214081).*X1+(-0.39000496477418001).*X2+(1.4217176057359346).*X1.*X2','X1','X2');
+Np = inline('(1.0128429566505768).*X1+(-2.2241503185481664).*X2+(1.3392241737558377).*X1.*X2','X1','X2');
+jp = inline('(1.9098624039854912).*X1+(-0.31859776488372366).*X2+(1.9139554536955707).*X1.*X2','X1','X2');
+Ns = inline('(1.8845121831728557).*X1+(-3.8071067253322219).*X2+(1.3052524471587648).*X1.*X2','X1','X2');
+js = inline('(3.5373775312948759).*X1+(-0.43644043339662353).*X2+(1.2677329611678259).*X1.*X2','X1','X2');
+ps = inline('(3.4338509912019806).*X1+(1.6885127062136485).*X2+(0.40611051137841303).*X1.*X2','X1','X2');
+L21 = inline('(0.58155365305458062).*X1+(0.22613136407797754).*X2+(0.010475128616688589).*X1.*X2','X1','X2');
+L22 = inline('(0.91280336215037494).*X1+(0.05085078709394078).*X2+(0.0019785835738447724).*X1.*X2','X1','X2');
+L23 = inline('(0.75176165377446336).*X1+(0.18186217673534599).*X2+(0.0035456169433259834).*X1.*X2','X1','X2');
+L24 = inline('(0.64808795962079779).*X1+(0.11685959990369993).*X2+(0.014785000084938322).*X1.*X2','X1','X2');
+L25 = inline('(0.30260078659563822).*X1+(0.16089593875409186).*X2+(0.036173948809618786).*X1.*X2','X1','X2');
+L26 = inline('(0.14684724318750103).*X1+(0.08393779123800614).*X2+(0.053072601402364673).*X1.*X2','X1','X2');
+L31 = inline('(0.68386255984385091).*X1+(0.32956540921662958).*X2+(-0.0003490076903239558).*X1.*X2','X1','X2');
+Elapsed time = 39 sec.
+  L31(L26(Nj(_N,j),ps(p,s)),L21(jp(j,p),js(j,s))) 

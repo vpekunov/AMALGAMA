@@ -1,0 +1,234 @@
+/* Аналитическое решение */
+double aGetXY(double D, double RR)
+{
+ double D2 = D*D;
+ double D3 = D*D2;
+ double D6 = D3*D3;
+ double z = pow(-80.0*D3+108.0*RR+12.0*sqrt(48.0*D6-120.0*D3*RR+81.0*RR*RR),1.0/3.0);
+ return z/6.0-4.0/3.0*D2/z-D/3.0;
+}
+
+/* Численное решение */
+double GetXY(double D, double RR)
+{
+	double dx;
+	double aResult = aGetXY(D, RR);
+	double Result = isfinite(aResult) ? aResult : D;
+	int    Counter = 0;
+
+	do {
+		double z1 = D*D + Result*Result;
+		double z2 = D + Result;
+		dx = -(z1*z2 - RR) / (2.0*Result*z2 + z1);
+		Result += 0.5*dx;
+	} while (isfinite(Result) && fabs(dx) >= D*0.0000001 && ++Counter<5);
+	return Counter<5 && isfinite(Result) ? Result : isfinite(aResult) ? aResult : D;
+}
+
+double CD(double Re)
+{
+ if (Re<0.001) return CD(0.001);
+ else if (Re<0.1) return 24.0/Re;
+ else if (Re<1.0) return 24.0/Re*(1.0+3.0/16.0*Re+9.0/160.0*Re*Re*log(2*Re));
+ else if (Re<900.0) return 24.0/Re*(1+0.15*pow(Re,0.678));
+ else return 0.44;
+}
+
+double FFk(double g, double RO, double ROK, double Sigma, double Nu, double D, double dU)
+{
+ double adU = fabs(dU);
+ double Re = D*adU/Nu;
+ double We = 0.5*RO*D*dU*dU/Sigma;
+
+ return 3.0/8.0*CD(Re)*(1.0+2.632*We/12.0)*RO/ROK*2.0/D*adU*dU-g;
+}
+
+double GetdU(double g, double RO, double ROK, double Sigma, double Nu, double D, double Init_dU)
+{
+	double dx;
+	double Result = Init_dU;
+	int    Counter = 0;
+
+	if (!isfinite(Init_dU) || fabs(Init_dU) > 25) Init_dU = 0.0;
+
+	do {
+		double FF = FFk(g, RO, ROK, Sigma, Nu, D, Result);
+		double FF1 = FFk(g, RO, ROK, Sigma, Nu, D, Result + 0.00001);
+		dx = -FF / (FF1 - FF)*0.00001;
+		Result += min(1.5, 0.5*dx);
+	} while (fabs(dx) >= 0.0001 && (++Counter<80) && isfinite(Result) && fabs(Result) < 25 + fabs(Init_dU));
+
+	Result = Counter >= 80 || !isfinite(Result) || fabs(Result) > 25 + fabs(Init_dU) ? Init_dU : Result;
+
+	return Result;
+}
+
+double getLeftSpline(int i, double * Dk, double * XYC, double * XYC2, double * XYC3, double * XYC4, double * XYC5,
+	double * XYC6, double * XYC7, double ROK, double * AnC, double * BnC,
+	double * Ann, double * Bnn, double * Cnn, double * Dnn) {
+
+	double Pi = 3.1415926535897932;
+
+	double MAT[4][4];
+	double LU[4][4]; 
+	double FMAT[4]; 
+	double XMAT[4];
+	int iRow[4];
+
+	MAT[0][0] = XYC3[i - 1];
+	MAT[0][1] = XYC2[i - 1];
+	MAT[0][2] = XYC[i - 1];
+	MAT[0][3] = 1.0;
+	FMAT[0] = AnC[i - 1] * XYC[i - 1] + BnC[i - 1];
+	MAT[1][0] = XYC3[i];
+	MAT[1][1] = XYC2[i];
+	MAT[1][2] = XYC[i];
+	MAT[1][3] = 1.0;
+	FMAT[1] = AnC[i] * XYC[i] + BnC[i];
+	MAT[2][0] = 1.0 / 4.0*(XYC4[i] - XYC4[i - 1]);
+	MAT[2][1] = 1.0 / 3.0*(XYC3[i] - XYC3[i - 1]);
+	MAT[2][2] = 1.0 / 2.0*(XYC2[i] - XYC2[i - 1]);
+	MAT[2][3] = XYC[i] - XYC[i - 1];
+	FMAT[2] = AnC[i - 1] / 2.0*(Dk[i] * Dk[i] - XYC2[i - 1]) + BnC[i - 1] * (Dk[i] - XYC[i - 1]) +
+		AnC[i] / 2.0*(XYC2[i] - Dk[i] * Dk[i]) + BnC[i] * (XYC[i] - Dk[i]);
+	MAT[3][0] = Pi / 6.0*ROK*1.0 / 7.0*(XYC7[i] - XYC7[i - 1]);
+	MAT[3][1] = Pi / 6.0*ROK*1.0 / 6.0*(XYC6[i] - XYC6[i - 1]);
+	MAT[3][2] = Pi / 6.0*ROK*1.0 / 5.0*(XYC5[i] - XYC5[i - 1]);
+	MAT[3][3] = Pi / 6.0*ROK*1.0 / 4.0*(XYC4[i] - XYC4[i - 1]);
+	FMAT[3] = Pi / 6.0*ROK*(AnC[i - 1] / 5.0*(Dk[i] * Dk[i] * Dk[i] * Dk[i] * Dk[i] - XYC5[i - 1]) + BnC[i - 1] / 4.0*(Dk[i] * Dk[i] * Dk[i] * Dk[i] - XYC4[i - 1]) +
+		AnC[i] / 5.0*(XYC5[i] - Dk[i] * Dk[i] * Dk[i] * Dk[i] * Dk[i]) + BnC[i] / 4.0*(XYC4[i] - Dk[i] * Dk[i] * Dk[i] * Dk[i]));
+
+	_GetLU(4, iRow, (double *)MAT, (double *)LU);
+	_SolveLU(4, iRow, (double *)LU, FMAT, XMAT);
+
+	Ann[i] = XMAT[0];
+	Bnn[i] = XMAT[1];
+	Cnn[i] = XMAT[2];
+	Dnn[i] = XMAT[3];
+
+	return Ann[i];
+}
+
+double getRightSpline(int i, double * Dk, double * XYC, double * XYC2, double * XYC3, double * XYC4, double * XYC5,
+	double * XYC6, double * XYC7, double ROK, double * AnC, double * BnC,
+	double * An, double * Bn, double * Cn, double * Dn) {
+
+	double Pi = 3.1415926535897932;
+
+	double MAT[4][4];
+	double LU[4][4];
+	double FMAT[4];
+	double XMAT[4];
+	int iRow[4];
+
+	MAT[0][0] = XYC3[i];
+	MAT[0][1] = XYC2[i];
+	MAT[0][2] = XYC[i];
+	MAT[0][3] = 1.0;
+	FMAT[0] = AnC[i] * XYC[i] + BnC[i];
+	MAT[1][0] = XYC3[i + 1];
+	MAT[1][1] = XYC2[i + 1];
+	MAT[1][2] = XYC[i + 1];
+	MAT[1][3] = 1.0;
+	FMAT[1] = AnC[i + 1] * XYC[i + 1] + BnC[i + 1];
+	MAT[2][0] = 1.0 / 4.0*(XYC4[i + 1] - XYC4[i]);
+	MAT[2][1] = 1.0 / 3.0*(XYC3[i + 1] - XYC3[i]);
+	MAT[2][2] = 1.0 / 2.0*(XYC2[i + 1] - XYC2[i]);
+	MAT[2][3] = XYC[i + 1] - XYC[i];
+	FMAT[2] = AnC[i] / 2.0*(Dk[i + 1] * Dk[i + 1] - XYC2[i]) + BnC[i] * (Dk[i + 1] - XYC[i]) +
+		AnC[i + 1] / 2.0*(XYC2[i + 1] - Dk[i + 1] * Dk[i + 1]) + BnC[i + 1] * (XYC[i + 1] - Dk[i + 1]);
+	MAT[3][0] = Pi / 6.0*ROK*1.0 / 7.0*(XYC7[i + 1] - XYC7[i]);
+	MAT[3][1] = Pi / 6.0*ROK*1.0 / 6.0*(XYC6[i + 1] - XYC6[i]);
+	MAT[3][2] = Pi / 6.0*ROK*1.0 / 5.0*(XYC5[i + 1] - XYC5[i]);
+	MAT[3][3] = Pi / 6.0*ROK*1.0 / 4.0*(XYC4[i + 1] - XYC4[i]);
+	FMAT[3] = Pi / 6.0*ROK*(AnC[i] / 5.0*(Dk[i + 1] * Dk[i + 1] * Dk[i + 1] * Dk[i + 1] * Dk[i + 1] - XYC5[i]) + BnC[i] / 4.0*(Dk[i + 1] * Dk[i + 1] * Dk[i + 1] * Dk[i + 1] - XYC4[i]) +
+		AnC[i + 1] / 5.0*(XYC5[i + 1] - Dk[i + 1] * Dk[i + 1] * Dk[i + 1] * Dk[i + 1] * Dk[i + 1]) + BnC[i + 1] / 4.0*(XYC4[i + 1] - Dk[i + 1] * Dk[i + 1] * Dk[i + 1] * Dk[i + 1]));
+
+	_GetLU(4, iRow, (double *)MAT, (double *)LU);
+	_SolveLU(4, iRow, (double *)LU, FMAT, XMAT);
+
+	An[i] = XMAT[0];
+	Bn[i] = XMAT[1];
+	Cn[i] = XMAT[2];
+	Dn[i] = XMAT[3];
+
+	return An[i];
+}
+
+double calcCoalescense(int Nc, double * Dk, double * X, double * Y, double * XYC,
+	double * Ann, double * Bnn, double * Cnn, double * Dnn,
+	double * An, double * Bn, double * Cn, double * Dn,
+	int Ptr,
+	float ** UX, float ** UY, float ** UZ,
+	double * UwLight,
+	double ROK,
+	double * ddN, double * dRo) {
+	double Pi = 3.1415926535897932;
+
+	int i, j;
+
+	for (i = 0; i < Nc; i++)
+		for (j = i; j < Nc; j++) {
+			double h1 = Y[i] - X[i];
+			double h2 = Y[j] - X[j];
+			double D11 = X[i];
+			double D12 = D11 + h1 / 2;
+			double D13 = D11 + h1;
+			double D21 = X[j];
+			double D22 = D21 + h2 / 2;
+			double D23 = D21 + h2;
+
+			double N11 = D11 <= XYC[i] ? ((Ann[i] * D11 + Bnn[i])*D11 + Cnn[i])*D11 + Dnn[i] :
+				((An[i] * D11 + Bn[i])*D11 + Cn[i])*D11 + Dn[i];
+			double N12 = D12 <= XYC[i] ? ((Ann[i] * D12 + Bnn[i])*D12 + Cnn[i])*D12 + Dnn[i] :
+				((An[i] * D12 + Bn[i])*D12 + Cn[i])*D12 + Dn[i];
+			double N13 = D13 <= XYC[i] ? ((Ann[i] * D13 + Bnn[i])*D13 + Cnn[i])*D13 + Dnn[i] :
+				((An[i] * D13 + Bn[i])*D13 + Cn[i])*D13 + Dn[i];
+			double N21 = D21 <= XYC[j] ? ((Ann[j] * D21 + Bnn[j])*D21 + Cnn[j])*D21 + Dnn[j] :
+				((An[j] * D21 + Bn[j])*D21 + Cn[j])*D21 + Dn[j];
+			double N22 = D22 <= XYC[j] ? ((Ann[j] * D22 + Bnn[j])*D22 + Cnn[j])*D22 + Dnn[j] :
+				((An[j] * D22 + Bn[j])*D22 + Cn[j])*D22 + Dn[j];
+			double N23 = D23 <= XYC[j] ? ((Ann[j] * D23 + Bnn[j])*D23 + Cnn[j])*D23 + Dnn[j] :
+				((An[j] * D23 + Bn[j])*D23 + Cn[j])*D23 + Dn[j];
+
+			if (N11 > 1E-5 && N12 > 1E-5 && N13 > 1E-5 && N21 > 1E-5 && N22 > 1E-5 && N23 > 1E-5) {
+				double dQ = Pi / 4.0*sqrt((UX[i][Ptr] - UX[j][Ptr])*(UX[i][Ptr] - UX[j][Ptr]) +
+										(UY[i][Ptr] - UY[j][Ptr])*(UY[i][Ptr] - UY[j][Ptr]) +
+										(UZ[i][Ptr] - UZ[j][Ptr])*(UZ[i][Ptr] - UZ[j][Ptr]))*
+					(
+					h1 / 6.0*(N11*(h2 / 6.0*(N21*(D11 + D21)*(D11 + D21) + 4 * N22*(D11 + D22)*(D11 + D22) + N23*(D11 + D23)*(D11 + D23))) +
+					4 * N12*(h2 / 6.0*(N21*(D12 + D21)*(D12 + D21) + 4 * N22*(D12 + D22)*(D12 + D22) + N23*(D12 + D23)*(D12 + D23))) +
+					N13*(h2 / 6.0*(N21*(D13 + D21)*(D13 + D21) + 4 * N22*(D13 + D22)*(D13 + D22) + N23*(D13 + D23)*(D13 + D23))))
+					);
+				if (dQ > 0.0) {
+					double D3;
+					int G;
+					int found;
+					D13 = (N11*D11*D11*D11 + 4 * N12*D12*D12*D12 + N13*D13*D13*D13) / (N11 + 4 * N12 + N13);
+					D23 = (N21*D21*D21*D21 + 4 * N22*D22*D22*D22 + N23*D23*D23*D23) / (N21 + 4 * N22 + N23);
+					D3 = pow(D13 + D23, 1.0 / 3.0);
+
+					G = 0;
+					found = 0;
+
+					while (G < Nc && !found)
+						if (Dk[G + 1] > D3)
+							found = 1;
+						else
+							G++;
+
+					ddN[i] -= dQ;
+					ddN[j] -= dQ;
+					dRo[i] -= dQ*ROK*Pi / 6.0*D13;
+					dRo[j] -= dQ*ROK*Pi / 6.0*D23;
+					if (G < Nc) {
+						ddN[G] += dQ;
+						dRo[G] += dQ*ROK*Pi / 6.0*D13;
+						dRo[G] += dQ*ROK*Pi / 6.0*D23;
+					}
+				}
+			}
+		}
+
+	return 0.0;
+}

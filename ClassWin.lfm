@@ -1,0 +1,33 @@
+object ClassesForm: TClassesForm
+  Left = 198
+  Height = 375
+  Top = 106
+  Width = 218
+  BorderStyle = bsSizeToolWin
+  Caption = 'Классы'
+  ClientHeight = 375
+  ClientWidth = 218
+  DragKind = dkDock
+  DragMode = dmAutomatic
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  OnCreate = FormCreate
+  OnHide = FormHide
+  OnResize = FormResize
+  OnShow = FormShow
+  LCLVersion = '1.2.6.0'
+  object ClassesTree: TTreeView
+    Left = 0
+    Height = 375
+    Top = 0
+    Width = 218
+    Align = alClient
+    DefaultItemHeight = 16
+    DragMode = dmAutomatic
+    Indent = 19
+    ReadOnly = True
+    RightClickSelect = True
+    TabOrder = 0
+    Options = [tvoAutoItemHeight, tvoHideSelection, tvoKeepCollapsedNodes, tvoReadOnly, tvoRightClickSelect, tvoShowButtons, tvoShowLines, tvoShowRoot, tvoToolTips]
+  end
+end

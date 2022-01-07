@@ -1,0 +1,407 @@
+object InductRulesForm: TInductRulesForm
+  Left = 132
+  Height = 664
+  Top = 47
+  Width = 1076
+  BorderStyle = bsSingle
+  Caption = 'Индукция правил'
+  ClientHeight = 664
+  ClientWidth = 1076
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  Position = poScreenCenter
+  LCLVersion = '1.6.4.0'
+  object LogMemo: TMemo
+    Left = 9
+    Height = 71
+    Top = 588
+    Width = 1057
+    Color = 12707839
+    ScrollBars = ssBoth
+    TabOrder = 0
+  end
+  object lbModels: TListBox
+    Left = 9
+    Height = 152
+    Top = 16
+    Width = 190
+    Color = 13619151
+    ItemHeight = 0
+    OnSelectionChange = lbModelsSelectionChange
+    TabOrder = 1
+  end
+  object btLoadModel: TButton
+    Left = 8
+    Height = 25
+    Top = 176
+    Width = 91
+    Caption = 'Загрузить'
+    OnClick = btLoadModelClick
+    TabOrder = 2
+  end
+  object btUnloadModel: TButton
+    Left = 113
+    Height = 25
+    Top = 176
+    Width = 88
+    Caption = 'Выгрузить'
+    OnClick = btUnloadModelClick
+    TabOrder = 3
+  end
+  object tvClasses: TTreeView
+    Left = 208
+    Height = 424
+    Top = 16
+    Width = 225
+    BackgroundColor = 13619151
+    Color = 13619151
+    DefaultItemHeight = 18
+    ReadOnly = True
+    TabOrder = 4
+    OnSelectionChanged = tvClassesSelectionChanged
+    Options = [tvoAutoItemHeight, tvoHideSelection, tvoKeepCollapsedNodes, tvoReadOnly, tvoShowButtons, tvoShowLines, tvoShowRoot, tvoToolTips, tvoThemedDraw]
+  end
+  object Label1: TLabel
+    Left = 16
+    Height = 15
+    Top = 0
+    Width = 44
+    Caption = 'Модели'
+    ParentColor = False
+  end
+  object Label2: TLabel
+    Left = 208
+    Height = 15
+    Top = 2
+    Width = 41
+    Caption = 'Классы'
+    ParentColor = False
+  end
+  object Label3: TLabel
+    Left = 10
+    Height = 15
+    Top = 232
+    Width = 49
+    Caption = 'Объекты'
+    ParentColor = False
+  end
+  object memInducer: TMemo
+    Left = 446
+    Height = 180
+    Top = 20
+    Width = 618
+    Color = 16121305
+    OnChange = memInducerChange
+    ScrollBars = ssBoth
+    TabOrder = 5
+    WordWrap = False
+  end
+  object Label4: TLabel
+    Left = 447
+    Height = 15
+    Top = 2
+    Width = 127
+    Caption = 'Распознающий скрипт'
+    ParentColor = False
+  end
+  object btGenerate: TButton
+    Left = 446
+    Height = 25
+    Top = 248
+    Width = 617
+    Caption = 'Сгенерировать распознающие скрипты'
+    OnClick = btGenerateClick
+    TabOrder = 6
+  end
+  object btLoadProject: TButton
+    Left = 632
+    Height = 25
+    Top = 560
+    Width = 193
+    Caption = 'Загрузить проект'
+    OnClick = btLoadProjectClick
+    TabOrder = 7
+  end
+  object btSaveProject: TButton
+    Left = 836
+    Height = 25
+    Top = 560
+    Width = 227
+    Caption = 'Сохранить проект'
+    OnClick = btSaveProjectClick
+    TabOrder = 8
+  end
+  object edPhrase: TEdit
+    Left = 9
+    Height = 23
+    Top = 397
+    Width = 192
+    TabOrder = 9
+  end
+  object btViewObj: TButton
+    Left = 10
+    Height = 25
+    Top = 355
+    Width = 192
+    Caption = 'Посмотреть/Редактировать'
+    OnClick = btViewObjClick
+    TabOrder = 10
+  end
+  object lbObjs: TListBox
+    Left = 9
+    Height = 100
+    Top = 249
+    Width = 190
+    Color = 13619151
+    ItemHeight = 0
+    TabOrder = 11
+  end
+  object Label5: TLabel
+    Left = 12
+    Height = 15
+    Top = 382
+    Width = 174
+    Caption = 'Фраза-шаблон ($ = окончание)'
+    ParentColor = False
+  end
+  object lbBound: TListBox
+    Left = 8
+    Height = 104
+    Top = 449
+    Width = 1055
+    Color = 14741185
+    ItemHeight = 0
+    Sorted = True
+    TabOrder = 12
+  end
+  object btAddPhrasedObj: TSpeedButton
+    Left = 104
+    Height = 22
+    Top = 424
+    Width = 23
+    Glyph.Data = {
+      36040000424D3604000000000000360000002800000010000000100000000100
+      2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00256929C4216425C9FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF002D7533CF488F4DFF458C4AFF2265
+      26D1FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF003C8A430638833ED9519957FF79C07EFF76BF7CFF468D
+      4BFF236627DB20622306FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF0042924AB83D8C45F765AD6CFF7DC282FF7AC180FF4B92
+      50FF276D2CF7246828BBFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF0043944B384E9A55FF81C587FF7EC385FF317A
+      36FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0045954CFF85C78CFF82C689FF3682
+      3DFFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF004A9E53FF8ACA91FF87C98EFF3C8A
+      43FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0050A659FF8ECC95FF8BCB93FF4292
+      4AFFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0056AD5FFF93CF9AFF90CE98FF489A
+      50FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF005BB465FF96D29FFF94D09CFF4EA2
+      57FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF005FBB6AFF9AD4A3FF98D3A1FF53AA
+      5DFFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0063C06FFF9ED6A7FF9CD4A5FF59B2
+      63FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0066C572FFA2D8ABFFA0D7A9FF5DB8
+      68FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0068C774FF67C673FF65C270FF62BE
+      6DFFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+    }
+    OnClick = btAddPhrasedObjClick
+  end
+  object btDelPhrasedObj: TSpeedButton
+    Left = 136
+    Height = 22
+    Top = 424
+    Width = 23
+    Glyph.Data = {
+      36040000424D3604000000000000360000002800000010000000100000000100
+      2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00286E2DFF256929FF216425FF1E60
+      22FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF002D7533FF74BD7AFF72BD78FF2265
+      26FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00337D39FF79C07EFF76BF7CFF266B
+      2BFFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0039853FFF7DC282FF7AC180FF2B72
+      30FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF003F8D46FF81C587FF7EC385FF317A
+      36FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0045954CFF85C78CFF82C689FF3682
+      3DFFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF004A9E53FF8ACA91FF87C98EFF3C8A
+      43FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0050A659FF8ECC95FF8BCB93FF4292
+      4AFFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0056AD5FFF93CF9AFF90CE98FF489A
+      50FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF005BB465FF96D29FFF94D09CFF5DAC
+      65FF499C5238FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF0065C371BB62BF6EF779C683FF9AD4A3FF98D3A1FF7DC3
+      86FF4FA458F74A9E53B8FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF0068C7740666C472DB7CCA87FF9ED6A7FF9CD4A5FF73C0
+      7DFF55AC5ED950A65906FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0066C572D17ECA88FF7BC885FF5DB8
+      68CFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0067C673C965C270C4FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+    }
+    OnClick = btDelPhrasedObjClick
+  end
+  object edConstsName: TEdit
+    Left = 448
+    Height = 23
+    Top = 219
+    Width = 262
+    TabOrder = 13
+    Text = 'dbconsts'
+  end
+  object edTablesName: TEdit
+    Left = 757
+    Height = 23
+    Top = 219
+    Width = 306
+    TabOrder = 14
+    Text = 'dbtables'
+  end
+  object Label6: TLabel
+    Left = 449
+    Height = 15
+    Top = 203
+    Width = 182
+    Caption = 'Базовое имя справочных таблиц'
+    ParentColor = False
+  end
+  object Label7: TLabel
+    Left = 756
+    Height = 15
+    Top = 203
+    Width = 231
+    Caption = 'Базовое имя трансформирующих таблиц'
+    ParentColor = False
+  end
+  object memIm: TMemo
+    Left = 448
+    Height = 83
+    Top = 291
+    Width = 616
+    Color = 16121305
+    OnChange = memImChange
+    ScrollBars = ssBoth
+    TabOrder = 15
+    WordWrap = False
+  end
+  object Label8: TLabel
+    Left = 449
+    Height = 15
+    Top = 273
+    Width = 48
+    Caption = 'im-файл'
+    ParentColor = False
+  end
+  object Label9: TLabel
+    Left = 9
+    Height = 15
+    Top = 573
+    Width = 93
+    Caption = 'Рабочий журнал'
+    ParentColor = False
+  end
+  object Label10: TLabel
+    Left = 446
+    Height = 15
+    Top = 376
+    Width = 136
+    Caption = 'Предложения в ini-файл'
+    ParentColor = False
+  end
+  object memIni: TMemo
+    Left = 447
+    Height = 46
+    Top = 392
+    Width = 616
+    Color = 16121305
+    ScrollBars = ssBoth
+    TabOrder = 16
+    WordWrap = False
+  end
+  object btSaveScript: TButton
+    Left = 584
+    Height = 17
+    Top = 2
+    Width = 99
+    Caption = 'Сохранить'
+    Enabled = False
+    OnClick = btSaveScriptClick
+    TabOrder = 17
+  end
+  object Label11: TLabel
+    Left = 8
+    Height = 15
+    Top = 433
+    Width = 85
+    Caption = 'Сопоставления'
+    ParentColor = False
+  end
+  object btSaveIm: TButton
+    Left = 504
+    Height = 17
+    Top = 273
+    Width = 99
+    Caption = 'Сохранить'
+    Enabled = False
+    OnClick = btSaveImClick
+    TabOrder = 18
+  end
+  object btAutoFill: TButton
+    Left = 9
+    Height = 25
+    Top = 209
+    Width = 191
+    Caption = 'Автозаполнение по TXT-файлу'
+    OnClick = btAutoFillClick
+    TabOrder = 19
+  end
+  object OpenModelDialog: TOpenDialog
+    Filter = 'Модели в формате XML|*.xml|Модели в формате AMD|*.amd|ВСе файлы|*.*'
+    Options = [ofPathMustExist, ofFileMustExist, ofEnableSizing, ofViewDetail]
+    left = 57
+    top = 27
+  end
+  object SaveProjectDialog: TSaveDialog
+    Filter = 'Файлы проекта (*.prj)|*.prj|Все файлы|*.*'
+    Options = [ofOverwritePrompt, ofPathMustExist, ofEnableSizing, ofViewDetail]
+    left = 57
+    top = 84
+  end
+  object OpenProjectDialog: TOpenDialog
+    Filter = 'Файлы проекта (*.prj)|*.prj|Все файлы|*.*'
+    Options = [ofPathMustExist, ofFileMustExist, ofEnableSizing, ofViewDetail]
+    left = 57
+    top = 140
+  end
+  object SaveImDialog: TSaveDialog
+    Filter = 'Im-файлы (*.im)|*.im|Все файлы (*.*)|*.*'
+    Options = [ofOverwritePrompt, ofPathMustExist, ofEnableSizing, ofViewDetail]
+    left = 129
+    top = 58
+  end
+  object OpenTxtDialog: TOpenDialog
+    Filter = 'Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*'
+    Options = [ofPathMustExist, ofFileMustExist, ofEnableSizing, ofViewDetail]
+    left = 121
+    top = 113
+  end
+end

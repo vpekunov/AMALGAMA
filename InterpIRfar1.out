@@ -1,0 +1,31 @@
+Clearing MatLAB workspace... wait for 1 sec.
+Net12_7_1[newff(minmax(X),[12 7 1],{'tansig' 'tansig' 'purelin'})] with Goal(LOAD(:,2)') gives K=[c:\matlab6p5p1\work\Net12_7_1.mat] with R2Norm = 0.044310040609153452
+Clearing MatLAB workspace... wait for 1 sec.
+Net10_5_1[newff(minmax(X),[10 5 1],{'tansig' 'tansig' 'purelin'})] with Goal(LOAD(:,2)') gives K=[c:\matlab6p5p1\work\Net10_5_1.mat] with R2Norm = 0.032424782020453694
+Clearing MatLAB workspace... wait for 1 sec.
+Warning: Polynomial is badly conditioned. Remove repeated data points
+         or try centering and scaling as described in HELP POLYFIT.
+(Type "warning off MATLAB:polyfit:RepeatedPointsOrRescale" to suppress this warning.)
+> In c:\matlab6p5p1\toolbox\matlab\polyfun\polyfit.m at line 75
+Poly7[polyval(K,X)] with Goal(LOAD(:,2)') gives K=[-3.7589899041571055E-012,1.5836702001691558E-009,-2.6810223050108067E-007,2.3225094951541898E-005,-0.0010833713907771848,0.026141799363881123,-0.2757618684473841,2.1880805189836865] with R2Norm = 1.1901946201865963
+Clearing MatLAB workspace... wait for 1 sec.
+Mul[X1.*X2] has Goal(LOAD(:,2)') with K=[0] and R2Norm = 111.42182481388927
+... fix X1=[1.4344768878022922 1.4282732217171525 1.423030584770091 1.4178564649102854 1.4127503710743086 1.4076075592449544 1.4024318048004285 1.3973282469693418 1.39219643026148 1.3870401476016441 1.3819601...]. Plan to enhance in [Net10_5_1] 
+Clearing MatLAB workspace... wait for 1 sec.
+Warning: Polynomial is badly conditioned. Remove repeated data points
+         or try centering and scaling as described in HELP POLYFIT.
+(Type "warning off MATLAB:polyfit:RepeatedPointsOrRescale" to suppress this warning.)
+> In c:\matlab6p5p1\toolbox\matlab\polyfun\polyfit.m at line 75
+Poly16[polyval(K,X)] with Goal(LOAD(:,2)') gives K=[1.1796055026777665E-024,-9.9189112476545881E-022,3.8035125833006809E-019,-8.80698087471056E-017,1.3743306630824244E-014,-1.527612792107005E-012,1.2463941958305674E-010,-7.5810928250212259E-009,3.4559927099467595E-007,-1.1774170308689153E-005,0.00029656433980596036,-0.0054153205694592709,0.069520058322638092,-0.59915985739152078,3.2321608511424471,-9.6948797497236203,13.486866907884075] with R2Norm = 0.10837398432710903
+Clearing MatLAB workspace... wait for 1 sec.
+  Net10_5_1[newff(minmax(X),[10 5 1],{'tansig' 'tansig' 'purelin'})] with Goal([0.92814531298569203 0.93014696333996638 0.9319427243471804 0.93380185707569185 0.93569679899979286 0.93772443273040151 0.93987671663476902 0.94208215060071177 0.94449315586381299 0.94704324332020728 ...]) gives K=[c:\matlab6p5p1\work\Net10_5_1.mat] with R2Norm = 0.01822045873708774
+Clearing MatLAB workspace... wait for 1 sec.
+Mul[X1.*X2] has Goal(LOAD(:,2)') with K=[0] and R2Norm = 0.030182757971704662
+... R2Norm successfully enhanced.
+Net12_7_1 = inline('sim(getfield(load(''c:\matlab6p5p1\work\Net12_7_1.mat''),''BestK''),X)','X');
+Net10_5_1 = inline('sim(getfield(load(''c:\matlab6p5p1\work\Net10_5_1.mat''),''BestK''),X)','X');
+Poly7 = inline('polyval([-3.7589899041571055E-012,1.5836702001691558E-009,-2.6810223050108067E-007,2.3225094951541898E-005,-0.0010833713907771848,0.026141799363881123,-0.2757618684473841,2.1880805189836865],X)','X');
+Mul = inline('X1.*X2','X1','X2');
+Poly16 = inline('polyval([1.1796055026777665E-024,-9.9189112476545881E-022,3.8035125833006809E-019,-8.80698087471056E-017,1.3743306630824244E-014,-1.527612792107005E-012,1.2463941958305674E-010,-7.5810928250212259E-009,3.4559927099467595E-007,-1.1774170308689153E-005,0.00029656433980596036,-0.0054153205694592709,0.069520058322638092,-0.59915985739152078,3.2321608511424471,-9.6948797497236203,13.486866907884075],X)','X');
+Elapsed time = 129 sec.
+  Mul(Poly7(X),Net10_5_1(X)) 

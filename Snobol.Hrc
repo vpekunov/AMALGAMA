@@ -1,0 +1,79 @@
+<!--
+    A part of Snobol Syntax
+      Vladimir Pekunov <pekunov@mail.ru>
+-->
+
+<Define Name="SString"   Value="dStrings">
+<Define Name="SComment"  Value="dCommentsEx">
+<Define Name="SSymb"     Value="dNumbers">
+<Define Name="SWord"     Value="dResWords">
+<Define Name="SOther"    Value="dDirectives">
+<Define Name="SNumb"     Value="dNumbers">
+<Define Name="SLabel"    Value="dLabels">
+<Define Name="SContinue" Value="dPath">
+<Define Name="STrue"     Value="dLabels">
+<Define Name="SFalse"    Value="dPath">
+<Define Name="SSubject"  Value="dLabelsEx">
+
+<Scheme Name="Snobol">
+   <RegExp Start="/^(\*.*$)/" Color0="SComment">
+   <RegExp Start="/^(\+)/" Color0="SContinue">
+   <RegExp Start="/^(\S*)\s+(&\S+)|([^\s\t\(]+)[\s\t]/" Color0="SLabel" Color1="SWord" Color2="SSubject">
+   <RegExp Start="/^(\S+)/" Color0="SLabel">
+   <RegExp Start="/(&\S+)/" Color0="SWord">
+   <RegExp Start='/"/' End='/"/' Color0="SString">
+   <RegExp Start="/'/" End="/'/" Color0="SString">
+   <RegExp Start="/\s:([sS]\([\w\.]+\))?(\s*[fF]\([\w\.]+\))?$/" Color0="STrue" Color1="SFalse">
+   <RegExp Start="/\s:([fF]\([\w\.]+\))?(\s*[sS]\([\w\.]+\))?$/" Color0="SFalse" Color1="STrue">
+   <RegExp Start="/\s:(\([\w\.]+\))$/" Color0="SWord">
+   <RegExp Start="/\b([0-9.]+([eE][\-+]?\d+)?)\B/" Color0="SNumb">
+   <KeyWords MatchCase="False" Color="SWord">
+      <Word Name="any">
+      <Word Name="arb">
+      <Word Name="arbno">
+      <Word Name="array">
+      <Word Name="notany">
+      <Word Name="bal">
+      <Word Name="break">
+      <Word Name="code">
+      <Word Name="clear">
+      <Word Name="data">
+      <Word Name="datatype">
+      <Word Name="define">
+      <Word Name="differ">
+      <Word Name="dupl">
+      <Word Name="endfile">
+      <Word Name="eq">
+      <Word Name="eval">
+      <Word Name="fail">
+      <Word Name="fence">
+      <Word Name="ge">
+      <Word Name="gt">
+      <Word Name="ident">
+      <Word Name="input">
+      <Word Name="integer">
+      <Word Name="le">
+      <Word Name="lgt">
+      <Word Name="lt">
+      <Word Name="ne">
+      <Word Name="opsyn">
+      <Word Name="output">
+      <Word Name="pos">
+      <Word Name="rem">
+      <Word Name="remdr">
+      <Word Name="replace">
+      <Word Name="rpos">
+      <Word Name="rtab">
+      <Word Name="size">
+      <Word Name="span">
+      <Word Name="tab">
+      <Word Name="table">
+      <Word Name="trim">
+   </Keywords>
+   <KeyWords Color="SSymb">
+      <Symb Name="="><Symb Name="$"><Symb Name="+"><Symb Name="-">
+      <Symb Name="*"><Symb Name="/"><Symb Name="@"><Symb Name=")">
+      <Symb Name="["><Symb Name="]"><Symb Name=","><Symb Name="|">
+      <Symb Name="("><Symb Name="."><Symb Name="<"><Symb Name=">">
+   </KeyWords>
+</Scheme>

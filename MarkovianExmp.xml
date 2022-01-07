@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE System [
+<!ELEMENT System (Elements)>
+<!ATTLIST System
+Lang CDATA #REQUIRED
+>
+<!ELEMENT Elements (Element*)>
+<!ATTLIST Elements
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT Element (Show,Position,Parameters,InternalInputs,InternalOutputs,PublishedInputs,PublishedOutputs,InputLinks,OutputLinks)>
+<!ATTLIST Element
+ClassID CDATA #REQUIRED
+ParentID CDATA #REQUIRED
+ID ID #REQUIRED
+Permanent (True | False) #REQUIRED
+>
+<!ELEMENT Show EMPTY>
+<!ATTLIST Show
+Class (True | False) #REQUIRED
+Name (True | False) #REQUIRED
+Image (True | False) #REQUIRED
+>
+<!ELEMENT Position EMPTY>
+<!ATTLIST Position
+Left CDATA #REQUIRED
+Top CDATA #REQUIRED
+>
+<!ELEMENT Parameters (Parameter*)>
+<!ATTLIST Parameters
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT Parameter (#PCDATA | EMPTY)*>
+<!ATTLIST Parameter
+ID CDATA #REQUIRED
+Indent CDATA #IMPLIED
+>
+<!ELEMENT InternalInputs (iContact*)>
+<!ATTLIST InternalInputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT InternalOutputs (iContact*)>
+<!ATTLIST InternalOutputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT iContact EMPTY>
+<!ATTLIST iContact
+ID CDATA #REQUIRED
+ElementID IDREF #REQUIRED
+ContID CDATA #REQUIRED
+>
+<!ELEMENT PublishedInputs (pContact*)>
+<!ATTLIST PublishedInputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT PublishedOutputs (pContact*)>
+<!ATTLIST PublishedOutputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT pContact EMPTY>
+<!ATTLIST pContact
+ID CDATA #REQUIRED
+PublicID CDATA #REQUIRED
+PublicName CDATA #REQUIRED
+>
+<!ELEMENT InputLinks (Contact*)>
+<!ELEMENT OutputLinks (Contact*)>
+<!ELEMENT Contact (Link*)>
+<!ATTLIST Contact
+ID CDATA #REQUIRED
+>
+<!ELEMENT Link (Points?)>
+<!ATTLIST Link
+ElementID IDREF #REQUIRED
+ContID CDATA #REQUIRED
+Color CDATA #IMPLIED
+Informational (True | False) #REQUIRED
+>
+<!ELEMENT Points (#PCDATA | EMPTY)*>
+<!ATTLIST Points
+NumItems CDATA #REQUIRED
+>
+]>
+<System Lang="">
+ <Elements NumItems="7">
+  <Element ClassID="clsMarkovkianSimula" ParentID="" ID="Model" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="15" Top="2"/>
+   <Parameters NumItems="2">
+    <Parameter ID="VarNames" Indent="0"></Parameter>
+    <Parameter ID="Matrix" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks/>
+  </Element>
+  <Element ClassID="clsMarkovianNode" ParentID="" ID="A" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="130" Top="48"/>
+   <Parameters NumItems="1">
+    <Parameter ID="InitP" Indent="0">0.25</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="A_A" ContID="Out" Informational="True"/>
+     <Link ElementID="B_A" ContID="Out" Informational="True"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="A_A" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+     <Link ElementID="A_B" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsMarkovianWeight" ParentID="" ID="A_A" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="265" Top="158"/>
+   <Parameters NumItems="1">
+    <Parameter ID="Weight" Indent="0">0.4</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="A" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="A" ContID="In" Color="clBlack" Informational="True">
+      <Points NumItems="3">364,200,305,248,82,220</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsMarkovianNode" ParentID="" ID="B" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="430" Top="99"/>
+   <Parameters NumItems="1">
+    <Parameter ID="InitP" Indent="0">0.75</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="A_B" ContID="Out" Informational="False"/>
+     <Link ElementID="B_B" ContID="Out" Informational="True"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="B_B" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+     <Link ElementID="B_A" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsMarkovianWeight" ParentID="" ID="A_B" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="325" Top="82"/>
+   <Parameters NumItems="1">
+    <Parameter ID="Weight" Indent="0">0.6</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="A" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="B" ContID="In" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsMarkovianWeight" ParentID="" ID="B_B" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="463" Top="205"/>
+   <Parameters NumItems="1">
+    <Parameter ID="Weight" Indent="0">0.9</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="B" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="B" ContID="In" Color="clBlack" Informational="True">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsMarkovianWeight" ParentID="" ID="B_A" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="385" Top="11"/>
+   <Parameters NumItems="1">
+    <Parameter ID="Weight" Indent="0">0.1</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="In">
+     <Link ElementID="B" ContID="Out" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Out">
+     <Link ElementID="A" ContID="In" Color="clBlack" Informational="True">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+ </Elements>
+</System>

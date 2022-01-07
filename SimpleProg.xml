@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE System [
+<!ELEMENT System (Elements)>
+<!ATTLIST System
+Lang CDATA #REQUIRED
+>
+<!ELEMENT Elements (Element*)>
+<!ATTLIST Elements
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT Element (Show,Position,Parameters,InternalInputs,InternalOutputs,PublishedInputs,PublishedOutputs,InputLinks,OutputLinks)>
+<!ATTLIST Element
+ClassID CDATA #REQUIRED
+ParentID CDATA #REQUIRED
+ID ID #REQUIRED
+Permanent (True | False) #REQUIRED
+>
+<!ELEMENT Show EMPTY>
+<!ATTLIST Show
+Class (True | False) #REQUIRED
+Name (True | False) #REQUIRED
+Image (True | False) #REQUIRED
+>
+<!ELEMENT Position EMPTY>
+<!ATTLIST Position
+Left CDATA #REQUIRED
+Top CDATA #REQUIRED
+>
+<!ELEMENT Parameters (Parameter*)>
+<!ATTLIST Parameters
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT Parameter (#PCDATA | EMPTY)*>
+<!ATTLIST Parameter
+ID CDATA #REQUIRED
+Indent CDATA #IMPLIED
+>
+<!ELEMENT InternalInputs (iContact*)>
+<!ATTLIST InternalInputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT InternalOutputs (iContact*)>
+<!ATTLIST InternalOutputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT iContact EMPTY>
+<!ATTLIST iContact
+ID CDATA #REQUIRED
+ElementID IDREF #REQUIRED
+ContID CDATA #REQUIRED
+>
+<!ELEMENT PublishedInputs (pContact*)>
+<!ATTLIST PublishedInputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT PublishedOutputs (pContact*)>
+<!ATTLIST PublishedOutputs
+NumItems CDATA #REQUIRED
+>
+<!ELEMENT pContact EMPTY>
+<!ATTLIST pContact
+ID CDATA #REQUIRED
+PublicID CDATA #REQUIRED
+PublicName CDATA #REQUIRED
+>
+<!ELEMENT InputLinks (Contact*)>
+<!ELEMENT OutputLinks (Contact*)>
+<!ELEMENT Contact (Link*)>
+<!ATTLIST Contact
+ID CDATA #REQUIRED
+>
+<!ELEMENT Link (Points?)>
+<!ATTLIST Link
+ElementID IDREF #REQUIRED
+ContID CDATA #REQUIRED
+Color CDATA #IMPLIED
+Informational (True | False) #REQUIRED
+>
+<!ELEMENT Points (#PCDATA | EMPTY)*>
+<!ATTLIST Points
+NumItems CDATA #REQUIRED
+>
+]>
+<System Lang="">
+ <Elements NumItems="10">
+  <Element ClassID="clsSimpleProgram" ParentID="" ID="Prog" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="20" Top="142"/>
+   <Parameters NumItems="1">
+    <Parameter ID="Name" Indent="0">MinMax</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Begin">
+     <Link ElementID="inp" ContID="Prev" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsSimpleVector" ParentID="" ID="V" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="143" Top="26"/>
+   <Parameters NumItems="2">
+    <Parameter ID="ID" Indent="0">V</Parameter>
+    <Parameter ID="Size" Indent="0">10</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks/>
+   <OutputLinks>
+    <Contact ID="Handle">
+     <Link ElementID="inp" ContID="Arg" Color="clBlack" Informational="False">
+      <Points NumItems="2">248,67,126,143</Points>
+     </Link>
+     <Link ElementID="find_min" ContID="Arg" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+     <Link ElementID="find_max" ContID="Arg" Color="clBlack" Informational="False">
+      <Points NumItems="1">336,86</Points>
+     </Link>
+     <Link ElementID="out_v" ContID="Arg" Color="clBlack" Informational="False">
+      <Points NumItems="2">418,79,511,121</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsSimpleScalar" ParentID="" ID="min" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="494" Top="314"/>
+   <Parameters NumItems="1">
+    <Parameter ID="ID" Indent="0">min</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Asgn">
+     <Link ElementID="find_min" ContID="Res" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Handle">
+     <Link ElementID="out_min" ContID="Arg" Color="clBlack" Informational="False">
+      <Points NumItems="1">659,176</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsSimpleScalar" ParentID="" ID="max" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="494" Top="249"/>
+   <Parameters NumItems="1">
+    <Parameter ID="ID" Indent="0">max</Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Asgn">
+     <Link ElementID="find_max" ContID="Res" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Handle">
+     <Link ElementID="out_max" ContID="Arg" Color="clBlack" Informational="False">
+      <Points NumItems="2">734,289,771,177</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsSimpleInput" ParentID="" ID="inp" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="165" Top="132"/>
+   <Parameters NumItems="1">
+    <Parameter ID="IVar" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Arg">
+     <Link ElementID="V" ContID="Handle" Informational="False"/>
+    </Contact>
+    <Contact ID="Prev">
+     <Link ElementID="Prog" ContID="Begin" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Next">
+     <Link ElementID="find_min" ContID="Prev" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsSimpleMat" ParentID="" ID="find_min" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="292" Top="133"/>
+   <Parameters NumItems="3">
+    <Parameter ID="IVar" Indent="0"></Parameter>
+    <Parameter ID="Op" Indent="0">Min</Parameter>
+    <Parameter ID="OVar" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Arg">
+     <Link ElementID="V" ContID="Handle" Informational="False"/>
+    </Contact>
+    <Contact ID="Prev">
+     <Link ElementID="inp" ContID="Next" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Next">
+     <Link ElementID="find_max" ContID="Prev" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+    <Contact ID="Res">
+     <Link ElementID="min" ContID="Asgn" Color="clBlack" Informational="False">
+      <Points NumItems="1">383,202</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsSimpleMat" ParentID="" ID="find_max" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="431" Top="134"/>
+   <Parameters NumItems="3">
+    <Parameter ID="IVar" Indent="0"></Parameter>
+    <Parameter ID="Op" Indent="0">Max</Parameter>
+    <Parameter ID="OVar" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Arg">
+     <Link ElementID="V" ContID="Handle" Informational="False"/>
+    </Contact>
+    <Contact ID="Prev">
+     <Link ElementID="find_min" ContID="Next" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Next">
+     <Link ElementID="out_v" ContID="Prev" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+    <Contact ID="Res">
+     <Link ElementID="max" ContID="Asgn" Color="clBlack" Informational="False">
+      <Points NumItems="2">527,193,460,271</Points>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsSimpleOut" ParentID="" ID="out_v" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="565" Top="132"/>
+   <Parameters NumItems="1">
+    <Parameter ID="IVar" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Arg">
+     <Link ElementID="V" ContID="Handle" Informational="False"/>
+    </Contact>
+    <Contact ID="Prev">
+     <Link ElementID="find_max" ContID="Next" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Next">
+     <Link ElementID="out_min" ContID="Prev" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsSimpleOut" ParentID="" ID="out_min" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="679" Top="134"/>
+   <Parameters NumItems="1">
+    <Parameter ID="IVar" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Arg">
+     <Link ElementID="min" ContID="Handle" Informational="False"/>
+    </Contact>
+    <Contact ID="Prev">
+     <Link ElementID="out_v" ContID="Next" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks>
+    <Contact ID="Next">
+     <Link ElementID="out_max" ContID="Prev" Color="clBlack" Informational="False">
+      <Points NumItems="0"/>
+     </Link>
+    </Contact>
+   </OutputLinks>
+  </Element>
+  <Element ClassID="clsSimpleOut" ParentID="" ID="out_max" Permanent="False">
+   <Show Class="True" Name="True" Image="False"/>
+   <Position Left="785" Top="134"/>
+   <Parameters NumItems="1">
+    <Parameter ID="IVar" Indent="0"></Parameter>
+   </Parameters>
+   <InternalInputs NumItems="0"/>
+   <InternalOutputs NumItems="0"/>
+   <PublishedInputs NumItems="0"/>
+   <PublishedOutputs NumItems="0"/>
+   <InputLinks>
+    <Contact ID="Arg">
+     <Link ElementID="max" ContID="Handle" Informational="False"/>
+    </Contact>
+    <Contact ID="Prev">
+     <Link ElementID="out_min" ContID="Next" Informational="False"/>
+    </Contact>
+   </InputLinks>
+   <OutputLinks/>
+  </Element>
+ </Elements>
+</System>
