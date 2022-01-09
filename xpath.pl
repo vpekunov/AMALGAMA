@@ -233,16 +233,6 @@ saveL([H|T]):-
   listing(H),
   saveL(T).
 
-saveLF:-
-  db_predicates(L),
-  telling(F),
-  tell('__db.pl'),
-  saveL(L),
-  told,
-  tell(F),
-  !.
-saveLF:-!.
-
 save(L):-
   retractall(db_predicates(_)),
   asserta(db_predicates(L)).

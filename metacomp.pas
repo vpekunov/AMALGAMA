@@ -36,10 +36,14 @@ Const rsContext = 'context';
       rsAuto = 'auto';
 
 Const defGoal = '!.';
-      defDone = 'saveLF';
+      defDone = 'true';
 
 Const ConsultFile = 'xpath.pl';
       ScriptFile = '_script.pl';
+
+      aliveDB = '_alive.pl';
+      phoenixDB = '_phoenix.pl';
+
       DBFile = '_db.pl';
       OutFile = '__db.pl';
 
@@ -428,7 +432,9 @@ Begin
     For I := 0 To Count - 1 Do
         AppendStr(Result, Strings[I] + #$0D#$0A);
   AppendStr(Result, 'goal:-' + FGoal + #$0D#$0A);
-  AppendStr(Result, 'execute:-init,' + Calls + 'goal,' + Writes + 'write(''#'').' + #$0D#$0A)
+  AppendStr(Result, 'saveLF :- current_predicate(P), ''$predicate_property_pi''(P,''dynamic''), listing(P), fail.' + #$0D#$0A);
+  AppendStr(Result, 'saveLF :- true,!.' + #$0D#$0A);
+  AppendStr(Result, 'execute:-consult('''+phoenixDB+'''),phoenix,init,' + Calls + 'goal,' + Writes + 'write(''#'').' + #$0D#$0A)
 End;
 
 function ScanMacro.ExportPascal(var out: TStringList; const Offs, vMac,
@@ -568,7 +574,7 @@ Var Beg, Last: Integer;
     lStp, lEnp: LockArray;
     (* *)runer: run_gprolog7; (* *)
     (* *)initer: switch_gprolog7; (* *)
-    I, J, K, P, PP: Integer;
+    I, II, J, K, P, PP: Integer;
     DBGID: TextFile;
     Script: TextFile;
     FirstWordNum: Integer;
@@ -583,7 +589,7 @@ Var Beg, Last: Integer;
     A: TAnalyser;
     RG: TRegExpr;
     S, M: String;
-    W: String;
+    W, LL: String;
     TT, ST: WideString;
     D: STR;
     NODE: Real;
@@ -812,6 +818,25 @@ Begin
                            S+' ' + ScriptFile + ' _.out execute _.info ' + Done + ' ' + GID,
                            '_.info'));
                         {$ENDIF}
+                        With TStringList.Create Do
+                          Begin
+                            LoadFromFile(S + {$IF DEFINED(UNIX) OR DEFINED(LINUX)}'/'{$ELSE}'\'{$ENDIF} + aliveDB);
+                            Insert(0, 'phoenix:-');
+                            For II := 1 To Count-1 Do
+                                Begin
+                                  LL := Trim(Strings[II]);
+                                  if Length(LL) <> 0 Then
+                                     If LL[1] <> '%' Then
+                                        If LL[Length(LL)] = '.' Then
+                                           Begin
+                                             LL[Length(LL)] := ')';
+                                             LL := 'assertz(' + LL + ','
+                                           End;
+                                  Strings[II] := LL;
+                                End;
+                            Add('true,!.');
+                            SaveToFile(S + {$IF DEFINED(UNIX) OR DEFINED(LINUX)}'/'{$ELSE}'\'{$ENDIF} + phoenixDB)
+                          End
                      end;
                   AssignFile(DB, DBFile);
                   Rewrite(DB);
@@ -1191,7 +1216,17 @@ end;
 
 (* *)
 Var doner: switch_gprolog7;
+    ExePath: String;
 (* *)
+
+Initialization
+  ExePath:=StringReplace(ExcludeTrailingBackSlash(ExtractFilePath(ParamStr(0))),'\','/',[rfReplaceAll]);
+  With TStringList.Create Do
+    Begin
+      Add('phoenix:-!.');
+      SaveToFile(ExePath + {$IF DEFINED(UNIX) OR DEFINED(LINUX)}'/'{$ELSE}'\'{$ENDIF} + phoenixDB);
+      Free
+    End;
 
 Finalization
   (* *)
