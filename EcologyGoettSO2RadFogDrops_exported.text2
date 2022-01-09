@@ -455,4 +455,5 @@ double dC = Sum{PhiZ[i]}+Sum{1,Nc-1,PhiP[i-1]}+Sum{0,Nc-2,PhiM[i+1]};
 
 vector ddN[i] = 0.0;
 vector dRo[i] = 0.0;
-double coalesc = calcCoalescense(Nc, Dk, X, Y, XYC, Ann, Bnn, Cnn, Dnn, An, Bn, Cn, Dn, Ptr, Ukx, Uky, Ukz, UwLight, ROK, ddN, dRo);
+vector(Nc*Nc+Nc) ddRo[i] = 0.0;
+double coalesc = calcCoalescense(Nc, Dk, X, Y, XYC, Ann, Bnn, Cnn, Dnn, An, Bn, Cn, Dn, Ptr, Ukx, Uky, Ukz, UwLight, ROK, ddN, dRo, ddRo);

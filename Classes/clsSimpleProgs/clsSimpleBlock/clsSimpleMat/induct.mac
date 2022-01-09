@@ -1,19 +1,17 @@
 @versions(Auto)
 @fast(dbconsts1,"dbconsts1.csv").
 @fast(dbtables0,"dbtables0.csv").
-@fast(dbtables1,"dbtables1.csv").
 @context(PREV,infinity):-
   (((^)|(\.)+)(\s*\\n)*)\s*.
 @glue:-.
 @global_unique(MAIN,infinity):-
-   ()->{V0}()->{V3}()->{VRES0}()->{V4}()->{VRES1}
+   ()->{V0}()->{V3}()->{VRES0}
    (([^\w\.]+(\w+)->{P0}[^\w\.]+(\w+)->{P1}[^\.]*\.)->{Grammar.ru{SENTENCE}}(*PRUNE))?=>{
       xpathf(SENTENCE,'MVv1oi',$V0,'результат','true'),dbconsts1(V0),
-      xpathf(SENTENCE,'NXv0io','результат',$V3,'true'),dbtables0(V3,$VRES0),
-      xpathf(SENTENCE,'NXv0io','результат',$V4,'true'),dbtables1(V4,$VRES1)
+      xpathf(SENTENCE,'NXv0io','результат',$V3,'true'),dbtables0(V3,$VRES0)
    }.
- @auto:-MAIN:"//P0/text()" => "IVar",MAIN:"//VRES0/text()" => "Op",MAIN:"//P1/text()" => "OVar",MAIN:"//VRES0/text()"+MAIN:"//P0/text()"+MAIN:"//VRES1/text()" => "ID".
- @goal:-true,!.
+ @auto:-MAIN:"//P0/text()" => "IVar",MAIN:"//VRES0/text()" => "Op",MAIN:"//P1/text()" => "OVar",MAIN:"//VRES0/text()"+MAIN:"//P0/text()"+MAIN:"//P1/text()" => "ID".
+ @goal:-xpath('MAIN','//P0/text()',[VIVarText0]),xpath('MAIN','//VRES0/text()',[VOpText0]),xpath('MAIN','//P1/text()',[VOVarText1]),xpath('MAIN','//VRES0/text()',[VIDText0]),xpath('MAIN','//P0/text()',[VIDText0]),xpath('MAIN','//P1/text()',[VIDText1]),atom_concat(VIDText0,VIDText0,OPSVPW),atom_concat(OPSVPW,VIDText1,OWLQQJ),assertz(simplemat(VIVarText0,VOpText0,VOVarText1,OWLQQJ)),!.
  @done:-clear_db.
 
 @versions(Programmatical)

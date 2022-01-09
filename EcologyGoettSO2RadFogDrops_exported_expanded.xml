@@ -3349,8 +3349,8 @@ double CC0 = 1.4*(718+0.1167*RO0);</Parameter>
    <Position Left="300" Top="3750"/>
 <Parameters NumItems="2">
     <Parameter ID="Name" Indent="0">K_Drops_SO2</Parameter>
-    <Parameter ID="Vars" Indent="0">vector CTOZERO[i] = SO2k[i] + TAU*(1E-6*dSO2kg[i] + SO2k[i] * (1E-6*dSO2kf[i] + dRo[i] / ROK)) &lt; 0;
-vector CTOMAX[i] = SO2k[i] + TAU*(1E-6*dSO2kg[i] + SO2k[i] * (1E-6*dSO2kf[i] + dRo[i] / ROK)) &gt; maxSO2k[i];
+    <Parameter ID="Vars" Indent="0">vector CTOZERO[i] = SO2k[i] + TAU*(1E-6*dSO2kg[i] + ddSO2kg[i] + SO2k[i] * (1E-6*dSO2kf[i] + ddSO2kf[i])) &lt; 0;
+vector CTOMAX[i] = SO2k[i] + TAU*(1E-6*dSO2kg[i] + ddSO2kg[i] + SO2k[i] * (1E-6*dSO2kf[i] + ddSO2kf[i])) &gt; maxSO2k[i];
 double dSO2 = Sum{0,Nc-1,(CTOZERO[i] ? 0.0 : (RZ[i] * (LSO2f[i] * max(0.0, SO2k[i]) + LSO2g[i])))}+
               Sum{1,Nc-1,(CTOZERO[i-1] ? 0.0 : (RP[i-1] * (LSO2f[i-1] * max(0.0, SO2k[i-1]) + LSO2g[i-1])))}+
               Sum{0,Nc-2,(CTOZERO[i+1] ? 0.0 : (RM[i+1] * (LSO2f[i+1] * max(0.0, SO2k[i+1]) + LSO2g[i+1])))};</Parameter>
@@ -3602,7 +3602,7 @@ vector dNk[i] = TOZERO[i] ? -Nk[i]/TAU : pdNk[i];</Parameter>
    <Position Left="300" Top="4050"/>
 <Parameters NumItems="3">
     <Parameter ID="Name" Indent="0">K_SO2k</Parameter>
-    <Parameter ID="Expression" Indent="0">Split{(CTOZERO[i] ? -SO2k[i] / TAU : CTOMAX[i] ? maxSO2k[i]/TAU : 1E-6*dSO2kg[i]),0.0};</Parameter>
+    <Parameter ID="Expression" Indent="0">Split{(CTOZERO[i] ? -SO2k[i] / TAU : CTOMAX[i] ? maxSO2k[i]/TAU : (1E-6*dSO2kg[i] + ddSO2kg[i])),0.0};</Parameter>
     <Parameter ID="Phase" Indent="0">-</Parameter>
 </Parameters>
    <InternalInputs NumItems="0"/>
@@ -3635,7 +3635,9 @@ vector dSO2kf[i] = TOZERO[i] ? 0.0 :
 vector dSO2kg[i] = TOZERO[i] ? -1E6*SO2k[i]/TAU :
                      RZ[i]*LSO2g[i]+
                      (i&gt;0 ? RP[i-1]*LSO2g[i-1] : 0.0)+
-                     (i&lt;Nc-1 ? RM[i+1]*LSO2g[i+1] : 0.0);</Parameter>
+                     (i&lt;Nc-1 ? RM[i+1]*LSO2g[i+1] : 0.0);
+vector ddSO2kg[i] = 0*coalesc + (Sum{0,Nc-1,i != j ? SO2k[j]*ddRo[j*(Nc+1)+i] : 0.0;j})/ROK;
+vector ddSO2kf[i] = 0*coalesc + (ddRo[i*(Nc+1)+i] + ddRo[i*(Nc+1)+Nc])/ROK;</Parameter>
 </Parameters>
    <InternalInputs NumItems="0"/>
    <InternalOutputs NumItems="0"/>
@@ -3649,7 +3651,7 @@ vector dSO2kg[i] = TOZERO[i] ? -1E6*SO2k[i]/TAU :
    <Position Left="600" Top="4050"/>
 <Parameters NumItems="3">
     <Parameter ID="Name" Indent="0">S_SO2k</Parameter>
-    <Parameter ID="Expression" Indent="0">Split{(CTOZERO[i] ? 0.0 : CTOMAX[i] ? -1.0/TAU : (1E-6*dSO2kf[i] + dRo[i] / ROK)),0.0};</Parameter>
+    <Parameter ID="Expression" Indent="0">Split{(CTOZERO[i] ? 0.0 : CTOMAX[i] ? -1.0/TAU : (1E-6*dSO2kf[i] + ddSO2kf[i])),0.0};</Parameter>
     <Parameter ID="Phase" Indent="0">-</Parameter>
 </Parameters>
    <InternalInputs NumItems="0"/>
@@ -3682,7 +3684,9 @@ vector dSO2kf[i] = TOZERO[i] ? 0.0 :
 vector dSO2kg[i] = TOZERO[i] ? -1E6*SO2k[i]/TAU :
                      RZ[i]*LSO2g[i]+
                      (i&gt;0 ? RP[i-1]*LSO2g[i-1] : 0.0)+
-                     (i&lt;Nc-1 ? RM[i+1]*LSO2g[i+1] : 0.0);</Parameter>
+                     (i&lt;Nc-1 ? RM[i+1]*LSO2g[i+1] : 0.0);
+vector ddSO2kg[i] = 0*coalesc + (Sum{0,Nc-1,i != j ? SO2k[j]*ddRo[j*(Nc+1)+i] : 0.0;j})/ROK;
+vector ddSO2kf[i] = 0*coalesc + (ddRo[i*(Nc+1)+i] + ddRo[i*(Nc+1)+Nc])/ROK;</Parameter>
 </Parameters>
    <InternalInputs NumItems="0"/>
    <InternalOutputs NumItems="0"/>

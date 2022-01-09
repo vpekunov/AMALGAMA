@@ -644,15 +644,16 @@ void CalculateK(WKoeffs * W, StoreStruct * V, float ** Kf, float ** KDn, float *
          }
     if (!function_exists("InlineExplode")) {
        function InlineExplode($Text,$FName,$Prefix,$Infix,$Postfix) {
-         while (ereg("(([^a-z0-9A-Z_])|(^))".$FName."\{([^,]+),([^,]+),([^}]+)\}",$Text,$Regs))
+         while (ereg("(([^a-z0-9A-Z_])|(^))".$FName."\{([^,]+),([^,]+),([^;}]+)(\;([a-zA-Z0-9_]+))?\}",$Text,$Regs))
            {
             $R = array();
             $From = (int) eval("return ".$Regs[4].";");
             $To = eval("return ".$Regs[5].";");
+            $Idx = (trim($Regs[8]) === "") ? "i" : $Regs[8];
             for ($j = $From; $j <= $To; $j++)
                 array_push($R,
                   "(".
-                  ereg_replace("(([^a-z0-9A-Z_])|(^))i(([^a-z0-9A-Z_])|(^))","\\1".$j."\\4",$Regs[6]).
+                  ereg_replace("(([^a-z0-9A-Z_])|(^))".$Idx."(([^a-z0-9A-Z_])|(^))","\\1".$j."\\4",$Regs[6]).
                   ")");
             $Text = str_replace($Regs[0],$Regs[1].sprintf($Prefix,$To-$From+1).implode($Infix,$R).$Postfix,$Text);
            }

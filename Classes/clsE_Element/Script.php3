@@ -138,7 +138,7 @@ double _<? echo $Name; ?> (int i, int x, int y, int z, unsigned char Map)
 if (!function_exists("HandleMultiFunction")) {
    function HandleMultiFunction($HandleVectors,$Text,$Nc) {
      if ($HandleVectors)
-        $Text = ereg_replace("(([^a-z0-9A-Z_])|(^))vector(([^a-z0-9A-Z_])|($))",
+        $Text = ereg_replace("(([^a-z0-9A-Z_])|(^))vector(([^a-z0-9A-Z_\(])|($))",
                              "\\1vector(".$Nc.")\\4",
                              $Text);
      $Text = ereg_replace("(([^a-z0-9A-Z_])|(^))Sum\{([^,}]+)\}",
@@ -150,9 +150,13 @@ if (!function_exists("HandleMultiFunction")) {
      $Text = ereg_replace("(([^a-z0-9A-Z_])|(^))Max\{([^,}]+)\}",
                           "\\1Max{0,".$Nc."-1,\\4}",
                           $Text);
-     return ereg_replace("(([^a-z0-9A-Z_])|(^))Nc(([^a-z0-9A-Z_])|($))",
-                          "\\1".$Nc."\\4",
+     do {
+        $RES = ereg_replace("((([^a-z0-9A-Z_])|(^))Nc(([^a-z0-9A-Z_])|($)))",
+                          "\\2".$Nc."\\5",
                           $Text);
+        if ($RES === $Text) return $RES;
+        $Text = $RES;
+     } while (1);
    }
 }
 if (!function_exists("SetXMLExportMode")) {

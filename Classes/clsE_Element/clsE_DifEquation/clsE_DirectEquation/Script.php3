@@ -38,7 +38,6 @@ if ($EXPORT !== "") {
    return;
 }
 
-if ($Stage == stDone) 
 $P = "0.0"; HandleParameter($Stage,$P,$Calc["Nc"][0],$Kappa,$Solver["Parameters"],"Kappa".$Calc["Name"][0]);
 $P = "0.0"; HandleParameter($Stage,$P,$Calc["Nc"][0],$NuMol,$Solver["Parameters"],"NuMol".$Calc["Name"][0]);
 if ($Calc["Nc"][0]>1)

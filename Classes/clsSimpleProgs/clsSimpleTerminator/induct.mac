@@ -2,7 +2,7 @@
 @global_unique(PROCESS,1):-
   ($)->{END}.
  @auto:-"END" => "ID".
- @goal:-true,!.
+ @goal:-assertz(simpleterminator('END')),!.
  @done:-clear_db.
 
 @versions(Programmatical,Russian,RussianGrammar)

@@ -162,10 +162,15 @@ double calcCoalescense(int Nc, double * Dk, double * X, double * Y, double * XYC
 	float ** UX, float ** UY, float ** UZ,
 	double * UwLight,
 	double ROK,
-	double * ddN, double * dRo) {
+	double * ddN, double * dRo, double * ddRo /* [Nc][Nc+1] */) {
 	double Pi = 3.1415926535897932;
 
 	int i, j;
+
+	if (ddRo)
+		for (i = 0, Ptr = 0; i < Nc; i++)
+			for (j = 0; j <= Nc; j++, Ptr++)
+				ddRo[Ptr] = 0.0;
 
 	for (i = 0; i < Nc; i++)
 		for (j = i; j < Nc; j++) {
@@ -225,6 +230,14 @@ double calcCoalescense(int Nc, double * Dk, double * X, double * Y, double * XYC
 						ddN[G] += dQ;
 						dRo[G] += dQ*ROK*Pi / 6.0*D13;
 						dRo[G] += dQ*ROK*Pi / 6.0*D23;
+					}
+					if (ddRo) {
+						ddRo[i*(Nc+1)+Nc] -= dQ*ROK*Pi / 6.0*D13;
+						ddRo[j*(Nc+1)+Nc] -= dQ*ROK*Pi / 6.0*D23;
+						if (G < Nc) {
+							ddRo[i*(Nc+1)+G] += dQ*ROK*Pi / 6.0*D13;
+							ddRo[j*(Nc+1)+G] += dQ*ROK*Pi / 6.0*D23;
+						}
 					}
 				}
 			}

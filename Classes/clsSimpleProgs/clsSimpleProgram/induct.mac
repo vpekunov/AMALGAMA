@@ -9,7 +9,7 @@
       xpathf(SENTENCE,'MVv1oi',$V0,'программу','true'),dbconsts0(V0)
    }.
  @auto:-"PROGRAM" => "Name","PROG" => "ID".
- @goal:-true,!.
+ @goal:-assertz(simpleprogram('PROGRAM','PROG')),!.
  @done:-clear_db.
 
 @versions(Programmatical)

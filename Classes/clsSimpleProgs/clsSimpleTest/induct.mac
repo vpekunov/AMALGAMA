@@ -7,7 +7,7 @@
       xpathf(SENTENCE,'MVIv1ii','Тест','дает','true')
    }.
  @auto:-MAIN:"//P0/text()" => "Input",MAIN:"//P1/text()" => "Output","iolzcf" => "ID".
- @goal:-true,!.
+ @goal:-xpath('MAIN','//P0/text()',[VInputText0]),xpath('MAIN','//P1/text()',[VOutputText1]),assertz(simpletest(VInputText0,VOutputText1,'iolzcf')),!.
  @done:-clear_db.
 
 @versions(Russian,RussianGrammar)
