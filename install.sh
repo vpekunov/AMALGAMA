@@ -11,7 +11,7 @@ make
 sudo make install
 sudo ldconfig
 cd ..
-cp /usr/local/lib/liblink-grammar.so.5.3.0 ./liblink-grammar.so
+cp /usr/local/lib/liblink-grammar.so.5.3.0  ./liblink-grammar.so
 cd ./NeuroNet.dir
 g++ -o NeuroNet ./NeuroNet.cpp -D__LINUX__ -O3 -fopenmp -fpermissive -std=c++0x
 cp ./NeuroNet ../
