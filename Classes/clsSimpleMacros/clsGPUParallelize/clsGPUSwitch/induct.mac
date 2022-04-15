@@ -1,0 +1,15 @@
+@fast(db_gid,"db_gid.csv").
+@fast(db_gpu_prog,"db_gpu_prog.csv").
+@fast(db_gpu_arg,"db_gpu_arg.csv").
+@context(PREV,infinity):-
+  (((^)|(\;)+|\}|\{|\)|\\n|(\\n|\\t|\b)else\b|(\\n|\\t|\b)do\b|\:)((\s|\\t)*\\n)*)(\s|\\t)*.
+@glue:-.
+@global_unique(SWITCH,1):-
+  ()->{GID}
+  (\s|\\t)*
+  (switch(\\n|(\s|\\t))*\(
+         (\\n|(\s|\\t))*((.{1,300}?)->{EXPR}\))?=>{Predicates.BAL($,')')}
+            ()?=>{db_gid($GID)}
+            ()-=>{db_gpu_arg(GID,_,_),db_gpu_prog(GID,_)}
+      )+=>{db_gpu_prog(GID,"switch"),db_gpu_arg(GID,"arg",EXPR)}
+  (\s|\\t)*.
