@@ -4,6 +4,12 @@
 
 #include <omp.h>
 
+#pragma auto pure(sqrt)
+
+#pragma auto pure(exp,sin)
+
+#pragma auto pure(printf)
+
 #define PI 3.14159265358
 
 #define NX 100
@@ -39,7 +45,11 @@ int  main(  ){
     {
       for ( y = 1; y < NY-1; y++ )
         for ( x = 1; x < NX-1; x++ )
-          cilk_spawn F(x*h, y*h, t, &f[y][x]);
+          {
+            cilk_spawn F(x*h, y*h, t, &f[y][x]);
+            printf("F() initialized\n");
+            printf("in (%i,%i) point\n", x, y);
+          }
       for ( y = 1; y < NY-1; y++ )
         for ( x = 1; x < NX-1; x++ )
           {
@@ -59,4 +69,3 @@ int  main(  ){
   printf("Total time = %lf\n", omp_get_wtime() - start);
   return 0;
 }
-

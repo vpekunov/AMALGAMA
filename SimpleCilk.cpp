@@ -2,6 +2,10 @@
 #include <math.h>
 #include <omp.h>
 
+#pragma auto pure(sqrt)
+#pragma auto pure(exp,sin)
+#pragma auto pure(printf)
+
 #define PI 3.14159265358
 
 #define NX 100
@@ -39,8 +43,11 @@ int main() {
 
   for (t = 0.0; t < MaxT; t += tau) {
       for (y = 1; y < NY-1; y++)
-          for (x = 1; x < NX-1; x++)
+          for (x = 1; x < NX-1; x++) {
               F(x*h, y*h, t, &f[y][x]);
+              printf("F() initialized\n");
+              printf("in (%i,%i) point\n", x, y);
+          }
       for (y = 1; y < NY-1; y++)
           for (x = 1; x < NX-1; x++)
               v1[y][x] = v[y][x] + tau*((v[y-1][x]+v[y+1][x]+v[y][x-1]+v[y][x+1]-4.0*v[y][x])/h/h - f[y][x]);

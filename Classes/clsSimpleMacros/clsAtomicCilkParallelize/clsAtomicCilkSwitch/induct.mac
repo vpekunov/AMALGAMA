@@ -1,0 +1,15 @@
+@fast(db_gid,"db_gid.csv").
+@fast(db_atomic_prog,"db_atomic_prog.csv").
+@fast(db_atomic_arg,"db_atomic_arg.csv").
+@context(PREV,infinity):-
+  (((^)|(\;)+|\}|\{|\)|\\n|(\\n|\\t|\b)else\b|(\\n|\\t|\b)do\b|\:)((\s|\\t)*\\n)*)(\s|\\t)*.
+@glue:-.
+@global_unique(SWITCH,1):-
+  ()->{GID}
+  (\s|\\t)*
+  (switch(\\n|(\s|\\t))*\(
+         (\\n|(\s|\\t))*((.{1,300}?)->{EXPR}\))?=>{Predicates.BAL($,')')}
+            ()?=>{db_gid($GID)}
+            ()-=>{db_atomic_arg(GID,_,_),db_atomic_prog(GID,_)}
+      )+=>{db_atomic_prog(GID,"switch"),db_atomic_arg(GID,"arg",EXPR)}
+  (\s|\\t)*.

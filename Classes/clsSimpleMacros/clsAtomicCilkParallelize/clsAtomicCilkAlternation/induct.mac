@@ -1,0 +1,20 @@
+@fast(db_gid,"db_gid.csv").
+@fast(db_atomic_prog,"db_atomic_prog.csv").
+@fast(db_atomic_arg,"db_atomic_arg.csv").
+@context(PREV,infinity):-
+  (((^)|(\;)+|\}|\{|\\n|\:)((\\t|\s)*\\n)*)(\\t|\s)*.
+@glue:-.
+@global_unique(ALT,1):-
+  ()->{GID}
+  \s*
+  (
+   ((case(\\n|\\t|\s)+((.+?)->{CASE}\:)?=>{Predicates.BAL($,':')}
+        ()?=>{db_gid($GID)}
+        ()-=>{db_atomic_prog(GID,_),db_atomic_arg(GID,_,_)}
+        )+=>{db_atomic_prog(GID,"case"),db_atomic_arg(GID,"arg",CASE)})|
+   ((default(\\n|\\t|\s)*\:)->{DFLT}
+        ()?=>{db_gid($GID)}
+        ()-=>{db_atomic_prog(GID,_)}
+        )+=>{db_atomic_prog(GID,"default")}
+  )
+  (\\t|\s)*.

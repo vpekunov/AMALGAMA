@@ -7,7 +7,7 @@
 @global_unique(PREPROC,1):-
   ()->{GID}
   (\s|\\t)*
-  (\#([^\\]*\\\\\\n)*[^\\]*(\\n|($))
+  (\#((include\s*\<[^\>]+\>\s*)|([^\\]*\\\\\\n)*[^\\]*)(\\n|($))
      ()?=>{db_gid($GID)}
      ()-=>{db_cilk_arg(GID,_,_),db_cilk_prog(GID,_)}
   )+=>{db_cilk_arg(GID,"body",$),db_cilk_prog(GID,"preproc")}
