@@ -1,0 +1,42 @@
+object EditProps: TEditProps
+  Left = 262
+  Height = 36
+  Top = 248
+  Width = 242
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsDialog
+  Caption = 'Параметры'
+  ClientHeight = 36
+  ClientWidth = 242
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  OnCloseQuery = FormCloseQuery
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  Position = poScreenCenter
+  LCLVersion = '1.2.6.0'
+  object OKBtn: TButton
+    Left = 41
+    Height = 25
+    Top = 8
+    Width = 75
+    Anchors = [akBottom]
+    Caption = 'OK'
+    Default = True
+    ModalResult = 1
+    OnClick = OKBtnClick
+    TabOrder = 0
+  end
+  object CancelBtn: TButton
+    Left = 130
+    Height = 25
+    Top = 8
+    Width = 75
+    Anchors = [akBottom]
+    Cancel = True
+    Caption = 'Отмена'
+    ModalResult = 2
+    OnClick = CancelBtnClick
+    TabOrder = 1
+  end
+end

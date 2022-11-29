@@ -42,6 +42,13 @@ Const cnidAny    = '$*any';
       idlibUserVars  = '_vars.php3';
       idproAutoUtils = 'autoutil';
       idlibXPath     = 'XPath.class.php';
+      idParamsFile   = 'params.cfg';
+      idParamsOut    = 'params.out';
+      {$IF DEFINED(UNIX) OR DEFINED(LINUX)}
+      idParamsExe    = './lparams';
+      {$ELSE}
+      idParamsExe    = 'params.exe';
+      {$ENDIF}
 
       idprmStage     = 'Stage';
 

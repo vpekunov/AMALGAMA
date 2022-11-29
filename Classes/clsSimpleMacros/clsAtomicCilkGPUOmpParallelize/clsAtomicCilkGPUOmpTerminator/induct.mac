@@ -9398,15 +9398,15 @@ atom_collect_global_trace:-
   !.
 
 main_processing:-
-  g_assign('$DefFTime', 15.0), % Время исполнения функции/процедуры по умолчанию (внешней или внутренней до расчета)
-  g_assign('$SpawnTime', 5.0), % Время, затрачиваемое мастер-процессом на ответвление spawn-процесса
-  g_assign('$SyncTime', 5.0), % Время, затрачиваемое собственно вызовом sync (без ожидания)
-  g_assign('$SplittedTime', 25.0), % Время исполнения splitted по умолчанию
-  g_assign('$DefOperTime', 1.0), % Время исполнения элементарного математического выражения без функций по умолчанию
-  g_assign('$GPUSpawnTime', 35.0), % Время, затрачиваемое GPU-мастер-процессом на ответвление spawn-процесса
-  g_assign('$OMPSpawnTime', 10.0), % Время, затрачиваемое OMP-мастер-процессом на ответвление openmp-spawn-процесса
-  g_assign('$GPUSyncTime', 15.0), % Время, затрачиваемое слиянием ответвленных GPU-процессов (без ожидания)
-  g_assign('$OMPSyncTime', 5.0), % Время, затрачиваемое слиянием ответвленных OMP-процессов (без ожидания)
+  g_assign('$DefFTime', $$DefFTime$$Required;; 'Время исп. фун/проц по умолч.'$$15.0$$), % Время исполнения функции/процедуры по умолчанию (внешней или внутренней до расчета)
+  g_assign('$SpawnTime', $$SpawnTime$$Required;; 'Чистое время на cilk_spawn'$$5.0$$), % Время, затрачиваемое мастер-процессом на ответвление spawn-процесса
+  g_assign('$SyncTime', $$SyncTime$$Required;; 'Чистое время на cilk_cync'$$5.0$$), % Время, затрачиваемое собственно вызовом sync (без ожидания)
+  g_assign('$SplittedTime', $$SplittedTime$$Required;; 'Время исполн. splitted по умолч.'$$25.0$$), % Время исполнения splitted по умолчанию
+  g_assign('$DefOperTime', $$DefOperTime$$Required;; 'Время исп. элем. опер. без ф-ций'$$1.0$$), % Время исполнения элементарного математического выражения без функций по умолчанию
+  g_assign('$GPUSpawnTime', $$GPUSpawnTime$$Required;; 'Чистое время на GPU-spawn'$$35.0$$), % Время, затрачиваемое GPU-мастер-процессом на ответвление spawn-процесса
+  g_assign('$OMPSpawnTime', $$OMPSpawnTime$$Required;; 'Чистое время на OpenMP-fork'$$10.0$$), % Время, затрачиваемое OMP-мастер-процессом на ответвление openmp-spawn-процесса
+  g_assign('$GPUSyncTime', $$GPUSyncTime$$Required;; 'Чистое время на GPU-join'$$15.0$$), % Время, затрачиваемое слиянием ответвленных GPU-процессов (без ожидания)
+  g_assign('$OMPSyncTime', $$OMPSyncTime$$Required;; 'Чистое время на OpenMP-join'$$5.0$$), % Время, затрачиваемое слиянием ответвленных OMP-процессов (без ожидания)
   clk_processing,
   !,
   (

@@ -78,7 +78,7 @@ Type LockArray = Array Of Integer;
        Destructor Destroy; override;
 
        Procedure AddRegExp(Tp: Char; Rep: Integer; Const ID: String; Const RegExp: WideString; Glue: Char = rmNonGlue);
-       Procedure AddPredicate(Const P: WideString);
+       Procedure AddPredicate(Const P: UTF8String);
        Procedure AddReplacer(Const R, What: String);
 
        Procedure SetDB(db: TFastDB);
@@ -118,6 +118,7 @@ Type LockArray = Array Of Integer;
        function AddMacro(Const ID: String): ScanMacro;
        procedure ExportAutoGEN;
        function ExportPascal(Var Out: TStringList; Const Offs, vComp, vMac, vDB: String): Boolean;
+       procedure ProcessParams;
        procedure Run(ENV: TXPathEnvironment; XPathing: Boolean; P: OnTaktHandler);
        procedure RunContinuous(ENV: TXPathEnvironment; XPathing: Boolean; P: OnTaktHandler);
 
@@ -211,6 +212,137 @@ begin
           End
 end;
 
+procedure MetaCompiler.ProcessParams;
+
+Type TParameter = Record
+        Descriptor: String;
+        DefValue: String;
+        NewValue: String
+     End;
+     PParameter = ^TParameter;
+
+procedure Handle(Expr: String; Var Desc: TStringList);
+
+Var P, P1: Integer;
+    ID, DSC, DEF: String;
+    PRM: PParameter;
+Begin
+   If Length(Expr) > 0 Then
+       Repeat
+          P := Pos('$$', Expr);
+          If P > 0 Then
+             Begin
+               System.Delete(Expr, P, 2);
+               P1 := Pos('$$', Expr);
+               If P1 = 0 Then Break;
+               ID := System.Copy(Expr, P, P1-P);
+               System.Delete(Expr, P, P1-P+2);
+               P1 := Pos('$$', Expr);
+               If P1 = 0 Then Break;
+               DSC := System.Copy(Expr, P, P1-P);
+               System.Delete(Expr, P, P1-P+2);
+               P1 := Pos('$$', Expr);
+               If P1 = 0 Then Break;
+               DEF := System.Copy(Expr, P, P1-P);
+               System.Delete(Expr, P, P1-P+2);
+               P1 := Desc.IndexOf(ID);
+               If P1 < 0 Then
+                  Begin
+                     New(PRM);
+                     PRM^.Descriptor := DSC;
+                     PRM^.DefValue := DEF;
+                     PRM^.NewValue := DEF;
+                     Desc.AddObject(ID, TObject(PRM))
+                  end
+             end;
+       Until P = 0
+end;
+
+function ReverseHandle(Expr: String; Const Desc: TStringList): String;
+
+Var P, P1: Integer;
+    ID: String;
+    PRM: PParameter;
+Begin
+   If Length(Expr) > 0 Then
+       Repeat
+          P := Pos('$$', Expr);
+          If P > 0 Then
+             Begin
+               System.Delete(Expr, P, 2);
+               P1 := Pos('$$', Expr);
+               If P1 = 0 Then Break;
+               ID := System.Copy(Expr, P, P1-P);
+               System.Delete(Expr, P, P1-P+2);
+               P1 := Pos('$$', Expr);
+               If P1 = 0 Then Break;
+               System.Delete(Expr, P, P1-P+2);
+               P1 := Pos('$$', Expr);
+               If P1 = 0 Then Break;
+               System.Delete(Expr, P, P1-P+2);
+               P1 := Desc.IndexOf(ID);
+               If P1 >= 0 Then
+                  Begin
+                     PRM := PParameter(Desc.Objects[P1]);
+                     System.Insert(PRM^.NewValue, Expr, P)
+                  end
+             end;
+       Until P = 0;
+   Result := Expr
+end;
+
+Var FIN, FOUT: TStringList;
+    Desc: TStringList;
+    F, G: Integer;
+begin
+    Desc := TStringList.Create;
+    For F := 0 To FMacros.Count-1 Do
+        With ScanMacro(FMacros.Objects[F]) Do
+          Begin
+            For G := 0 To FPredicates.Count-1 Do
+                Handle(FPredicates.Strings[G], Desc);
+            Handle(Goal, Desc);
+            Handle(Done, Desc)
+          end;
+    If Desc.Count > 0 Then
+       Begin
+         // Send to params.exe
+         FIN := TStringList.Create;
+         For F := 0 To Desc.Count-1 Do
+             Begin
+               FIN.Add(Desc.Strings[F]);
+               FIN.Add(PParameter(Desc.Objects[F])^.Descriptor);
+               FIN.Add(PParameter(Desc.Objects[F])^.DefValue);
+             end;
+         FIN.SaveToFile(idParamsFile);
+         FIN.Free;
+         If FileExists(idParamsExe) Then
+            RunExtCommand(idParamsExe, idParamsFile + ' ' + idParamsOut, '');
+         // Handle the Answer
+         If FileExists(idParamsOut) Then
+            Begin
+               FOUT := TStringList.Create;
+               FOUT.LoadFromFile(idParamsOut);
+               For F := 0 To Desc.Count-1 Do
+                   PParameter(Desc.Objects[F])^.NewValue := FOUT.Strings[F];
+               FOUT.Free
+            end;
+         // Fill the placeholders
+         For F := 0 To FMacros.Count-1 Do
+             With ScanMacro(FMacros.Objects[F]) Do
+               Begin
+                 For G := 0 To FPredicates.Count-1 Do
+                     FPredicates.Strings[G] := ReverseHandle(FPredicates.Strings[G], Desc);
+                 ReverseHandle(FGoal, Desc);
+                 ReverseHandle(FDone, Desc)
+               end;
+         // Free memory
+         For F := 0 To Desc.Count-1 Do
+             Dispose(PParameter(Desc.Objects[F]));
+       end;
+    Desc.Free
+end;
+
 procedure MetaCompiler.Run(ENV: TXPathEnvironment; XPathing: Boolean; P: OnTaktHandler);
 
 Var I: Integer;
@@ -219,6 +351,7 @@ Var I: Integer;
     CPOS: Integer;
     doner: switch_gprolog7;
 Begin
+  ProcessParams;
   S := TStringList.Create;
   S.LoadFromFile(ConsultFile);
   DeleteFile(XPathModelFile);
@@ -263,6 +396,7 @@ Var S: TStringList;
     LNG: Integer;
     I: Integer;
 begin
+  ProcessParams;
   S := TStringList.Create;
   S.LoadFromFile(ConsultFile);
   DeleteFile(XPathModelFile);
@@ -386,9 +520,9 @@ Begin
   FRepeats.Add(IntegerToTObject(Rep))
 End;
 
-procedure ScanMacro.AddPredicate(const P: WideString);
+procedure ScanMacro.AddPredicate(const P: UTF8String);
 Begin
-  FPredicates.Add(P)
+  FPredicates.Add(P);
 End;
 
 procedure ScanMacro.AddReplacer(const R, What: String);
