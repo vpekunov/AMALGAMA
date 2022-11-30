@@ -70,6 +70,7 @@ create_vars(Left,_):-
 create_vars(_,_):-
   retractall(vtop(_)),!.
 create_links:-
+  predicate_property(simple_link(_,_,_,_,_,_),'dynamic'),
   simple_link(_,OID1,CID1,_,OID2,CID2),
   insert_link(OID1,CID1,OID2,CID2,'clBlack'),
   fail.
