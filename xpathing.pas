@@ -730,7 +730,7 @@ begin
               A[i][j] := 0.0;
               For tt := 0 To T-2 Do
                 A[i][j] := A[i][j] + epsilon[i][j][tt];
-              A[i][j] := A[i][j] / sum;
+              If Abs(sum) > 0.001*eps Then A[i][j] := A[i][j] / sum;
               disb := disb + Abs(A[i][j] - old)
             end;
           sum := sum + gamma[i][T-1];
@@ -740,7 +740,7 @@ begin
               B[k][i] := 0.0;
               For tt := 0 To T-1 Do
                 B[k][i] := B[k][i] + delta[tt][k]*gamma[i][tt];
-              B[k][i] := B[k][i] / sum;
+              If Abs(sum) > 0.001*eps Then B[k][i] := B[k][i] / sum;
               disb := disb + Abs(B[k][i] - old)
             end
         end;
