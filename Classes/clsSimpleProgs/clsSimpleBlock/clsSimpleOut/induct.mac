@@ -3,7 +3,7 @@
 @context(PREV,infinity):-
   (((^)|(\.)+)(\s*\\n)*)\s*.
 @glue:-.
-@global_unique(MAIN,infinity):-
+@global_unique(MAIN,1):-
    ()->{V1}
    (([^\w\.]+(\w+)->{P0}[^\.]*\.)->{Grammar.ru{SENTENCE}}(*PRUNE))?=>{
       xpathf(SENTENCE,'MVv1io','Вывести',$V1,'true'),dbconsts4(V1)

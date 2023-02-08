@@ -1397,7 +1397,7 @@ Begin
             AppendStr(Script, '@context(PREV,infinity):-' + CRLF);
             AppendStr(Script, '  (((^)|(\.)+)(\s*\\n)*)\s*.' + CRLF);
             AppendStr(Script, '@glue:-.' + CRLF);
-            AppendStr(Script, '@global_unique(MAIN,infinity):-' + CRLF);
+            AppendStr(Script, '@global_unique(MAIN,1):-' + CRLF);
             Found := False;
             For G := 0 To PathDBNums.Count-1 Do
               If TObjectToInteger(PathDBNums[G]) <> 0 Then
@@ -2252,7 +2252,7 @@ begin
                L := Strings[K];
                Inc(K);
                S := TSystem(lbModels.Items.Objects[G]);
-               E := S.FindElement(L);
+               E := S.GetElement(PChar(L));
                L1 := UnEscapeString(Strings[K]);
                BoundSentences.AddObject(L1, E);
                lbBound.Items.AddObject(

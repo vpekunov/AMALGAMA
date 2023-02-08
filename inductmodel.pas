@@ -11,7 +11,7 @@ interface
 uses
   {$IFDEF FPC}LCLIntf,{$ENDIF}Classes, SysUtils, FileUtil,
   {$IFDEF FPC}LResources,{$ENDIF}Forms, Controls, Graphics, Dialogs, ComCtrls,
-  StdCtrls, Buttons, CheckLst, Spin, ExtCtrls, Elements, MetaComp, xpath, XPathing;
+  StdCtrls, Buttons, CheckLst, Spin, ExtCtrls, Elements, MetaComp, xpath;
 
 type
 
@@ -50,6 +50,7 @@ type
     procedure ClassesTreeDragDrop(Sender, Source: TObject; X, Y: Integer);
     procedure ClassesTreeDragOver(Sender, Source: TObject; X, Y: Integer;
       State: TDragState; var Accept: Boolean);
+    procedure clbVersionsClickCheck(Sender: TObject);
     procedure CompileBtnClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -66,14 +67,16 @@ type
     ENV: TXPathEnvironment;
 
     procedure OnStage(Percent: Real; Const MacroID: String = '');
-    procedure UpdateInductSeq;
+    procedure UpdateInductSeq(ReReadVersions: Boolean);
   public
     { public declarations }
   end;
 
 implementation
 
-Uses Common, Regexpr, Main, AutoUtils, AutoConsts, Math, dom, xmlread, xmlwrite, Windows, Lexique, DateUtils;
+Uses Common, Regexpr, Main, AutoUtils, AutoConsts, Math,
+  dom, xmlread, xmlwrite, Windows, Lexique, DateUtils,
+  xpathingIntrf;
 
 { TInductModelForm }
 
@@ -101,7 +104,7 @@ begin
   If Assigned(ClassesTree.Selected) Then
      begin
        addNodes(ClassesTree.Selected, Nil);
-       UpdateInductSeq
+       UpdateInductSeq(True)
      end;
 end;
 
@@ -110,7 +113,7 @@ begin
   If Assigned (SelectedClassesTree.Selected) Then
      begin
        SelectedClassesTree.Selected.Delete;
-       UpdateInductSeq
+       UpdateInductSeq(True)
      end;
 end;
 
@@ -136,6 +139,8 @@ Var F: Integer;
     SelectedVersion: String;
     E: String;
     IDs: IDArray;
+    ExportedENV: Array[0..65536] Of WideChar;
+    _IDs: WideString;
 begin
   If btnOk.ModalResult = mrNone Then
      Begin
@@ -181,8 +186,28 @@ begin
                             SetLength(IDs, M.NLocks);
                             For F := 0 To M.NLocks - 1 Do
                                 IDs[F] := M.LockIDs[F];
-                            Interval := 1000*Timeout.Value;
-                            XPathInduct(SelectedVersion, MainForm.CurLanguageName, UseNNet.Checked, UseMainLine.Checked, ENV, XPathModelFile, OutModelName, nCPUs.Value, IDs);
+                            SetInterval(1000*Timeout.Value);
+                            With TStringList.Create Do
+                              Begin
+                                For F := 0 To Length(IDs)-1 Do
+                                    Add(IDs[F]);
+                                _IDs := WideString(Text);
+                                Free
+                              end;
+                            ENV.commitUndo(0);
+                            ENV.Export(ExportedENV);
+                            XPathInduct(
+                               Messaging,
+                               @CreateSysF, @ExistClassF, @GetElementF,
+                               @CanReachF, @CreateContactsF, @AddElementF,
+                               @AddLinkF, @AnalyzeLinkStatusIsInformF, @SetParameterIfExistsF,
+                               @MoveF, @CheckSysF, @ToStringF,
+                               @GenerateCodeF, @SaveToXMLF, @_FreeF,
+                               @NodeNameTester,
+                               PChar(SelectedVersion), UseNNet.Checked, UseMainLine.Checked, Nil, ExportedENV, ExportedENV, PWideChar(WideString(XPathModelFile)), PWideChar(WideString(OutModelName)), nCPUs.Value, PWideChar(_IDs)
+                            );
+                            MakeInfoCommon(String(WideString(GetMSG)));
+                            ENV.Import(ExportedENV)
                           end;
                      End
                   Else
@@ -224,6 +249,26 @@ begin
    Accept := (Source = SelectedClassesTree)
 end;
 
+procedure TInductModelForm.clbVersionsClickCheck(Sender: TObject);
+
+Var F, G: Integer;
+begin
+  With Versions Do
+    For F := 0 To Count-1 Do
+        If clbVersions.Checked[F] And Not Assigned(Objects[F]) Then
+           Begin
+             For G := 0 To Count-1 Do
+                 If F <> G Then
+                    Begin
+                      clbVersions.Checked[G] := False;
+                      Objects[G] := Nil
+                    end;
+             Objects[F] := IntegerToTObject(1);
+             Break
+           end;
+  UpdateInductSeq(False)
+end;
+
 procedure TInductModelForm.CompileBtnClick(Sender: TObject);
 
 Var S: TStringList;
@@ -253,7 +298,7 @@ begin
 
           S.Add('{$CODEPAGE UTF8}');
 
-          S.Add('Uses {$IF DEFINED(UNIX) OR DEFINED(LINUX)}cthreads{$ELSE}Windows{$ENDIF}, AutoConsts, RegExpr, MetaComp, DateUtils, SysUtils, Classes, xpath, Elements, XPathing, AutoUtils;');
+          S.Add('Uses {$IF DEFINED(UNIX) OR DEFINED(LINUX)}cthreads{$ELSE}Windows{$ENDIF}, xpathingIntrf, AutoConsts, RegExpr, MetaComp, DateUtils, SysUtils, Classes, xpath, Elements, AutoUtils, Common;');
           S.Add('Type Stager = class');
           S.Add('        Procedure OnStage(Percent: Real; Const MacroID: AnsiString = '''');');
           S.Add('     End;');
@@ -269,6 +314,8 @@ begin
           S.Add('    ENV: TXPathEnvironment;');
           S.Add('    Strs: StringArray;');
           S.Add('    IDs: IDArray;');
+          S.Add('    ExportedENV: Array[0..65536] Of WideChar;');
+          S.Add('    _IDs: WideString;');
           S.Add('    Timeout: Integer;');
           S.Add('    nCPUs: Integer;');
           S.Add('    ST: Stager;');
@@ -312,10 +359,10 @@ begin
                   With TStringList.Create Do
                     begin
                       LoadFromFile(Path + XPathFile);
-                      S.Add('  If Not CompileXPathing(''' + safeXPathFile + ''', ENV, ''' + pEscapeString(Text) + ''') Then');
-                      S.Add('     begin');
-                      S.Add('       _Restrictions.Clear;');
-                      S.Add('     end;');
+                      S.Add('  ENV.Export(ExportedENV);');
+                      S.Add('  If Not CompileXPathing(Messaging, PChar('''+SelectedVersion+'''), ''' + safeXPathFile + ''', Nil, ExportedENV, ExportedENV, ''' + pEscapeString(Text) + ''') Then');
+                      S.Add('     ClearRestrictions;');
+                      S.Add('  ENV.Import(ExportedENV);');
                       Free
                     end;
              end;
@@ -369,8 +416,16 @@ begin
                S.Add('          SetLength(IDs, M.NLocks);');
                S.Add('          For G := 0 To M.NLocks - 1 Do');
                S.Add('              IDs[G] := M.LockIDs[G];');
-               S.Add('          Interval := 1000*Timeout;');
-               S.Add('          DeduceLogFile := ''.' + safeLogFile + ''';');
+               S.Add('          With TStringList.Create Do');
+               S.Add('            Begin');
+               S.Add('              For G := 0 To Length(IDs)-1 Do');
+               S.Add('                  Add(IDs[G]);');
+               S.Add('              _IDs := WideString(Text);');
+               S.Add('              Free');
+               S.Add('            end;');
+               S.Add('          SetInterval(1000*Timeout);');
+               S.Add('          SetDeduceLogFile(''.' + safeLogFile + ''');');
+               S.Add('          ENV.commitUndo(0);');
 
                If Assigned(ElementRegList) Then
                   For G := 0 To ElementRegList.Count - 1 Do
@@ -421,8 +476,18 @@ begin
                                  Break
                                end;
 
-               S.Add('          XPathInduct('''+SelectedVersion+''', ''' + MainForm.CurLanguageName + ''', ' +
-                                    BoolVals[UseNNet.Checked] + ', ' + BoolVals[UseMainLine.Checked] + ', ENV, XPathModelFile, ''' + OutModelName + ''', nCPUs, IDs);');
+               S.Add('          ENV.Export(ExportedENV);');
+               S.Add('          XPathInduct(');
+               S.Add('              Messaging,');
+               S.Add('              @CreateSysF, @ExistClassF, @GetElementF,');
+               S.Add('              @CanReachF, @CreateContactsF, @AddElementF,');
+               S.Add('              @AddLinkF, @AnalyzeLinkStatusIsInformF, @SetParameterIfExistsF,');
+               S.Add('              @MoveF, @CheckSysF, @ToStringF,');
+               S.Add('              @GenerateCodeF, @SaveToXMLF, @_FreeF,');
+               S.Add('              @NodeNameTester,');
+               S.Add('              PChar('''+SelectedVersion+'''), ' +
+                                    BoolVals[UseNNet.Checked] + ', ' + BoolVals[UseMainLine.Checked] + ', Nil, ExportedENV, ExportedENV, PWideChar(WideString(XPathModelFile)), PWideChar(WideString(''' + OutModelName + ''')), nCPUs, PWideChar(_IDs));');
+               S.Add('          ENV.Import(ExportedENV);');
                S.Add('        End');
                S.Add('     Else');
                S.Add('        WriteLn(''No preliminary XML-Model file created!'');');
@@ -501,7 +566,7 @@ begin
    UseMainLine.Enabled := Not UseMainLine.Enabled;
 end;
 
-procedure TInductModelForm.UpdateInductSeq;
+procedure TInductModelForm.UpdateInductSeq(ReReadVersions: Boolean);
 
 procedure getElements(Var ExInductSeq: TElementRegs; Const P: ComCtrls.TTreeNode);
 
@@ -518,13 +583,11 @@ Var ITemp: TElementRegs;
     P: ComCtrls.TTreeNode;
     F: Integer;
 begin
-   Versions.Clear;
+   If ReReadVersions Then Versions.Clear;
    OutModelName := '';
-   DeduceLogFile := '';
-   _Restrictions.Clear;
-   For F := 0 To Ruler.Count - 1 Do
-     DisposeStr(PString(Ruler.Objects[F]));
-   Ruler.Clear;
+   SetDeduceLogFile('');
+   ClearRestrictions;
+   ClearRuler;
    With SelectedClassesTree.Items Do
      Begin
        InductRoot := Nil;
@@ -553,7 +616,7 @@ begin
                 End
            end;
      End;
-   clbVersions.Items.Assign(Versions)
+   If ReReadVersions Then clbVersions.Items.Assign(Versions)
 end;
 
 initialization

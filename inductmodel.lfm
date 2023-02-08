@@ -10,7 +10,7 @@ object InductModelForm: TInductModelForm
   OnClose = FormClose
   OnCreate = FormCreate
   Position = poScreenCenter
-  LCLVersion = '1.6.4.0'
+  LCLVersion = '2.2.4.0'
   object gbClasses: TGroupBox
     Left = 0
     Height = 576
@@ -27,7 +27,6 @@ object InductModelForm: TInductModelForm
       Top = 0
       Width = 181
       Align = alClient
-      DefaultItemHeight = 18
       DragMode = dmAutomatic
       Indent = 19
       ReadOnly = True
@@ -85,7 +84,6 @@ object InductModelForm: TInductModelForm
       Top = 0
       Width = 190
       Align = alClient
-      DefaultItemHeight = 18
       DragMode = dmAutomatic
       Indent = 19
       ReadOnly = True
@@ -169,7 +167,7 @@ object InductModelForm: TInductModelForm
     Left = 424
     Height = 15
     Top = 3
-    Width = 88
+    Width = 87
     Caption = 'Исходный текст'
     ParentColor = False
   end
@@ -188,6 +186,7 @@ object InductModelForm: TInductModelForm
     Width = 300
     Anchors = [akLeft, akRight, akBottom]
     ItemHeight = 0
+    OnClickCheck = clbVersionsClickCheck
     TabOrder = 7
   end
   object Progress: TProgressBar
@@ -273,7 +272,7 @@ object InductModelForm: TInductModelForm
     Left = 479
     Height = 15
     Top = 470
-    Width = 243
+    Width = 244
     Anchors = [akLeft, akBottom]
     Caption = 'Таймаут вывода в сек (интервал рестарта)'
     Font.Color = clGreen
@@ -296,13 +295,13 @@ object InductModelForm: TInductModelForm
     Title = 'Открыть текст программы'
     Filter = 'Все файлы (*.*)|*.*'
     Options = [ofHideReadOnly, ofPathMustExist, ofFileMustExist, ofEnableSizing]
-    left = 454
-    top = 29
+    Left = 454
+    Top = 29
   end
   object SaveDialog: TSaveDialog
     DefaultExt = '.exe'
     Filter = 'Executable Files (*.exe)|*.exe'
-    left = 11
-    top = 27
+    Left = 11
+    Top = 27
   end
 end

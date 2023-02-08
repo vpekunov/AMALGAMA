@@ -26,6 +26,8 @@ Type
      End;
 
 Type
+    IDArray = Array Of String;
+
     TObjList = class(TList)
       procedure  Clear; override;
     End;
@@ -41,6 +43,11 @@ Type TRestriction = Record
      End;
 
 Type TRestrictions = Array Of TRestriction;
+
+Type TIODirection  = (dirInput,dirOutput);
+Type TIODirections = Set Of TIODirection;
+
+Type TResultType = (rsOk, rsNonStrict, rsStrict);
 
 Type SubstituteHandle = Function(Var S: String; Const Word: String; Var Idx: Integer): String;
 
@@ -63,7 +70,16 @@ Function CRC(Const S: String): LongInt;
 Procedure WriteString(Var Out: TextFile; Const V: String; S: TStringList);
 Function InQuotes(Const S: String; L:Integer; Quote:Char): Boolean;
 
-function RunExtCommand(Const App,Prm,OutFName: String):String;
+Procedure CreateStrFile(Const FName,Content: String);
+
+function RunExtCommand(Const App,Prm,OutFName: String):String; overload;
+function RunExtCommand(Const App,Prm,OutFName,SignalStr:String; Const WaitFile: String = ''):String; overload;
+
+function EncodeStr(Const S:String):String;
+function DecodeStr(Const S:String):String;
+
+procedure MakeErrorCommon(Const Msg: String);
+procedure MakeInfoCommon(Const Msg: String);
 
 Var LCounter: Integer;
     Files: TStringList;
@@ -71,9 +87,11 @@ Var LCounter: Integer;
     CommentFlag: Boolean;
     LineDelimiter: String;
 
+Const Messaging: Boolean = True;
+
 Implementation
 
-Uses SysUtils, Consts{$IF DEFINED(LCL) OR DEFINED(VCL)}, Dialogs{$ENDIF};
+Uses SysUtils, Consts{$IF DEFINED(LCL) OR DEFINED(VCL)}, Dialogs{$ENDIF}, Process;
 
 { TLine }
 
@@ -154,6 +172,16 @@ destructor TObjStrList.Destroy;
 begin
      Clear;
      Inherited
+end;
+
+Procedure CreateStrFile(Const FName,Content: String);
+
+Var F:TextFile;
+begin
+     AssignFile(F,FName);
+     Rewrite(F);
+     Write(F,Content);
+     CloseFile(F)
 end;
 
 Function TObjectToInteger(S: TObject): Integer;
@@ -431,6 +459,37 @@ begin
         Result:=''
 end;
 
+function RunExtCommand(Const App,Prm,OutFName,SignalStr:String; Const WaitFile: String = ''):String;
+
+Var AProcess: TProcess;
+    P:Integer;
+begin
+     AProcess := TProcess.Create(nil);
+     AProcess.CommandLine := App + ' ' + Prm;
+     If Length(WaitFile) = 0 Then
+       AProcess.Options := AProcess.Options + [poWaitOnExit]
+     Else
+       DeleteFile(WaitFile);
+     AProcess.Execute;
+     AProcess.Free;
+
+     While (Length(WaitFile) > 0) And Not FileExists(WaitFile) Do
+        Sleep(100);
+
+     Result:='';
+     If (Length(OutFName)>0) And FileExists(OutFName) Then
+        With TStringList.Create Do
+          begin
+            LoadFromFile(OutFName);
+            Result:=DecodeStr(Text);
+            Free
+          end
+     Else
+        Result:='';
+     P:=Pos(SignalStr,Result);
+     If P>0 Then Delete(Result,1,P+Length(SignalStr)-1)
+end;
+
 Function CRC(Const S: String): LongInt;
 
 Var F: Integer;
@@ -449,6 +508,213 @@ begin
       WriteLn(Out, '"' + StringReplace(S.Strings[F],'"','\"',[rfReplaceAll]) + '"', ',');
   WriteLn(Out, 'NULL');
   WriteLn(Out, '};')
+end;
+
+{$IFDEF FPC}
+
+function EncodeStr(Const S:String):String;
+Begin
+     Result:=S
+End;
+
+function DecodeStr(Const S:String):String;
+Begin
+     Result:=S
+End;
+
+{$ELSE}
+{ The part of the following code is excluded (with gratitude) from FreePascal
+  sources and slightly modified by VP. }
+
+function UnicodeToUtf8(Dest: PChar; MaxDestBytes: Integer; Source: PWideChar; SourceChars: Integer): Integer;
+  var
+    i,j : Integer;
+    w : word;
+  begin
+    result:=0;
+    if source=nil then
+      exit;
+    i:=0;
+    j:=0;
+    if assigned(Dest) then
+      begin
+        while (i<SourceChars) and (j<MaxDestBytes) do
+          begin
+            w:=word(Source[i]);
+            case w of
+              0..$7f:
+                begin
+                  Dest[j]:=char(w);
+                  inc(j);
+                end;
+              $80..$7ff:
+                begin
+                  if j+1>=MaxDestBytes then
+                    break;
+                  Dest[j]:=char($c0 or (w shr 6));
+                  Dest[j+1]:=char($80 or (w and $3f));
+                  inc(j,2);
+                end;
+              else
+                begin
+                    if j+2>=MaxDestBytes then
+                      break;
+                    Dest[j]:=char($e0 or (w shr 12));
+                    Dest[j+1]:=char($80 or ((w shr 6)and $3f));
+                    Dest[j+2]:=char($80 or (w and $3f));
+                    inc(j,3);
+                end;
+            end;
+            inc(i);
+          end;
+
+        if j>MaxDestBytes-1 then
+          j:=MaxDestBytes-1;
+
+        Dest[j]:=#0;
+      end
+    else
+      begin
+        while i<SourceChars do
+          begin
+            case word(Source[i]) of
+              $0..$7f:
+                inc(j);
+              $80..$7ff:
+                inc(j,2);
+              else
+                inc(j,3);
+            end;
+            inc(i);
+          end;
+      end;
+    result:=j+1;
+  end;
+
+function Utf8ToUnicode(Dest: PWideChar; MaxDestChars: Integer; Source: PChar; SourceBytes: Integer): Integer;
+
+var
+  i,j,mask : Integer;
+  w : Integer;
+  b : byte;
+begin
+  if not assigned(Source) then
+  begin
+    result:=0;
+    exit;
+  end;
+  result:=Integer(-1);
+  i:=0;
+  j:=0;
+  if assigned(Dest) then
+    begin
+      while (j<MaxDestChars) and (i<SourceBytes) do
+        begin
+          b:=byte(Source[i]);
+          w:=b;
+          inc(i);
+          if b>=$80 then
+            begin
+              w:=b and $3f;
+              if i>=SourceBytes then
+                exit;
+              mask:=$C0;
+              while (mask>1) and ((b and mask)=mask) do
+                begin
+                  if (byte(Source[i]) and $c0)<>$80 then
+                     exit;
+                  w:=(w shl 6) or (byte(Source[i]) and $3f);
+                  mask:=mask shr 1;
+                  inc(i)
+                end
+            end;
+          Dest[j]:=WideChar(w);
+          inc(j);
+        end;
+      if j>=MaxDestChars then
+         j:=MaxDestChars-1;
+      Dest[j]:=#0;
+    end
+  else
+    begin
+      while i<SourceBytes do
+        begin
+          b:=byte(Source[i]);
+          inc(i);
+          if b>=$80 then
+            begin
+              if i>=SourceBytes then
+                exit;
+              mask:=$c0;
+              while (mask>1) and ((b and mask)=mask) do
+                begin
+                  if (byte(Source[i]) and $c0)<>$80 then
+                     exit;
+                  mask:=mask shr 1;
+                  inc(i)
+                end
+            end;
+          inc(j)
+        end;
+    end;
+  result:=j+1;
+end;
+
+function EncodeStr(Const S:String):String;
+
+Var Buf:PWideChar;
+    Len:Integer;
+Begin
+     Buf:=AllocMem((Length(S)+1)*2);
+     StringToWideChar(S,Buf,Length(S)+1);
+     Len:=UnicodeToUtf8(Nil,0,Buf,Length(S));
+     If Len<1 Then
+        Result:=S
+     Else
+        Begin
+          SetLength(Result,Len);
+          UnicodeToUtf8(PChar(Result),Len,Buf,Length(S));
+          Delete(Result,Length(Result),1)
+        End;
+     FreeMem(Buf)
+End;
+
+function DecodeStr(Const S:String):String;
+
+Var Len:Integer;
+    Buf:PWideChar;
+Begin
+     Len:=Utf8ToUnicode(Nil,0,PChar(S),Length(S));
+     If Len<1 Then
+        Result:=S
+     Else
+        Begin
+          Buf:=AllocMem((Len+1)*2);
+          Utf8ToUnicode(Buf,Len,PChar(S),Length(S));
+          Result:=WideCharToString(Buf);
+          FreeMem(Buf)
+        End
+End;
+
+{$ENDIF}
+
+procedure MakeErrorCommon(const Msg: String);
+begin
+     {$IF DEFINED(LCL) OR DEFINED(VCL)}
+     MessageDlg(Msg,mtError,[mbOk],0);
+     {$ELSE}
+     WriteLn(Msg);
+     {$ENDIF}
+end;
+
+
+procedure MakeInfoCommon(const Msg: String);
+begin
+     {$IF DEFINED(LCL) OR DEFINED(VCL)}
+     MessageDlg(Msg, mtInformation,[mbOk],0);
+     {$ELSE}
+     WriteLn(Msg);
+     {$ENDIF}
 end;
 
 End.

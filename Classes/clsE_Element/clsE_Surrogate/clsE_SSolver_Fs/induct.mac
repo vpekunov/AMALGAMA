@@ -2,7 +2,7 @@
 @context(PREV,infinity):-
   (((^)|(\.)+)(\s*\\n)*)\s*.
 @glue:-.
-@global_unique(MAIN,infinity):-
+@global_unique(MAIN,1):-
    (([^\x22\x27\.]+[\x22\x27]([^\x22\x27]+)->{P0}[\x22\x27][^\.]*\.)->{Grammar.ru{SENTENCE}}(*PRUNE))?=>{
       xpathf(SENTENCE,'MVv1ii','Добавим','функции','true')
    }.

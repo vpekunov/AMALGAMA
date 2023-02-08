@@ -5,6 +5,10 @@ cd ./Grammar
 fpc -B -O3 -Mobjfpc -FcUTF-8 ./Grammar.lpr
 cp ./libGrammar.so ../
 cd ..
+cd ./xpathInduct.dir
+fpc -B -O3 -Mobjfpc -FcUTF-8 -fPIC ./xpathInduct.lpr
+cp ./libxpathInduct.so ../
+cd ..
 cd ./Params
 fpc -B -O3 -Mobjfpc -FcUTF-8 ./lparams.pas
 cp ./lparams ../

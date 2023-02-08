@@ -83,7 +83,8 @@ extern "C" {
 	Сбалансированная подстрока может располагаться в нескольких строках, поэтому
 	данная функция может их "дочитывать" в S, увеличивая *nline.
 	*/
-	int trace(int * count, int * K, wchar_t * before, wchar_t * S, wchar_t ** lines, int nL, int * nline) {
+	int trace(int * count, int * K, wchar_t * before, wchar_t * S, wchar_t ** lines, int nL,
+		int * nline, bool use_triang) {
 		wchar_t _quote = qtNone; // Сначала обычный режим чтения
 		int result = 1;
 
@@ -105,19 +106,21 @@ extern "C" {
 				if (_quote == qtDouble) _quote = qtNone; // Это были закрывающие кавычки
 				else if (_quote == qtNone) _quote = qtDouble; // Это открывающие кавычки
 			}
-			else if (_quote == qtNone && (C == '(' || C == '[' || C == '{')) {
+			else if (_quote == qtNone && (C == '(' || C == '[' || C == '{' || use_triang && C == '<')) {
 				// Если мы не посередине строки в апострофах/кавычках и встретили открывающую скобку
 				inc_count(S, lines, nL, nline, count, K); // Идем к следующему символу
 				switch (C) { // Пропускаем часть строки до соответствующей закрывающей скобки
-				case '(':	result = trace(count, K, L")", S, lines, nL, nline);
+				case '(':	result = trace(count, K, L")", S, lines, nL, nline, use_triang);
 					break;
-				case '[':	result = trace(count, K, L"]", S, lines, nL, nline);
+				case '[':	result = trace(count, K, L"]", S, lines, nL, nline, use_triang);
 					break;
-				case '{':	result = trace(count, K, L"}", S, lines, nL, nline);
+				case '{':	result = trace(count, K, L"}", S, lines, nL, nline, use_triang);
+					break;
+				case '<':	result = trace(count, K, L">", S, lines, nL, nline, use_triang);
 					break;
 				}
 			}
-			else if (_quote == qtNone && (C == ')' || C == ']' || C == '}') && wcschr(before, C) == NULL)
+			else if (_quote == qtNone && (C == ')' || C == ']' || C == '}' || use_triang && C == '>') && wcschr(before, C) == NULL)
 				// Если мы не посередине строки в апострофах/кавычках и незапланированно встретили закрывающую скобку
 				result = 0; // то это ошибка.
 
@@ -136,7 +139,8 @@ extern "C" {
 	данная функция может их "дочитывать" в S, увеличивая *nline.
 	count - Счетчик символов в строке
 	*/
-	wchar_t * getBalancedItem(wchar_t * S, wchar_t ** lines, int nL, int * nline, wchar_t * terms, int & count) {
+	wchar_t * getBalancedItem(wchar_t * S, wchar_t ** lines, int nL, int * nline, wchar_t * terms,
+		int & count, bool use_triang = false) {
 		wchar_t * result = new wchar_t[65536]; // Результат
 
 		int K; // Текущая длина строки в буфере
@@ -151,7 +155,7 @@ extern "C" {
 		}
 
 		K = wcslen(S);
-		trace(&count, &K, terms, S, lines, nL, nline);
+		trace(&count, &K, terms, S, lines, nL, nline, use_triang);
 		// Копируем первые count-1 символов в результат
 		for (i = 0; i < count; i++)
 			result[i] = S[i];
@@ -179,6 +183,28 @@ extern "C" {
 		int count = 0;
 
 		delete[] getBalancedItem(Args0, &Args0, 1, &NN, Args1, count);
+
+		wfree(Args0, Args[0]);
+		wfree(Args1, Args[1]);
+
+		return count + 1 == L;
+	}
+
+	EXPORT bool TBAL(int N, short int * Map, short int ** Args) {
+		if (N < 2 || Map[0] || Map[1])
+			return false;
+
+		wchar_t * Args0 = walloc(Args[0]);
+		wchar_t * Args1 = walloc(Args[1]);
+
+		stripLeading(Args0); // Удаляем начальные пробелы, если они есть
+
+		int L = wcslen(Args0);
+
+		int NN = 0;
+		int count = 0;
+
+		delete[] getBalancedItem(Args0, &Args0, 1, &NN, Args1, count, true);
 
 		wfree(Args0, Args[0]);
 		wfree(Args1, Args[1]);

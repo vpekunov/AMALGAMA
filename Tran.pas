@@ -44,7 +44,7 @@ Const TranName:String = '';
 implementation
 
 
-Uses Main, Elements, AutoConsts, Clipbrd, LEXIQUE, AutoUtils, LearnTrouble;
+Uses Main, Elements, AutoConsts, Clipbrd, LEXIQUE, Common, AutoUtils, LearnTrouble;
 
 function IsWindowsNT:Boolean;
 

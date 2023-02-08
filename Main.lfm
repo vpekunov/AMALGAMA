@@ -17,7 +17,7 @@ object MainForm: TMainForm
   OnResize = FormResize
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '1.6.4.0'
+  LCLVersion = '2.2.4.0'
   object MainStatusBar: TStatusBar
     Left = 0
     Height = 23
@@ -123,8 +123,8 @@ object MainForm: TMainForm
     end
   end
   object MainMenu: TMainMenu
-    left = 8
-    top = 8
+    Left = 8
+    Top = 8
     object NFile: TMenuItem
       Caption = 'Файл'
       object NNew: TMenuItem
@@ -202,20 +202,20 @@ object MainForm: TMainForm
     DefaultExt = '.amd'
     Filter = 'XML-файлы (*.xml)|*.xml|Файлы моделей (*.amd)|*.amd|Все файлы (*.*)|*.*'
     Options = [ofHideReadOnly, ofPathMustExist, ofFileMustExist, ofEnableSizing]
-    left = 40
-    top = 8
+    Left = 40
+    Top = 8
   end
   object SaveModel: TSaveDialog
     Title = 'Сохранить модель'
     DefaultExt = '.amd'
     Filter = 'XML-файлы (*.xml)|*.xml|Файлы моделей (*.amd)|*.amd|Prolog-базы (*.pl; *.pro)|*.pl;*.pro|Все файлы (*.*)|*.*'
     Options = [ofOverwritePrompt, ofHideReadOnly, ofEnableSizing]
-    left = 72
-    top = 8
+    Left = 72
+    Top = 8
   end
   object ElementPopup: TPopupMenu
-    left = 8
-    top = 40
+    Left = 8
+    Top = 40
     object ElProps: TMenuItem
       Caption = 'Параметры'
       OnClick = ElPropsClick
@@ -234,8 +234,8 @@ object MainForm: TMainForm
     end
   end
   object LinkPopup: TPopupMenu
-    left = 40
-    top = 40
+    Left = 40
+    Top = 40
     object LinkDel: TMenuItem
       Caption = 'Удалить'
       OnClick = LinkDelClick
@@ -273,7 +273,7 @@ object MainForm: TMainForm
       'ColorS=F0FBFF'
       'ColorT=A4A0A0'
     )
-    left = 72
-    top = 40
+    Left = 72
+    Top = 40
   end
 end

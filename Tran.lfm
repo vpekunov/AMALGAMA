@@ -12,7 +12,7 @@ object Translator: TTranslator
   Font.Name = 'MS Sans Serif'
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '1.2.6.0'
+  LCLVersion = '2.2.4.0'
   object CloseBtn: TBitBtn
     Left = 8
     Height = 25

@@ -50,8 +50,6 @@ Const ClassesDir   = SuperSlash+'Classes';
 
       xpText       = 'InnerDoc';
 
-      dirVersions  = 'versions';
-
       TempXML      = '__temp.xml';
 
 Type
@@ -77,16 +75,11 @@ Type
 
   StringArray = Array Of String;
 
-  TIODirection  = (dirInput,dirOutput);
-  TIODirections = Set Of TIODirection;
-
   TContactState = (cstNormal,cstFrom,cstTo);
 
   TDataTypes = (dtChar, dtInt, dtLongInt, dtLongLongInt, dtFloat, dtDouble, dtLongDouble);
 
   TContactType = (ctSingle,ctMany);
-
-  TResultType = (rsOk, rsNonStrict, rsStrict);
 
   TLine = Record
     X1,Y1,X2,Y2: Integer
@@ -240,8 +233,6 @@ Type
 
   TElement = class(TGraphicObject)
   private
-    function FindConnectedByType(Const ClsID:String; Dir:TIODirections):TList;
-
     function GetInputContact(ID: String): TContact;
     function GetOutputContact(ID: String): TContact;
   public
@@ -259,6 +250,8 @@ Type
 
     constructor Create(_Ref:TElementReg; Const ID:String; Flgs:Integer);
     function    CheckPoint(X,Y,WX,WY:Integer):Boolean; override;
+
+    function FindConnectedByType(Const ClsID:String; Dir:TIODirections):TList;
 
     procedure ReadData(Var S:File);
     procedure ReadDataXML(S: TDOMElement);
@@ -358,8 +351,7 @@ Type
     procedure Draw(ExclLink:TLink; WX,WY:Integer);
     procedure DrawLink(DrawPoints:Boolean; L:TLink; WX,WY:Integer);
     {$ENDIF}
-    function  FindElement(X,Y,WX,WY:Integer):TElement; overload;
-    function  FindElement(Const ID: String):TElement; overload;
+    function  FindElement(X,Y,WX,WY:Integer):TElement;
     function  FindLink(X,Y,WX,WY:Integer; Var InPoint,InSegm:Integer):TLink;
     procedure Activate(El:TElement; Cnt:TContact; WX,WY:Integer);
     procedure Deactivate(WX,WY:Integer);
@@ -373,118 +365,43 @@ Type
     property  SolveProlog: String read FSolveProlog write FSolveProlog;
   End;
 
-   TWeakResult = Array Of TXMLDocument;
-
-   { TWeakRestriction }
-
-   TWeakRestriction = class
-      Expr: DOMString;
-      Sign: Char;
-
-      AprP: Real;
-
-      Constructor Create(Const _Expr: DOMString; _Sign: Char; _AprP: Real);
-
-      Function  CopyDOMWithout(dom: TXMLDocument; without: TList): TXMLDocument;
-      Procedure DOMWithout(dom: TXMLDocument; without: TList; Del: Boolean);
-      Procedure CompleteObjs(dom: TXMLDocument; objs: TNodeSet);
-      Function  CheckSign(R: TResultType): TResultType;
-
-      Function Check(ENV: TXPathEnvironment; dom: TXMLDocument; Const sys: TSystem = Nil): TResultType; virtual; abstract;
-      Function Construct(ENV: TXPathEnvironment; Var dom: TXMLDocument): TWeakResult; virtual;
-   End;
-
-   { TWeakStatement }
-
-   TWeakStatement = class(TWeakRestriction)
-      Function Check(ENV: TXPathEnvironment; dom: TXMLDocument; Const sys: TSystem = Nil): TResultType; override;
-      Function Construct(ENV: TXPathEnvironment; Var dom: TXMLDocument): TWeakResult; override;
-   End;
-
-   { TWeakLink }
-
-   TWeakLink = class(TWeakRestriction)
-      Expr2: DOMString;
-      Ruler: TStringList;
-
-      Constructor Create(Const _Expr, _Expr2: DOMString; _Sign: Char; _AprP: Real; _Ruler: TStringList);
-
-      Function Check(ENV: TXPathEnvironment; dom: TXMLDocument; Const sys: TSystem = Nil): TResultType; override;
-      Function Construct(ENV: TXPathEnvironment; Var dom: TXMLDocument): TWeakResult; override;
-   private
-     function PresentsBetween(n1, n2: Integer; const BaseClass: String
-       ): Boolean;
-   End;
-
-   { TWeakOrder }
-
-   TWeakOrder = class(TWeakRestriction)
-      Expr2: DOMString;
-
-      Constructor Create(Const _Expr, _Expr2: DOMString; _Sign: Char; _AprP: Real);
-
-      Function Check(ENV: TXPathEnvironment; dom: TXMLDocument; Const sys: TSystem = Nil): TResultType; override;
-   End;
-
-   TWeakOperator = (woEqual, woNonEqual, woLess, woGreater, woLessEqual, woGreaterEqual);
-
-   { TWeakRelation }
-
-   TWeakRelation = class(TWeakRestriction)
-      Expr2: DOMString;
-      Op: TWeakOperator;
-
-      Constructor Create(Const _Expr, _Expr2: DOMString; _Sign: Char; _Op: TWeakOperator; _AprP: Real);
-
-      Function Check(ENV: TXPathEnvironment; dom: TXMLDocument; Const sys: TSystem = Nil): TResultType; override;
-   End;
-
-   { TTester }
-
-    TTester = class(TThread)
-           App, Params, OutFName, SignalStr: String;
-           Stopped: Boolean;
-
-           constructor Create(Const _App, _Params, _OutFName, _SignalStr: String);
-           procedure Execute; override;
-        End;
-
-   { TWeakTest }
-   TWeakTest = class(TWeakRestriction)
-      InAttr, OutAttr: DOMString;
-      NoSpaces: Boolean;
-
-      Constructor Create(Const _Expr, _InAttr, _OutAttr: DOMString; _NoSpaces: Boolean; _Sign: Char);
-
-      Function Check(ENV: TXPathEnvironment; dom: TXMLDocument; Const sys: TSystem = Nil): TResultType; override;
-
-      Function Test(ENV: TXPathEnvironment; dom: TXMLDocument; sys: TSystem; Var Compiled: Boolean; Const Lang: String): Boolean;
-   end;
-
   procedure LoadClasses({$IF DEFINED(LCL) OR DEFINED(VCL)}V:TTreeView{$ENDIF});
   {$IF DEFINED(LCL) OR DEFINED(VCL)}
   procedure SetBufSize(W,H:Integer);
   {$ENDIF}
 
-  function CompileXPathing(Const FName: String; ENV: TXPathEnvironment; Const WorkText: String): Boolean;
+  function NodeNameTester(Const NodeName, NodeTestString: String): Boolean; cdecl;
+
+  function CreateSysF:Pointer; cdecl;
+  function ExistClassF(Const ClsID: PWideChar):Boolean; cdecl;
+  function GetElementF(Sys: Pointer; ID: PWideChar):Pointer; cdecl;
+  function CanReachF(Sys: Pointer; _From: Pointer; nTo: Integer; _To: PPointerList): Boolean; cdecl;
+  procedure CreateContactsF(ClassID: PWideChar; _Dir: Integer; dom: Pointer; Parent: Pointer; Tag: PWideChar); cdecl;
+  function AddElementF(Sys: Pointer; ClassName, ID : PWideChar; Flags: Integer):Pointer; cdecl;
+  function AddLinkF(Sys, El: Pointer; ContID: PWideChar; PEl: Pointer; PContID: PWideChar; Var S: PWideChar; Info: Boolean):Pointer; cdecl;
+  function AnalyzeLinkStatusIsInformF(sys, L: Pointer): Boolean; cdecl;
+  procedure SetParameterIfExistsF(el: Pointer; PrmName, PrmValue: PWideChar); cdecl;
+  procedure MoveF(el: Pointer; X, Y: Integer); cdecl;
+  function CheckSysF(Sys: Pointer): Integer; cdecl;
+  procedure ToStringF(Sys: Pointer; Ret: PWideChar); cdecl;
+  procedure GenerateCodeF(Sys: Pointer; Ret: PWideChar); cdecl;
+  procedure SaveToXMLF(Sys: Pointer; FName: PWideChar); cdecl;
+  procedure _FreeF(Obj: Pointer); cdecl;
 
 Var MainSys: TSystem;
     {$IF DEFINED(LCL) OR DEFINED(VCL)}Cnv: TCanvas;{$ENDIF}
     OutModelName: String;
     Versions: TStringList;
-    _Restrictions: TObjList;
-    Ruler: TStringList;
-    DeduceLogFile: String;
 
 Const ProcessedObject:TObject = Nil;
-      ErrorMsg:String = '';
       AllowCycles:Boolean = True;
 
-Const Messaging: Boolean = True;
+Var ErrorMsg: Array[0..16384] Of Char = '';
 
 implementation
 
-Uses SysUtils, StrUtils, Math, IniFiles, AutoUtils, Lexique{$IFDEF FPC}, Types{$ENDIF}, DateUtils;
+Uses SysUtils, StrUtils, Math, IniFiles, AutoUtils, Lexique{$IFDEF FPC}, Types{$ENDIF},
+     DateUtils, xpathingIntrf;
 
 {$IF DEFINED(LCL) OR DEFINED(VCL)}
 Var Buf: TBitmap;
@@ -495,6 +412,98 @@ begin
      If H>Buf.Height Then Buf.Height:=H
 end;
 {$ENDIF}
+
+function CreateSysF:Pointer; cdecl;
+Begin
+   Result := TSystem.Create
+end;
+
+function ExistClassF(Const ClsID: PWideChar):Boolean; cdecl;
+Begin
+   Result := ExistClass(ClsID)
+End;
+
+function GetElementF(Sys: Pointer; ID: PWideChar):Pointer; cdecl;
+Begin
+   Result := TSystem(Sys).GetElement(ID)
+End;
+
+function CanReachF(Sys: Pointer; _From: Pointer; nTo: Integer; _To: PPointerList): Boolean; cdecl;
+Begin
+     Result := CanReach(TSystem(Sys), TElement(_From), nTo, _To)
+End;
+
+procedure CreateContactsF(ClassID: PWideChar; _Dir: Integer; dom: Pointer; Parent: Pointer; Tag: PWideChar); cdecl;
+Begin
+     CreateContacts(ClassID, TIODirection(_Dir), TXMLDocument(dom), TDOMElement(Parent), Tag)
+End;
+
+function AddElementF(Sys: Pointer; ClassName, ID : PWideChar; Flags: Integer):Pointer; cdecl;
+Begin
+     Result := TSystem(Sys).AddElement(ClassName, ID, Flags)
+End;
+
+function AddLinkF(Sys, El: Pointer; ContID: PWideChar; PEl: Pointer; PContID: PWideChar; Var S: PWideChar; Info: Boolean):Pointer; cdecl;
+
+Const Str: PWideChar = 'Error!';
+
+Var ErrMsg: String;
+Begin
+     Result := TSystem(Sys).AddLink(TElement(El).OutputContact[ContID], TElement(PEl).InputContact[PContID], ErrMsg, Info);
+     If Length(ErrMsg) > 0 Then
+        S := Str
+     Else
+        S := Nil
+End;
+
+function AnalyzeLinkStatusIsInformF(sys, L: Pointer): Boolean; cdecl;
+Begin
+     TSystem(sys).AnalyzeLinkStatus(TLink(L));
+     Result := TLink(L).Inform
+End;
+
+procedure SetParameterIfExistsF(el: Pointer; PrmName, PrmValue: PWideChar); cdecl;
+
+Var Obj: TElement Absolute el;
+Begin
+     If Obj.Parameters.IndexOfName(PrmName) >= 0 Then
+        Obj.Parameters.Values[PrmName] := PrmValue;
+End;
+
+procedure MoveF(el: Pointer; X, Y: Integer); cdecl;
+Begin
+     TElement(el).Move(X, Y)
+End;
+
+function CheckSysF(Sys: Pointer): Integer; cdecl;
+Begin
+     Result := Integer(TSystem(Sys).Check)
+End;
+
+procedure ToStringF(Sys: Pointer; Ret: PWideChar); cdecl;
+Begin
+     StrPCopy(Ret, WideString(TSystem(Sys).ToString))
+End;
+
+procedure GenerateCodeF(Sys: Pointer; Ret: PWideChar); cdecl;
+
+Var R: String;
+Begin
+     If TSystem(Sys).GeneratePHP(R) Then
+        StrPCopy(Ret, WideString(R))
+     Else
+        StrPCopy(Ret, '')
+End;
+
+procedure SaveToXMLF(Sys: Pointer; FName: PWideChar); cdecl;
+Begin
+     TSystem(Sys).SaveToXML('', FName)
+End;
+
+procedure _FreeF(Obj: Pointer); cdecl;
+Begin
+     TObject(Obj).Free
+end;
 
 function getFirstChild(El: TDOMElement): TDOMElement;
 begin
@@ -524,7 +533,7 @@ begin
      Result := TDOMElement(Els[0]);
 end;
 
-function NodeNameTester(Const NodeName, NodeTestString: String): Boolean;
+function NodeNameTester(Const NodeName, NodeTestString: String): Boolean; cdecl;
 
 Var F: Integer;
     Found: Boolean;
@@ -543,390 +552,6 @@ Begin
      Else
         exit(False);
      Result := True
-end;
-
-function CheckXPath(Var L: TAnalyser; Const XPath: String): Boolean;
-
-Var Scan: TXPathScanner;
-    Node: TXPathExprNode;
-Begin
-   Scan := TXPathScanner.Create(XPath);
-   Node := Nil;
-   Try
-     Try
-       Node := Scan.ParseOrExpr;
-       If Scan.CurToken <> tkEndOfStream Then
-          Begin
-            L.MakeError('Garbage after XPath');
-            Exit(False)
-          end;
-     Except
-        L.MakeError('Incorrect XPath');
-        Exit(False)
-     end;
-   finally
-     Node.Free;
-     Scan.Free
-   end;
-   Result := True
-end;
-
-function CompileXPathing(const FName: String; ENV: TXPathEnvironment; Const WorkText: String): Boolean;
-
-Var LL:TStringList;
-    LM:TMemoryStream;
-    L: TAnalyser;
-    S, S1, S2: String;
-    curVers, selVers: Set Of Byte;
-    Allowed: Boolean;
-    Args: Array Of String;
-    Ref: Boolean;
-    Sign: Char;
-    _AprP: Real;
-    _Ruler: TStringList;
-    Op: TWeakOperator;
-    F, G: Integer;
-begin
-     LL := TStringList.Create;
-     L := TAnalyser.Create(IdentSet, [Space, Tabulation]);
-     L.CurFile := FName;
-     Try
-       If Length(WorkText) > 0 Then
-          begin
-            LM := TMemoryStream.Create;
-            LM.Write(WorkText[1], Length(WorkText)*SizeOf(Char));
-            LM.Seek(0, soBeginning);
-            LL.LoadFromStream(LM);
-            LM.Free
-          end
-       else
-          LL.LoadFromFile(FName);
-
-       selVers := [];
-       With Versions Do
-         For F := 0 To Count - 1 Do
-             If Assigned(Objects[F]) Then
-                Include(selVers,F);
-       curVers := selVers;
-
-       F := 0;
-       While F < LL.Count Do
-           Begin
-             Allowed := (selVers = []) Or (curVers*selVers <> []);
-             L.AnlzLine := TrimRight(LL.Strings[F]);
-             L.NumLine := F + 1;
-             If Not (L.Empty Or L.Error) Then
-                Begin
-                  If L.IsNext(Percent) Then
-                     begin
-                       Inc(F);
-                       Continue
-                     end;
-
-                  If L.IsNext(SpecSymbol) Then
-                     Begin
-                       L.Check(SpecSymbol);
-                       S := L.GetIdent(False);
-                       If (S = dirVersions) And L.Check(LeftBracket) Then
-                          begin
-                            curVers := [];
-                            While Not (L.Error Or L.IsNext(RightBracket)) Do
-                              begin
-                                S := L.GetBalancedListItem(False, [RightBracket, Comma]);
-                                G := Versions.IndexOf(S);
-                                If G >= 0 Then
-                                   Include(curVers, G);
-                                If L.Empty Then
-                                   L.ExpectSet([RightBracket, Comma])
-                                Else If L.IsNext(Comma) Then
-                                   L.Check(Comma);
-                              end;
-                            L.Check(RightBracket);
-                            If Not L.Error Then
-                               begin
-                                 Inc(F);
-                                 Continue
-                               end
-                          end
-                     End;
-
-                  If Not Allowed Then
-                     begin
-                       Inc(F);
-                       Continue
-                     end;
-
-                  If L.IsNext(Asterisk) And L.Check(Asterisk) Then
-                     begin
-                       S := L.GetIdent(False);
-                       If Length(S) = 0 Then
-                          begin
-                            L.Expect('Function identifier');
-                            Inc(F);
-                            Continue
-                          end;
-                       SetLength(Args, 0);
-                       If L.IsNext(LeftBracket) Then
-                          begin
-                            L.Check(LeftBracket);
-                            If L.Error Then
-                               begin
-                                 Inc(F);
-                                 Continue
-                               end;
-                            While Not (L.Error Or L.IsNext(RightBracket)) Do
-                               begin
-                                 SetLength(Args, Length(Args) + 1);
-                                 Ref := L.IsNext(Ampersand) And L.Check(Ampersand);
-                                 L.Check(Dollar);
-                                 If Not L.Error Then
-                                    begin
-                                      If L.IsNext(Pound) And L.Check(Pound) Then
-                                         begin
-                                           If Ref Then
-                                              begin
-                                                L.MakeError('# or ## can not be passed by reference (&)');
-                                                Break
-                                              end;
-                                           If L.IsNext(Pound) And L.Check(Pound) Then
-                                              S1 := Pound + Pound
-                                           Else
-                                              S1 := Pound
-                                         end
-                                      Else
-                                         S1 := L.GetIdent(False);
-                                      If Ref Then
-                                         Args[High(Args)] := Ampersand + Dollar + S1
-                                      Else
-                                         Args[High(Args)] := Dollar + S1;
-                                      If Length(Args[High(Args)]) = 0 Then
-                                         L.MakeError('Empty argument name in function ' + S)
-                                      Else If L.IsNext(Comma) Then
-                                         L.Check(Comma)
-                                      Else If Not L.IsNext(RightBracket) Then
-                                         L.ExpectSet([Comma, RightBracket])
-                                    end
-                               end;
-                            L.Check(RightBracket)
-                          end;
-                       If (Not L.Error) And L.Check(Colon) Then
-                          begin
-                            S1 := TrimRight(L.AnlzLine);
-                            While ((Length(S1) = 0) Or (S1[Length(S1)] <> Lexique.Point)) And (F + 1 < LL.Count) Do
-                              begin
-                                Inc(F);
-                                AppendStr(S1, ' ' + TrimRight(TrimLeft(LL.Strings[F])))
-                              end;
-                            If (Length(S1) = 0) Or (S1[Length(S1)] <> Lexique.Point) Then
-                               begin
-                                 L.Expect(Lexique.Point);
-                                 Inc(F);
-                                 Continue
-                               end;
-                            S1 := Copy(S1, 1, Length(S1) - 1);
-                            If Not CheckXPath(L, S1) Then
-                               begin
-                                 Inc(F);
-                                 Continue
-                               end;
-                            ENV.AddFunction(S, Nil, true, Args, S1)
-                          end;
-                       Inc(F);
-                       Continue
-                     end;
-
-                  If L.IsNextSet([Plus, Dash]) Then
-                     Begin
-                       Sign := L.AnlzLine[1];
-                       L.DelFirst
-                     End
-                  Else
-                     Sign := '+';
-
-                  _AprP := 1.0;
-                  If L.IsNext(LeftFBracket) And L.Check(LeftFBracket) Then
-                     Begin
-                        If L.GetNumber(False, _AprP) Then
-                           L.Check(RightFBracket)
-                     End;
-
-                  If (Length(L.AnlzLine) = 0) Or (L.AnlzLine[Length(L.AnlzLine)] <> Lexique.Point) Then
-                     Begin
-                       L.MakeError('Expected last ''.''');
-                       Inc(F);
-                       Continue
-                     End;
-
-                  If L.IsNext(LeftSqrBracket) And L.Check(LeftSqrBracket) Then
-                     Begin
-                       S := L.GetBalancedListItem(True, [RightSqrBracket]);
-                       If L.Error Then
-                          begin
-                            Inc(F);
-                            Continue
-                          end;
-                       If Not CheckXPath(L, S) Then
-                          begin
-                            Inc(F);
-                            Continue
-                          end;
-                       L.DelSpaces;
-                       If L.IsNext(Colon) And L.Check(Colon) Then // Test
-                          Begin
-                            L.Check(LeftFBracket);
-                            S1 := L.GetIdent(False);
-                            L.Check(Comma);
-                            S2 := L.GetIdent(False);
-                            If L.Error Then
-                               begin
-                                 Inc(F);
-                                 Continue
-                               end;
-                            If L.IsNext(Comma) And L.Check(Comma) Then
-                               Begin
-                                 L.CheckIdent('NOSPACES', True);
-                                 If L.Error Then
-                                    begin
-                                      Inc(F);
-                                      Continue
-                                    end;
-                                 _Restrictions.Add(TWeakTest.Create(S, S1, S2, True, Sign))
-                               End
-                            Else
-                               _Restrictions.Add(TWeakTest.Create(S, S1, S2, False, Sign))
-                          End
-                       Else If (Copy(L.AnlzLine, 1, 2) = '=>') Or (Copy(L.AnlzLine, 1, 3) = '=>>') Then // Link
-                          Begin
-                            L.Check(Equal);
-                            L.Check(Greater);
-                            If L.IsNext(Greater) And L.Check(Greater) Then
-                               _Ruler := Ruler
-                            Else
-                               _Ruler := Nil;
-                            If L.IsNext(LeftSqrBracket) And L.Check(LeftSqrBracket) Then
-                               Begin
-                                 S1 := L.GetBalancedListItem(True, [RightSqrBracket]);
-                                 L.Check(Lexique.Point);
-                                 If L.Error Then
-                                    begin
-                                      Inc(F);
-                                      Continue
-                                    end;
-                                 If Not CheckXPath(L, S1) Then
-                                    begin
-                                      Inc(F);
-                                      Continue
-                                    end;
-                                 If (Pos('##', S) <> 0) Xor (Pos('##', S1) <> 0) Then
-                                    _Restrictions.Add(TWeakLink.Create(S, S1, Sign, _AprP, _Ruler))
-                                 Else
-                                    Begin
-                                      L.MakeError('Suspicious: only one of XPaths in LINK-operator must contain "##"-step');
-                                      Inc(F);
-                                      Continue
-                                    End;
-                               End
-                            Else
-                               Begin
-                                 L.MakeError('Expected "[XPath]" after "[XPath] rel"');
-                                 Inc(F);
-                                 Continue
-                               End
-                          End
-                       Else If Copy(L.AnlzLine, 1, 2) = '>>' Then // Order
-                          Begin
-                            L.Check(Greater);
-                            L.Check(Greater);
-                            If L.IsNext(LeftSqrBracket) And L.Check(LeftSqrBracket) Then
-                               Begin
-                                 S1 := L.GetBalancedListItem(True, [RightSqrBracket]);
-                                 L.Check(Lexique.Point);
-                                 If L.Error Then
-                                    begin
-                                      Inc(F);
-                                      Continue
-                                    end;
-                                 If Not CheckXPath(L, S1) Then
-                                    begin
-                                      Inc(F);
-                                      Continue
-                                    end;
-                                 _Restrictions.Add(TWeakOrder.Create(S, S1, Sign, _AprP));
-                               End
-                            Else
-                               Begin
-                                 L.MakeError('Expected "[XPath]" after "[XPath] rel"');
-                                 Inc(F);
-                                 Continue
-                               End
-                          End
-                       Else // Relation
-                          Begin
-                            Op := woEqual;
-                            If Copy(L.AnlzLine, 1, 2) = '>=' Then
-                               Op := woGreaterEqual
-                            Else If Copy(L.AnlzLine, 1, 2) = '<=' Then
-                               Op := woLessEqual
-                            Else If Copy(L.AnlzLine, 1, 2) = '!=' Then
-                               Op := woNonEqual
-                            Else If L.IsNext(Greater) Then
-                               Op := woGreater
-                            Else If L.IsNext(Less) Then
-                               Op := woLess
-                            Else If L.IsNext(Equal) Then
-                               Op := woEqual
-                            Else
-                               Begin
-                                 L.MakeError('Expected "[XPath] relation [XPath]."');
-                                 Inc(F);
-                                 Continue
-                               End;
-
-                            L.DelFirst;
-                            If Op in [woGreaterEqual, woLessEqual, woNonEqual] Then
-                               L.DelFirst;
-                            If L.IsNext(LeftSqrBracket) And L.Check(LeftSqrBracket) Then
-                               Begin
-                                 S1 := L.GetBalancedListItem(True, [RightSqrBracket]);
-                                 L.Check(Lexique.Point);
-                                 If L.Error Then
-                                    begin
-                                      Inc(F);
-                                      Continue
-                                    end;
-                                 If Not CheckXPath(L, S1) Then
-                                    begin
-                                      Inc(F);
-                                      Continue
-                                    end;
-                                 _Restrictions.Add(TWeakRelation.Create(S, S1, Sign, Op, _AprP));
-                               End
-                            Else
-                               Begin
-                                 L.MakeError('Expected "[XPath]" after "[XPath] rel"');
-                                 Inc(F);
-                                 Continue
-                               End
-                          End
-                     End
-                  Else // Statement
-                     Begin
-                       L.AnlzLine := TrimLastSymbol(L.AnlzLine, Lexique.Point);
-                       If Not CheckXPath(L, L.AnlzLine) Then
-                          begin
-                            Inc(F);
-                            Continue
-                          end;
-                       _Restrictions.Add(TWeakStatement.Create(L.AnlzLine, Sign, _AprP))
-                     End
-                End;
-             Inc(F)
-           End;
-     finally
-       Result := Not L.Error;
-       L.Free;
-       LL.Free
-     end;
 end;
 
 function ReadStr(Var S:File):String;
@@ -1001,26 +626,6 @@ begin
             Result:=Result+Sh+Copy(S,1,P+1);
          Delete(S,1,P+1)
        end
-end;
-
-{ TTester }
-
-constructor TTester.Create(const _App, _Params, _OutFName, _SignalStr: String);
-begin
-  Inherited Create(True);
-
-  App := _App;
-  Params := _Params;
-  OutFName := _OutFName;
-  SignalStr := _SignalStr;
-
-  Stopped := False
-end;
-
-procedure TTester.Execute;
-begin
-     AutoUtils.RunExtCommand(App, Params, OutFName, SignalStr, '_.result');
-     Stopped := True
 end;
 
 { TContactReg }
@@ -1349,12 +954,19 @@ end;
 function TElementReg.GetInductSeq(var Continuous: Boolean;
   ENV: TXPathEnvironment): TElementRegs;
 
-Var Path: String;
+Var AllowedVersions: TStringList;
+    ExportedENV: Array[0..65536] Of WideChar;
+    Path: String;
     L: TAnalyser;
     CID: String;
     S: String;
     F: Integer;
 begin
+     AllowedVersions := TStringList.Create;
+     With Versions Do
+       For F := 0 To Count - 1 Do
+           If Assigned(Objects[F]) Then
+              AllowedVersions.Add(Strings[F]);
      L := TAnalyser.Create(IdentSet, [Space, Tabulation]);
      Continuous := False;
      With TStringList.Create Do
@@ -1370,11 +982,15 @@ begin
          Path := ExcludeTrailingBackSlash(Path);
          If FileExists(Path + XPathFile) Then
             begin
-              If Not CompileXPathing(Path + XPathFile, ENV, '') Then
-                 begin
-                   _Restrictions.Clear;
-                 end;
-              DeduceLogFile := Path + LogFile
+              ENV.Export(ExportedENV);
+              If Not CompileXPathing(Messaging, PChar(AllowedVersions.Text),
+                         PChar(Path + XPathFile), Nil, ExportedENV, ExportedENV, '') Then
+                 Begin
+                   ClearRestrictions;
+                   MakeErrorCommon(String(WideString(GetMSG)))
+                 End;
+              ENV.Import(ExportedENV);
+              SetDeduceLogFile(PChar(Path + LogFile))
             end;
          If FileExists(Path + SuperSlash + InductFile) Then
             begin
@@ -1418,6 +1034,7 @@ begin
             end;
          Free
        end;
+     AllowedVersions.Free;
      L.Free
 end;
 
@@ -3350,7 +2967,7 @@ function TSystem.AddElement(const CID, ID: String; Flgs: Integer): TElement;
 Var F:Integer;
 begin
      Result:=Nil;
-     If Messaging Then ErrorMsg:=CID+' - неизвестный класс';
+     If Messaging Then StrPCopy(ErrorMsg, CID+String(' - неизвестный класс'));
      For F:=0 To ElementRegList.Count-1 Do
          With TElementReg(ElementRegList.Items[F]) Do
            If CID=ClsID Then
@@ -3810,16 +3427,6 @@ begin
      Result:=Nil;
      For F:=0 To Elements.Count-1 Do
          If TElement(Elements[F]).CheckPoint(X,Y,WX,WY) Then
-            Result:=TElement(Elements[F])
-end;
-
-function TSystem.FindElement(Const ID: String): TElement;
-
-Var F:Integer;
-begin
-     Result:=Nil;
-     For F:=0 To Elements.Count-1 Do
-         If TElement(Elements[F]).Ident = ID Then
             Result:=TElement(Elements[F])
 end;
 
@@ -4834,767 +4441,6 @@ begin
      Inherited
 end;
 
-constructor TWeakTest.Create(const _Expr, _InAttr, _OutAttr: DOMString; _NoSpaces: Boolean; _Sign: Char);
-begin
-     Inherited Create(_Expr, _Sign, 1.0);
-     InAttr := _InAttr;
-     OutAttr := _OutAttr;
-     NoSpaces := _NoSpaces
-end;
-
-function TWeakTest.Check(ENV: TXPathEnvironment; dom: TXMLDocument; const sys: TSystem): TResultType;
-begin
-     Result := rsOk
-end;
-
-function TWeakTest.Test(ENV: TXPathEnvironment; dom: TXMLDocument; sys: TSystem; var Compiled: Boolean;
-  const Lang: String): Boolean;
-
-  procedure Run(Const App, Prm, OutFName, SignalStr: String);
-
-  Var T: TTester;
-      Time: TDateTime;
-  begin
-    T := TTester.Create(App, Prm, OutFName, SignalStr);
-    T.Resume;
-    Time := Now;
-    While (Not T.Stopped) And (MilliSecondsBetween(Time, Now) < 30*1000) Do
-       Sleep(100);
-    If Not T.Stopped Then
-       KillThread(T.Handle)
-    Else
-       T.WaitFor;
-    T.Free
-  end;
-
-  function DelSpaces(Const S: WideString): WideString;
-
-  Var F: Integer;
-  Begin
-       Result := S;
-       If NoSpaces Then
-          Begin
-             F := 1;
-             While F <= Length(Result) Do
-               If Not (Result[F] in [Space, Tabulation, #$0D, #$0A, #$00]) Then
-                  Inc(F)
-               Else
-                  System.Delete(Result, F, 1)
-          End
-  End;
-
-Var res: TXPathVariable;
-    txt: String;
-    inp, outp: String;
-    L: TextFile;
-    LL: TStringList;
-    S: String;
-    F: Integer;
-    Err: Integer;
-begin
-   Result := Sign = '+';
-
-   res := EvaluateXPathExpression(Expr, dom.DocumentElement, @NodeNameTester, [], Nil, Nil, ENV);
-   ENV.commitUndo(0);
-
-   S:=ExcludeTrailingBackSlash(ExtractFilePath(
-   {$IF DEFINED(LCL) OR DEFINED(VCL)}
-   Application.ExeName
-   {$ELSE}
-   ParamStr(0)
-   {$ENDIF}
-   ));
-
-   If res is TXPathNodeSetVariable Then
-      For F := 0 To res.AsNodeSet.Count - 1 Do
-        If TObject(res.AsNodeSet[F]) is TDOMElement Then
-          Begin
-            inp := TDOMElement(res.AsNodeSet[F]).AttribStrings[InAttr];
-            outp := TDOMElement(res.AsNodeSet[F]).AttribStrings[OutAttr];
-
-            AssignFile(L, S + SuperSlash+'_.in');
-            Rewrite(L);
-            Write(L, inp);
-            CloseFile(L);
-            AssignFile(L, S + SuperSlash+'_.out');
-            Rewrite(L);
-            CloseFile(L);
-
-            If Compiled Then
-               Run({$IF DEFINED(UNIX) OR DEFINED(LINUX)}'./start_'+Lang+'.sh'{$ELSE}'start_'+Lang+'.bat'{$ENDIF},'nocompile _.out _.in','_.res',CRLF+CRLF)
-            Else
-               Begin
-                 Run({$IF DEFINED(UNIX) OR DEFINED(LINUX)}'./start_'+Lang+'.sh'{$ELSE}'start_'+Lang+'.bat'{$ENDIF},'_.gen _.out _.in','_.res',CRLF+CRLF);
-                 Compiled := True
-               End;
-
-            AssignFile(L, S + SuperSlash+'_.result');
-            Reset(L);
-            ReadLn(L, Err);
-            CloseFile(L);
-            If Err <> 0 Then
-               Begin
-                 res.Free;
-                 Exit(Sign = '-')
-               End;
-
-            LL := TStringList.Create;
-            Try
-               LL.LoadFromFile(S + SuperSlash+'_.out');
-               txt := LL.Text;
-            Except
-               txt := '';
-            end;
-            LL.Free;
-
-            // Check Result
-            outp := DelSpaces(outp);
-            txt := DelSpaces(txt);
-            If outp <> txt Then
-               Begin
-                 res.Free;
-                 Exit(Sign = '-')
-               End;
-          End;
-
-   res.Free
-end;
-
-{ TWeakRelation }
-
-constructor TWeakRelation.Create(const _Expr, _Expr2: DOMString; _Sign: Char; _Op: TWeakOperator; _AprP: Real);
-begin
-   Inherited Create(_Expr, _Sign, _AprP);
-   Expr2 := _Expr2;
-   Op := _Op
-end;
-
-function TWeakRelation.Check(ENV: TXPathEnvironment; dom: TXMLDocument; Const sys: TSystem = Nil): TResultType;
-
-Var res1, res2: TXPathVariable;
-begin
-   res1 := EvaluateXPathExpression(Expr, dom.DocumentElement, @NodeNameTester, [], Nil, Nil, ENV);
-   ENV.commitUndo(0);
-   res2 := EvaluateXPathExpression(Expr2, dom.DocumentElement, @NodeNameTester, [], Nil, Nil, ENV);
-   ENV.commitUndo(0);
-
-   Result := rsStrict;
-
-   If res1 is TXPathNodeSetVariable Then
-      If res2 is TXPathNumberVariable Then
-         Case Op Of
-           woEqual: If res1.AsNodeSet.Count = res2.AsNumber Then Result := rsOk
-                    Else If res1.AsNodeSet.Count < res2.AsNumber Then Result := rsNonStrict;
-           woNonEqual: If res1.AsNodeSet.Count <> res2.AsNumber Then Result := rsOk;
-           woLess: If res1.AsNodeSet.Count < res2.AsNumber Then Result := rsOk;
-           woLessEqual: If res1.AsNodeSet.Count <= res2.AsNumber Then Result := rsOk;
-           woGreater: If res1.AsNodeSet.Count > res2.AsNumber Then Result := rsOk
-                      Else Result := rsNonStrict;
-           woGreaterEqual: If res1.AsNodeSet.Count >= res2.AsNumber Then Result := rsOk
-                           Else Result := rsNonStrict;
-         End
-      Else
-         Result := rsStrict
-   Else If res1 is TXPathNumberVariable Then
-      If res2 is TXPathNumberVariable Then
-         Case Op Of
-           woEqual: If res1.AsNumber = res2.AsNumber Then Result := rsOk;
-           woNonEqual: If res1.AsNumber <> res2.AsNumber Then Result := rsOk;
-           woLess: If res1.AsNumber < res2.AsNumber Then Result := rsOk;
-           woLessEqual: If res1.AsNumber <= res2.AsNumber Then Result := rsOk;
-           woGreater: If res1.AsNumber > res2.AsNumber Then Result := rsOk;
-           woGreaterEqual: If res1.AsNumber >= res2.AsNumber Then Result := rsOk;
-         End
-      Else
-         Result := rsStrict
-  Else If res1 is TXPathStringVariable Then
-     If res2 is TXPathStringVariable Then
-        Case Op Of
-          woEqual: If res1.AsText = res2.AsText Then Result := rsOk;
-          woNonEqual: If res1.AsText <> res2.AsText Then Result := rsOk;
-          woLess: If res1.AsText < res2.AsText Then Result := rsOk;
-          woLessEqual: If res1.AsText <= res2.AsText Then Result := rsOk;
-          woGreater: If res1.AsText > res2.AsText Then Result := rsOk;
-          woGreaterEqual: If res1.AsText >= res2.AsText Then Result := rsOk;
-        End
-     Else
-        Result := rsStrict;
-   Result := CheckSign(Result)
-end;
-
-{ TWeakOrder }
-
-constructor TWeakOrder.Create(const _Expr, _Expr2: DOMString; _Sign: Char; _AprP: Real);
-begin
-   Inherited Create(_Expr, _Sign, _AprP);
-   Expr2 := _Expr2
-end;
-
-function TWeakOrder.Check(ENV: TXPathEnvironment; dom: TXMLDocument; Const sys: TSystem = Nil): TResultType;
-
-  Function XPath2Objs(Const XPath: DOMString): TList;
-
-  Var res: TXPathVariable;
-      S: TElement;
-      F: Integer;
-  Begin
-       Result := TList.Create;
-
-       res := EvaluateXPathExpression(XPath, dom.DocumentElement, @NodeNameTester, [], Nil, Nil, ENV);
-       ENV.commitUndo(0);
-       If res is TXPathNodeSetVariable Then
-          Begin
-            For F := 0 To res.AsNodeSet.Count - 1 Do
-                With TObject(res.AsNodeSet.Items[F]) As TDOMElement Do
-                  Begin
-                    S := sys.FindElement(AttribStrings['ID']);
-
-                    If Assigned(S) Then
-                       Result.Add(S)
-                    Else
-                       Begin
-                         FreeAndNil(Result);
-                         res.Free;
-                         Exit
-                       End
-                  End
-          End;
-       res.Free
-  End;
-
-  Function CanReach(_From: TElement; _To: TList): Boolean;
-
-    function Reach(Obj:TElement):Boolean;
-
-    Var F:Integer;
-    begin
-         obj.SetFlags(flChecked);
-         Result := _To.IndexOf(Obj) >= 0;
-         If Not Result Then
-            With Obj.FindConnectedByType('',[dirOutput]) Do
-              begin
-                F:=0;
-                While (F<Count) And Not Result Do
-                  If (TElement(Items[F]).Flags And flChecked) = 0 Then
-                     If Reach(TElement(Items[F])) Then
-                        Result:=True
-                     Else
-                        Inc(F)
-                  Else
-                     Inc(F);
-                Free
-              end
-    end;
-
-  Begin
-       sys.ClearFlags(flChecked);
-       Result := Reach(_From);
-       sys.ClearFlags(flChecked)
-  end;
-
-Var set1, set2: TList;
-    F: Integer;
-begin
-     Result := CheckSign(rsStrict);
-
-     set1 := XPath2Objs(Expr);
-     If Not Assigned(set1) Then Exit;
-     set2 := XPath2Objs(Expr2);
-     If Not Assigned(set2) Then
-        Begin
-          set1.Free;
-          Exit
-        end;
-     Try
-       Result := CheckSign(rsOk);
-       For F := 0 To set1.Count - 1 Do
-           If Not CanReach(TElement(set1[F]), set2) Then
-              Begin
-                Result := CheckSign(rsNonStrict);
-                Break
-              end;
-       For F := 0 To set2.Count - 1 Do
-           If CanReach(TElement(set2[F]), set1) Then
-              Exit(CheckSign(rsStrict));
-     Finally
-       set1.Free;
-       set2.Free
-     end;
-end;
-
-{ TWeakRestriction }
-
-constructor TWeakRestriction.Create(const _Expr: DOMString; _Sign: Char; _AprP: Real);
-Begin
-     Inherited Create;
-     Expr := _Expr;
-     Sign := _Sign;
-     AprP := _AprP
-End;
-
-function TWeakRestriction.CopyDOMWithout(dom: TXMLDocument; without: TList
-  ): TXMLDocument;
-
-Var doctypenode: TDOMNode;
-    Owner: TDOMDocument;
-
-  function process(el: TDOMNode): TDOMNode;
-
-  Var F: Integer;
-  Begin
-       If Not Assigned(Owner) Then
-          Begin
-            Result := el.CloneNode(False);
-            Owner := Result As TDOMDocument
-          End
-       Else
-          Result := el.CloneNode(False, Owner);
-       With el.ChildNodes Do
-         begin
-           For F := 0 To Count - 1 Do
-             If without.IndexOf(Item[F]) < 0 Then
-               If Item[F] <> doctypenode Then
-                 Result.AppendChild(process(Item[F]));
-           Free
-         end;
-  End;
-
-begin
-     doctypenode := dom.DocType;
-     Owner := Nil;
-     Result := process(dom) As TXMLDocument
-end;
-
-procedure TWeakRestriction.DOMWithout(dom: TXMLDocument; without: TList; Del: Boolean);
-
-  procedure process(el: TDOMNode);
-
-  Var F: Integer;
-      p: TDOMNode;
-  Begin
-       With el.ChildNodes Do
-         begin
-           For F := 0 To Count-1 Do
-             If without.IndexOf(Item[F]) >= 0 Then
-                Begin
-                  p := Item[F];
-                  el.RemoveChild(p);
-                  If Del Then
-                     p.Free;
-                end
-             Else
-                process(Item[F]);
-           Free
-         end;
-  End;
-
-begin
-   process(dom)
-end;
-
-procedure TWeakRestriction.CompleteObjs(dom: TXMLDocument; objs: TNodeSet);
-
-  procedure CreateContacts(Const ClassID: String; _Dir: TIODirection; Parent: TDOMElement; Tag: DOMString);
-
-  Var F, G: Integer;
-      L: TDOMElement;
-      Ref: TElementReg;
-      Exists: Boolean;
-  Begin
-     Ref := Nil;
-     For F:=0 To ElementRegList.Count-1 Do
-         If ClassID = TElementReg(ElementRegList.Items[F]).ClsID Then
-            Begin
-               Ref := TElementReg(ElementRegList.Items[F]);
-               Break
-            End;
-
-     If Not Assigned(Ref) Then Exit;
-
-     For F:=0 To ContactRegList.Count-1 Do
-         With TContactReg(ContactRegList.Items[F]) Do
-           If ElementIs(Ref,ClsID) And (_Dir = Dir) Then
-              Begin
-                Exists := False;
-                With Parent.ChildNodes Do
-                  begin
-                    For G := 0 To Count - 1 Do
-                        If TDOMElement(Item[G]).AttribStrings['ID'] = CntID Then
-                           Begin
-                             Exists := True;
-                             Break
-                           End;
-                    Free
-                  end;
-                If Exists Then Continue;
-                L := TDOMElement(Parent.AppendChild(dom.CreateElement(Tag)));
-                L.AttribStrings['ID'] := CntID;
-                L.AttribStrings['Ref'] := IntToStr(Random(100000))
-              End;
-  End;
-
-Var F: Integer;
-begin
-   For F := 0 To objs.Count - 1 Do
-       If Assigned(TDOMNode(objs[F]).ParentNode) And
-          (TDOMElement(TDOMNode(objs[F]).ParentNode).TagName = 'OBJS') And
-          ExistClass(TDOMElement(objs[F]).TagName) Then
-          With TDOMElement(objs[F]) Do
-            Begin
-              CreateContacts(TagName, dirInput, TDOMElement(objs[F]), 'I');
-              CreateContacts(TagName, dirOutput, TDOMElement(objs[F]), 'O');
-            End
-end;
-
-function TWeakRestriction.CheckSign(R: TResultType): TResultType;
-begin
-     If Sign = '+' Then
-        Result := R
-     Else If R = rsOk Then
-        Result := rsStrict
-     Else
-        Result := rsOk
-end;
-
-function TWeakRestriction.Construct(ENV: TXPathEnvironment; var dom: TXMLDocument): TWeakResult;
-Begin
-   SetLength(Result, 0)
-end;
-
-{ TWeakStatement }
-
-function TWeakStatement.Check(ENV: TXPathEnvironment; dom: TXMLDocument; Const sys: TSystem = Nil): TResultType;
-
-Var res: TXPathVariable;
-begin
-   res := EvaluateXPathExpression(Expr, dom.DocumentElement, @NodeNameTester, [], Nil, Nil, ENV);
-   ENV.commitUndo(0);
-   If res is TXPathNodeSetVariable Then
-      If res.AsNodeSet.Count > 0 Then
-          Result := CheckSign(rsOk)
-      Else
-          Result := CheckSign(rsNonStrict)
-   Else If ((res is TXPathNumberVariable) And (res.AsNumber > 0)) Or
-            ((res is TXPathBooleanVariable) And (res.AsBoolean)) Or
-            ((res is TXPathStringVariable) And (Length(res.AsText) > 0)) Then
-      Result := CheckSign(rsOk)
-   Else
-      Result := CheckSign(rsStrict)
-end;
-
-function TWeakStatement.Construct(ENV: TXPathEnvironment; Var dom: TXMLDocument): TWeakResult;
-
-Var res: TXPathVariable;
-    d: TXMLDocument;
-    root: TDOMElement;
-    new_objs: TList;
-    obj: TDOMElement;
-    C: TNodeSet;
-    F, G: Integer;
-begin
-   Result := Inherited Construct(ENV, dom);
-
-   If Assigned(dom) Then
-      Begin
-         C := TNodeSet.Create;
-         d := dom.CloneNode(True) As TXMLDocument;
-
-         res := EvaluateXPathExpression(Expr, d.DocumentElement, @NodeNameTester, [], C, Nil, ENV);
-         ENV.commitUndo(0);
-         CompleteObjs(d, C);
-         If ((res is TXPathNumberVariable) And (res.AsNumber > 0)) Or
-            ((res is TXPathBooleanVariable) And (res.AsBoolean)) Or
-            ((res is TXPathStringVariable) And (Length(res.AsText) > 0)) Or
-            ((res is TXPathNodeSetVariable) And (res.AsNodeSet.Count > 0)) Then
-            If C.Count > 0 then
-               Begin
-                 new_objs := TList.Create;
-                 root := d.DocumentElement;
-                 With root.ChildNodes Do
-                   begin
-                     For F := 0 To Count - 1 Do
-                         If (Copy(TDOMElement(Item[F]).TagName, 1, 3) = 'cls') And
-                            ExistClass(TDOMElement(Item[F]).TagName) And
-                            (C.IndexOf(Item[F]) >= 0) Then
-                            new_objs.Add(Item[F]);
-                     Free
-                   end;
-                 If new_objs.Count = 0 Then
-                    Begin
-                      SetLength(Result, 1);
-                      Result[0] := d.CloneNode(True) As TXMLDocument
-                    End
-                 Else
-                    Begin
-                      SetLength(Result, new_objs.Count);
-                      For F := 0 To new_objs.Count - 1 Do
-                          Begin
-                            obj := TObject(new_objs[F]) As TDOMElement;
-                            new_objs.Delete(F);
-                            Result[F] := CopyDOMWithout(d, new_objs);
-                            new_objs.Insert(F, obj)
-                          End
-                    End;
-                 new_objs.Free
-               End;
-
-         res.Free;
-         d.Free;
-         C.Free
-      End
-end;
-
-{ TWeakLink }
-
-constructor TWeakLink.Create(const _Expr, _Expr2: DOMString; _Sign: Char; _AprP: Real; _Ruler: TStringList);
-begin
-     Inherited Create(_Expr, _Sign, _AprP);
-     Expr2 := _Expr2;
-     Ruler := _Ruler
-end;
-
-function TWeakLink.PresentsBetween(n1, n2: Integer; Const BaseClass: String): Boolean;
-begin
-   Result := False;
-   While (n1 <= n2) And Not Result Do
-     begin
-       Result := NodeNameTester(PString(Ruler.Objects[n1])^, BaseClass);
-       Inc(n1)
-     end
-end;
-
-function TWeakLink.Check(ENV: TXPathEnvironment; dom: TXMLDocument; Const sys: TSystem = Nil): TResultType;
-
-  function SubCheck(Const Expr1, Expr2: DOMString; Reverse: Boolean): TResultType;
-
-  Var res1, res2: TXPathVariable;
-      has: Integer;
-      has_el: TDOMElement;
-      obj1, obj2, cont2: TDOMElement;
-      n1, n2: Integer;
-      C: TNodeSet;
-      objs: TList;
-      F, G: Integer;
-  Begin
-     res2 := EvaluateXPathExpression(Expr2, dom.DocumentElement, @NodeNameTester, [], Nil, Nil, ENV);
-     ENV.commitUndo(0);
-     If (res2 is TXPathNodeSetVariable) And (res2.AsNodeSet.Count > 0) Then
-        Begin
-          Result := rsOk;
-          C := TNodeSet.Create;
-          objs := TList.Create;
-          For F := 0 To res2.AsNodeSet.Count - 1 Do
-              Begin
-                cont2 := TDOMElement(res2.AsNodeSet[F]);
-                obj2 := TDOMElement(cont2.ParentNode);
-                While Assigned(obj2.ParentNode) And (TDOMElement(obj2.ParentNode).TagName <> 'OBJS') Do
-                   obj2 := TDOMElement(obj2.ParentNode);
-                C.Clear;
-                res1 := EvaluateXPathExpression(Expr1, dom.DocumentElement, @NodeNameTester, [obj2, cont2, dom.DocumentElement], C, Nil, ENV);
-                ENV.commitUndo(0);
-                objs.Clear;
-                For G := 0 To C.Count - 1 Do // Up in DOM, for created items we ignore their created child's chain
-                    If C.IndexOf(TDOMElement(C[G]).ParentNode) < 0 Then
-                       objs.Add(C[G]);
-                If res1 is TXPathNodeSetVariable Then
-                   Begin
-                      has := 0;
-                      For G := 0 To res1.AsNodeSet.Count - 1 Do
-                          If C.IndexOf(res1.AsNodeSet[G]) < 0 Then
-                             Begin
-                               has_el := TDOMElement(res1.AsNodeSet[G]);
-                               Inc(has)
-                             End;
-                      If has > 1 Then
-                        Begin
-                          DOMWithout(dom, objs, True);
-                          res1.Free;
-                          res2.Free;
-                          C.Free;
-                          objs.Free;
-                          Exit(CheckSign(rsStrict))
-                        End
-                      Else If res1.AsNodeSet.Count > 0 Then
-                        Begin
-                           If has = 0 Then
-                              Result := rsNonStrict
-                           Else
-                             If Assigned(Ruler) then
-                                Begin
-                                  obj1 := TDOMElement(has_el);
-                                  While Assigned(obj1.ParentNode) And (TDOMElement(obj1.ParentNode).TagName <> 'OBJS') Do
-                                     obj1 := TDOMElement(obj1.ParentNode);
-                                  n1 := Ruler.IndexOf(obj1.AttribStrings['ID']);
-                                  n2 := Ruler.IndexOf(obj2.AttribStrings['ID']);
-                                  If (n1 >= 0) And (n2 >= 0) Then
-                                     If Reverse Then
-                                        Begin
-                                          If (n1 <= n2) Or PresentsBetween(n2+1, n1-1, obj1.TagName) Then
-                                             Begin
-                                               Result := rsStrict;
-                                               Break
-                                             End
-                                        End
-                                     Else
-                                        If (n1 >= n2) Or PresentsBetween(n1+1, n2-1, obj1.TagName) Then
-                                           Begin
-                                             Result := rsStrict;
-                                             Break
-                                           End
-                                  End
-                        End
-                   End
-                Else
-                   Begin
-                     DOMWithout(dom, objs, True);
-                     res1.Free;
-                     res2.Free;
-                     C.Free;
-                     objs.Free;
-                     Exit(CheckSign(rsStrict))
-                   End;
-                DOMWithout(dom, objs, True);
-                res1.Free
-              End;
-          C.Free;
-          objs.Free;
-          res2.Free
-        End
-     Else
-        Begin
-          res2.Free;
-          Exit(CheckSign(rsOk))
-        End;
-     Result := CheckSign(Result)
-  End;
-
-Var C1, C2: Boolean;
-begin
-   C1 := Pos('##', Expr) > 0;
-   C2 := Pos('##', Expr2) > 0;
-   If (C1 Xor C2) = False Then
-      Exit(rsStrict);
-
-   If C1 Then
-      Result := SubCheck(Expr, Expr2, False)
-   Else
-      Result := SubCheck(Expr2, Expr, True)
-end;
-
-function TWeakLink.Construct(ENV: TXPathEnvironment; Var dom: TXMLDocument): TWeakResult;
-
-  function SubConstruct(Const Expr1, Expr2: DOMString; Reverse: Boolean): TWeakResult;
-
-  Var res1, res2: TXPathVariable;
-      obj1, obj2, cont2: TDOMElement;
-      C: TNodeSet;
-      objs: TList;
-      good: Boolean;
-      n1, n2: Integer;
-      has: Integer;
-      F, G: Integer;
-  Begin
-     SetLength(Result, 0);
-
-     res2 := EvaluateXPathExpression(Expr2, dom.DocumentElement, @NodeNameTester, [], Nil, Nil, ENV);
-     ENV.commitUndo(0);
-     If (res2 is TXPathNodeSetVariable) And (res2.AsNodeSet.Count > 0) Then
-        Begin
-          C := TNodeSet.Create;
-          objs := TList.Create;
-          For F := 0 To res2.AsNodeSet.Count - 1 Do
-              Begin
-                cont2 := TDOMElement(res2.AsNodeSet[F]);
-                obj2 := TDOMElement(cont2.ParentNode);
-                While Assigned(obj2.ParentNode) And (TDOMElement(obj2.ParentNode).TagName <> 'OBJS') Do
-                   obj2 := TDOMElement(obj2.ParentNode);
-
-                C.Clear;
-                objs.Clear;
-
-                res1 := EvaluateXPathExpression(Expr1, dom.DocumentElement, @NodeNameTester, [obj2, cont2, dom.DocumentElement], C, Nil, ENV);
-                ENV.commitUndo(0);
-                If (res1 is TXPathNodeSetVariable) And (C.Count > 0) Then
-                   Begin
-                      CompleteObjs(dom, C);
-                      For G := 0 To C.Count - 1 Do // Up in DOM, for created items we ignore their created child's chain
-                          If C.IndexOf(TDOMElement(C[G]).ParentNode) < 0 Then
-                             begin
-                               obj1 := TDOMElement(C[G]);
-                               While Assigned(obj1.ParentNode) And (TDOMElement(obj1.ParentNode).TagName <> 'OBJS') Do
-                                  obj1 := TDOMElement(obj1.ParentNode);
-                               if (Copy(obj1.TagName, 1, 3) = 'cls') And ExistClass(obj1.TagName) Then
-                                  objs.Add(C[G])
-                             end;
-                      has := 0;
-                      For G := 0 To res1.AsNodeSet.Count - 1 Do
-                          If C.IndexOf(res1.AsNodeSet[G]) < 0 Then
-                             Inc(has);
-                      If (has = 0) And (res1.AsNodeSet.Count > 0) Then
-                         For G := 0 To C.Count - 1 Do
-                          If objs.IndexOf(C[G]) >= 0 Then
-                           Begin
-                             objs.Remove(C[G]);
-                             good := Not Assigned(Ruler);
-                             If Not good Then
-                                Begin
-                                  obj1 := TDOMElement(C[G]);
-                                  While Assigned(obj1.ParentNode) And (TDOMElement(obj1.ParentNode).TagName <> 'OBJS') Do
-                                     obj1 := TDOMElement(obj1.ParentNode);
-                                  if (Copy(obj1.TagName, 1, 3) = 'cls') And ExistClass(obj1.TagName) Then
-                                     Begin
-                                        n1 := Ruler.IndexOf(obj1.AttribStrings['ID']);
-                                        n2 := Ruler.IndexOf(obj2.AttribStrings['ID']);
-                                        good := True;
-                                        If (n1 >= 0) And (n2 >= 0) Then
-                                           If Reverse Then
-                                              good := (n1 > n2) And Not PresentsBetween(n2+1, n1-1, obj1.TagName)
-                                           Else
-                                              good := (n1 < n2) And Not PresentsBetween(n1+1, n2-1, obj1.TagName)
-                                     End
-                                End;
-                             If good Then
-                                Begin
-                                  SetLength(Result, Length(Result) + 1);
-                                  Result[High(Result)] := CopyDOMWithout(dom, objs)
-                                End;
-                             objs.Add(C[G])
-                           End;
-                      DOMWithout(dom, objs, True)
-                   End;
-                res1.Free
-              End;
-          res2.Free;
-          objs.Free;
-          C.Free
-        End
-     Else
-        Begin
-          res2.Free;
-          Exit
-        End
-  End;
-
-Var C1, C2: Boolean;
-begin
-   Result := Inherited Construct(ENV, dom);
-
-   If Assigned(dom) Then
-      Begin
-        C1 := Pos('##', Expr) > 0;
-        C2 := Pos('##', Expr2) > 0;
-        If (C1 Xor C2) = False Then
-           Exit;
-
-        If C1 Then
-           Result := SubConstruct(Expr, Expr2, False)
-        Else
-           Result := SubConstruct(Expr2, Expr, True)
-      End
-end;
-
-Var F: Integer;
-
 Initialization
   {$IF DEFINED(LCL) OR DEFINED(VCL)}
   Buf:=TBitmap.Create;
@@ -5602,19 +4448,12 @@ Initialization
   OutModelName := '';
   Versions:=TStringList.Create;
   Versions.Sorted := True;
-  _Restrictions := TObjList.Create;
-  Ruler := TStringList.Create;
-  DeduceLogFile := '';
 
 Finalization
   {$IF DEFINED(LCL) OR DEFINED(VCL)}
   FreeAndNil(Buf);
   {$ENDIF}
   FreeAndNil(Versions);
-  FreeAndNil(_Restrictions);
-  For F := 0 To Ruler.Count - 1 Do
-    DisposeStr(PString(Ruler.Objects[F]));
-  FreeAndNil(Ruler);
 
 end.
 

@@ -2,7 +2,7 @@
 @context(PREV,infinity):-
   (((^)|(\.)+)(\s*\\n)*)\s*.
 @glue:-.
-@global_unique(MAIN,infinity):-
+@global_unique(MAIN,1):-
    (([^\w\.]+(\w+)->{P0}[^\w\.]+(\w+)->{P1}[^\.]*\.)->{Grammar.ru{SENTENCE}}(*PRUNE))?=>{
       xpathf(SENTENCE,'MVv1ii','Введем','фазу','true')
    }.

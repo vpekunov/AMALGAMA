@@ -8,7 +8,7 @@ LazarusResources.Add('TMainForm','FORMDATA',[
   +'Font.Name'#6#13'MS Sans Serif'#4'Menu'#7#8'MainMenu'#7'OnClose'#7#9'FormClo'
   +'se'#8'OnCreate'#7#10'FormCreate'#9'OnDestroy'#7#11'FormDestroy'#8'OnResize'
   +#7#10'FormResize'#6'OnShow'#7#8'FormShow'#8'Position'#7#14'poScreenCenter'#10
-  +'LCLVersion'#6#7'1.6.4.0'#0#10'TStatusBar'#13'MainStatusBar'#4'Left'#2#0#6'H'
+  +'LCLVersion'#6#7'2.2.4.0'#0#10'TStatusBar'#13'MainStatusBar'#4'Left'#2#0#6'H'
   +'eight'#2#23#3'Top'#3#179#1#5'Width'#3#17#3#6'Panels'#14#0#0#0#6'TPanel'#8'B'
   +'igPanel'#4'Left'#2#0#6'Height'#3#179#1#3'Top'#2#0#5'Width'#3#17#3#5'Align'#7
   +#8'alClient'#10'BevelOuter'#7#6'bvNone'#12'ClientHeight'#3#179#1#11'ClientWi'
@@ -38,7 +38,7 @@ LazarusResources.Add('TMainForm','FORMDATA',[
   +#7#6'alLeft'#18'ChildSizing.Layout'#7#29'cclTopToBottomThenLeftToRight'#8'Do'
   +'ckSite'#9#8'TabOrder'#2#1#10'OnDockDrop'#7#17'DockPanelDockDrop'#10'OnDragO'
   +'ver'#7#17'DockPanelDragOver'#8'OnResize'#7#15'DockPanelResize'#8'OnUnDock'#7
-  +#15'DockPanelUnDock'#0#0#0#9'TMainMenu'#8'MainMenu'#4'left'#2#8#3'top'#2#8#0
+  +#15'DockPanelUnDock'#0#0#0#9'TMainMenu'#8'MainMenu'#4'Left'#2#8#3'Top'#2#8#0
   +#9'TMenuItem'#5'NFile'#7'Caption'#6#8#208#164#208#176#208#185#208#187#0#9'TM'
   +'enuItem'#4'NNew'#7'Caption'#6#10#208#157#208#190#208#178#209#139#208#185#8
   +'ShortCut'#3'N@'#7'OnClick'#7#9'NNewClick'#0#0#9'TMenuItem'#5'NOpen'#7'Capti'
@@ -76,7 +76,7 @@ LazarusResources.Add('TMainForm','FORMDATA',[
   +#180#208#181#208#187#208#181#208#185' (*.amd)|*.amd|'#208#146#209#129#208#181
   +' '#209#132#208#176#208#185#208#187#209#139' (*.*)|*.*'#7'Options'#11#14'ofH'
   +'ideReadOnly'#15'ofPathMustExist'#15'ofFileMustExist'#14'ofEnableSizing'#0#4
-  +'left'#2'('#3'top'#2#8#0#0#11'TSaveDialog'#9'SaveModel'#5'Title'#6#31#208#161
+  +'Left'#2'('#3'Top'#2#8#0#0#11'TSaveDialog'#9'SaveModel'#5'Title'#6#31#208#161
   +#208#190#209#133#209#128#208#176#208#189#208#184#209#130#209#140' '#208#188
   +#208#190#208#180#208#181#208#187#209#140#10'DefaultExt'#6#4'.amd'#6'Filter'#6
   +#137'XML-'#209#132#208#176#208#185#208#187#209#139' (*.xml)|*.xml|'#208#164
@@ -84,8 +84,8 @@ LazarusResources.Add('TMainForm','FORMDATA',[
   +#208#181#208#185' (*.amd)|*.amd|Prolog-'#208#177#208#176#208#183#209#139' (*'
   +'.pl; *.pro)|*.pl;*.pro|'#208#146#209#129#208#181' '#209#132#208#176#208#185
   +#208#187#209#139' (*.*)|*.*'#7'Options'#11#17'ofOverwritePrompt'#14'ofHideRe'
-  +'adOnly'#14'ofEnableSizing'#0#4'left'#2'H'#3'top'#2#8#0#0#10'TPopupMenu'#12
-  +'ElementPopup'#4'left'#2#8#3'top'#2'('#0#9'TMenuItem'#7'ElProps'#7'Caption'#6
+  +'adOnly'#14'ofEnableSizing'#0#4'Left'#2'H'#3'Top'#2#8#0#0#10'TPopupMenu'#12
+  +'ElementPopup'#4'Left'#2#8#3'Top'#2'('#0#9'TMenuItem'#7'ElProps'#7'Caption'#6
   +#18#208#159#208#176#209#128#208#176#208#188#208#181#209#130#209#128#209#139#7
   +'OnClick'#7#12'ElPropsClick'#0#0#9'TMenuItem'#10'ElSettings'#7'Caption'#6#22
   +#208#158#209#130#208#190#208#177#209#128#208#176#208#182#208#181#208#189#208
@@ -94,8 +94,8 @@ LazarusResources.Add('TMainForm','FORMDATA',[
   +'ck'#7#10'ElDelClick'#0#0#9'TMenuItem'#7'CntPubl'#7'Caption'#6''''#208#158
   +#208#191#209#131#208#177#208#187#208#184#208#186#208#190#208#178#208#176#209
   +#130#209#140' '#208#186#208#190#208#189#209#130#208#176#208#186#209#130#7'On'
-  +'Click'#7#12'CntPublClick'#0#0#0#10'TPopupMenu'#9'LinkPopup'#4'left'#2'('#3
-  +'top'#2'('#0#9'TMenuItem'#7'LinkDel'#7'Caption'#6#14#208#163#208#180#208#176
+  +'Click'#7#12'CntPublClick'#0#0#0#10'TPopupMenu'#9'LinkPopup'#4'Left'#2'('#3
+  +'Top'#2'('#0#9'TMenuItem'#7'LinkDel'#7'Caption'#6#14#208#163#208#180#208#176
   +#208#187#208#184#209#130#209#140#7'OnClick'#7#12'LinkDelClick'#0#0#9'TMenuIt'
   +'em'#8'LinkType'#7'Caption'#6#6#208#162#208#184#208#191#7'OnClick'#7#13'Link'
   +'TypeClick'#0#0#9'TMenuItem'#9'LinkColor'#7'Caption'#6#8#208#166#208#178#208
@@ -106,5 +106,5 @@ LazarusResources.Add('TMainForm','FORMDATA',[
   +'ColorI=C0C0C0'#6#13'ColorJ=0000FF'#6#13'ColorK=00FF00'#6#13'ColorL=00FFFF'#6
   +#13'ColorM=FF0000'#6#13'ColorN=FF00FF'#6#13'ColorO=FFFF00'#6#13'ColorP=FFFFF'
   +'F'#6#13'ColorQ=C0DCC0'#6#13'ColorR=F0CAA6'#6#13'ColorS=F0FBFF'#6#13'ColorT='
-  +'A4A0A0'#0#4'left'#2'H'#3'top'#2'('#0#0#0
+  +'A4A0A0'#0#4'Left'#2'H'#3'Top'#2'('#0#0#0
 ]);

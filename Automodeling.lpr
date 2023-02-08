@@ -5,6 +5,7 @@ program Automodeling;
 uses
   Interfaces, // this includes the LCL widgetset
   Forms,
+  xpathingIntrf,
   Main in 'Main.pas' {MainForm},
   AutoConsts in 'AutoConsts.pas',
   AutoUtils in 'AutoUtils.pas',
@@ -18,7 +19,7 @@ uses
   LinkTpDlg in 'LinkTpDlg.pas' {LinkTypeDlg},
   EditTxtDlg in 'EditTxtDlg.pas' {EditTextDlg},
   ContDlg in 'ContDlg.pas' {ContactDlg},
-  EditList, LearnTrouble, InductModel, XPathing, InductRules {EditListDlg};
+  EditList, LearnTrouble, InductModel, InductRules;
 
 begin
   Application.Initialize;

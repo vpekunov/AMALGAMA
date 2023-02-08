@@ -1,16 +1,16 @@
 object InductRulesForm: TInductRulesForm
   Left = 132
-  Height = 664
+  Height = 582
   Top = 47
-  Width = 1076
+  Width = 1028
   BorderStyle = bsSingle
   Caption = 'Индукция правил'
-  ClientHeight = 664
-  ClientWidth = 1076
+  ClientHeight = 582
+  ClientWidth = 1028
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   Position = poScreenCenter
-  LCLVersion = '1.6.4.0'
+  LCLVersion = '2.2.4.0'
   object LogMemo: TMemo
     Left = 9
     Height = 71
@@ -55,7 +55,6 @@ object InductRulesForm: TInductRulesForm
     Width = 225
     BackgroundColor = 13619151
     Color = 13619151
-    DefaultItemHeight = 18
     ReadOnly = True
     TabOrder = 4
     OnSelectionChanged = tvClassesSelectionChanged
@@ -280,7 +279,7 @@ object InductRulesForm: TInductRulesForm
     Left = 449
     Height = 15
     Top = 203
-    Width = 182
+    Width = 181
     Caption = 'Базовое имя справочных таблиц'
     ParentColor = False
   end
@@ -288,7 +287,7 @@ object InductRulesForm: TInductRulesForm
     Left = 756
     Height = 15
     Top = 203
-    Width = 231
+    Width = 230
     Caption = 'Базовое имя трансформирующих таблиц'
     ParentColor = False
   end
@@ -377,31 +376,31 @@ object InductRulesForm: TInductRulesForm
   object OpenModelDialog: TOpenDialog
     Filter = 'Модели в формате XML|*.xml|Модели в формате AMD|*.amd|ВСе файлы|*.*'
     Options = [ofPathMustExist, ofFileMustExist, ofEnableSizing, ofViewDetail]
-    left = 57
-    top = 27
+    Left = 57
+    Top = 27
   end
   object SaveProjectDialog: TSaveDialog
     Filter = 'Файлы проекта (*.prj)|*.prj|Все файлы|*.*'
     Options = [ofOverwritePrompt, ofPathMustExist, ofEnableSizing, ofViewDetail]
-    left = 57
-    top = 84
+    Left = 57
+    Top = 84
   end
   object OpenProjectDialog: TOpenDialog
     Filter = 'Файлы проекта (*.prj)|*.prj|Все файлы|*.*'
     Options = [ofPathMustExist, ofFileMustExist, ofEnableSizing, ofViewDetail]
-    left = 57
-    top = 140
+    Left = 57
+    Top = 140
   end
   object SaveImDialog: TSaveDialog
     Filter = 'Im-файлы (*.im)|*.im|Все файлы (*.*)|*.*'
     Options = [ofOverwritePrompt, ofPathMustExist, ofEnableSizing, ofViewDetail]
-    left = 129
-    top = 58
+    Left = 129
+    Top = 58
   end
   object OpenTxtDialog: TOpenDialog
     Filter = 'Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*'
     Options = [ofPathMustExist, ofFileMustExist, ofEnableSizing, ofViewDetail]
-    left = 121
-    top = 113
+    Left = 121
+    Top = 113
   end
 end

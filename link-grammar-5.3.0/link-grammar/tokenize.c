@@ -52,7 +52,9 @@
 #define ENTITY_MARKER   "<marker-entity>"
 #define COMMON_ENTITY_MARKER   "<marker-common-entity>"
 
+#ifndef _WIN32
 __attribute__((constructor))
+#endif
 /**
  * initializer of the dylib.
  */

@@ -55,8 +55,6 @@ Const ConsultFile = 'xpath.pl';
 
 Type LockArray = Array Of Integer;
 
-     IDArray = Array Of String;
-
      { ScanMacro }
 
      ScanMacro = Class // Макрос

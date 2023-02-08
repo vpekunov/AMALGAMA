@@ -4,7 +4,7 @@
 @context(PREV,infinity):-
   (((^)|(\.)+)(\s*\\n)*)\s*.
 @glue:-.
-@global_unique(MAIN,infinity):-
+@global_unique(MAIN,1):-
    ()->{V0}()->{V1}
    (([^\w\.]+(\w+)->{P0}[^\x22\x27\.]+[\x22\x27]([^\x22\x27]+)->{P1}[\x22\x27][^\x22\x27\.]+[\x22\x27]([^\x22\x27]+)->{P2}[\x22\x27][^\.]*\.)->{Grammar.ru{SENTENCE}}(*PRUNE))?=>{
       xpathf(SENTENCE,'MVv1oo',$V0,$V1,'true'),dbconsts_eco1(V0),dbconsts_eco2(V1)

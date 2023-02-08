@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="12"/>
+    <BuildModes Active="Default"/>
+    <Units Count="7">
+      <Unit0>
+        <Filename Value="xpathInduct.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <CursorPos X="28" Y="17"/>
+        <UsageCount Value="30"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="D:\lazarus\fpc\3.0.2\source\rtl\win32\system.pp"/>
+        <UnitName Value="System"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="88"/>
+        <CursorPos X="3" Y="98"/>
+        <UsageCount Value="10"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="D:\lazarus\fpc\3.0.2\source\packages\rtl-objpas\src\inc\strutils.pp"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="2849"/>
+        <CursorPos Y="2866"/>
+        <UsageCount Value="13"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="COMMON.PAS"/>
+        <UnitName Value="Common"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="700"/>
+        <CursorPos X="41" Y="710"/>
+        <UsageCount Value="10"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="regexpr.pas"/>
+        <UnitName Value="RegExpr"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="3646"/>
+        <CursorPos X="28" Y="3650"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="xpathing.pas"/>
+        <UnitName Value="XPathing"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="46"/>
+        <CursorPos X="9" Y="51"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="LEXIQUE.PAS"/>
+        <UnitName Value="Lexique"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="249"/>
+        <CursorPos X="20" Y="265"/>
+        <UsageCount Value="10"/>
+      </Unit6>
+    </Units>
+    <JumpHistory Count="25" HistoryIndex="24">
+      <Position1>
+        <Filename Value="xpathInduct.lpr"/>
+        <Caret Line="77" TopLine="54"/>
+      </Position1>
+      <Position2>
+        <Filename Value="xpathInduct.lpr"/>
+        <Caret Line="148" Column="24" TopLine="126"/>
+      </Position2>
+      <Position3>
+        <Filename Value="xpathInduct.lpr"/>
+        <Caret Line="10" Column="57"/>
+      </Position3>
+      <Position4>
+        <Filename Value="xpathInduct.lpr"/>
+        <Caret Line="148" Column="65" TopLine="129"/>
+      </Position4>
+      <Position5>
+        <Filename Value="xpathInduct.lpr"/>
+        <Caret Line="11" Column="11"/>
+      </Position5>
+      <Position6>
+        <Filename Value="xpathInduct.lpr"/>
+        <Caret Line="15" Column="42"/>
+      </Position6>
+      <Position7>
+        <Filename Value="xpathInduct.lpr"/>
+        <Caret Line="67" Column="32" TopLine="48"/>
+      </Position7>
+      <Position8>
+        <Filename Value="xpathInduct.lpr"/>
+        <Caret Line="11" Column="56"/>
+      </Position8>
+      <Position9>
+        <Filename Value="xpathInduct.lpr"/>
+        <Caret Line="64" TopLine="61"/>
+      </Position9>
+      <Position10>
+        <Filename Value="xpathInduct.lpr"/>
+        <Caret Line="65" Column="16" TopLine="62"/>
+      </Position10>
+      <Position11>
+        <Filename Value="xpathInduct.lpr"/>
+        <Caret Line="37" Column="46" TopLine="31"/>
+      </Position11>
+      <Position12>
+        <Filename Value="xpathInduct.lpr"/>
+        <Caret Line="6" TopLine="6"/>
+      </Position12>
+      <Position13>
+        <Filename Value="xpathInduct.lpr"/>
+        <Caret Line="14" Column="25" TopLine="10"/>
+      </Position13>
+      <Position14>
+        <Filename Value="xpathing.pas"/>
+        <Caret Line="998" Column="47" TopLine="995"/>
+      </Position14>
+      <Position15>
+        <Filename Value="regexpr.pas"/>
+        <Caret Line="11" Column="2"/>
+      </Position15>
+      <Position16>
+        <Filename Value="regexpr.pas"/>
+        <Caret Line="2289" Column="15" TopLine="2269"/>
+      </Position16>
+      <Position17>
+        <Filename Value="regexpr.pas"/>
+        <Caret Line="2346" Column="13" TopLine="2326"/>
+      </Position17>
+      <Position18>
+        <Filename Value="regexpr.pas"/>
+        <Caret Line="2398" Column="18" TopLine="2377"/>
+      </Position18>
+      <Position19>
+        <Filename Value="regexpr.pas"/>
+        <Caret Line="2428" Column="16" TopLine="2408"/>
+      </Position19>
+      <Position20>
+        <Filename Value="regexpr.pas"/>
+        <Caret Line="3202" Column="31" TopLine="3182"/>
+      </Position20>
+      <Position21>
+        <Filename Value="regexpr.pas"/>
+        <Caret Line="3217" Column="26" TopLine="3197"/>
+      </Position21>
+      <Position22>
+        <Filename Value="regexpr.pas"/>
+        <Caret Line="3380" Column="24" TopLine="3360"/>
+      </Position22>
+      <Position23>
+        <Filename Value="regexpr.pas"/>
+        <Caret Line="3396" Column="25" TopLine="3376"/>
+      </Position23>
+      <Position24>
+        <Filename Value="regexpr.pas"/>
+        <Caret Line="3425" Column="14" TopLine="3404"/>
+      </Position24>
+      <Position25>
+        <Filename Value="regexpr.pas"/>
+        <Caret Line="3664" Column="10" TopLine="3643"/>
+      </Position25>
+    </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode="default"/>
+    </RunParams>
+  </ProjectSession>
+</CONFIG>

@@ -240,7 +240,7 @@ implementation
 
 
 Uses Math, ClassWin, EditEl, Tran, SettngDlg, LinkTpDlg, InductModel,
-  ContDlg, LEXIQUE, FileCtrl, AutoUtils, InductRules;
+  ContDlg, LEXIQUE, FileCtrl, AutoUtils, InductRules, Common;
 
 Type IP_MREQ = Record
         IMR_MultiAddr:IN_ADDR;
