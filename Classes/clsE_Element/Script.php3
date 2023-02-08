@@ -1,4 +1,4 @@
-<?
+<?php
 if (!function_exists("ExtractParams")) {
    function ExtractParams($Text,&$Params) {
      do {
@@ -101,7 +101,7 @@ if (!function_exists("HandleParameter")) {
      else
         {
          if ($Stage==stResource)
-            { ?>double <?
+            { ?>double <?php
              if ($Nc==1)
                 echo $Name." = ",$Var,";\n";
              else
@@ -119,19 +119,19 @@ if (!function_exists("HandleInitParameter")) {
      $RetVal = ExtractParams($Var,$CParameters);
      if ($Stage==stResource)
         { ?>
-double _<? echo $Name; ?> (int i, int x, int y, int z, unsigned char Map);
-<?
+double _<?php echo $Name; ?> (int i, int x, int y, int z, unsigned char Map);
+<?php
         }
      if ($Stage==stDone)
         { ?>
-double _<? echo $Name; ?> (int i, int x, int y, int z, unsigned char Map)
+double _<?php echo $Name; ?> (int i, int x, int y, int z, unsigned char Map)
 {
-<?       if ($VarLines<2 && !ereg("(^([ \n]*))Result(([^a-z0-9A-Z_])|($))",$RetVal))
+<?php       if ($VarLines<2 && !ereg("(^([ \n]*))Result(([^a-z0-9A-Z_])|($))",$RetVal))
             echo " return ".$RetVal.";\n";
          else
             echo " double Result;\n".ShiftStr(" ",$RetVal)."\n return Result;\n"; ?>
 }
-<?
+<?php
         }
    }
 }
@@ -252,7 +252,7 @@ NumItems CDATA #REQUIRED
 >
 ]>
 <System Lang="">
-<?
+<?php
    }
 }
 if (!function_exists("WriteXMLElementsQuantity")) {
@@ -264,7 +264,7 @@ if (!function_exists("WriteXMLExportFooter")) {
    function WriteXMLExportFooter() {
 ?> </Elements>
 </System>
-<?
+<?php
    }
 }
 if (!function_exists("ExportXMLElement")) {
@@ -284,10 +284,10 @@ if (!function_exists("ExportXMLElement")) {
         fclose($f);
      }
 ?>
-  <Element ClassID="<? echo $ClassID; ?>" ParentID="" ID="<? echo $ID; ?>" Permanent="False">
+  <Element ClassID="<?php echo $ClassID; ?>" ParentID="" ID="<?php echo $ID; ?>" Permanent="False">
    <Show Class="True" Name="True" Image="False"/>
-   <Position Left="<? echo ($n % 8)*150; ?>" Top="<? echo (int)($n/8)*150; ?>"/>
-<?
+   <Position Left="<?php echo ($n % 8)*150; ?>" Top="<?php echo (int)($n/8)*150; ?>"/>
+<?php
      if (count($Params) == 0) echo "<Parameters NumItems=\"0\"/>\n";
      else {
         echo "<Parameters NumItems=\"".count($Params)."\">\n";
@@ -303,7 +303,7 @@ if (!function_exists("ExportXMLElement")) {
    <InputLinks/>
    <OutputLinks/>
   </Element>
-<?
+<?php
    }
 }
 ?>

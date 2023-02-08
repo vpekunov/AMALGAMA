@@ -1,4 +1,4 @@
-<?
+<?php
 $EXPORT = GetNextMail("EXPORT");
 if ($EXPORT === "") {
    global $XML;
@@ -12,9 +12,9 @@ if ($EXPORT !== "") {
    if ($Stage == stCall) {
      if ($EXPORT == "Russian") {
       if ($this->Functions !== "") {
-          ?> Добавим в решение новые функции "<? echo $this->Functions; ?>".<?
+          ?> Добавим в решение новые функции "<?php echo $this->Functions; ?>".<?php
       }
-?> Решим полученную систему уравнений.<?
+?> Решим полученную систему уравнений.<?php
      } else if ($EXPORT == "XML") {
       $n = GetNextMail("COUNTER");
       if ($this->Functions !== "") {
@@ -119,7 +119,7 @@ switch ($Stage) {
           if ($Sect!=" ") $Params[$Prm] = $Sect;
       }
     foreach ($Params as $Key => $Val)
-      { ?>double <?
+      { ?>double <?php
         if (($Num = strtok($Key,"[]"))!=$Key)
            echo strtok(""),"[".$Num."];\n";
         else
@@ -153,14 +153,14 @@ switch ($Stage) {
         $idVars[$i] = "_Num".$Vars[$i];
 ?>
 
-#define NumEqs <? echo $NumVars,"\n";
+#define NumEqs <?php echo $NumVars,"\n";
 ?>
 
-enum {<? echo implode(",",$idVars);?>};
+enum {<?php echo implode(",",$idVars);?>};
 
 #define _NumDn NumEqs /* Вещества */
 
-int PredictControlVar = <? echo $Eqtn["Control"][0],";\n\n";
+int PredictControlVar = <?php echo $Eqtn["Control"][0],";\n\n";
 
     $Phases = array();
     foreach($nPhases as $Key => $Value)
@@ -177,13 +177,13 @@ int PredictControlVar = <? echo $Eqtn["Control"][0],";\n\n";
        $idPhases[$Key] = "ph".$Key;
        if ($Val["Carrier"]) $CarrierPhase = $idPhases[$Key];
       }
-?>#define NumLightPhases <? echo $NumPhases-$NumHeavyPhases,"\n";
-?>#define NumHeavyPhases <? echo $NumHeavyPhases,"\n";
+?>#define NumLightPhases <?php echo $NumPhases-$NumHeavyPhases,"\n";
+?>#define NumHeavyPhases <?php echo $NumHeavyPhases,"\n";
 ?>#define NumPhases (NumLightPhases+NumHeavyPhases)
 
-enum {<? echo implode(",",$idPhases); ?>};
+enum {<?php echo implode(",",$idPhases); ?>};
 
-int CarrierPhase = <? echo $CarrierPhase; ?>;
+int CarrierPhase = <?php echo $CarrierPhase; ?>;
 
 #define NumSaves (NumEqs-NumHeavyPhases*(nDims-1))
 
@@ -206,7 +206,7 @@ typedef struct {
 } PhaseDsc;
 
 PhaseDsc PhaseVars[NumPhases] = {
-<?
+<?php
     if (!function_exists("CheckRef")) {
        function CheckRef($MVars,$Val,$SubClass) {
          if ($Val=="") return -1;
@@ -321,7 +321,7 @@ void _SolveLU(int NN, int * iRow, double * LU, double * Y, double * X)
 	}
 }
 
-<? if ($this->Functions!=="") echo $this->Functions;
+<?php if ($this->Functions!=="") echo $this->Functions;
 ?>
 
 enum {rsAny, rsPositive, rsNegative};
@@ -345,7 +345,7 @@ typedef struct {
 } VarDsc;
 
 VarDsc VDefs[NumEqs] = {
-<?
+<?php
     $VarDsc = array();
     for ($i=0; $i<$NumVars; $i++)
       {
@@ -362,17 +362,17 @@ VarDsc VDefs[NumEqs] = {
 
 int PhaseLinks[NumPhases];
 
-<?
+<?php
     if ($powModify>0)
        echo "enum {ref".implode(",ref",$Modify["Substance"])."};\n\n";
 ?>
-char * SubstRefs[MaxActSubst] = {<? echo $powModify==0 ? "NULL" : '"'.implode('","',$Modify["Substance"]).'"'; ?>};
+char * SubstRefs[MaxActSubst] = {<?php echo $powModify==0 ? "NULL" : '"'.implode('","',$Modify["Substance"]).'"'; ?>};
 
 char   SLinks[MaxActSubst] = {0};
 
 void AddCustomVars()
 {
-<?
+<?php
     if (count($Params)>0)
        {
         asort($Params);
@@ -385,10 +385,10 @@ void AddCustomVars()
               $Key = strtok("");
            if ($Val != $Sect)
               {
-?> AddSection<? echo "(\"".$Val."\",1);\n";
+?> AddSection<?php echo "(\"".$Val."\",1);\n";
                $Sect = $Val;
               }
-?> AddVar<?echo "(".($Num==1 ? "&" : "").$Key.',"'.$Key."\",fltT,";
+?> AddVar<?php echo "(".($Num==1 ? "&" : "").$Key.',"'.$Key."\",fltT,";
            echo $Num==1 ? "1,1" : $Num.",0";
            echo ",1,NULL,NULL,NULL,0,1,(char) (NSect-1));\n";
           }
@@ -396,7 +396,7 @@ void AddCustomVars()
     $SolverCounts = array_count_values($Eqtn["Solver"]);
     if ($SolverCounts["PoissonSolver"]>0)
        {
-?> nPoissons = <? echo $SolverCounts["PoissonSolver"],";\n";
+?> nPoissons = <?php echo $SolverCounts["PoissonSolver"],";\n";
        }
 ?>
 }
@@ -435,14 +435,14 @@ void CalculateK(WKoeffs * W, StoreStruct * V, float ** Kf, float ** KDn, float *
  int Delta = 0;
  float ** Bounds = V->Bounds;
 #endif
-<?  $FTexts = array_merge($Eqtn["FText"],$Modify["FText"],$Eqtn["SText"],$Modify["SText"],$Eqtn["BText"],$Modify["BText"],$PhaseFText);
+<?php  $FTexts = array_merge($Eqtn["FText"],$Modify["FText"],$Eqtn["SText"],$Modify["SText"],$Eqtn["BText"],$Modify["BText"],$PhaseFText);
     $NumFTexts = count($FTexts);
     $FVars = array_values(array_unique(array_merge($Eqtn["FVars"],$Modify["FVars"],$Eqtn["SVars"],$Modify["SVars"],$Eqtn["BVars"],$Modify["BVars"],$PhaseFVars)));
     $NumFVars = count($FVars);
     $UsedVars = array();
     foreach ($Vars as $Key => $Val)
      if ($Eqtn["Nc"][$Key]>1)
-        { ?> DeclareRef<? echo "(".$Val.");\n"; }
+        { ?> DeclareRef<?php echo "(".$Val.");\n"; }
      else
        {
         $Found = 0;
@@ -455,11 +455,11 @@ void CalculateK(WKoeffs * W, StoreStruct * V, float ** Kf, float ** KDn, float *
         if ($Found)
            {
             $UsedVars[$Val] = $Eqtn["Nc"][$Key];
-?> DeclareRef<? echo "(".$Val.");\n";
+?> DeclareRef<?php echo "(".$Val.");\n";
            }
        }
     foreach ($Sources as $Val) {
-?> DeclareDn<? echo "(Source_".$Val.",PhaseLinks[".$idPhases[$Val]."]);\n";
+?> DeclareDn<?php echo "(Source_".$Val.",PhaseLinks[".$idPhases[$Val]."]);\n";
     }
     if (is_array($Eqtn["Refs"]))
        echo ShiftStr(" ",implode("\n",$Eqtn["Refs"]));
@@ -494,7 +494,7 @@ void CalculateK(WKoeffs * W, StoreStruct * V, float ** Kf, float ** KDn, float *
       float * DHDIV = z==0   ? &DIV[NZs*NY*NX] : &DIV[(z-1)*NY*NX];
       float * UHDIV = z==NZs ? &DIV[0] : &DIV[(z+1)*NY*NX];
 #endif
-<?
+<?php
     foreach ($UsedVars as $Key => $Val)
        {
         $Found = 0;
@@ -514,7 +514,7 @@ void CalculateK(WKoeffs * W, StoreStruct * V, float ** Kf, float ** KDn, float *
              }
         if ($Found)
            {
-?>      DeclareUpDown<? echo "(".$Key.")\n";
+?>      DeclareUpDown<?php echo "(".$Key.")\n";
            }
        }
     $MultiDerivs = array();
@@ -535,7 +535,7 @@ void CalculateK(WKoeffs * W, StoreStruct * V, float ** Kf, float ** KDn, float *
            {
             for ($i=0; $i<$MultiNums[$Key]; $i++)
               {
-?>      DeclareUpDown<? echo "(".$Val.$i.")\n";
+?>      DeclareUpDown<?php echo "(".$Val.$i.")\n";
               }
             $MultiDerivs[$Val] = $MultiNums[$Key];
            }
@@ -545,18 +545,18 @@ void CalculateK(WKoeffs * W, StoreStruct * V, float ** Kf, float ** KDn, float *
        $Buf = array();
        for ($i=0; $i<$Val; $i++)
            array_push($Buf,"DH".$Key.$i);
-?>      float * <? echo "DH".$Key."[".$Val."] = {".implode(",",$Buf)."};\n";
+?>      float * <?php echo "DH".$Key."[".$Val."] = {".implode(",",$Buf)."};\n";
        $Buf = array();
        for ($i=0; $i<$Val; $i++)
            array_push($Buf,"UH".$Key.$i);
-?>      float * <? echo "UH".$Key."[".$Val."] = {".implode(",",$Buf)."};\n";
+?>      float * <?php echo "UH".$Key."[".$Val."] = {".implode(",",$Buf)."};\n";
       }
 ?>
 
       for (x=(z+y+strata)&1, Ptr = zy*NX+((z+y+strata)&1); x<NX; Ptr+=2,x+=2)
           if (Area[Ptr]!=1)
               {
-<?
+<?php
     if (!function_exists("ProcessDefinitions")) {
        function ProcessDefinitions(&$Arr,$NArr,$SV,$RV,$SD,$RD) {
          for ($i=0; $i<$NArr; $i++)
@@ -822,10 +822,10 @@ void CalculateK(WKoeffs * W, StoreStruct * V, float ** Kf, float ** KDn, float *
  #endif
 }
 
-<?
+<?php
     break;
   case stDone:
 ?>#endif
-<?
+<?php
 }
 ?>

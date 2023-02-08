@@ -1,4 +1,4 @@
-<?
+<?php
 if ($Stage==stResource)
    {
     $X["From"] = $In["_ID"][0];

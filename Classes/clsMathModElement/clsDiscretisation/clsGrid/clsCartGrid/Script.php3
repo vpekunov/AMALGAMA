@@ -1,16 +1,16 @@
-<?
+<?php
 if ($Stage==stResource)
    if ($this->NumDims>0) {
     $Indexes = "";
     $DimArr = explode(";",$this->Dims);
     for ($i = 0; $i < $this->NumDims; $i++)
         $Indexes .= $DimArr[$i].",";
-?>#DEFARRAYTYPE(<? echo $this->BaseType,",",$Indexes,$this->ID,")\n";
-?>#DEFARRAYTYPE(<? echo "#CHAR,",$Indexes,$this->ID,"_Map)\n";
+?>#DEFARRAYTYPE(<?php echo $this->BaseType,",",$Indexes,$this->ID,")\n";
+?>#DEFARRAYTYPE(<?php echo "#CHAR,",$Indexes,$this->ID,"_Map)\n";
     $Steps = explode(";",$this->Steps);
     $Letters = array("X","Y","Z");
     for ($i = 0; $i < $this->NumDims; $i++) {
-?>#DEFCONST(<? echo "#DOUBLE,",$this->ID,"_H".$Letters[$i],",",$Steps[$i],")\n";
+?>#DEFCONST(<?php echo "#DOUBLE,",$this->ID,"_H".$Letters[$i],",",$Steps[$i],")\n";
         cortege_push($Var["Steps"],$this->ID."_H".$Letters[$i]);
     }
    }

@@ -1,4 +1,4 @@
-<?
+<?php
 $Num = $In["Number"];
 switch ($Stage) {
   case stResource:
@@ -102,7 +102,7 @@ dWk2 = simple(dWk2);
 
 Lagrange = simple(diff(dWk2,'t')-dWk+dWp-F);
 Equations = Lagrange;
-<?
+<?php
 }
 cortege_push($Eqtns["Number"],$Num);
 cortege_push($Eqtns["Init"],$In["Init"]);

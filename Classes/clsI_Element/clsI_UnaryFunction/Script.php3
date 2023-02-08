@@ -1,4 +1,4 @@
-<?
+<?php
   if ($Stage!=stResource) AnalyzeInput($powX,$X);
 
   switch ($Stage) {

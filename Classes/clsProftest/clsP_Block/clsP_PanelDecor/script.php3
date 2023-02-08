@@ -1,4 +1,4 @@
-<?
+<?php
 if ($Stage==$this->Event)
    {
     $Panel = "ob".$this->Panel."Panel";

@@ -1,4 +1,4 @@
-<?
+<?php
 $EXPORT = GetNextMail("EXPORT");
 if ($EXPORT === "") {
    global $XML;
@@ -12,9 +12,9 @@ if ($EXPORT !== "") {
    $phase = $powPhase == 0 ? "-" : $Phase["_ID"][0];
    if ($Stage == stCall) {
      if ($EXPORT == "Russian") {
-?> Введем функцию <? echo $this->ID; ?>, возвращающую выражение "<? echo trim($this->Expression); ?>" на фазе "<? echo $phase; ?>".<?
+?> Введем функцию <?php echo $this->ID; ?>, возвращающую выражение "<?php echo trim($this->Expression); ?>" на фазе "<?php echo $phase; ?>".<?php
       if (trim($this->Vars) !== "") {
-          ?> Введем для функции <? echo $this->ID; ?> вспомогательные определения "<? echo trim($this->Vars); ?>".<?
+          ?> Введем для функции <?php echo $this->ID; ?> вспомогательные определения "<?php echo trim($this->Vars); ?>".<?php
       }
      } else if ($EXPORT == "XML") {
        $n = GetNextMail("COUNTER");

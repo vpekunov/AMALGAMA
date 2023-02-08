@@ -1,4 +1,4 @@
-<?
+<?php
 if ($Stage==stCall)
    {
     $P = $In["_ID"][0];

@@ -3746,7 +3746,7 @@ class XPathEngine extends XPathBase {
 
     $cacheKey = $step;
     do { // parse block
-      $parseBlock = 1;
+//      $parseBlock = 1;
 
       if (isset($aResultsCache[$cacheKey])) {
         return $aResultsCache[$cacheKey];
@@ -3770,14 +3770,14 @@ class XPathEngine extends XPathBase {
         $step = '.';
         $axis['axis']      = 'self';
         $axis['node-test'] = '*';
-        break $parseBlock;
+        break 1; // $parseBlock;
       }
 
       if ($step == '..') {
         // Select the parent axis.
         $axis['axis']      = 'parent';
         $axis['node-test'] = '*';
-        break $parseBlock;
+        break 1; // $parseBlock;
       }
 
       ///////////////////////////////////////////////////
@@ -3829,7 +3829,7 @@ class XPathEngine extends XPathBase {
       if ($step == '*') {
         // Use the child axis and select all children.
         $axis['node-test'] = '*';
-        break $parseBlock;
+        break 1; // $parseBlock;
       }
 
       // ### I'm pretty sure our current handling of cdata is a fudge, and we should
@@ -3837,7 +3837,7 @@ class XPathEngine extends XPathBase {
       if ($step == "text()") {
         // Handle the text node
         $axis["node-test"] = "cdata";
-        break $parseBlock;
+        break 1; // $parseBlock;
       }
 
       // There are a few node tests that we match verbatim.
@@ -3846,14 +3846,14 @@ class XPathEngine extends XPathBase {
           || $step == "text()"
           || $step == "processing-instruction") {
         $axis["node-test"] = $step;
-        break $parseBlock;
+        break 1; // $parseBlock;
       }
 
       // processing-instruction() is allowed to take an argument, but if it does, the argument
       // is a literal, which we will have parsed out to $[number].
       if (preg_match(":processing-instruction\(\$\d*\):", $step)) {
         $axis["node-test"] = $step;
-        break $parseBlock;
+        break 1; // $parseBlock;
       }
 
       // The only remaining way this can be a step, is if the remaining string is a simple name
@@ -3881,7 +3881,7 @@ class XPathEngine extends XPathBase {
         // Not currently recursing
         $LastFailedStep = '';
         $LastFailedContext = '';
-        break $parseBlock;
+        break 1; // $parseBlock;
       } 
 
       // It's not a node then, we must treat it as a PrimaryExpr
@@ -5820,7 +5820,7 @@ class XPath extends XPathEngine {
       $attribute = $matches[2];
       if (!isSet($this->nodeIndex[$absoluteXPath]['attributes'][$attribute])) {
         $this->_displayError("The $absoluteXPath/attribute::$attribute value isn't a node in this document.", __LINE__, __FILE__, FALSE);
-        continue;
+        // continue;
       }
       return array($this->nodeIndex[$absoluteXPath]['attributes'][$attribute]);
     } else if (preg_match(":(.*)/text\(\)(\[(.*)\])?$:U", $xPathQuery, $matches)) {
@@ -5967,7 +5967,7 @@ class XPath extends XPathEngine {
                     XML_OPTION_CASE_FOLDING => $this->getProperties('caseFolding'), 
                     XML_OPTION_SKIP_WHITE   => $this->getProperties('skipWhiteSpaces')
                   );
-    $xmlParser =& new XPathEngine($xmlOptions);
+    $xmlParser = new XPathEngine($xmlOptions);
     $xmlParser->setVerbose($this->properties['verboseLevel']);
     // Parse the XML string
     if (!$xmlParser->importFromString($xmlString)) {
@@ -6225,7 +6225,7 @@ EOD;
   
   // The sample code:
   $xmlOptions = array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE);
-  $xPath =& new XPath(FALSE, $xmlOptions);
+  $xPath = new XPath(FALSE, $xmlOptions);
   //$xPath->bDebugXmlParse = TRUE;
   if (!$xPath->importFromString($xmlSource)) { echo $xPath->getLastError(); exit; }
   

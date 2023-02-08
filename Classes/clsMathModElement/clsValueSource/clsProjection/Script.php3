@@ -1,7 +1,7 @@
-<?
+<?php
 switch ($Stage) {
  case stResource:
-?>#DEFVAR(<?
+?>#DEFVAR(<?php
    echo $Conj["TypeName"][0],",",$this->ID,")\n";
    break;
  case stCall:

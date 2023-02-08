@@ -1,4 +1,4 @@
-<?
+<?php
 $VarX["TypeName"] = $Var["TypeName"];
 $VarX["BaseType"] = $Var["BaseType"];
 $VarX["NumDims"] = $Var["NumDims"];

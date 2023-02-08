@@ -1,4 +1,4 @@
-<?
+<?php
    // @clsSimpleProgram[@Name="Main"]
    // @clsSimpleProgram[@Name="Main"]/OContacts/Begin?=>@clsSimpleBlock/IContacts/Prev
    if ($Stage == stResource) {
@@ -6,13 +6,13 @@
 ?>
 #include <stdio.h>
 #include <stdlib.h>
-<?
+<?php
    // ]
    } else if ($Stage == stInit) {
    // [
 ?>
 int main() {
-<? // ]
+<?php // ]
      while (($D = GetNextMail("Decls")) !== "")
        echo $D . "\n";
      $C = array();
@@ -27,7 +27,7 @@ int main() {
 ?>
   return 0;
 }
-<? // ]
+<?php // ]
    }
 
 ?>

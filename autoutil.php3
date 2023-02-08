@@ -1,4 +1,4 @@
-<?
+<?php
 
 define(stResource,0);
 define(stInit,1);
@@ -213,7 +213,7 @@ function CreateLoopVars($N, &$LoopIDs)
 {
  $LoopIDs = explode(";","i;j;k");
  for ($i = 0; $i < $N; $i++) {
-?>  #DEFVAR(<?
+?>  #DEFVAR(<?php
      echo "#INT,",$LoopIDs[$i],")\n";
  }
 }
@@ -227,7 +227,7 @@ function CreateForLoop($GenVars,$NumDims, $DimArr, &$LoopIDs, &$Indexes, &$Shift
      $Indexes.="[".$LoopIDs[$i]."]";
  for ($i = 0; $i < $NumDims; $i++) {
      echo $Shift;
-?>#FOR(<?
+?>#FOR(<?php
      echo $LoopIDs[$i],",#LOWDIM,#HIGHDIM(".$DimArr[$i]."),1)\n";
      $Shift .= "  ";
  }
@@ -239,7 +239,7 @@ function CloseForLoop($NumDims, &$Shift)
      $Shift = substr($Shift,0,-2);
      echo $Shift;
 ?>#ENDFOR
-<?
+<?php
  }
 }
 

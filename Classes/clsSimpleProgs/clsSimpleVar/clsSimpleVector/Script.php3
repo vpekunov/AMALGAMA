@@ -1,4 +1,4 @@
-<?
+<?php
 // @global_unique(DECL,infinity):-
 // (\s*double\s+(\w+)->{ID}\[(\d+)->{N}\]\;\\n)->{LINE}.
 // @goal:-
@@ -6,7 +6,7 @@
 // @done:-
 // saveLF.
 ?>
-<?
+<?php
    cortege_push($Handle["Size"], $this->Size);
 
    if ($Stage == stResource) {

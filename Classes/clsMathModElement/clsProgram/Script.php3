@@ -1,18 +1,18 @@
-<?
+<?php
 switch ($Stage) {
  case stResource:
 ?>#PROGRAM
   #DEFVAR(#DOUBLE,EndTime)
   #DEFVAR(#DOUBLE,TAU)
   #DEFVAR(#DOUBLE,Time)
-<?
+<?php
    break;
  case stInit:
-?>  #SET(EndTime,<? echo $this->EndTime; ?>)
-  #SET(TAU,<? echo $this->TAU; ?>)
+?>  #SET(EndTime,<?php echo $this->EndTime; ?>)
+  #SET(TAU,<?php echo $this->TAU; ?>)
   #SET(Time,0)
   #WHILE(Time #LT# EndTime)
-<?
+<?php
    break;
  case stCall:
    $NumDims = $Solver["NumDims"][0];
@@ -23,23 +23,23 @@ switch ($Stage) {
           {
            $VarNames[$Solver["CalcVarNames"][$i]] = "+";
            if ($NumDims>0) {
-?>    #COPY(<?
+?>    #COPY(<?php
              echo "#DEREFARRAY(".$Solver["CalcVarNames"][$i]."[#LOWDIM]),",
                   "#DEREFARRAY(".$Solver["CalcVarNames"][$i]."[cnt".$Solver["CalcVarNames"][$i]."]))\n";
            }
            else {
-?>    #SET(<?
+?>    #SET(<?php
              echo $Solver["CalcVarNames"][$i]."[#LOWDIM],",
                   $Solver["CalcVarNames"][$i]."[cnt".$Solver["CalcVarNames"][$i]."])\n";
            }
           }
 ?>    #SET(Time,Time+TAU)
   #ENDWHILE
-<?
+<?php
    break;
  case stDone:
 ?>#ENDPROGRAM
-<?
+<?php
    break;
 }
 ?>

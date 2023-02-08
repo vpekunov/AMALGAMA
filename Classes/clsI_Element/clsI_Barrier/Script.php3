@@ -1,4 +1,4 @@
-<?
+<?php
   if (!$this->Passed && !empty($Barrier["Calculated"]))
      {
       $this->Passed = true;

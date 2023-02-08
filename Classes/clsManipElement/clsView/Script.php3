@@ -1,4 +1,4 @@
-<?
+<?php
 switch ($Stage) {
   case stCall:
     $ViewF = $this->Disp=="Yes" ? "disp" : "pretty";

@@ -1,4 +1,4 @@
-<?
+<?php
 $EXPORT = GetNextMail("EXPORT");
 if ($EXPORT === "") {
    global $XML;
@@ -11,7 +11,7 @@ if ($EXPORT !== "") {
    SwitchExportOn();
    if ($Stage == stCall) {
      if ($EXPORT == "Russian") {
-?> Пусть функция <? echo $this->ID; ?> определена на стенке "<? echo $this->Bound; ?>".<?
+?> Пусть функция <?php echo $this->ID; ?> определена на стенке "<?php echo $this->Bound; ?>".<?php
      } else if ($EXPORT == "XML") {
        $n = GetNextMail("COUNTER");
        ExportXMLElement($n++, "clsE_SFun_IsBound", "ID$n", array("Name"=>$this->ID, "Bound"=>$this->Bound));

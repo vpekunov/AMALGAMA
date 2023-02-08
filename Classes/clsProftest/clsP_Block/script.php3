@@ -1,4 +1,4 @@
-<?
+<?php
 if ($Stage===$this->Event)
    {
     if ($In["_ClassID"][0]=="clsP_Question" && $this->ClassID!="clsP_Question")
@@ -11,7 +11,7 @@ if ($Stage===$this->Event)
 ?>  If Loading=0
      ShowInstruction
   EndIf
-<?         }
+<?php         }
           }
        else
           $Out["Test"] = $In["Test"];

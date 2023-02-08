@@ -487,6 +487,7 @@ begin
                S.Add('              @NodeNameTester,');
                S.Add('              PChar('''+SelectedVersion+'''), ' +
                                     BoolVals[UseNNet.Checked] + ', ' + BoolVals[UseMainLine.Checked] + ', Nil, ExportedENV, ExportedENV, PWideChar(WideString(XPathModelFile)), PWideChar(WideString(''' + OutModelName + ''')), nCPUs, PWideChar(_IDs));');
+               S.Add('          MakeInfoCommon(String(WideString(GetMSG)));');
                S.Add('          ENV.Import(ExportedENV);');
                S.Add('        End');
                S.Add('     Else');

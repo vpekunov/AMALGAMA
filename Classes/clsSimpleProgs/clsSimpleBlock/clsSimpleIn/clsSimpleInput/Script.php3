@@ -1,4 +1,4 @@
-<?
+<?php
 // @global_unique(PROCESS,infinity):-
 // (\s*for\s*\(i\s*\=\s*0\;\s*i\s*\<\s*(\d+)->{N}\;\s*i\+\+\)\s*\{\\n\s*printf\(\"(\w+)->{VECTOR}\[\%i\]\s*\=\s*\"\,\s*i\)\;\\n\s*scanf\(\"\%lf\"\,\s*\&(\w+)==>{VECTOR}\[i\]\)\;\\n\s*\}\\n)|(\s*printf\(\"(\w+)->{SCALAR}\s*\=\s*\"\)\;\\n\s*scanf\(\"\%lf\"\,\s*\&(\w+)==>{SCALAR}\)\;\\n).
 // handle:-xpath('PROCESS','//VECTOR/text()',[VText]),
@@ -13,19 +13,19 @@
 // @done:-
 // saveLF.
 ?>
-<?
+<?php
    if ($Stage == stInit) {
       $argumentID = $Arg["ID"][0];
       if ($Arg["_ClassID"][0] == "clsSimpleVector") {
          $argumentSize = $Arg["Size"][0];
 ?>
-  for (i = 0; i < <? echo $argumentSize; ?>; i++) {
-<?
+  for (i = 0; i < <?php echo $argumentSize; ?>; i++) {
+<?php
          echo "    printf(\"$argumentID" . "[%i] = \", i);\n";
          echo "    scanf(\"%lf\", &$argumentID" . "[i]);\n";
 ?>
   }
-<?
+<?php
       } else {
          echo "  printf(\"$argumentID" . " = \");\n";
          echo "  scanf(\"%lf\", &$argumentID);\n";

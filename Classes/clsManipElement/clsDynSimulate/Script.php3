@@ -1,4 +1,4 @@
-<?
+<?php
 $Num = $Eqtns["Number"][0];
 switch ($Stage) {
   case stResource:
@@ -45,6 +45,6 @@ Function = [Function ']'];
 [t,y]=ode15s(inline(Function,'t','Y'),[0 Time],Init);
 plot(t,y);
 legend(Labels);
-<?
+<?php
 }
 ?>

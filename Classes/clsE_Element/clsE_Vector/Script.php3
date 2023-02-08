@@ -1,4 +1,4 @@
-<?
+<?php
 $EXPORT = GetNextMail("EXPORT");
 if ($EXPORT === "") {
    global $XML;
@@ -11,17 +11,17 @@ if ($EXPORT !== "") {
    SwitchExportOn();
    if ($Stage == stCall) {
      if ($EXPORT == "Russian") {
-?> Введем вектор <? echo $this->ID; ?> с расширением "<? echo $this->FBase; ?>" на фазе <? echo $Phase["_ID"][0]; ?>.<?
+?> Введем вектор <?php echo $this->ID; ?> с расширением "<?php echo $this->FBase; ?>" на фазе <?php echo $Phase["_ID"][0]; ?>.<?php
       $Params = array("Ro"=>"плотностью", "U"=>"скоростью", "T"=>"температурой", "Nu"=>"турбулентной вязкостью");
       for ($i = 0; $i < $powPhasePrm; $i++) {
           if ($PhasePrm["_ClassID"][$i] == "clsE_Model") {
-?> Зададим контроль фазы <? echo $Phase["_ID"][0]; ?> по переменной <? echo $this->ID; ?>.<?
+?> Зададим контроль фазы <?php echo $Phase["_ID"][0]; ?> по переменной <?php echo $this->ID; ?>.<?php
           } else {
-?> Назначением переменной <? echo $this->ID; ?> сделаем <? echo $Params[$PhasePrm["_LinkID"][$i]]; ?> фазы <? echo $Phase["_ID"][0]; ?>.<?
+?> Назначением переменной <?php echo $this->ID; ?> сделаем <?php echo $Params[$PhasePrm["_LinkID"][$i]]; ?> фазы <?php echo $Phase["_ID"][0]; ?>.<?php
           }
       }
       if (trim($this->Desc) !== "") {
-          ?> Дадим описание переменной <? echo $this->ID; ?> как "<? echo trim($this->Desc); ?>".<?
+          ?> Дадим описание переменной <?php echo $this->ID; ?> как "<?php echo trim($this->Desc); ?>".<?php
       }
      } else if ($EXPORT == "XML") {
        $n = GetNextMail("COUNTER");

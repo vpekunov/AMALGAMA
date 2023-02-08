@@ -65,7 +65,7 @@ Const cnidAny    = '$*any';
       idfieldClassID = 'ClassID';
       idfieldID      = 'ID';
 
-      tagPHPOpen  = '<?';
+      tagPHPOpen  = '<?php';
       tagPHPClose = '?>';
 
       errPHP  = '<#GENERROR>';

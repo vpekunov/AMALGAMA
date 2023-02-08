@@ -1,4 +1,4 @@
-<?
+<?php
 $this->Expression = trim($this->Expression);
 
 $EXPORT = GetNextMail("EXPORT");
@@ -13,7 +13,7 @@ if ($EXPORT !== "") {
    SwitchExportOn();
    if ($Stage == stCall) {
      if ($EXPORT == "Russian") {
-?> Введем константу <? echo $this->ID; ?>, возвращающую выражение "<? echo trim($this->Expression); ?>".<?
+?> Введем константу <?php echo $this->ID; ?>, возвращающую выражение "<?php echo trim($this->Expression); ?>".<?php
      } else if ($EXPORT == "XML") {
        $n = GetNextMail("COUNTER");
        ExportXMLElement($n++, "clsE_SConst", "ID$n", array("Name"=>$this->ID, "Expression"=>trim($this->Expression)));

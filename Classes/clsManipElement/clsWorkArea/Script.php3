@@ -1,4 +1,4 @@
-<?
+<?php
 switch ($Stage) {
   case stCall:
     echo "Links = ".$Eqtns["Variable"][0].";\n";
@@ -34,7 +34,7 @@ for j = 1:3
   Area(j,1) = FuncsP{j}(fminsearch(FuncsP{j},X0));
   Area(j,2) = FuncsP{j}(fminsearch(FuncsM{j},X0));
 end;
-<?
+<?php
     break;
 }
 cortege_push($Result["Variable"],"Area");

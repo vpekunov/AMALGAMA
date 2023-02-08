@@ -1,4 +1,4 @@
-<?
+<?php
 // @context(ASSGN,infinity):-
 // (\s*(\w+)->{RESULT}\s*\=\s*([0-9+\-Ee.]+)->{INIT};\\n)->{LINE}.
 // @global_unique(PROCESS,1):-
@@ -26,7 +26,7 @@
 // @done:-
 // saveLF.
 ?>
-<?
+<?php
    // @clsSimpleMat[@ID=concat("min",local.Arg) or @ID=concat("max",local.Arg) or @ID=concat("avr",local.Arg)]/OContacts/Next?=>@clsSimpleBlock/IContacts/Prev
    // @clsSimpleBlock/OContacts/Next?=>@clsSimpleMat[@ID=concat("min",local.Arg) or @ID=concat("max",local.Arg) or @ID=concat("avr",local.Arg)]/IContacts/Prev
    // @clsSimpleMat[@Op="Min" and local.Oper="<" and @ID=concat("min",local.Arg)]
@@ -53,18 +53,18 @@
       }
       // [
 ?>
-  for (i = 0; i < <? /* ]+ */ /* +[\s*([^;]+)->{local.N}\s*]+ */ echo $argumentSize; /* +[ */ ?>; i++)
-<? // ]+
+  for (i = 0; i < <?php /* ]+ */ /* +[\s*([^;]+)->{local.N}\s*]+ */ echo $argumentSize; /* +[ */ ?>; i++)
+<?php // ]+
    // +[(\s*if\s*\((\w+)->{local.Arg}\[i\]\s*\([<>])->{local.Oper}\s*(\w+)->{local.Result}\s*\))|
    // (\s*(\w+)->{local.Result}\s*(\+\=)->{local.Oper}\s*(\w+)->{local.Arg}\[i\];)]
       if ($this->Op == "Min") {
 ?>
-    if (<? echo $argumentID . "[i] < " . $resultID; ?>)
-       <? echo $resultID . " = " . $argumentID . "[i];\n";
+    if (<?php echo $argumentID . "[i] < " . $resultID; ?>)
+       <?php echo $resultID . " = " . $argumentID . "[i];\n";
       } else if ($this->Op == "Max") {
 ?>
-    if (<? echo $argumentID . "[i] > " . $resultID; ?>)
-       <? echo $resultID . " = " . $argumentID . "[i];\n";
+    if (<?php echo $argumentID . "[i] > " . $resultID; ?>)
+       <?php echo $resultID . " = " . $argumentID . "[i];\n";
       } elseif ($this->Op == "Avr") {
          echo "    " . $resultID . " += " . $argumentID . "[i];\n";
       }

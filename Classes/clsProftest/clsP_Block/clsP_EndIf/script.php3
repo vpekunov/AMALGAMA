@@ -1,4 +1,4 @@
-<?
+<?php
  if ($Stage===$this->Event || $Stage===$this->EventElse)
     if ($In["_ClassID"][0]=="clsP_Question" && $this->ClassID!="clsP_Question")
        echo ")\n";

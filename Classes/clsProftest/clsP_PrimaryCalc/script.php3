@@ -1,4 +1,4 @@
-<?
+<?php
 if ($Stage==stCall)
    {
     $Qarray   = explode(",",$this->QList);

@@ -1,4 +1,4 @@
-<?
+<?php
 cortege_push($Quest,$this->ID);
 switch ($Stage) {
   case stResource:

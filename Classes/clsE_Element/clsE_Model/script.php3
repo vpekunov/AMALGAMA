@@ -1,4 +1,4 @@
-<?
+<?php
 $EXPORT = GetNextMail("EXPORT");
 if ($EXPORT === "") {
    global $XML;
@@ -11,7 +11,7 @@ if ($EXPORT !== "") {
    SwitchExportOn();
    if ($Stage == stCall) {
     if ($EXPORT == "Russian") {
-?> Определим модель <? echo $this->ID; ?>.<?
+?> Определим модель <?php echo $this->ID; ?>.<?php
     } else if ($EXPORT == "XML") {
       $n = GetNextMail("COUNTER");
       ExportXMLElement($n++, "clsE_SModel", "ID$n", array("Name"=>$this->ID));
@@ -35,7 +35,7 @@ switch ($Stage) {
 #include "kinetic.h"
 #include "solvers.h"
 
-<?  break;
+<?php  break;
 }
 
 cortege_push($Control["Phase"],"NOTHING");

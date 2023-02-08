@@ -1,4 +1,4 @@
-<?
+<?php
 $EXPORT = GetNextMail("EXPORT");
 if ($EXPORT === "") {
    global $XML;
@@ -11,12 +11,12 @@ if ($EXPORT !== "") {
    SwitchExportOn();
    if ($Stage == stCall) {
      if ($EXPORT == "Russian") {
-?> Введем проекцию <? echo $Vector["_LinkID"][0]; ?> вектора "<? echo $Vector["_ID"][0]; ?>" с именем <? echo $this->ID; ?>.<?
+?> Введем проекцию <?php echo $Vector["_LinkID"][0]; ?> вектора "<?php echo $Vector["_ID"][0]; ?>" с именем <?php echo $this->ID; ?>.<?php
       if (trim($this->Init) !== "") {
-          ?> Определим начальное значение переменной <? echo $this->ID; ?> как "<? echo trim($this->Init); ?>".<?
+          ?> Определим начальное значение переменной <?php echo $this->ID; ?> как "<?php echo trim($this->Init); ?>".<?php
       }
       if ($this->Restrict !== "Any") {
-          ?> Пусть переменная <? echo $this->ID; ?> будет иметь <? echo $this->Restrict == "Positive" ? "положительное" : "отрицательное"; ?> значение.<?
+          ?> Пусть переменная <?php echo $this->ID; ?> будет иметь <?php echo $this->Restrict == "Positive" ? "положительное" : "отрицательное"; ?> значение.<?php
       }
      } else if ($EXPORT == "XML") {
        $n = GetNextMail("COUNTER");

@@ -1,4 +1,4 @@
-<?
+<?php
   GetNextMail("COUNT_".$this->ID);
   PutMail("COUNT_".$this->ID,0);
 

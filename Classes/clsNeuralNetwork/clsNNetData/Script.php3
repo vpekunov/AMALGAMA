@@ -1,4 +1,4 @@
-<?
+<?php
   if ($Stage == stResource) {
      global $DATA;
      global $COLS;

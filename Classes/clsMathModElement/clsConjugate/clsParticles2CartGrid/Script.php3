@@ -1,8 +1,8 @@
-<?
+<?php
 $FNumDims = (int)$From["NumDims"][0];
 $TNumDims = (int)$To["NumDims"][0];
 if ($Stage==stResource) {
-?>#PROCEDURE <?
+?>#PROCEDURE <?php
    echo $this->ID,"(";
    echo $From["MapType"][0].",SrcMap;";
    echo $From["TypeName"][0].",Src;";
@@ -12,37 +12,37 @@ if ($Stage==stResource) {
    $Letters = array("X","Y","Z");
    for ($i = 0; $i<$TNumDims; $i++) {
        echo $Shift;
-?>#DEFVAR(#INT,P<? echo $Letters[$i],")\n";
+?>#DEFVAR(#INT,P<?php echo $Letters[$i],")\n";
    }
    CreateLoopVars(max($FNumDims,$TNumDims),$LoopIDs);
    CreateForLoop(false,$TNumDims,explode(";",$To["Dims"][0]),$LoopIDs,$Indexes,$Shift);
    echo $Shift;
-?>#SET(#DEREF<?
+?>#SET(#DEREF<?php
    echo IfArray($TNumDims)."(Dest",$Indexes,"),0)\n";
    CloseForLoop($TNumDims,$Shift);
    CreateForLoop(false,$FNumDims,explode(";",$From["Dims"][0]),$LoopIDs,$Indexes,$Shift);
    echo $Shift;
    if ($FNumDims>0) {
-?>#IF(#ISNOTBOUND(SrcMap<? echo $Indexes,"))\n";
+?>#IF(#ISNOTBOUND(SrcMap<?php echo $Indexes,"))\n";
       echo $Shift,"  ";
    }
    $DestIndexes = "";
    for ($i = 0; $i < $TNumDims; $i++) {
-?>#SET(P<? echo $Letters[$i],",#TRUNC(".$From["Coords"][$i].$Indexes;
+?>#SET(P<?php echo $Letters[$i],",#TRUNC(".$From["Coords"][$i].$Indexes;
        echo "/".$To["Steps"][$i]."))\n";
        $DestIndexes.="[P".$Letters[$i]."]";
        echo $Shift,"  ";
    }
    $Dst = "#DEREF".IfArray($TNumDims)."(Dest".$DestIndexes.")";
-?>#SET(<? echo $Dst,",",$Dst,"+Src".$Indexes.")\n";
+?>#SET(<?php echo $Dst,",",$Dst,"+Src".$Indexes.")\n";
    if ($FNumDims>0) {
       echo $Shift;
 ?>#ENDIF
-<?
+<?php
    }
    CloseForLoop($FNumDims,$Shift);
 ?>#ENDPROCEDURE
-<?
+<?php
 }
 cortege_push($Proj["Conjunctor"],$this->ID);
 cortege_push($Proj["TypeName"],$To["TypeName"][0]);

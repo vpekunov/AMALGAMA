@@ -1,4 +1,4 @@
-<?
+<?php
   $Code = '<Input Type="'.
           ($this->Type=="Обычный" ? "text" : "password").
           '" Name="'.$this->ID.'" Value="'.$this->Type.'"/>';

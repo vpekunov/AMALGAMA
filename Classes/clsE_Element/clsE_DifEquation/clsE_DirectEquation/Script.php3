@@ -1,4 +1,4 @@
-<?
+<?php
 $EXPORT = GetNextMail("EXPORT");
 if ($EXPORT === "") {
    global $XML;
@@ -11,12 +11,12 @@ if ($EXPORT !== "") {
    SwitchExportOn();
    if ($Stage == stCall) {
     if ($EXPORT == "Russian") {
-?> Для переменной <? echo $Calc["_ID"][0]; ?> зададим прямую схему решения.<?
+?> Для переменной <?php echo $Calc["_ID"][0]; ?> зададим прямую схему решения.<?php
       for ($i = 0; $i < $powK; $i++) {
-          ?> Присоединим правую функцию <? echo $K["_ID"][$i]; ?> к уравнению переменной <? echo $Calc["_ID"][0]; ?>.<?
+          ?> Присоединим правую функцию <?php echo $K["_ID"][$i]; ?> к уравнению переменной <?php echo $Calc["_ID"][0]; ?>.<?php
       }
       for ($i = 0; $i < $powBound; $i++) {
-          ?> Присоединим граничную функцию <? echo $Bound["_ID"][$i]; ?> к уравнению переменной <? echo $Calc["_ID"][0]; ?>.<?
+          ?> Присоединим граничную функцию <?php echo $Bound["_ID"][$i]; ?> к уравнению переменной <?php echo $Calc["_ID"][0]; ?>.<?php
       }
     } else if ($EXPORT == "XML") {
       $n = GetNextMail("COUNTER");

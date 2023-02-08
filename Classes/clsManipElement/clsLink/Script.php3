@@ -1,4 +1,4 @@
-<?
+<?php
 if ($powIn==0) $Num = 1;
 else $Num = $In["Number"]+1;
 if ($Stage==stResource)

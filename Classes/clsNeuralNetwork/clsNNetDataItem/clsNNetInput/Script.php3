@@ -1,4 +1,4 @@
-<?
+<?php
   $OutName = "\$" . $this->ID . "_Out";
 
   if ($Stage == stDone) {

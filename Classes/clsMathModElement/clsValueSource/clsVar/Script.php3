@@ -1,4 +1,4 @@
-<?
+<?php
 $NumDims = $Discr["NumDims"][0];
 $Type = $Discr["TypeName"][0];
 $MapName = $Init["ValName"][0];
@@ -6,11 +6,11 @@ $MapType = $Init["TypeName"][0];
 if ($Discr["NewName"][0]!="") $this->ID = $Discr["NewName"][0];
 switch ($Stage) {
  case stResource:
-?>#DEFARRAYVAR(<?
+?>#DEFARRAYVAR(<?php
    echo $Type,",",$this->ID,",",$powCalc+1,")\n";
-?>#DEFVAR(<?
+?>#DEFVAR(<?php
    echo "#INT,cnt",$this->ID,")\n";
-?>#PROCEDURE <?
+?>#PROCEDURE <?php
    echo $this->ID,"_Init(".$MapType.",".$MapName.";";
    echo $Type.",#BYREF".IfArray($NumDims)."(".$this->ID,"))\n";
    $Shift = "  ";
@@ -22,14 +22,14 @@ switch ($Stage) {
       $Symbols,$Values,"0");
    CloseForLoop($NumDims,$Shift);
 ?>#ENDPROCEDURE
-<?
+<?php
    break;
  case stInit:
-?>  #CALL <?
+?>  #CALL <?php
    echo $this->ID,"_Init(",$MapName,",#REF".IfArray($NumDims)."(".$this->ID."[#LOWDIM]))\n";
    break;
  case stCall:
-?>    #SET(<?
+?>    #SET(<?php
    echo "cnt",$this->ID,",#LOWDIM)\n";
    break;
 }

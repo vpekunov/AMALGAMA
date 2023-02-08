@@ -1,4 +1,4 @@
-<?
+<?php
   global $nLayers;
 
   $OutName = "\$" . $this->ID . "_Out";

@@ -1,4 +1,4 @@
-<?
+<?php
 $EXPORT = GetNextMail("EXPORT");
 if ($EXPORT === "") {
    global $XML;
@@ -11,7 +11,7 @@ if ($EXPORT !== "") {
    SwitchExportOn();
    if ($Stage == stCall) {
      if ($EXPORT == "Russian") {
-?> Введем вещество <? echo $this->ID; ?> с обозначением "<? echo $this->Substance; ?>" на фазе <? echo $Phase["_ID"][0]; ?>.<?
+?> Введем вещество <?php echo $this->ID; ?> с обозначением "<?php echo $this->Substance; ?>" на фазе <?php echo $Phase["_ID"][0]; ?>.<?php
      } else if ($EXPORT == "XML") {
        $n = GetNextMail("COUNTER");
        ExportXMLElement($n++, "clsE_SSubstance", "ID$n", array("Name"=>$this->ID, "Substance"=>$this->Substance, "Phase"=>$Phase["_ID"][0]));

@@ -1,4 +1,4 @@
-<?
+<?php
 if ($Stage===$this->Event)
    {
     if ($In["_ClassID"][0]=="clsP_Question")

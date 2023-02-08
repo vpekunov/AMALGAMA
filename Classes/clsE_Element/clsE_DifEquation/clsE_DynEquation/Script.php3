@@ -1,4 +1,4 @@
-<?
+<?php
 $EXPORT = GetNextMail("EXPORT");
 if ($EXPORT === "") {
    global $XML;
@@ -12,15 +12,15 @@ if ($EXPORT !== "") {
    if ($Stage == stCall) {
     if ($EXPORT == "Russian") {
        $Kind = array("clsE_WhirlEquation"=>"вихревой", "clsE_DynEquation"=>"параболический", "clsE_PoissonEquation"=>"пуассоновский", "clsE_SolarEquation"=>"солнечный");
-?> Для переменной <? echo $Calc["_ID"][0]; ?> с вязкостью "<? echo $this->NuMol; ?>" и каппой "<? echo $this->Kappa; ?>" зададим <? echo $Kind[$this->ClassID]; ?> решатель.<?
+?> Для переменной <?php echo $Calc["_ID"][0]; ?> с вязкостью "<?php echo $this->NuMol; ?>" и каппой "<?php echo $this->Kappa; ?>" зададим <?php echo $Kind[$this->ClassID]; ?> решатель.<?php
       for ($i = 0; $i < $powK; $i++) {
-          ?> Присоединим правую функцию <? echo $K["_ID"][$i]; ?> к уравнению переменной <? echo $Calc["_ID"][0]; ?>.<?
+          ?> Присоединим правую функцию <?php echo $K["_ID"][$i]; ?> к уравнению переменной <?php echo $Calc["_ID"][0]; ?>.<?php
       }
       for ($i = 0; $i < $powS; $i++) {
-          ?> Присоединим базовую функцию <? echo $S["_ID"][$i]; ?> к уравнению переменной <? echo $Calc["_ID"][0]; ?>.<?
+          ?> Присоединим базовую функцию <?php echo $S["_ID"][$i]; ?> к уравнению переменной <?php echo $Calc["_ID"][0]; ?>.<?php
       }
       for ($i = 0; $i < $powBound; $i++) {
-          ?> Присоединим граничную функцию <? echo $Bound["_ID"][$i]; ?> к уравнению переменной <? echo $Calc["_ID"][0]; ?>.<?
+          ?> Присоединим граничную функцию <?php echo $Bound["_ID"][$i]; ?> к уравнению переменной <?php echo $Calc["_ID"][0]; ?>.<?php
       }
     } else if ($EXPORT == "XML") {
       $n = GetNextMail("COUNTER");

@@ -1,4 +1,4 @@
-<?
+<?php
   if (!function_exists("AnalyzeInput")) {
      function AnalyzeInput(&$powX,&$X) {
        $Counts = array_count_values($X["_ClassID"]);

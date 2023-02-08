@@ -1,11 +1,11 @@
-<?
+<?php
 $NumPrms = count($Arg["ValName"]);
 $NumDims = $Arg["NumDims"][0];
 switch ($Stage) {
  case stResource:
-?>#DEFVAR(<?
+?>#DEFVAR(<?php
    echo $Arg["TypeName"][0],",",$this->ID,"_Result)\n";
-?>#PROCEDURE <?
+?>#PROCEDURE <?php
    echo $this->ID,"(";
    if ($NumDims>0) echo $Arg["MapType"][0].",Map;";
    for ($i = 0; $i<$NumPrms; $i++)
@@ -30,10 +30,10 @@ switch ($Stage) {
    $this->Expression = str_replace("@","",$this->Expression);
    echo $Shift;
    if ($NumDims>0) {
-?>#IF(#ISNOTBOUND(Map<? echo $Indexes,"))\n";
+?>#IF(#ISNOTBOUND(Map<?php echo $Indexes,"))\n";
       echo $Shift,"  ";
    }
-?>#SET(#DEREF<?
+?>#SET(#DEREF<?php
    echo IfArray($NumDims)."(";
    echo $this->ID."_Result",$Indexes,"),", $this->Expression,")\n";
    if ($NumDims>0) {
@@ -44,10 +44,10 @@ switch ($Stage) {
    }
    CloseForLoop($NumDims,$Shift);
 ?>#ENDPROCEDURE
-<?
+<?php
    break;
  case stCall:
-?>    #CALL <?
+?>    #CALL <?php
    echo $this->ID,"(";
    if ($NumDims>0) echo $Arg["MapName"][0].",";
    for ($i = 0; $i<$NumPrms; $i++)

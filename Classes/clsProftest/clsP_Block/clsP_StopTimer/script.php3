@@ -1,4 +1,4 @@
-<?
+<?php
   if ($Stage===$this->Event)
      {
       if ($this->Save=="Yes")

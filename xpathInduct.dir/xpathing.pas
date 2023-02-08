@@ -330,10 +330,10 @@ begin
             CloseFile(L);
 
             If Compiled Then
-               Run({$IF DEFINED(UNIX) OR DEFINED(LINUX)}'./start_'+Lang+'.sh'{$ELSE}'start_'+Lang+'.bat'{$ENDIF},'nocompile _.out _.in','_.res',CRLF+CRLF)
+               Run({$IF DEFINED(UNIX) OR DEFINED(LINUX)}'./start_'+Lang+'.sh'{$ELSE}'start_'+Lang+'.bat'{$ENDIF},'nocompile _.xout _.in','_.xout',CRLF+CRLF)
             Else
                Begin
-                 Run({$IF DEFINED(UNIX) OR DEFINED(LINUX)}'./start_'+Lang+'.sh'{$ELSE}'start_'+Lang+'.bat'{$ENDIF},'_.gen _.out _.in','_.res',CRLF+CRLF);
+                 Run({$IF DEFINED(UNIX) OR DEFINED(LINUX)}'./start_'+Lang+'.sh'{$ELSE}'start_'+Lang+'.bat'{$ENDIF},'_.gen _.xout _.in','_.xout',CRLF+CRLF);
                  Compiled := True
                End;
 
@@ -349,7 +349,7 @@ begin
 
             LL := TStringList.Create;
             Try
-               LL.LoadFromFile(S + SuperSlash+'_.out');
+               LL.LoadFromFile(S + SuperSlash+'_.xout');
                txt := LL.Text;
             Except
                txt := '';

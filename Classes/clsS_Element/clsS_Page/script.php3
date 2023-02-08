@@ -1,10 +1,10 @@
-<?
+<?php
   ChangeOutput($this->FName,$Stage!=stResource);
   switch ($Stage) {
     case stInit: if ($this->Template==="") {
 ?><HTML>
 <BODY>
-<?               }
+<?php               }
                  break;
     case stCall: if ($this->Template!=="") {
                     foreach ($Forms["Items"] As $Val) {
@@ -19,7 +19,7 @@
     case stDone: if ($this->Template==="") {
 ?></BODY>
 </HTML>
-<?               }
+<?php               }
                  break;
   }
 ?>

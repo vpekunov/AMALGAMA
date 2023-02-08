@@ -1,4 +1,4 @@
-<?
+<?php
 $EXPORT = GetNextMail("EXPORT");
 if ($EXPORT === "") {
    global $XML;
@@ -11,22 +11,22 @@ if ($EXPORT !== "") {
    SwitchExportOn();
    if ($Stage == stCall) {
     if ($EXPORT == "Russian") {
-?> Введем <?
+?> Введем <?php
       echo $Model["_LinkID"][0] == "Carrier" ? "несущую " : "прочую ";
       if ($this->Nc != 1)
          echo "мультифазу ".$this->ID." из ".$this->Nc." компонент ";
       else
          echo "фазу ".$this->ID." ";
       echo "на модели ".$Model["_ID"][0].".";
-?> Скорость витания фазы <? echo $this->ID; ?> приравняем "<? echo $this->Uw; ?>".<?
+?> Скорость витания фазы <?php echo $this->ID; ?> приравняем "<?php echo $this->Uw; ?>".<?php
       if ($this->Source !== "") {
-?> Источником фазы <? echo $this->ID; ?> сделаем вещество <? echo $this->Source; ?>.<?
+?> Источником фазы <?php echo $this->ID; ?> сделаем вещество <?php echo $this->Source; ?>.<?php
       }
       for ($i = 0; $i < $powSourceK; $i++) {
-          ?> Присоединим правую функцию <? echo $SourceK["_ID"][$i]; ?> к фазе <? echo $this->ID; ?>.<?
+          ?> Присоединим правую функцию <?php echo $SourceK["_ID"][$i]; ?> к фазе <?php echo $this->ID; ?>.<?php
       }
       for ($i = 0; $i < $powSourceS; $i++) {
-          ?> Присоединим базовую функцию <? echo $SourceS["_ID"][$i]; ?> к фазе <? echo $this->ID; ?>.<?
+          ?> Присоединим базовую функцию <?php echo $SourceS["_ID"][$i]; ?> к фазе <?php echo $this->ID; ?>.<?php
       }
     } else if ($EXPORT == "XML") {
       $n = GetNextMail("COUNTER");

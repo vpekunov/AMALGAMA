@@ -1,4 +1,4 @@
-<?
+<?php
 // @global_unique(DECL,infinity):-
 // (\s*double\s+(\w+)->{ID}\;\\n)->{LINE}.
 // @goal:-
@@ -6,7 +6,7 @@
 // @done:-
 // saveLF.
 ?>
-<?
+<?php
    if ($Stage == stResource) {
       PutMail("Decls", "  double " . $this->ID . ";");
    }

@@ -1,4 +1,4 @@
-<?
+<?php
 $ID = $this->ID;
 if ($Stage==stCall)
    {

@@ -1,4 +1,4 @@
-<?
+<?php
 $Num = $In["Number"];
 switch ($Stage) {
   case stResource:
@@ -10,7 +10,7 @@ switch ($Stage) {
 ?>
 T = simple(T);
 C = simple(T*[0;0;0;1]);
-<?
+<?php
 cortege_push($Eqtns["Variable"],"C(1:3)");
 $Eqtns["Mins"] = $In["Mins"];
 $Eqtns["Maxes"] = $In["Maxes"];

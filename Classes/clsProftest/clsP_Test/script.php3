@@ -1,4 +1,4 @@
-<?
+<?php
 switch ($Stage) {
   case stResource:
     if ($this->TestID!="")

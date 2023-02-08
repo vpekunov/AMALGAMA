@@ -1,4 +1,4 @@
-<?
+<?php
    cortege_push($Handle["ID"], $this->ID);
 
    if ($Stage == stResource) {

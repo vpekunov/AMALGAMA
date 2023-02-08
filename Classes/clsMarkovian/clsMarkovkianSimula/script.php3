@@ -1,4 +1,4 @@
-<?
+<?php
 define(EPS, 1E-15);
 
 if ($Stage == stResource) {

@@ -1,4 +1,4 @@
-<?
+<?php
   error_reporting(0);
   $MLab = com_load("Matlab.Application") or die("MATLAB call error");
   com_set($MLab,"Visible",0);

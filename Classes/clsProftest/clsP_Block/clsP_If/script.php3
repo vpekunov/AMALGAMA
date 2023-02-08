@@ -1,4 +1,4 @@
-<?
+<?php
  if ($Stage===$this->Event)
     {
      echo ShiftStr($this->Prefix,$this->Vars);

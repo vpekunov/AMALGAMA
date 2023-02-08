@@ -1,4 +1,4 @@
-<?
+<?php
   switch ($Stage) {
     case stResource:
       if (ReadNextMail($this->ID,"TIME")=="")

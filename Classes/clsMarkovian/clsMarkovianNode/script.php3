@@ -1,4 +1,4 @@
-<?
+<?php
 if ($Stage==stResource)
    {
     foreach ($In["_ID"] as $Key=>$Val) {

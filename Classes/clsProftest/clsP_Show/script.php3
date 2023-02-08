@@ -1,9 +1,9 @@
-<?
+<?php
 if ($Stage==stCall)
    {
 ?>  ClearPut
   PutTitle('Результаты')
-<?
+<?php
     $NumOuts = count($In["_ID"]);
     for ($i = 0; $i<$NumOuts; $i++)
       {
@@ -23,6 +23,6 @@ if ($Stage==stCall)
           echo "  PutLine('$Nm = ',".$ID.")\n";
       }
 ?>  ShowPut
-<?
+<?php
    }
 ?>
