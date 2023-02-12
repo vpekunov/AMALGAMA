@@ -137,7 +137,7 @@ type
 
 { XPath expression parse tree }
 
-  TXPathNodeNameTester = function(Const NodeName, NodeTestString: String): Boolean; cdecl;
+  TXPathNodeNameTester = function(Const NodeName, NodeTestString: PWideChar): Boolean; cdecl;
 
   TXPathExprNode = class
   protected
@@ -1479,7 +1479,7 @@ var
             exit;
         end
         else if Node.NodeName <> NodeTestString then
-           If Not (Assigned(NodeNameTester) And NodeNameTester(Node.NodeName, NodeTestString)) Then
+           If Not (Assigned(NodeNameTester) And NodeNameTester(PWideChar(Node.NodeName), PWideChar(NodeTestString))) Then
               exit;
       ntTextNode:
         if not Node.InheritsFrom(TDOMText) then

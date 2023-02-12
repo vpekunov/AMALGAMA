@@ -698,7 +698,7 @@ begin
    Result := False;
    While (n1 <= n2) And Not Result Do
      begin
-       Result := NodeNameTester(PString(Ruler.Objects[n1])^, BaseClass);
+       Result := NodeNameTester(PWideChar(WideString(PString(Ruler.Objects[n1])^)), PWideChar(WideString(BaseClass)));
        Inc(n1)
      end
 end;
@@ -1258,6 +1258,10 @@ Begin
                     {$ENDIF}
                     ));
                     StartLanguage := '';
+                    {$IF NOT DEFINED(VCL) AND NOT DEFINED(LCL)}
+                    If ParamStr(0) = '' Then
+                       S := ExcludeTrailingBackSlash(GetCurrentDir);
+                    {$ENDIF}
                     If FileExists(S+SuperSlash+'_.start') Then
                        begin
                          AssignFile(TaskFile,S+SuperSlash+'_.start');
@@ -1884,6 +1888,18 @@ begin
    // Result := Sqrt(Result)
 end;
 
+Function HexDigit(C: Char): Integer;
+Begin
+  If (Ord(C) >= Ord('0')) And (Ord(C) <= Ord('9')) Then
+     Result := Ord(C) - Ord('0')
+  Else If (Ord(C) >= Ord('A')) And (Ord(C) <= Ord('F')) Then
+     Result := 10 + Ord(C) - Ord('A')
+  Else If (Ord(C) >= Ord('a')) And (Ord(C) <= Ord('f')) Then
+     Result := 10 + Ord(C) - Ord('a')
+  Else
+     Result := 0
+End;
+
 var
   parser: TDOMParser;
   L: TStringList;
@@ -1895,7 +1911,7 @@ var
   Log: TextFile;
   prev, this: Integer;
   Time: TDateTime;
-  S: String;
+  S, S1, S2: String;
   lProbabilities0, lProbabilities1: MatrixType;
   lTrace: TTrace;
   MainLine: TTrace;
@@ -1949,7 +1965,8 @@ begin
    Else
       Begin
         ENV := TXPathEnvironment.Create;
-        ENV.Import(inENV)
+        If (inENV <> Nil) And (WideString(inENV) <> '') Then
+           ENV.Import(inENV)
       End;
 
    For F := 0 To Ruler.Count - 1 Do
@@ -1964,8 +1981,11 @@ begin
      parser.Options.PreserveWhitespace := True;
      parser.Options.Namespaces := True;
      L.LoadFromFile(InXML);
-     L.Insert(0, '<OBJS>');
-     L.Add('</OBJS>');
+     If (L.Count > 0) And (L[0] <> '<OBJS>') Then
+        Begin
+          L.Insert(0, '<OBJS>');
+          L.Add('</OBJS>')
+        End;
      src := TXMLInputSource.Create(L.Text); // '<a><b><list data="1"><list data="2"></list></list></b><c><list data="3"><list data="4"></list></list></c></a>'
      try
        parser.Parse(src, dom);
@@ -2008,8 +2028,24 @@ begin
                         RulerClasses.Add(TDOMElement(res.AsNodeSet[F]).TagName);
                         Seq.Add(TStringList.Create);
                         With TStringList(Seq[Seq.Count - 1]) Do
-                          For G := StrToInt(TDOMElement(res.AsNodeSet[F]).AttribStrings['WORDF']) To StrToInt(TDOMElement(res.AsNodeSet[F]).AttribStrings['WORDN'])-1 Do
-                              Add(ENV.CollectedWords.Strings[G])
+                          Begin
+                            S := TDOMElement(res.AsNodeSet[F]).AttribStrings['WORDS'];
+                            S1 := '';
+                            For K := 1 To Length(S) Do
+                                If S[K] = ' ' Then
+                                   Begin
+                                     If Length(S1) > 0 Then
+                                        Begin
+                                          S2 := '';
+                                          For M := 1 To Length(S1) Div 2 Do
+                                              S2 := S2 + Chr(HexDigit(S1[M*2-1])*16 + HexDigit(S1[M*2]));
+                                          Add(S2)
+                                        End;
+                                     S1 := ''
+                                   End
+                                Else
+                                   S1 := S1 + S[K];
+                          End;
                       End
                  end
             end;
@@ -2503,7 +2539,8 @@ begin
      Else
         Begin
           ENV := TXPathEnvironment.Create;
-          ENV.Import(inENV)
+          If (inENV <> Nil) And (WideString(inENV) <> '') Then
+             ENV.Import(inENV)
         End;
      AllowedVersions := TStringList.Create;
      AllowedVersions.Text := String(_AllowedVersions);

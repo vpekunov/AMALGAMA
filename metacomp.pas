@@ -720,7 +720,7 @@ Var Beg, Last: Integer;
     L: TStringList;
     A: TAnalyser;
     RG: TRegExpr;
-    S, M: String;
+    S, S1, S2, M: String;
     W, LL: String;
     TT, ST: WideString;
     D: STR;
@@ -896,8 +896,15 @@ Begin
                   Rewrite(Script);
                   WriteLn(Script, Consult);
                   S := StringReplace(ExportPredicates(EscapeProlog(UTF8Encode(T))), '{*GID*}', newID, [rfReplaceAll]);
-                  S := StringReplace(S, '{*WORDF*}', IntToStr(FirstWordNum), [rfReplaceAll]);
-                  S := StringReplace(S, '{*WORDN*}', IntToStr(ENV.CollectedWords.Count), [rfReplaceAll]);
+                  S1 := '';
+                  For J := FirstWordNum To ENV.CollectedWords.Count-1 Do
+                      Begin
+                        S2 := ENV.CollectedWords[J];
+                        For P := 1 To Length(S2) Do
+                            S1 := S1 + HexStr(Ord(S2[P]), 2); 
+                        S1 := S1 + ' '
+                      End;
+                  S := StringReplace(S, '{*WORDS*}', S1, [rfReplaceAll]);
                   WriteLn(Script, S);
                   CloseFile(Script);
                   S:=StringReplace(ExcludeTrailingBackSlash(ExtractFilePath(ParamStr(0))),'\','/',[rfReplaceAll]);

@@ -370,7 +370,7 @@ Type
   procedure SetBufSize(W,H:Integer);
   {$ENDIF}
 
-  function NodeNameTester(Const NodeName, NodeTestString: String): Boolean; cdecl;
+  function NodeNameTester(Const NodeName, NodeTestString: PWideChar): Boolean; cdecl;
 
   function CreateSysF:Pointer; cdecl;
   function ExistClassF(Const ClsID: PWideChar):Boolean; cdecl;
@@ -533,18 +533,18 @@ begin
      Result := TDOMElement(Els[0]);
 end;
 
-function NodeNameTester(Const NodeName, NodeTestString: String): Boolean; cdecl;
+function NodeNameTester(Const NodeName, NodeTestString: PWideChar): Boolean; cdecl;
 
 Var F: Integer;
     Found: Boolean;
 Begin
-     If (Copy(NodeTestString, 1, 3) = 'cls') And ExistClass(NodeTestString) Then
+     If (Copy(WideString(NodeTestString), 1, 3) = 'cls') And ExistClass(WideString(NodeTestString)) Then
         Begin
           Found := False;
           For F := 0 To ElementRegList.Count - 1 Do
-            If TElementReg(ElementRegList.Items[F]).ClsID = NodeName Then
+            If TElementReg(ElementRegList.Items[F]).ClsID = WideString(NodeName) Then
               Begin
-                Found := ElementIs(TElementReg(ElementRegList.Items[F]), NodeTestString);
+                Found := ElementIs(TElementReg(ElementRegList.Items[F]), WideString(NodeTestString));
                 Break
               End;
           If Not Found Then Exit(False)
@@ -1263,7 +1263,7 @@ begin
                                   begin
                                      L1.AnlzLine := S;
                                      S := 'goal' + IntToStr(XPathCount) + ':-open(''' + XPathModelFile + ''',append,S),write(S,''<''),' +
-                                                   'write(S,''' + ClsID + '''),write(S,'' WORDF="{*WORDF*}" WORDN="{*WORDN*}" GID="{*GID*}" '')';
+                                                   'write(S,''' + ClsID + '''),write(S,'' WORDS="{*WORDS*}" GID="{*GID*}" '')';
                                      J := 0;
                                      While Not (L1.Error Or L1.Empty) Do
                                        begin
