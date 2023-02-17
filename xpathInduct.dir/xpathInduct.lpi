@@ -34,11 +34,35 @@
         <PackageName Value="LazUtils"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="1">
+    <Units Count="6">
       <Unit0>
         <Filename Value="xpathInduct.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
+      <Unit1>
+        <Filename Value="COMMON.PAS"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Common"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="xpathing.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="XPathing"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="LEXIQUE.PAS"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Lexique"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="CONSTS.PAS"/>
+        <IsPartOfProject Value="True"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="xpath.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="XPath"/>
+      </Unit5>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

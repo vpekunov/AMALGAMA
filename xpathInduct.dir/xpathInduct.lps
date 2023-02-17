@@ -4,183 +4,207 @@
     <PathDelim Value="\"/>
     <Version Value="12"/>
     <BuildModes Active="Default"/>
-    <Units Count="7">
+    <Units Count="9">
       <Unit0>
         <Filename Value="xpathInduct.lpr"/>
         <IsPartOfProject Value="True"/>
         <CursorPos X="28" Y="17"/>
-        <UsageCount Value="32"/>
+        <UsageCount Value="33"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
+        <Filename Value="COMMON.PAS"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Common"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="703"/>
+        <CursorPos X="14" Y="726"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="xpathing.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="XPathing"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="689"/>
+        <CursorPos X="86" Y="702"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="LEXIQUE.PAS"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Lexique"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="249"/>
+        <CursorPos X="20" Y="265"/>
+        <UsageCount Value="20"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="CONSTS.PAS"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="20"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="xpath.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="XPath"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="4154"/>
+        <CursorPos X="48" Y="4175"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit5>
+      <Unit6>
         <Filename Value="D:\lazarus\fpc\3.0.2\source\rtl\win32\system.pp"/>
         <UnitName Value="System"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="88"/>
         <CursorPos X="3" Y="98"/>
         <UsageCount Value="10"/>
-      </Unit1>
-      <Unit2>
+      </Unit6>
+      <Unit7>
         <Filename Value="D:\lazarus\fpc\3.0.2\source\packages\rtl-objpas\src\inc\strutils.pp"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="2849"/>
         <CursorPos Y="2866"/>
         <UsageCount Value="13"/>
-      </Unit2>
-      <Unit3>
-        <Filename Value="COMMON.PAS"/>
-        <UnitName Value="Common"/>
-        <EditorIndex Value="2"/>
-        <TopLine Value="181"/>
-        <CursorPos X="6" Y="185"/>
-        <UsageCount Value="11"/>
-        <Loaded Value="True"/>
-      </Unit3>
-      <Unit4>
+      </Unit7>
+      <Unit8>
         <Filename Value="regexpr.pas"/>
         <UnitName Value="RegExpr"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <TopLine Value="3646"/>
         <CursorPos X="28" Y="3650"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
-      </Unit4>
-      <Unit5>
-        <Filename Value="xpathing.pas"/>
-        <UnitName Value="XPathing"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
-        <TopLine Value="1246"/>
-        <CursorPos X="29" Y="1264"/>
-        <UsageCount Value="11"/>
-        <Loaded Value="True"/>
-      </Unit5>
-      <Unit6>
-        <Filename Value="LEXIQUE.PAS"/>
-        <UnitName Value="Lexique"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="249"/>
-        <CursorPos X="20" Y="265"/>
-        <UsageCount Value="10"/>
-      </Unit6>
+      </Unit8>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="regexpr.pas"/>
-        <Caret Line="2398" Column="18" TopLine="2377"/>
+        <Filename Value="COMMON.PAS"/>
+        <Caret Line="708" Column="19" TopLine="694"/>
       </Position1>
       <Position2>
-        <Filename Value="regexpr.pas"/>
-        <Caret Line="2428" Column="16" TopLine="2408"/>
+        <Filename Value="COMMON.PAS"/>
       </Position2>
       <Position3>
-        <Filename Value="regexpr.pas"/>
-        <Caret Line="3202" Column="31" TopLine="3182"/>
+        <Filename Value="COMMON.PAS"/>
+        <Caret Line="81" Column="37" TopLine="60"/>
       </Position3>
       <Position4>
-        <Filename Value="regexpr.pas"/>
-        <Caret Line="3217" Column="26" TopLine="3197"/>
+        <Filename Value="COMMON.PAS"/>
+        <Caret Line="82" Column="36" TopLine="61"/>
       </Position4>
       <Position5>
-        <Filename Value="regexpr.pas"/>
-        <Caret Line="3380" Column="24" TopLine="3360"/>
+        <Filename Value="COMMON.PAS"/>
+        <Caret Line="84" Column="16" TopLine="63"/>
       </Position5>
       <Position6>
-        <Filename Value="regexpr.pas"/>
-        <Caret Line="3396" Column="25" TopLine="3376"/>
+        <Filename Value="COMMON.PAS"/>
+        <Caret Line="94" Column="8" TopLine="73"/>
       </Position6>
       <Position7>
-        <Filename Value="regexpr.pas"/>
-        <Caret Line="3425" Column="14" TopLine="3404"/>
+        <Filename Value="COMMON.PAS"/>
+        <Caret Line="707" Column="41" TopLine="686"/>
       </Position7>
       <Position8>
-        <Filename Value="regexpr.pas"/>
-        <Caret Line="3664" Column="10" TopLine="3643"/>
+        <Filename Value="COMMON.PAS"/>
+        <Caret Line="713" Column="39" TopLine="692"/>
       </Position8>
       <Position9>
-        <Filename Value="xpathing.pas"/>
-        <Caret Line="6" Column="32"/>
+        <Filename Value="COMMON.PAS"/>
+        <Caret Line="716" Column="16" TopLine="695"/>
       </Position9>
       <Position10>
-        <Filename Value="xpathing.pas"/>
-        <Caret Line="51" Column="9" TopLine="30"/>
+        <Filename Value="COMMON.PAS"/>
+        <Caret Line="718" Column="16" TopLine="697"/>
       </Position10>
       <Position11>
-        <Filename Value="xpathing.pas"/>
-        <Caret Line="58" Column="38" TopLine="37"/>
+        <Filename Value="COMMON.PAS"/>
+        <Caret Line="722" Column="30" TopLine="701"/>
       </Position11>
       <Position12>
-        <Filename Value="xpathing.pas"/>
-        <Caret Line="1591" Column="9" TopLine="1570"/>
+        <Filename Value="COMMON.PAS"/>
+        <Caret Line="723" Column="15" TopLine="702"/>
       </Position12>
       <Position13>
-        <Filename Value="xpathing.pas"/>
-        <Caret Line="1954" TopLine="1932"/>
+        <Filename Value="xpath.pas"/>
+        <Caret Line="3" Column="49"/>
       </Position13>
       <Position14>
-        <Filename Value="xpathing.pas"/>
-        <Caret Line="2471" Column="38" TopLine="2450"/>
+        <Filename Value="xpath.pas"/>
+        <Caret Line="140" Column="68" TopLine="119"/>
       </Position14>
       <Position15>
-        <Filename Value="xpathing.pas"/>
-        <Caret Line="2508" Column="30" TopLine="2487"/>
+        <Filename Value="xpath.pas"/>
+        <Caret Line="296" Column="138" TopLine="275"/>
       </Position15>
       <Position16>
-        <Filename Value="xpathing.pas"/>
-        <Caret Line="1982" Column="11" TopLine="1980"/>
+        <Filename Value="xpath.pas"/>
+        <Caret Line="510" Column="42" TopLine="489"/>
       </Position16>
       <Position17>
-        <Filename Value="xpathing.pas"/>
+        <Filename Value="xpath.pas"/>
+        <Caret Line="596" Column="93" TopLine="576"/>
       </Position17>
       <Position18>
-        <Filename Value="xpathing.pas"/>
-        <Caret Line="1340" Column="41" TopLine="1331"/>
+        <Filename Value="xpath.pas"/>
+        <Caret Line="615" Column="83" TopLine="594"/>
       </Position18>
       <Position19>
-        <Filename Value="xpathing.pas"/>
+        <Filename Value="xpath.pas"/>
+        <Caret Line="622" Column="63" TopLine="601"/>
       </Position19>
       <Position20>
-        <Filename Value="xpathing.pas"/>
-        <Caret Line="77" Column="25" TopLine="52"/>
+        <Filename Value="xpath.pas"/>
+        <Caret Line="1006" Column="103" TopLine="986"/>
       </Position20>
       <Position21>
-        <Filename Value="xpathing.pas"/>
-        <Caret Line="2506" Column="25" TopLine="2506"/>
+        <Filename Value="xpath.pas"/>
+        <Caret Line="1456" Column="140" TopLine="1435"/>
       </Position21>
       <Position22>
-        <Filename Value="xpathing.pas"/>
-        <Caret Line="2751" Column="42" TopLine="2731"/>
+        <Filename Value="xpath.pas"/>
+        <Caret Line="1482" Column="125" TopLine="1462"/>
       </Position22>
       <Position23>
-        <Filename Value="xpathing.pas"/>
-        <Caret Line="2752" Column="67" TopLine="2732"/>
+        <Filename Value="xpath.pas"/>
+        <Caret Line="1791" Column="93" TopLine="1770"/>
       </Position23>
       <Position24>
-        <Filename Value="xpathing.pas"/>
-        <Caret Line="2804" Column="42" TopLine="2781"/>
+        <Filename Value="xpath.pas"/>
+        <Caret Line="2983" Column="43" TopLine="2962"/>
       </Position24>
       <Position25>
-        <Filename Value="xpathing.pas"/>
+        <Filename Value="xpath.pas"/>
+        <Caret Line="3456" Column="104" TopLine="3435"/>
       </Position25>
       <Position26>
-        <Filename Value="xpathing.pas"/>
-        <Caret Line="177" Column="19" TopLine="165"/>
+        <Filename Value="xpath.pas"/>
+        <Caret Line="4116" Column="96" TopLine="4095"/>
       </Position26>
       <Position27>
-        <Filename Value="xpathing.pas"/>
-        <Caret Line="385" Column="4" TopLine="381"/>
+        <Filename Value="xpath.pas"/>
+        <Caret Line="4121" Column="47" TopLine="4100"/>
       </Position27>
       <Position28>
-        <Filename Value="xpathing.pas"/>
-        <Caret Line="164" Column="18" TopLine="149"/>
+        <Filename Value="xpath.pas"/>
+        <Caret Line="4159" Column="63" TopLine="4138"/>
       </Position28>
       <Position29>
-        <Filename Value="xpathing.pas"/>
-        <Caret Line="1981" Column="19" TopLine="1232"/>
+        <Filename Value="xpath.pas"/>
+        <Caret Line="4172" Column="68" TopLine="4151"/>
       </Position29>
       <Position30>
-        <Filename Value="COMMON.PAS"/>
-        <Caret Line="73" Column="11" TopLine="60"/>
+        <Filename Value="xpath.pas"/>
+        <Caret Line="4175" Column="48" TopLine="4154"/>
       </Position30>
     </JumpHistory>
     <RunParams>

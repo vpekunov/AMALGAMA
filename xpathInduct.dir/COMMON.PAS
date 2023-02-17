@@ -81,7 +81,7 @@ function DecodeStr(Const S:String):String;
 procedure MakeErrorCommon(Const _Msg: String);
 procedure MakeInfoCommon(Const _Msg: String);
 
-function GetMSG: PWideChar; cdecl;
+function GetMSG: PChar; cdecl;
 
 Var LCounter: Integer;
     Files: TStringList;
@@ -91,7 +91,7 @@ Var LCounter: Integer;
 
 Const Messaging: Boolean = True;
 
-Var MSG: PWideChar; cvar; export;
+Var MSG: PChar; cvar; export;
 
 Implementation
 
@@ -704,22 +704,22 @@ End;
 
 procedure MakeErrorCommon(const _Msg: String);
 begin
-   StrPCopy(MSG, WideString('Error: ' + _Msg))
+   StrPCopy(MSG, String('Error: ' + _Msg))
 end;
 
 
 procedure MakeInfoCommon(const _Msg: String);
 begin
-  StrPCopy(MSG, WideString('Info: ' + _Msg))
+  StrPCopy(MSG, String('Info: ' + _Msg))
 end;
 
-function GetMSG: PWideChar; cdecl;
+function GetMSG: PChar; cdecl;
 begin
   Result := MSG
 end;
 
 Initialization
-  MSG := GetMem(32768*SizeOf(WideChar));
+  MSG := GetMem(32768*SizeOf(Char));
   StrPCopy(MSG, '');
 
 Finalization

@@ -370,22 +370,22 @@ Type
   procedure SetBufSize(W,H:Integer);
   {$ENDIF}
 
-  function NodeNameTester(Const NodeName, NodeTestString: PWideChar): Boolean; cdecl;
+  function NodeNameTester(Const NodeName, NodeTestString: PChar): Boolean; cdecl;
 
   function CreateSysF:Pointer; cdecl;
-  function ExistClassF(Const ClsID: PWideChar):Boolean; cdecl;
-  function GetElementF(Sys: Pointer; ID: PWideChar):Pointer; cdecl;
+  function ExistClassF(Const ClsID: PChar):Boolean; cdecl;
+  function GetElementF(Sys: Pointer; ID: PChar):Pointer; cdecl;
   function CanReachF(Sys: Pointer; _From: Pointer; nTo: Integer; _To: PPointerList): Boolean; cdecl;
-  procedure CreateContactsF(ClassID: PWideChar; _Dir: Integer; dom: Pointer; Parent: Pointer; Tag: PWideChar); cdecl;
-  function AddElementF(Sys: Pointer; ClassName, ID : PWideChar; Flags: Integer):Pointer; cdecl;
-  function AddLinkF(Sys, El: Pointer; ContID: PWideChar; PEl: Pointer; PContID: PWideChar; Var S: PWideChar; Info: Boolean):Pointer; cdecl;
+  procedure CreateContactsF(ClassID: PChar; _Dir: Integer; dom: Pointer; Parent: Pointer; Tag: PChar); cdecl;
+  function AddElementF(Sys: Pointer; ClassName, ID : PChar; Flags: Integer):Pointer; cdecl;
+  function AddLinkF(Sys, El: Pointer; ContID: PChar; PEl: Pointer; PContID: PChar; Var S: PChar; Info: Boolean):Pointer; cdecl;
   function AnalyzeLinkStatusIsInformF(sys, L: Pointer): Boolean; cdecl;
-  procedure SetParameterIfExistsF(el: Pointer; PrmName, PrmValue: PWideChar); cdecl;
+  procedure SetParameterIfExistsF(el: Pointer; PrmName, PrmValue: PChar); cdecl;
   procedure MoveF(el: Pointer; X, Y: Integer); cdecl;
   function CheckSysF(Sys: Pointer): Integer; cdecl;
-  procedure ToStringF(Sys: Pointer; Ret: PWideChar); cdecl;
-  procedure GenerateCodeF(Sys: Pointer; Ret: PWideChar); cdecl;
-  procedure SaveToXMLF(Sys: Pointer; FName: PWideChar); cdecl;
+  procedure ToStringF(Sys: Pointer; Ret: PChar); cdecl;
+  procedure GenerateCodeF(Sys: Pointer; Ret: PChar); cdecl;
+  procedure SaveToXMLF(Sys: Pointer; FName: PChar); cdecl;
   procedure _FreeF(Obj: Pointer); cdecl;
 
 Var MainSys: TSystem;
@@ -418,12 +418,12 @@ Begin
    Result := TSystem.Create
 end;
 
-function ExistClassF(Const ClsID: PWideChar):Boolean; cdecl;
+function ExistClassF(Const ClsID: PChar):Boolean; cdecl;
 Begin
    Result := ExistClass(ClsID)
 End;
 
-function GetElementF(Sys: Pointer; ID: PWideChar):Pointer; cdecl;
+function GetElementF(Sys: Pointer; ID: PChar):Pointer; cdecl;
 Begin
    Result := TSystem(Sys).GetElement(ID)
 End;
@@ -433,19 +433,19 @@ Begin
      Result := CanReach(TSystem(Sys), TElement(_From), nTo, _To)
 End;
 
-procedure CreateContactsF(ClassID: PWideChar; _Dir: Integer; dom: Pointer; Parent: Pointer; Tag: PWideChar); cdecl;
+procedure CreateContactsF(ClassID: PChar; _Dir: Integer; dom: Pointer; Parent: Pointer; Tag: PChar); cdecl;
 Begin
      CreateContacts(ClassID, TIODirection(_Dir), TXMLDocument(dom), TDOMElement(Parent), Tag)
 End;
 
-function AddElementF(Sys: Pointer; ClassName, ID : PWideChar; Flags: Integer):Pointer; cdecl;
+function AddElementF(Sys: Pointer; ClassName, ID : PChar; Flags: Integer):Pointer; cdecl;
 Begin
      Result := TSystem(Sys).AddElement(ClassName, ID, Flags)
 End;
 
-function AddLinkF(Sys, El: Pointer; ContID: PWideChar; PEl: Pointer; PContID: PWideChar; Var S: PWideChar; Info: Boolean):Pointer; cdecl;
+function AddLinkF(Sys, El: Pointer; ContID: PChar; PEl: Pointer; PContID: PChar; Var S: PChar; Info: Boolean):Pointer; cdecl;
 
-Const Str: PWideChar = 'Error!';
+Const Str: PChar = 'Error!';
 
 Var ErrMsg: String;
 Begin
@@ -462,7 +462,7 @@ Begin
      Result := TLink(L).Inform
 End;
 
-procedure SetParameterIfExistsF(el: Pointer; PrmName, PrmValue: PWideChar); cdecl;
+procedure SetParameterIfExistsF(el: Pointer; PrmName, PrmValue: PChar); cdecl;
 
 Var Obj: TElement Absolute el;
 Begin
@@ -480,22 +480,22 @@ Begin
      Result := Integer(TSystem(Sys).Check)
 End;
 
-procedure ToStringF(Sys: Pointer; Ret: PWideChar); cdecl;
+procedure ToStringF(Sys: Pointer; Ret: PChar); cdecl;
 Begin
-     StrPCopy(Ret, WideString(TSystem(Sys).ToString))
+     StrPCopy(Ret, String(TSystem(Sys).ToString))
 End;
 
-procedure GenerateCodeF(Sys: Pointer; Ret: PWideChar); cdecl;
+procedure GenerateCodeF(Sys: Pointer; Ret: PChar); cdecl;
 
 Var R: String;
 Begin
      If TSystem(Sys).GeneratePHP(R) Then
-        StrPCopy(Ret, WideString(R))
+        StrPCopy(Ret, String(R))
      Else
         StrPCopy(Ret, '')
 End;
 
-procedure SaveToXMLF(Sys: Pointer; FName: PWideChar); cdecl;
+procedure SaveToXMLF(Sys: Pointer; FName: PChar); cdecl;
 Begin
      TSystem(Sys).SaveToXML('', FName)
 End;
@@ -533,18 +533,18 @@ begin
      Result := TDOMElement(Els[0]);
 end;
 
-function NodeNameTester(Const NodeName, NodeTestString: PWideChar): Boolean; cdecl;
+function NodeNameTester(Const NodeName, NodeTestString: PChar): Boolean; cdecl;
 
 Var F: Integer;
     Found: Boolean;
 Begin
-     If (Copy(WideString(NodeTestString), 1, 3) = 'cls') And ExistClass(WideString(NodeTestString)) Then
+     If (Copy(String(NodeTestString), 1, 3) = 'cls') And ExistClass(String(NodeTestString)) Then
         Begin
           Found := False;
           For F := 0 To ElementRegList.Count - 1 Do
-            If TElementReg(ElementRegList.Items[F]).ClsID = WideString(NodeName) Then
+            If TElementReg(ElementRegList.Items[F]).ClsID = String(NodeName) Then
               Begin
-                Found := ElementIs(TElementReg(ElementRegList.Items[F]), WideString(NodeTestString));
+                Found := ElementIs(TElementReg(ElementRegList.Items[F]), String(NodeTestString));
                 Break
               End;
           If Not Found Then Exit(False)
@@ -955,7 +955,7 @@ function TElementReg.GetInductSeq(var Continuous: Boolean;
   ENV: TXPathEnvironment): TElementRegs;
 
 Var AllowedVersions: TStringList;
-    ExportedENV: Array[0..65536] Of WideChar;
+    ExportedENV: Array[0..65536] Of Char;
     Path: String;
     L: TAnalyser;
     CID: String;

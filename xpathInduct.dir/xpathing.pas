@@ -12,19 +12,19 @@ uses
   Common, Classes, SysUtils, xpath, dom, xmlread, xmlwrite;
 
 Type CreateSysFun = function:Pointer; cdecl;
-     ExistClassFun = function(Const ClsID: PWideChar):Boolean; cdecl;
-     GetElementFun = function(Sys: Pointer; ID: PWideChar):Pointer; cdecl;
+     ExistClassFun = function(Const ClsID: PChar):Boolean; cdecl;
+     GetElementFun = function(Sys: Pointer; ID: PChar):Pointer; cdecl;
      CanReachFun = function(Sys: Pointer; _From: Pointer; nTo: Integer; _To: PPointerList): Boolean; cdecl;
-     CreateContactsFun = procedure(ClassID: PWideChar; _Dir: Integer; dom: Pointer; Parent: Pointer; Tag: PWideChar); cdecl;
-     AddElementFun = function(Sys: Pointer; ClassName, ID : PWideChar; Flags: Integer):Pointer; cdecl;
-     AddLinkFun = function(Sys, El: Pointer; ContID: PWideChar; PEl: Pointer; PContID: PWideChar; Var S: PWideChar; Info: Boolean):Pointer; cdecl;
+     CreateContactsFun = procedure(ClassID: PChar; _Dir: Integer; dom: Pointer; Parent: Pointer; Tag: PChar); cdecl;
+     AddElementFun = function(Sys: Pointer; ClassName, ID : PChar; Flags: Integer):Pointer; cdecl;
+     AddLinkFun = function(Sys, El: Pointer; ContID: PChar; PEl: Pointer; PContID: PChar; Var S: PChar; Info: Boolean):Pointer; cdecl;
      AnalyzeLinkStatusIsInformFun = function(sys, L: Pointer): Boolean; cdecl;
-     SetParameterIfExistsFun = procedure(el: Pointer; PrmName, PrmValue: PWideChar); cdecl;
+     SetParameterIfExistsFun = procedure(el: Pointer; PrmName, PrmValue: PChar); cdecl;
      MoveFun = procedure(el: Pointer; X, Y: Integer); cdecl;
      CheckSysFun = function(Sys: Pointer): Integer; cdecl;
-     ToStringFun = procedure(Sys: Pointer; Ret: PWideChar); cdecl;
-     GenerateCodeFun = procedure(Sys: Pointer; Ret: PWideChar); cdecl;
-     SaveToXMLFun = procedure(Sys: Pointer; FName: PWideChar); cdecl;
+     ToStringFun = procedure(Sys: Pointer; Ret: PChar); cdecl;
+     GenerateCodeFun = procedure(Sys: Pointer; Ret: PChar); cdecl;
+     SaveToXMLFun = procedure(Sys: Pointer; FName: PChar); cdecl;
      _FreeFun = procedure(Obj: Pointer); cdecl;
 
 function XPathInduct(
@@ -48,20 +48,21 @@ function XPathInduct(
    SelectedMode: PChar;
    UseNNet: Boolean; MainLineAllowed: Boolean;
    _ENV: Pointer;
-   inENV, outENV: PWideChar;
-   InXML, OutXML: PWideChar;
+   inENV, outENV: PChar;
+   InXML, OutXML: PChar;
    MaxCPUs: Integer;
-   _IDs: PWideChar): Boolean; cdecl;
+   _IDs: PChar;
+   OnlyInduceModel: Boolean): Boolean; cdecl;
 
 function CompileXPathing(_Messaging: Boolean;
    _AllowedVersions: PChar;
-   FName: PChar; _ENV: Pointer; inENV, outENV: PWideChar;
+   FName: PChar; _ENV: Pointer; inENV, outENV: PChar;
    _WorkText: PChar): Boolean; cdecl;
 procedure SetInterval(_Interval: Cardinal); cdecl;
 procedure ClearRestrictions; cdecl;
 procedure ClearRuler; cdecl;
 procedure SetDeduceLogFile(LF: PChar); cdecl;
-procedure CreateDOMContact(dom: Pointer; Parent: Pointer; Tag: PWideChar; CntID: PChar); cdecl;
+procedure CreateDOMContact(dom: Pointer; Parent: Pointer; Tag: PChar; CntID: PChar); cdecl;
 
 implementation
 
@@ -456,7 +457,7 @@ function TWeakOrder.Check(ENV: TXPathEnvironment; dom: TXMLDocument; Const sys: 
             For F := 0 To res.AsNodeSet.Count - 1 Do
                 With TObject(res.AsNodeSet.Items[F]) As TDOMElement Do
                   Begin
-                    S := GetElement(sys, PWideChar(AttribStrings['ID']));
+                    S := GetElement(sys, PChar(String(AttribStrings['ID'])));
 
                     If Assigned(S) Then
                        Result.Add(S)
@@ -578,11 +579,11 @@ begin
    For F := 0 To objs.Count - 1 Do
        If Assigned(TDOMNode(objs[F]).ParentNode) And
           (TDOMElement(TDOMNode(objs[F]).ParentNode).TagName = 'OBJS') And
-          ExistClass(PWideChar(TDOMElement(objs[F]).TagName)) Then
+          ExistClass(PChar(String(TDOMElement(objs[F]).TagName))) Then
           With TDOMElement(objs[F]) Do
             Begin
-              CreateContacts(PWideChar(TagName), Integer(dirInput), dom, TDOMElement(objs[F]), 'I');
-              CreateContacts(PWideChar(TagName), Integer(dirOutput), dom, TDOMElement(objs[F]), 'O');
+              CreateContacts(PChar(String(TagName)), Integer(dirInput), dom, TDOMElement(objs[F]), 'I');
+              CreateContacts(PChar(String(TagName)), Integer(dirOutput), dom, TDOMElement(objs[F]), 'O');
             End
 end;
 
@@ -654,7 +655,7 @@ begin
                    begin
                      For F := 0 To Count - 1 Do
                          If (Copy(TDOMElement(Item[F]).TagName, 1, 3) = 'cls') And
-                            ExistClass(PWideChar(TDOMElement(Item[F]).TagName)) And
+                            ExistClass(PChar(String(TDOMElement(Item[F]).TagName))) And
                             (C.IndexOf(Item[F]) >= 0) Then
                             new_objs.Add(Item[F]);
                      Free
@@ -698,7 +699,7 @@ begin
    Result := False;
    While (n1 <= n2) And Not Result Do
      begin
-       Result := NodeNameTester(PWideChar(WideString(PString(Ruler.Objects[n1])^)), PWideChar(WideString(BaseClass)));
+       Result := NodeNameTester(PChar(PString(Ruler.Objects[n1])^), PChar(BaseClass));
        Inc(n1)
      end
 end;
@@ -863,7 +864,7 @@ function TWeakLink.Construct(ENV: TXPathEnvironment; Var dom: TXMLDocument): TWe
                                obj1 := TDOMElement(C[G]);
                                While Assigned(obj1.ParentNode) And (TDOMElement(obj1.ParentNode).TagName <> 'OBJS') Do
                                   obj1 := TDOMElement(obj1.ParentNode);
-                               if (Copy(obj1.TagName, 1, 3) = 'cls') And ExistClass(PWideChar(obj1.TagName)) Then
+                               if (Copy(obj1.TagName, 1, 3) = 'cls') And ExistClass(PChar(String(obj1.TagName))) Then
                                   objs.Add(C[G])
                              end;
                       has := 0;
@@ -881,7 +882,7 @@ function TWeakLink.Construct(ENV: TXPathEnvironment; Var dom: TXMLDocument): TWe
                                   obj1 := TDOMElement(C[G]);
                                   While Assigned(obj1.ParentNode) And (TDOMElement(obj1.ParentNode).TagName <> 'OBJS') Do
                                      obj1 := TDOMElement(obj1.ParentNode);
-                                  if (Copy(obj1.TagName, 1, 3) = 'cls') And ExistClass(PWideChar(obj1.TagName)) Then
+                                  if (Copy(obj1.TagName, 1, 3) = 'cls') And ExistClass(PChar(String(obj1.TagName))) Then
                                      Begin
                                         n1 := Ruler.IndexOf(obj1.AttribStrings['ID']);
                                         n2 := Ruler.IndexOf(obj2.AttribStrings['ID']);
@@ -975,7 +976,7 @@ begin
    lRels.Free
 end;
 
-procedure CreateDOMContact(dom: Pointer; Parent: Pointer; Tag: PWideChar; CntID: PChar); cdecl;
+procedure CreateDOMContact(dom: Pointer; Parent: Pointer; Tag: PChar; CntID: PChar); cdecl;
 
 Var Exists: Boolean;
     L: TDOMElement;
@@ -994,7 +995,7 @@ Begin
      end;
    If Not Exists Then
       Begin
-        L := TDOMElement(TDOMElement(Parent).AppendChild(TXMLDocument(dom).CreateElement(Tag)));
+        L := TDOMElement(TDOMElement(Parent).AppendChild(TXMLDocument(dom).CreateElement(String(Tag))));
         L.AttribStrings['ID'] := String(CntID);
         L.AttribStrings['Ref'] := IntToStr(Random(100000))
       end
@@ -1008,7 +1009,7 @@ function ExtractSystemFromDOM(dom: TXMLDocument; Var res: TXPathVariable; ENV: T
       ID, ContID: DOMString;
       El, PEl: Pointer;
       PID, PContID: DOMString;
-      retS: PWideChar;
+      retS: PChar;
       res: TXPathVariable;
       L: Pointer;
       Ref: DOMString;
@@ -1018,7 +1019,7 @@ function ExtractSystemFromDOM(dom: TXMLDocument; Var res: TXPathVariable; ENV: T
      Result := False;
      ID := obj.AttribStrings['ID'];
      ContID := Cont.AttribStrings['ID'];
-     El := GetElement(sys, PWideChar(ID));
+     El := GetElement(sys, PChar(String(ID)));
      With Cont.ChildNodes Do
        begin
          For F := 0 To Length - 1 Do
@@ -1035,11 +1036,11 @@ function ExtractSystemFromDOM(dom: TXMLDocument; Var res: TXPathVariable; ENV: T
                           Begin
                             PID := TDOMElement(TDOMElement(Items[0]).ParentNode).AttribStrings['ID'];
                             PContID := TDOMElement(Items[0]).AttribStrings['ID'];
-                            PEl := GetElement(sys, PWideChar(PID));
+                            PEl := GetElement(sys, PChar(String(PID)));
                             If PartnerTag = 'I' Then
-                               L := AddLink(Sys, El, PWideChar(ContID), PEl, PWideChar(PContID), retS, Info)
+                               L := AddLink(Sys, El, PChar(String(ContID)), PEl, PChar(String(PContID)), retS, Info)
                             Else
-                               L := AddLink(Sys, PEl, PWideChar(PContID), El, PWideChar(ContID), retS, Info);
+                               L := AddLink(Sys, PEl, PChar(String(PContID)), El, PChar(String(ContID)), retS, Info);
                             If Not Info Then
                                Begin
                                  If AnalyzeLinkStatusIsInform(sys, L) Then
@@ -1081,17 +1082,17 @@ Begin
             If TObject(objs[F]) is TDOMElement then
                Begin
                  obj := TObject(objs[F]) as TDOMElement;
-                 If ExistClass(PWideChar(obj.TagName)) Then
+                 If ExistClass(PChar(String(obj.TagName))) Then
                     Begin
                       ID := obj.AttribStrings['ID'];
-                      If (Length(ID) = 0) Or Assigned(GetElement(Result, PWideChar(WideString(ID)))) Then
+                      If (Length(ID) = 0) Or Assigned(GetElement(Result, PChar(ID))) Then
                          Begin
                            _Free(Result);
                            Exit(Nil)
                          End;
-                      el := AddElement(Result, PWideChar(obj.TagName), PWideChar(WideString(ID)), Integer(flShowClass + flShowName));
+                      el := AddElement(Result, PChar(String(obj.TagName)), PChar(ID), Integer(flShowClass + flShowName));
                       For G := 0 To obj.Attributes.Length - 1 Do
-                          SetParameterIfExists(el, PWideChar(obj.Attributes[G].NodeName), PWideChar(obj.Attributes[G].NodeValue));
+                          SetParameterIfExists(el, PChar(String(obj.Attributes[G].NodeName)), PChar(String(obj.Attributes[G].NodeValue)));
                       XPathing.Move(el, X, 50);
                       Inc(X, 120)
                     End;
@@ -1141,15 +1142,16 @@ Type
         trace: TTrace;
         out_tr: TTrace;
         ENV: TXPathEnvironment;
+        OnlyInduceModel: Boolean;
 
-        constructor Create(_ENV: TXPathEnvironment; _dom: TXMLDocument; _semaphored: Boolean; _parent: Integer; Const tr: TTrace; _in_stage: Integer; Const _in_tr: TTrace);
+        constructor Create(_OnlyInduceModel: Boolean; _ENV: TXPathEnvironment; _dom: TXMLDocument; _semaphored: Boolean; _parent: Integer; Const tr: TTrace; _in_stage: Integer; Const _in_tr: TTrace);
         destructor Destroy; override;
         procedure Execute; override;
 
         procedure Process;
      End;
 
-function Deduce(ENV: TXPathEnvironment; var dom: TXMLDocument; semaphored: Boolean; T: TDeducer;
+function Deduce(OnlyInduceModel: Boolean; ENV: TXPathEnvironment; var dom: TXMLDocument; semaphored: Boolean; T: TDeducer;
   parent: Integer; Var tr: TTrace; Var outtr: TTrace;
   _in_stage: Integer; Const _in_tr: TTrace): Pointer;
 
@@ -1163,7 +1165,7 @@ Var res: TXPathVariable;
     vv: TWeakResult;
     ttrs: TTrace;
     rres: Array Of TResultType;
-    Buffer: PWideChar;
+    Buffer: PChar;
     P, TotalP, q: Real;
     NonStricts: Array Of Integer;
     rnds: Array Of Real;
@@ -1199,7 +1201,7 @@ Begin
                Exit
              End;
 
-          Buffer := GetMem(8*65536*SizeOf(WideChar));
+          Buffer := GetMem(8*65536*SizeOf(Char));
           ToString(Result, Buffer);
           hash := Buffer;
           FreeMem(Buffer);
@@ -1230,66 +1232,69 @@ Begin
                If Length(Prog) > 0 Then
                   begin
                     SaveToXML(Result, '_.xml');
-                    CreateStrFile('_.php3',Prog);
-                    {$IF DEFINED(LCL) OR DEFINED(VCL)}
-                    Gen := RunExtCommand(
-                       {$IF DEFINED(UNIX) OR DEFINED(LINUX)}'run_php.sh'{$ELSE}'run_php.bat'{$ENDIF},
-                       '_.php3 _.gen','_.gen',CRLF+CRLF);
-                    {$ELSE}
-                    Gen := RunExtCommand(
-                       {$IF DEFINED(UNIX) OR DEFINED(LINUX)}'run_php.sh'{$ELSE}'run_php.bat'{$ENDIF},
-                       '_.php3 _.gen','_.gen',CRLF+CRLF);
-                    {$ENDIF}
-                    CreateStrFile('_.gen',Gen);
-                    If Pos(errPHP,Gen) <> 0 Then
+                    If Not OnlyInduceModel Then
                        Begin
-                         _Free(Result);
-                         Result := Nil;
-                         LeaveCriticalSection(VariantsCS);
-                         If Assigned(T) Then T.Synchronize(T.Process);
-                         Exit
+                          CreateStrFile('_.php3',Prog);
+                          {$IF DEFINED(LCL) OR DEFINED(VCL)}
+                          Gen := RunExtCommand(
+                             {$IF DEFINED(UNIX) OR DEFINED(LINUX)}'run_php.sh'{$ELSE}'run_php.bat'{$ENDIF},
+                             '_.php3 _.gen','_.gen',CRLF+CRLF);
+                          {$ELSE}
+                          Gen := RunExtCommand(
+                             {$IF DEFINED(UNIX) OR DEFINED(LINUX)}'run_php.sh'{$ELSE}'run_php.bat'{$ENDIF},
+                             '_.php3 _.gen','_.gen',CRLF+CRLF);
+                          {$ENDIF}
+                          CreateStrFile('_.gen',Gen);
+                          If Pos(errPHP,Gen) <> 0 Then
+                             Begin
+                               _Free(Result);
+                               Result := Nil;
+                               LeaveCriticalSection(VariantsCS);
+                               If Assigned(T) Then T.Synchronize(T.Process);
+                               Exit
+                             End;
+                          // Here must be a possible Snobol retranslation
+                          S:=ExcludeTrailingBackSlash(ExtractFilePath(
+                          {$IF DEFINED(VCL) OR DEFINED(LCL)}
+                          Application.ExeName
+                          {$ELSE}
+                          ParamStr(0)
+                          {$ENDIF}
+                          ));
+                          StartLanguage := '';
+                          {$IF NOT DEFINED(VCL) AND NOT DEFINED(LCL)}
+                          If ParamStr(0) = '' Then
+                             S := ExcludeTrailingBackSlash(GetCurrentDir);
+                          {$ENDIF}
+                          If FileExists(S+SuperSlash+'_.start') Then
+                             begin
+                               AssignFile(TaskFile,S+SuperSlash+'_.start');
+                               Reset(TaskFile);
+                               ReadLn(TaskFile,StartLanguage);
+                               CloseFile(TaskFile);
+                               DeleteFile(PChar(S+SuperSlash+'_.start'));
+                             end
+                          Else
+                             Begin
+                               _Free(Result);
+                               Result := Nil;
+                               LeaveCriticalSection(VariantsCS);
+                               If Assigned(T) Then T.Synchronize(T.Process);
+                               Exit
+                             End;
+                          DeleteFile(PChar(S+SuperSlash+'_.exe'));
+                          Compiled := False;
+                          For F := 0 To _Restrictions.Count - 1 Do
+                              If TObject(_Restrictions[F]) is TWeakTest Then
+                                 If Not TWeakTest(_Restrictions[F]).Test(ENV, dom, Result, Compiled, StartLanguage) Then
+                                    Begin
+                                      _Free(Result);
+                                      Result := Nil;
+                                      LeaveCriticalSection(VariantsCS);
+                                      If Assigned(T) Then T.Synchronize(T.Process);
+                                      Exit
+                                    End
                        End;
-                    // Here must be a possible Snobol retranslation
-                    S:=ExcludeTrailingBackSlash(ExtractFilePath(
-                    {$IF DEFINED(VCL) OR DEFINED(LCL)}
-                    Application.ExeName
-                    {$ELSE}
-                    ParamStr(0)
-                    {$ENDIF}
-                    ));
-                    StartLanguage := '';
-                    {$IF NOT DEFINED(VCL) AND NOT DEFINED(LCL)}
-                    If ParamStr(0) = '' Then
-                       S := ExcludeTrailingBackSlash(GetCurrentDir);
-                    {$ENDIF}
-                    If FileExists(S+SuperSlash+'_.start') Then
-                       begin
-                         AssignFile(TaskFile,S+SuperSlash+'_.start');
-                         Reset(TaskFile);
-                         ReadLn(TaskFile,StartLanguage);
-                         CloseFile(TaskFile);
-                         DeleteFile(PChar(S+SuperSlash+'_.start'));
-                       end
-                    Else
-                       Begin
-                         _Free(Result);
-                         Result := Nil;
-                         LeaveCriticalSection(VariantsCS);
-                         If Assigned(T) Then T.Synchronize(T.Process);
-                         Exit
-                       End;
-                    DeleteFile(PChar(S+SuperSlash+'_.exe'));
-                    Compiled := False;
-                    For F := 0 To _Restrictions.Count - 1 Do
-                        If TObject(_Restrictions[F]) is TWeakTest Then
-                           If Not TWeakTest(_Restrictions[F]).Test(ENV, dom, Result, Compiled, StartLanguage) Then
-                              Begin
-                                _Free(Result);
-                                Result := Nil;
-                                LeaveCriticalSection(VariantsCS);
-                                If Assigned(T) Then T.Synchronize(T.Process);
-                                Exit
-                              End;
                     If Assigned(MetaResult) Then
                        Begin
                          _Free(Result);
@@ -1449,7 +1454,7 @@ Begin
                       started[F] := NumThrSemaphore.AttemptWait;
                       if started[F] Then
                          begin
-                           threads[F] := TDeducer.Create(ENV, vars[F], true, nums[F], tr, _in_stage+1, _in_tr);
+                           threads[F] := TDeducer.Create(OnlyInduceModel, ENV, vars[F], true, nums[F], tr, _in_stage+1, _in_tr);
                            threads[F].Resume;
                            NumThrSemaphore.Post;
                          end
@@ -1458,7 +1463,7 @@ Begin
                            SetLength(ttrs, Length(tr));
                            If Length(ttrs) > 0 Then
                               System.Move(tr[0], ttrs[0], Length(tr)*SizeOf(Integer));
-                           Result := Deduce(ENV, vars[F], false, T, nums[F], ttrs, outtr, _in_stage+1, _in_tr);
+                           Result := Deduce(OnlyInduceModel, ENV, vars[F], false, T, nums[F], ttrs, outtr, _in_stage+1, _in_tr);
                            FreeAndNil(vars[F]);
 
                            If Assigned(T) Then T.Synchronize(T.Process);
@@ -1525,7 +1530,7 @@ End;
 
 { Deducer }
 
-constructor TDeducer.Create(_ENV: TXPathEnvironment; _dom: TXMLDocument;
+constructor TDeducer.Create(_OnlyInduceModel: Boolean; _ENV: TXPathEnvironment; _dom: TXMLDocument;
   _semaphored: Boolean; _parent: Integer; const tr: TTrace;
   _in_stage: Integer; Const _in_tr: TTrace);
 begin
@@ -1533,6 +1538,7 @@ begin
    dom := _dom;
 
    semaphored := _semaphored;
+   OnlyInduceModel := _OnlyInduceModel;
    SetLength(trace, Length(tr));
    If Length(tr) > 0 Then
       System.Move(tr[0], trace[0], Length(tr)*SizeOf(Integer));
@@ -1553,7 +1559,7 @@ end;
 
 procedure TDeducer.Execute;
 begin
-  Result := Deduce(ENV, dom, semaphored, Self, parent, trace, out_tr, in_stage, in_tr)
+  Result := Deduce(OnlyInduceModel, ENV, dom, semaphored, Self, parent, trace, out_tr, in_stage, in_tr)
 end;
 
 procedure TDeducer.Process;
@@ -1592,10 +1598,11 @@ function XPathInduct(
    SelectedMode: PChar;
    UseNNet: Boolean; MainLineAllowed: Boolean;
    _ENV: Pointer;
-   inENV, outENV: PWideChar;
-   InXML, OutXML: PWideChar;
+   inENV, outENV: PChar;
+   InXML, OutXML: PChar;
    MaxCPUs: Integer;
-   _IDs: PWideChar): Boolean; cdecl;
+   _IDs: PChar;
+   OnlyInduceModel:Boolean): Boolean; cdecl;
 
 Const MaxBaumWelch = 5;
 
@@ -1954,7 +1961,7 @@ begin
    NodeNameTester := NodeNameTesterF;
    With TStringList.Create Do
      Begin
-       Text := WideString(_IDs);
+       Text := String(_IDs);
        SetLength(IDs, Count);
        For F := 0 To Count-1 Do
            IDs[F] := Strings[F];
@@ -1965,7 +1972,7 @@ begin
    Else
       Begin
         ENV := TXPathEnvironment.Create;
-        If (inENV <> Nil) And (WideString(inENV) <> '') Then
+        If (inENV <> Nil) And (String(inENV) <> '') Then
            ENV.Import(inENV)
       End;
 
@@ -2314,7 +2321,7 @@ begin
 
           SetLength(tr, 0);
           Start := Now;
-          deducer := TDeducer.Create(ENV, dom, false, -1, tr, 0, MainLine);
+          deducer := TDeducer.Create(OnlyInduceModel, ENV, dom, false, -1, tr, 0, MainLine);
           deducer.Resume;
           deducer.WaitFor;
           dom := deducer.dom;
@@ -2503,7 +2510,7 @@ end;
 function CompileXPathing(
    _Messaging: Boolean;
    _AllowedVersions: PChar;
-   FName: PChar; _ENV: Pointer; inENV, outENV: PWideChar;
+   FName: PChar; _ENV: Pointer; inENV, outENV: PChar;
    _WorkText: PChar): Boolean; cdecl;
 
 function Intersecting(L1, L2: TStringList): Boolean;
@@ -2539,7 +2546,7 @@ begin
      Else
         Begin
           ENV := TXPathEnvironment.Create;
-          If (inENV <> Nil) And (WideString(inENV) <> '') Then
+          If (inENV <> Nil) And (String(inENV) <> '') Then
              ENV.Import(inENV)
         End;
      AllowedVersions := TStringList.Create;

@@ -139,8 +139,8 @@ Var F: Integer;
     SelectedVersion: String;
     E: String;
     IDs: IDArray;
-    ExportedENV: Array[0..65536] Of WideChar;
-    _IDs: WideString;
+    ExportedENV: Array[0..65536] Of Char;
+    _IDs: String;
 begin
   If btnOk.ModalResult = mrNone Then
      Begin
@@ -191,7 +191,7 @@ begin
                               Begin
                                 For F := 0 To Length(IDs)-1 Do
                                     Add(IDs[F]);
-                                _IDs := WideString(Text);
+                                _IDs := String(Text);
                                 Free
                               end;
                             ENV.commitUndo(0);
@@ -204,7 +204,8 @@ begin
                                @MoveF, @CheckSysF, @ToStringF,
                                @GenerateCodeF, @SaveToXMLF, @_FreeF,
                                @NodeNameTester,
-                               PChar(SelectedVersion), UseNNet.Checked, UseMainLine.Checked, Nil, ExportedENV, ExportedENV, PWideChar(WideString(XPathModelFile)), PWideChar(WideString(OutModelName)), nCPUs.Value, PWideChar(_IDs)
+                               PChar(SelectedVersion), UseNNet.Checked, UseMainLine.Checked, Nil, ExportedENV, ExportedENV, PChar(String(XPathModelFile)), PChar(OutModelName), nCPUs.Value, PChar(_IDs),
+                               False
                             );
                             MakeInfoCommon(String(WideString(GetMSG)));
                             ENV.Import(ExportedENV)
@@ -314,8 +315,8 @@ begin
           S.Add('    ENV: TXPathEnvironment;');
           S.Add('    Strs: StringArray;');
           S.Add('    IDs: IDArray;');
-          S.Add('    ExportedENV: Array[0..65536] Of WideChar;');
-          S.Add('    _IDs: WideString;');
+          S.Add('    ExportedENV: Array[0..65536] Of Char;');
+          S.Add('    _IDs: String;');
           S.Add('    Timeout: Integer;');
           S.Add('    nCPUs: Integer;');
           S.Add('    ST: Stager;');
@@ -420,7 +421,7 @@ begin
                S.Add('            Begin');
                S.Add('              For G := 0 To Length(IDs)-1 Do');
                S.Add('                  Add(IDs[G]);');
-               S.Add('              _IDs := WideString(Text);');
+               S.Add('              _IDs := String(Text);');
                S.Add('              Free');
                S.Add('            end;');
                S.Add('          SetInterval(1000*Timeout);');
@@ -486,7 +487,7 @@ begin
                S.Add('              @GenerateCodeF, @SaveToXMLF, @_FreeF,');
                S.Add('              @NodeNameTester,');
                S.Add('              PChar('''+SelectedVersion+'''), ' +
-                                    BoolVals[UseNNet.Checked] + ', ' + BoolVals[UseMainLine.Checked] + ', Nil, ExportedENV, ExportedENV, PWideChar(WideString(XPathModelFile)), PWideChar(WideString(''' + OutModelName + ''')), nCPUs, PWideChar(_IDs));');
+                                    BoolVals[UseNNet.Checked] + ', ' + BoolVals[UseMainLine.Checked] + ', Nil, ExportedENV, ExportedENV, PChar(String(XPathModelFile)), PChar(String(''' + OutModelName + ''')), nCPUs, PChar(_IDs), False);');
                S.Add('          MakeInfoCommon(String(WideString(GetMSG)));');
                S.Add('          ENV.Import(ExportedENV);');
                S.Add('        End');

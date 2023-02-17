@@ -17,7 +17,7 @@ function ElementIs(Ref:TElementReg; Const IsClsID:String): Boolean;
 
 function ExistClass(Const ClsID:String):Boolean;
 
-procedure CreateContacts(Const ClassID: String; _Dir: TIODirection; dom: TXMLDocument; Parent: TDOMElement; Tag: PWideChar);
+procedure CreateContacts(Const ClassID: String; _Dir: TIODirection; dom: TXMLDocument; Parent: TDOMElement; Tag: PChar);
 
 Function CanReach(Sys: TSystem; _From: TElement; nTo: Integer; _To: PPointerList): Boolean;
 
@@ -39,7 +39,7 @@ implementation
 
 Uses SysUtils{$IF DEFINED(LCL) OR DEFINED(VCL)}{$IFDEF FPC}, LCLIntf{$ENDIF}{$ENDIF}, xpathingIntrf, AutoConsts;
 
-procedure CreateContacts(Const ClassID: String; _Dir: TIODirection; dom: TXMLDocument; Parent: TDOMElement; Tag: PWideChar);
+procedure CreateContacts(Const ClassID: String; _Dir: TIODirection; dom: TXMLDocument; Parent: TDOMElement; Tag: PChar);
 
 Var F: Integer;
     Ref: TElementReg;
