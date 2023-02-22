@@ -298,7 +298,6 @@ Var res: TXPathVariable;
     inp, outp: String;
     L: TextFile;
     LL: TStringList;
-    S: String;
     F: Integer;
     Err: Integer;
 begin
@@ -307,14 +306,6 @@ begin
    res := EvaluateXPathExpression(Expr, dom.DocumentElement, NodeNameTester, [], Nil, Nil, ENV);
    ENV.commitUndo(0);
 
-   S:=ExcludeTrailingBackSlash(ExtractFilePath(
-   {$IF DEFINED(LCL) OR DEFINED(VCL)}
-   Application.ExeName
-   {$ELSE}
-   ParamStr(0)
-   {$ENDIF}
-   ));
-
    If res is TXPathNodeSetVariable Then
       For F := 0 To res.AsNodeSet.Count - 1 Do
         If TObject(res.AsNodeSet[F]) is TDOMElement Then
@@ -322,11 +313,11 @@ begin
             inp := TDOMElement(res.AsNodeSet[F]).AttribStrings[InAttr];
             outp := TDOMElement(res.AsNodeSet[F]).AttribStrings[OutAttr];
 
-            AssignFile(L, S + SuperSlash+'_.in');
+            AssignFile(L, '_.in');
             Rewrite(L);
             Write(L, inp);
             CloseFile(L);
-            AssignFile(L, S + SuperSlash+'_.out');
+            AssignFile(L, '_.out');
             Rewrite(L);
             CloseFile(L);
 
@@ -338,7 +329,7 @@ begin
                  Compiled := True
                End;
 
-            AssignFile(L, S + SuperSlash+'_.result');
+            AssignFile(L, '_.result');
             Reset(L);
             ReadLn(L, Err);
             CloseFile(L);
@@ -350,7 +341,7 @@ begin
 
             LL := TStringList.Create;
             Try
-               LL.LoadFromFile(S + SuperSlash+'_.xout');
+               LL.LoadFromFile('_.xout');
                txt := LL.Text;
             Except
                txt := '';
@@ -1253,26 +1244,14 @@ Begin
                                If Assigned(T) Then T.Synchronize(T.Process);
                                Exit
                              End;
-                          // Here must be a possible Snobol retranslation
-                          S:=ExcludeTrailingBackSlash(ExtractFilePath(
-                          {$IF DEFINED(VCL) OR DEFINED(LCL)}
-                          Application.ExeName
-                          {$ELSE}
-                          ParamStr(0)
-                          {$ENDIF}
-                          ));
                           StartLanguage := '';
-                          {$IF NOT DEFINED(VCL) AND NOT DEFINED(LCL)}
-                          If ParamStr(0) = '' Then
-                             S := ExcludeTrailingBackSlash(GetCurrentDir);
-                          {$ENDIF}
-                          If FileExists(S+SuperSlash+'_.start') Then
+                          If FileExists('_.start') Then
                              begin
-                               AssignFile(TaskFile,S+SuperSlash+'_.start');
+                               AssignFile(TaskFile,'_.start');
                                Reset(TaskFile);
                                ReadLn(TaskFile,StartLanguage);
                                CloseFile(TaskFile);
-                               DeleteFile(PChar(S+SuperSlash+'_.start'));
+                               DeleteFile(PChar('_.start'));
                              end
                           Else
                              Begin
@@ -1282,7 +1261,7 @@ Begin
                                If Assigned(T) Then T.Synchronize(T.Process);
                                Exit
                              End;
-                          DeleteFile(PChar(S+SuperSlash+'_.exe'));
+                          DeleteFile(PChar('_.exe'));
                           Compiled := False;
                           For F := 0 To _Restrictions.Count - 1 Do
                               If TObject(_Restrictions[F]) is TWeakTest Then
