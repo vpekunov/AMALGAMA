@@ -570,10 +570,19 @@ Begin
 End;
 
 Var _Quote:Byte;
+    NN: Integer;
     C:Char;
 Begin
      Result:=True;
      _Quote:=qtNone;
+     NN := Length(S);
+     DelSpaces;
+     K := Length(S);
+     Dec(NN, Length(S));
+     If Count > NN Then
+        Dec(Count, NN)
+     Else
+        Count := 1;
      If Empty Then
         Begin
           IncCount;

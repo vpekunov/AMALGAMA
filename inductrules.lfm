@@ -1,22 +1,24 @@
 object InductRulesForm: TInductRulesForm
-  Left = 132
-  Height = 582
-  Top = 47
+  Left = 2
+  Height = 535
+  Top = 4
   Width = 1028
   BorderStyle = bsSingle
   Caption = 'Индукция правил'
-  ClientHeight = 582
+  ClientHeight = 535
   ClientWidth = 1028
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   Position = poScreenCenter
   LCLVersion = '2.2.4.0'
   object LogMemo: TMemo
-    Left = 9
-    Height = 71
-    Top = 588
+    Left = 7
+    Height = 39
+    Top = 496
     Width = 1057
     Color = 12707839
+    Font.Height = -9
+    ParentFont = False
     ScrollBars = ssBoth
     TabOrder = 0
   end
@@ -50,7 +52,7 @@ object InductRulesForm: TInductRulesForm
   end
   object tvClasses: TTreeView
     Left = 208
-    Height = 424
+    Height = 392
     Top = 16
     Width = 225
     BackgroundColor = 13619151
@@ -86,7 +88,7 @@ object InductRulesForm: TInductRulesForm
   end
   object memInducer: TMemo
     Left = 446
-    Height = 180
+    Height = 164
     Top = 20
     Width = 618
     Color = 16121305
@@ -104,28 +106,28 @@ object InductRulesForm: TInductRulesForm
     ParentColor = False
   end
   object btGenerate: TButton
-    Left = 446
+    Left = 445
     Height = 25
-    Top = 248
+    Top = 229
     Width = 617
     Caption = 'Сгенерировать распознающие скрипты'
     OnClick = btGenerateClick
     TabOrder = 6
   end
   object btLoadProject: TButton
-    Left = 632
+    Left = 832
     Height = 25
-    Top = 560
-    Width = 193
+    Top = 432
+    Width = 177
     Caption = 'Загрузить проект'
     OnClick = btLoadProjectClick
     TabOrder = 7
   end
   object btSaveProject: TButton
-    Left = 836
+    Left = 832
     Height = 25
-    Top = 560
-    Width = 227
+    Top = 464
+    Width = 179
     Caption = 'Сохранить проект'
     OnClick = btSaveProjectClick
     TabOrder = 8
@@ -133,14 +135,14 @@ object InductRulesForm: TInductRulesForm
   object edPhrase: TEdit
     Left = 9
     Height = 23
-    Top = 397
+    Top = 384
     Width = 192
     TabOrder = 9
   end
   object btViewObj: TButton
     Left = 10
     Height = 25
-    Top = 355
+    Top = 344
     Width = 192
     Caption = 'Посмотреть/Редактировать'
     OnClick = btViewObjClick
@@ -148,7 +150,7 @@ object InductRulesForm: TInductRulesForm
   end
   object lbObjs: TListBox
     Left = 9
-    Height = 100
+    Height = 87
     Top = 249
     Width = 190
     Color = 13619151
@@ -158,16 +160,16 @@ object InductRulesForm: TInductRulesForm
   object Label5: TLabel
     Left = 12
     Height = 15
-    Top = 382
+    Top = 368
     Width = 174
     Caption = 'Фраза-шаблон ($ = окончание)'
     ParentColor = False
   end
   object lbBound: TListBox
     Left = 8
-    Height = 104
-    Top = 449
-    Width = 1055
+    Height = 48
+    Top = 432
+    Width = 816
     Color = 14741185
     ItemHeight = 0
     Sorted = True
@@ -176,7 +178,7 @@ object InductRulesForm: TInductRulesForm
   object btAddPhrasedObj: TSpeedButton
     Left = 104
     Height = 22
-    Top = 424
+    Top = 408
     Width = 23
     Glyph.Data = {
       36040000424D3604000000000000360000002800000010000000100000000100
@@ -219,7 +221,7 @@ object InductRulesForm: TInductRulesForm
   object btDelPhrasedObj: TSpeedButton
     Left = 136
     Height = 22
-    Top = 424
+    Top = 408
     Width = 23
     Glyph.Data = {
       36040000424D3604000000000000360000002800000010000000100000000100
@@ -260,41 +262,41 @@ object InductRulesForm: TInductRulesForm
     OnClick = btDelPhrasedObjClick
   end
   object edConstsName: TEdit
-    Left = 448
+    Left = 447
     Height = 23
-    Top = 219
+    Top = 200
     Width = 262
     TabOrder = 13
     Text = 'dbconsts'
   end
   object edTablesName: TEdit
-    Left = 757
+    Left = 756
     Height = 23
-    Top = 219
+    Top = 200
     Width = 306
     TabOrder = 14
     Text = 'dbtables'
   end
   object Label6: TLabel
-    Left = 449
+    Left = 448
     Height = 15
-    Top = 203
+    Top = 184
     Width = 181
     Caption = 'Базовое имя справочных таблиц'
     ParentColor = False
   end
   object Label7: TLabel
-    Left = 756
+    Left = 755
     Height = 15
-    Top = 203
+    Top = 184
     Width = 230
     Caption = 'Базовое имя трансформирующих таблиц'
     ParentColor = False
   end
   object memIm: TMemo
-    Left = 448
+    Left = 447
     Height = 83
-    Top = 291
+    Top = 272
     Width = 616
     Color = 16121305
     OnChange = memImChange
@@ -303,33 +305,33 @@ object InductRulesForm: TInductRulesForm
     WordWrap = False
   end
   object Label8: TLabel
-    Left = 449
+    Left = 447
     Height = 15
-    Top = 273
+    Top = 256
     Width = 48
     Caption = 'im-файл'
     ParentColor = False
   end
   object Label9: TLabel
-    Left = 9
+    Left = 8
     Height = 15
-    Top = 573
+    Top = 480
     Width = 93
     Caption = 'Рабочий журнал'
     ParentColor = False
   end
   object Label10: TLabel
-    Left = 446
+    Left = 445
     Height = 15
-    Top = 376
+    Top = 357
     Width = 136
     Caption = 'Предложения в ini-файл'
     ParentColor = False
   end
   object memIni: TMemo
-    Left = 447
-    Height = 46
-    Top = 392
+    Left = 446
+    Height = 51
+    Top = 373
     Width = 616
     Color = 16121305
     ScrollBars = ssBoth
@@ -349,15 +351,15 @@ object InductRulesForm: TInductRulesForm
   object Label11: TLabel
     Left = 8
     Height = 15
-    Top = 433
+    Top = 416
     Width = 85
     Caption = 'Сопоставления'
     ParentColor = False
   end
   object btSaveIm: TButton
-    Left = 504
+    Left = 503
     Height = 17
-    Top = 273
+    Top = 254
     Width = 99
     Caption = 'Сохранить'
     Enabled = False
@@ -382,25 +384,25 @@ object InductRulesForm: TInductRulesForm
   object SaveProjectDialog: TSaveDialog
     Filter = 'Файлы проекта (*.prj)|*.prj|Все файлы|*.*'
     Options = [ofOverwritePrompt, ofPathMustExist, ofEnableSizing, ofViewDetail]
-    Left = 57
-    Top = 84
+    Left = 48
+    Top = 80
   end
   object OpenProjectDialog: TOpenDialog
     Filter = 'Файлы проекта (*.prj)|*.prj|Все файлы|*.*'
     Options = [ofPathMustExist, ofFileMustExist, ofEnableSizing, ofViewDetail]
-    Left = 57
-    Top = 140
+    Left = 80
+    Top = 120
   end
   object SaveImDialog: TSaveDialog
     Filter = 'Im-файлы (*.im)|*.im|Все файлы (*.*)|*.*'
     Options = [ofOverwritePrompt, ofPathMustExist, ofEnableSizing, ofViewDetail]
     Left = 129
-    Top = 58
+    Top = 48
   end
   object OpenTxtDialog: TOpenDialog
     Filter = 'Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*'
     Options = [ofPathMustExist, ofFileMustExist, ofEnableSizing, ofViewDetail]
-    Left = 121
-    Top = 113
+    Left = 128
+    Top = 104
   end
 end
