@@ -207,7 +207,7 @@ begin
                                PChar(SelectedVersion), UseNNet.Checked, UseMainLine.Checked, Nil, ExportedENV, ExportedENV, PChar(String(XPathModelFile)), PChar(OutModelName), nCPUs.Value, PChar(_IDs),
                                False
                             );
-                            MakeInfoCommon(String(WideString(GetMSG)));
+                            MakeInfoCommon(String(GetMSG));
                             ENV.Import(ExportedENV)
                           end;
                      End
@@ -488,7 +488,7 @@ begin
                S.Add('              @NodeNameTester,');
                S.Add('              PChar('''+SelectedVersion+'''), ' +
                                     BoolVals[UseNNet.Checked] + ', ' + BoolVals[UseMainLine.Checked] + ', Nil, ExportedENV, ExportedENV, PChar(String(XPathModelFile)), PChar(String(''' + OutModelName + ''')), nCPUs, PChar(_IDs), False);');
-               S.Add('          MakeInfoCommon(String(WideString(GetMSG)));');
+               S.Add('          MakeInfoCommon(String(GetMSG));');
                S.Add('          ENV.Import(ExportedENV);');
                S.Add('        End');
                S.Add('     Else');

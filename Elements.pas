@@ -987,7 +987,7 @@ begin
                          PChar(Path + XPathFile), Nil, ExportedENV, ExportedENV, '') Then
                  Begin
                    ClearRestrictions;
-                   MakeErrorCommon(String(WideString(GetMSG)))
+                   MakeErrorCommon(String(GetMSG))
                  End;
               ENV.Import(ExportedENV);
               SetDeduceLogFile(PChar(Path + LogFile))

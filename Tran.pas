@@ -755,7 +755,8 @@ begin
      Enabled:=False;
      ProgText.Lines.Text:='Компиляция и запуск...';
      Application.ProcessMessages;
-     ProgText.Lines.Text:=RunExtCommand('start_'+StartLanguage+'.bat','_.out _.res','_.res',CRLF+CRLF);
+     RenameFile('_.out', '_.'+StartLanguage);
+     ProgText.Lines.Text:=RunExtCommand('start_'+StartLanguage+'.bat','_.'+StartLanguage+' _.res','_.res',CRLF+CRLF);
      Enabled:=True
 end;
 
