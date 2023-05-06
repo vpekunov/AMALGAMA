@@ -16,7 +16,7 @@ cd ..
 export CPPFLAGS="$PWD/link-grammar-5.3.0"
 cd ./link-grammar-5.3.0
 unzip ./link-grammar-5.3.0.zip
-sudo ./configure
+sudo sh ./configure
 sudo make
 sudo make install
 sudo ldconfig
