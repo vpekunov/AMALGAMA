@@ -11,7 +11,7 @@ solve(ID):-
   mark_forked(SessionID,TaskID),
   NewTaskID is TaskID+1,
   !,
-  (@<(NewTaskID,NumTasks)->
+  (<(NewTaskID,NumTasks)->
     atom_concat('spawned(''',SessionID,A1),
     atom_concat(A1,''',',A2),
     number_atom(NewTaskID,NewTaskID_),

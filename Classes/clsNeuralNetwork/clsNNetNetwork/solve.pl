@@ -21,7 +21,8 @@ solve(ID):-
   parse_string_list(Neurons0, [Neurons1]), atom_chars(Neurons, Neurons1),
   parse_list(Neurons, NLayers, LNeurons),
   append([N0], LNeurons, L1),
-  max_list(L1, NN),
+  max_list(L1, NDBL),
+  NN is round(NDBL),
   H is NN * 80,
   W is (NLayers + 3)*150,
   atom_concat(ID, '_DAT', DatID),
@@ -33,7 +34,7 @@ solve(ID):-
   insert_element(DatID,'clsNNetData',Class,Name,Image,Left,DTop,['File'],[File],[],['Inp','Out']),
   XLeft is Left + 150,
   XTop is Top + round((NN-(NInps+1))*80/2),
-  insert_inputs(XBase, LInps, Class, Name, Image, XLeft, XTop, 80, DatID),
+  insert_inputs_(XBase, LInps, Class, Name, Image, XLeft, XTop, 80, DatID),
   YTop is XTop + NInps*80,
   insert_element(YID,'clsNNetOutput',Class,Name,Image,XLeft,YTop,['Num','NNum','Normalize'],[Out,'0','Yes'],['Data'],['Out']),
   insert_link(DatID, 'Out', YID, 'Data', 'clBlue'),
@@ -51,7 +52,7 @@ solve(ID):-
   delete_element(ID),
   !.
 
-insert_inputs(XBase, LInps, Class, Name, Image, XLeft, XTop, H, DatID):-
+insert_inputs_(XBase, LInps, Class, Name, Image, XLeft, XTop, H, DatID):-
   asserta(counter(0)),
   member(NC,LInps),
   counter(C),
@@ -66,7 +67,7 @@ insert_inputs(XBase, LInps, Class, Name, Image, XLeft, XTop, H, DatID):-
   C1 is C+1,
   asserta(counter(C1)),
   fail.
-insert_inputs(_, _, _, _, _, _, _, _, _):-
+insert_inputs_(_, _, _, _, _, _, _, _, _):-
   !,
   retractall(counter(_)).
 

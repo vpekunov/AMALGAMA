@@ -136,8 +136,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="10"/>
         <WindowIndex Value="1"/>
-        <TopLine Value="740"/>
-        <CursorPos Y="759"/>
+        <TopLine Value="524"/>
+        <CursorPos X="102" Y="541"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -225,8 +225,8 @@
         <UnitName Value="Common"/>
         <EditorIndex Value="15"/>
         <WindowIndex Value="1"/>
-        <TopLine Value="699"/>
-        <CursorPos Y="714"/>
+        <TopLine Value="461"/>
+        <CursorPos X="6" Y="461"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit16>
@@ -398,7 +398,7 @@
         <WindowIndex Value="1"/>
         <TopLine Value="61"/>
         <CursorPos X="21" Y="43"/>
-        <UsageCount Value="40"/>
+        <UsageCount Value="41"/>
         <Loaded Value="True"/>
       </Unit33>
       <Unit34>
@@ -461,7 +461,7 @@
         <UsageCount Value="12"/>
       </Unit40>
     </Units>
-    <JumpHistory Count="13" HistoryIndex="12">
+    <JumpHistory Count="17" HistoryIndex="16">
       <Position1>
         <Filename Value="inductrules.pas"/>
       </Position1>
@@ -513,6 +513,21 @@
         <Filename Value="Tran.pas"/>
         <Caret Line="257" Column="41" TopLine="249"/>
       </Position13>
+      <Position14>
+        <Filename Value="Tran.pas"/>
+        <Caret Line="755" Column="44" TopLine="740"/>
+      </Position14>
+      <Position15>
+        <Filename Value="Tran.pas"/>
+      </Position15>
+      <Position16>
+        <Filename Value="Tran.pas"/>
+        <Caret Line="541" Column="31" TopLine="524"/>
+      </Position16>
+      <Position17>
+        <Filename Value="COMMON.PAS"/>
+        <Caret Line="76" Column="10" TopLine="66"/>
+      </Position17>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

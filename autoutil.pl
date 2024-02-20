@@ -230,7 +230,7 @@ end_tag(Shift,Name):-
 
 count_elements(N):-
   predicate_property(element(_,_,_,_),dynamic),
-  findall(ID,element(ID,_,_,_),L),
+  findall(id,element(_,_,_,_),L),
   length(L,N),
   !.
 count_elements(0):-
@@ -238,7 +238,7 @@ count_elements(0):-
 
 count_parameters(ID,N):-
   predicate_property(parameter(_,_,_,_),dynamic),
-  findall(ID,parameter(ID,_,_,_),L),
+  findall(id,parameter(ID,_,_,_),L),
   length(L,N),
   !.
 count_parameters(_,0):-
@@ -246,7 +246,7 @@ count_parameters(_,0):-
 
 count_i_links(ID,CID,N):-
   predicate_property(i_link(_,_,_,_,_),dynamic),
-  findall(ID,i_link(ID,CID,_,_,_),L),
+  findall(id,i_link(ID,CID,_,_,_),L),
   length(L,N),
   !.
 count_i_links(_,_,0):-
@@ -254,16 +254,17 @@ count_i_links(_,_,0):-
 
 count_o_links(ID,CID,N):-
   predicate_property(o_link(_,_,_,_,_,_,_,_),dynamic),
-  findall(ID,o_link(ID,CID,_,_,_,_,_,_),L),
+  findall(id,o_link(ID,CID,_,_,_,_,_,_),L),
   length(L,N),
   !.
 count_o_links(_,_,0):-
   predicate_property(o_link(_,_,_,_,_,_,_,_),dynamic)->(fail,!) ; !.
 
 count_items_4(ID,Predicat,N):-
+  =..(PP,[Predicat,ID,_,_,_]),
   functor(P,Predicat,4),
   predicate_property(P,dynamic),
-  findall(CID,call_with_args(Predicat,ID,CID,_,_),L),
+  findall(cid,PP,L),
   length(L,N),
   !.
 count_items_4(_,Predicat,0):-
@@ -273,7 +274,8 @@ count_items_4(_,Predicat,0):-
 count_io_contacts(ID,Predicat,N):-
   functor(P,Predicat,2),
   predicate_property(P,dynamic),
-  findall(CID,call_with_args(Predicat,ID,CID),L),
+  =..(PP,[Predicat,ID,_]),
+  findall(cid,PP,L),
   length(L,N),
   !.
 count_io_contacts(_,Predicat,0):-
@@ -347,9 +349,10 @@ parse_char_list(L,[H|Tag]):-
 
 % "xxxxxxxxxxx"
 parse_char_list_any(['"'|Tag],[List]):-
-  findall(_,member('"',Tag),L),length(L,1),
-  !,
-  delete(Tag,'"',List).
+  append(L0,['"'|L1],Tag),
+  append(L0,L1,List),
+  \+ member('"', List),
+  !.
 % "xxxx","yyyy"...
 parse_char_list_any(['"'|Tag],List):-
   !,
@@ -478,7 +481,8 @@ write_i_links(Prefix,ID):-
   end_tag(Prefix,'InputLinks'), nl.
 
 write_contacts_enum(Prefix,ID,Predicat,Tag,Attr1,Attr2):-
-  call_with_args(Predicat,ID,CID,Val1,Val2),
+  =..(PP,[Predicat,ID,CID,Val1,Val2]),
+  PP,
   write_tag(Prefix,Tag,['ID',Attr1,Attr2],[CID,Val1,Val2],true), nl,
   fail.
 write_contacts_enum(_,_,_,_,_,_):-

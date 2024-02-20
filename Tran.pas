@@ -538,7 +538,7 @@ begin
                        CreateStrFile('_.pl',Prog);
                        S:=StringReplace(ExcludeTrailingBackSlash(ExtractFilePath(Application.ExeName)),'\','/',[rfReplaceAll]);
                        NewName:=Format('%s.pop%u.reded%u.fork%u.ded%u.xml',[BaseName,Npop,Nrededuce,Nforked,Ndeduce]);
-                       RunExtCommand('run_gprolog.bat',S+' _.pl process('''+NewName+''')',NewName,'');
+                       RunExtCommand('run_gprolog.bat',S+' _.pl _.info process(''"'+NewName+'"'') _._',NewName,'');
                        MainForm.RenewModel(False,NewName);
                        Inc(Ndeduce)
                      end
