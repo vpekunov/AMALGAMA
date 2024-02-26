@@ -804,7 +804,46 @@ void CalculateK(WKoeffs * W, StoreStruct * V, float ** Kf, float ** KDn, float *
           echo "--------------------\n";
           echo ShiftStr("               ",implode(";",$SplittedFVars)),";\n";
           echo "--------------------\n";
-          MakeError("Model Error: ","Circular references in the above ----------marked---------- block!",__LINE__);
+
+          if (!function_exists("find_cycle")) {
+             function find_cycle(&$RLinks, $From, &$Path, &$Visited) {
+               foreach ($RLinks[$From] as $Key => $Val) {
+                  if ($Visited[$Val])
+                     return $Val;
+               }
+               array_push($Path, $From);
+               $Visited[$From] = 1;
+               foreach ($RLinks[$From] as $Key => $Val) {
+                  $Cycled = find_cycle($RLinks, $Val, $Path, $Visited);
+                  if ($Cycled !== "") {
+                     if (is_array($Cycled))
+                        return $Cycled;
+                     else {
+                        if ($From == $Cycled) {
+                           for ($i = 0; $i < count($Path); $i++)
+                               if ($Path[$i] == $From)
+                                  return array_slice($Path, $i);
+                        }
+                     }
+                  }
+               }
+               array_pop($Path);
+               unset($Visited[$From]);
+               return "";
+             }
+          }
+
+          foreach ($RLinks as $Key => $Val) {
+             $Path = array();
+             $Visited = array();
+             $Cycle = find_cycle($RLinks, $Key, $Path, $Visited);
+             if ($Cycle !== "") {
+                array_push($Cycle, $Cycle[0]);
+                break;
+             }
+          }
+
+          MakeError("Model Error: ","Circular references [".implode($Cycle,"->")."] in the marked block above!",__LINE__);
           break;
        }
       }

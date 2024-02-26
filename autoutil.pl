@@ -110,7 +110,7 @@ mark_forked(SessionID,TaskID):-
   (
    predicate_property(fork_params(_),'dynamic'),fork_params(Params)->
      tell('_vars.php3'),
-     write('<?'),nl,
+     write('<?php'),nl,
      write_fork_params(Params),
      write('?>'),nl,
      told;
@@ -127,12 +127,20 @@ push_model_to_rededuce(Prm):-
   told,
   tell(TELL).
 
+read_token_s(T):-
+  read_token(T1),
+  (
+   =(T1, string(T0))->
+    =(T, T0);
+    =(T, T1)
+  ).
+
 rewrite_except_last(CurName,CurPrm,Prm):-
-  (read_token(Next)->
+  (read_token_s(Next)->
    (
     =(Next,punct(end_of_file))->
      =(Prm,end_of_file);
-     read_token(Prm1),
+     read_token_s(Prm1),
      (
       =(CurName,'')->
         true;
@@ -149,11 +157,11 @@ rewrite_except_last(CurName,CurPrm,Prm):-
   !.
 
 get_model_last(FName,Prm):-
-  (read_token(FNameThis)->
+  (read_token_s(FNameThis)->
    (
     =(FNameThis,punct(end_of_file))->
      =(Prm,end_of_file);
-     read_token(Prm1),
+     read_token_s(Prm1),
      get_model_last(FName_,Prm2),
      (
       =(Prm2,end_of_file)->
@@ -365,6 +373,20 @@ parse_string_list('',[]):-!.
 parse_string_list(Val,List):-
   atom_chars(Val,L),
   parse_char_list_any(L,List).
+
+convert_string_list(L, L1):-
+  parse_string_list(L, LL),
+  concat_string_list(LL, '\n', L1).
+
+concat_string_list([], _, ''):-
+  !.
+concat_string_list([H|Tag], Delim, A):-
+  atom_chars(HH, H),
+  atom_concat(HH, Delim, A1),
+  concat_string_list(Tag, Delim, A2),
+  !,
+  atom_concat(A1, A2, A),
+  !.
 
 write_list([]):-
   !.

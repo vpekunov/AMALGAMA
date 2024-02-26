@@ -88,8 +88,8 @@ NumItems CDATA #REQUIRED
    <Position Left="193" Top="106"/>
    <Parameters NumItems="3">
     <Parameter ID="Uw" Indent="0">0</Parameter>
-    <Parameter ID="Nc" Indent="0">1</Parameter>
     <Parameter ID="Source" Indent="0"></Parameter>
+    <Parameter ID="Nc" Indent="0">1</Parameter>
    </Parameters>
    <InternalInputs NumItems="0"/>
    <InternalOutputs NumItems="0"/>
@@ -513,8 +513,8 @@ Result = 2.5*@Ky*Uref*K1;
    <Show Class="False" Name="True" Image="False"/>
    <Position Left="739" Top="173"/>
    <Parameters NumItems="2">
-    <Parameter ID="Expression" Indent="0">Split{0.0,-1.0/@RO*dFdx(P)};</Parameter>
     <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">Split{0.0,-1.0/@RO*dFdx(P)};</Parameter>
    </Parameters>
    <InternalInputs NumItems="0"/>
    <InternalOutputs NumItems="0"/>
@@ -533,8 +533,8 @@ Result = 2.5*@Ky*Uref*K1;
    <Show Class="False" Name="True" Image="False"/>
    <Position Left="714" Top="257"/>
    <Parameters NumItems="2">
-    <Parameter ID="Expression" Indent="0">Split{0.0,-1.0/@RO*dFdy(P)};</Parameter>
     <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">Split{0.0,-1.0/@RO*dFdy(P)};</Parameter>
    </Parameters>
    <InternalInputs NumItems="0"/>
    <InternalOutputs NumItems="0"/>
@@ -553,8 +553,8 @@ Result = 2.5*@Ky*Uref*K1;
    <Show Class="False" Name="True" Image="False"/>
    <Position Left="704" Top="346"/>
    <Parameters NumItems="2">
-    <Parameter ID="Expression" Indent="0">Split{0.0,-1.0/@RO*dFdz(P)};</Parameter>
     <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">Split{0.0,-1.0/@RO*dFdz(P)};</Parameter>
    </Parameters>
    <InternalInputs NumItems="0"/>
    <InternalOutputs NumItems="0"/>
@@ -846,8 +846,8 @@ double DDD =  Nu*SSS2;
    <Show Class="False" Name="True" Image="False"/>
    <Position Left="548" Top="38"/>
    <Parameters NumItems="2">
-    <Parameter ID="Expression" Indent="0">0.0845 * Kt * Kt/Et;</Parameter>
     <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">0.0845 * Kt * Kt/Et;</Parameter>
    </Parameters>
    <InternalInputs NumItems="0"/>
    <InternalOutputs NumItems="0"/>
@@ -1029,6 +1029,7 @@ double RNG3 = RNG*RNG*RNG;
    <Show Class="False" Name="True" Image="False"/>
    <Position Left="562" Top="292"/>
    <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0"></Parameter>
     <Parameter ID="Expression" Indent="0">if (IsCond(Et,A))
                     {
                      if (IsForw)   _fw(Et) = pow(0.0845,0.75)*pow(_fw(Kt),1.5)/0.41/HY[YM];
@@ -1039,7 +1040,6 @@ double RNG3 = RNG*RNG*RNG;
                      if (IsRight)  _rg(Et) = pow(0.0845,0.75)*pow(_rg(Kt),1.5)/0.41/HX[XM];
                     }
 </Parameter>
-    <Parameter ID="Vars" Indent="0"></Parameter>
    </Parameters>
    <InternalInputs NumItems="0"/>
    <InternalOutputs NumItems="0"/>
@@ -1058,6 +1058,7 @@ double RNG3 = RNG*RNG*RNG;
    <Show Class="False" Name="True" Image="False"/>
    <Position Left="556" Top="78"/>
    <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="0"></Parameter>
     <Parameter ID="Expression" Indent="0">if (IsCond(Nu,A))
                     {
                      if (IsForw)   _fw(Nu) = 0.0845*pow(_fw(Kt),2)/_fw(Et);
@@ -1068,7 +1069,6 @@ double RNG3 = RNG*RNG*RNG;
                      if (IsRight)  _rg(Nu) = 0.0845*pow(_rg(Kt),2)/_rg(Et);
                     }
 </Parameter>
-    <Parameter ID="Vars" Indent="0"></Parameter>
    </Parameters>
    <InternalInputs NumItems="0"/>
    <InternalOutputs NumItems="0"/>
@@ -1267,8 +1267,8 @@ double K1 = log(ZZ/Z0);
    <Show Class="False" Name="True" Image="False"/>
    <Position Left="478" Top="456"/>
    <Parameters NumItems="2">
-    <Parameter ID="Expression" Indent="0">(NSubst==36 &amp;&amp; _Z[0]==0.0 &amp;&amp; z==1 &amp;&amp; (x==42 || x==43 || x==45 || x==46) &amp;&amp; y&lt;=60 &amp;&amp; y&gt;=7) ? (x==42 ? 1.519E-12 : (x==43 ? 9.126E-13 : (x==45 ? 1.727E-12 : 1.403E-12))) : 0.0;</Parameter>
     <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">(NSubst==36 &amp;&amp; _Z[0]==0.0 &amp;&amp; z==1 &amp;&amp; (x==42 || x==43 || x==45 || x==46) &amp;&amp; y&lt;=60 &amp;&amp; y&gt;=7) ? (x==42 ? 1.519E-12 : (x==43 ? 9.126E-13 : (x==45 ? 1.727E-12 : 1.403E-12))) : 0.0;</Parameter>
    </Parameters>
    <InternalInputs NumItems="0"/>
    <InternalOutputs NumItems="0"/>
@@ -1664,8 +1664,8 @@ double K1 = log(ZZ/Z0);
    <Show Class="False" Name="True" Image="False"/>
    <Position Left="481" Top="507"/>
    <Parameters NumItems="2">
-    <Parameter ID="Expression" Indent="0">(NSubst==36 &amp;&amp; _Z[0]==0.0 &amp;&amp; z==1 &amp;&amp; (x==42 || x==43 || x==45 || x==46) &amp;&amp; y&lt;=60 &amp;&amp; y&gt;=7) ? (x==42 ? 1.101E-13 : (x==43 ? 6.614E-14 : (x==45 ? 1.252E-13 : 1.017E-13))) : 0.0;</Parameter>
     <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">(NSubst==36 &amp;&amp; _Z[0]==0.0 &amp;&amp; z==1 &amp;&amp; (x==42 || x==43 || x==45 || x==46) &amp;&amp; y&lt;=60 &amp;&amp; y&gt;=7) ? (x==42 ? 1.101E-13 : (x==43 ? 6.614E-14 : (x==45 ? 1.252E-13 : 1.017E-13))) : 0.0;</Parameter>
    </Parameters>
    <InternalInputs NumItems="0"/>
    <InternalOutputs NumItems="0"/>
@@ -1684,8 +1684,8 @@ double K1 = log(ZZ/Z0);
    <Show Class="False" Name="True" Image="False"/>
    <Position Left="481" Top="568"/>
    <Parameters NumItems="2">
-    <Parameter ID="Expression" Indent="0">(NSubst==36 &amp;&amp; _Z[0]==0.0 &amp;&amp; z==1 &amp;&amp; (x==42 || x==43 || x==45 || x==46) &amp;&amp; y&lt;=60 &amp;&amp; y&gt;=7) ? (x==42 ? 1.205E-14 : (x==43 ? 1.120E-14 : (x==45 ? 1.459E-14 : 1.480E-14))) : 0.0;</Parameter>
     <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">(NSubst==36 &amp;&amp; _Z[0]==0.0 &amp;&amp; z==1 &amp;&amp; (x==42 || x==43 || x==45 || x==46) &amp;&amp; y&lt;=60 &amp;&amp; y&gt;=7) ? (x==42 ? 1.205E-14 : (x==43 ? 1.120E-14 : (x==45 ? 1.459E-14 : 1.480E-14))) : 0.0;</Parameter>
    </Parameters>
    <InternalInputs NumItems="0"/>
    <InternalOutputs NumItems="0"/>
@@ -1704,8 +1704,8 @@ double K1 = log(ZZ/Z0);
    <Show Class="False" Name="True" Image="False"/>
    <Position Left="482" Top="618"/>
    <Parameters NumItems="2">
-    <Parameter ID="Expression" Indent="0">(NSubst==36 &amp;&amp; _Z[0]==0.0 &amp;&amp; z==1 &amp;&amp; (x==42 || x==43 || x==45 || x==46) &amp;&amp; y&lt;=60 &amp;&amp; y&gt;=7) ? (x==42 ? 3.275E-14 : (x==43 ? 3.034E-14 : (x==45 ? 3.963E-14 : 4.014E-14))) : 0.0;</Parameter>
     <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">(NSubst==36 &amp;&amp; _Z[0]==0.0 &amp;&amp; z==1 &amp;&amp; (x==42 || x==43 || x==45 || x==46) &amp;&amp; y&lt;=60 &amp;&amp; y&gt;=7) ? (x==42 ? 3.275E-14 : (x==43 ? 3.034E-14 : (x==45 ? 3.963E-14 : 4.014E-14))) : 0.0;</Parameter>
    </Parameters>
    <InternalInputs NumItems="0"/>
    <InternalOutputs NumItems="0"/>
@@ -1724,8 +1724,8 @@ double K1 = log(ZZ/Z0);
    <Show Class="False" Name="True" Image="False"/>
    <Position Left="483" Top="676"/>
    <Parameters NumItems="2">
-    <Parameter ID="Expression" Indent="0">(NSubst==36 &amp;&amp; _Z[0]==0.0 &amp;&amp; z==1 &amp;&amp; (x==42 || x==43 || x==45 || x==46) &amp;&amp; y&lt;=60 &amp;&amp; y&gt;=7) ? (x==42 ? 1.606E-14 : (x==43 ? 1.485E-14 : (x==45 ? 1.943E-14 : 1.966E-14))) : 0.0;</Parameter>
     <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">(NSubst==36 &amp;&amp; _Z[0]==0.0 &amp;&amp; z==1 &amp;&amp; (x==42 || x==43 || x==45 || x==46) &amp;&amp; y&lt;=60 &amp;&amp; y&gt;=7) ? (x==42 ? 1.606E-14 : (x==43 ? 1.485E-14 : (x==45 ? 1.943E-14 : 1.966E-14))) : 0.0;</Parameter>
    </Parameters>
    <InternalInputs NumItems="0"/>
    <InternalOutputs NumItems="0"/>
@@ -1744,8 +1744,8 @@ double K1 = log(ZZ/Z0);
    <Show Class="False" Name="True" Image="False"/>
    <Position Left="485" Top="741"/>
    <Parameters NumItems="2">
-    <Parameter ID="Expression" Indent="0">(NSubst==36 &amp;&amp; _Z[0]==0.0 &amp;&amp; z==1 &amp;&amp; (x==42 || x==43 || x==45 || x==46) &amp;&amp; y&lt;=60 &amp;&amp; y&gt;=7) ? (x==42 ? 1.262E-11 : (x==43 ? 1.134E-11 : (x==45 ? 1.518E-11 : 1.511E-11))) : 0.0;</Parameter>
     <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">(NSubst==36 &amp;&amp; _Z[0]==0.0 &amp;&amp; z==1 &amp;&amp; (x==42 || x==43 || x==45 || x==46) &amp;&amp; y&lt;=60 &amp;&amp; y&gt;=7) ? (x==42 ? 1.262E-11 : (x==43 ? 1.134E-11 : (x==45 ? 1.518E-11 : 1.511E-11))) : 0.0;</Parameter>
    </Parameters>
    <InternalInputs NumItems="0"/>
    <InternalOutputs NumItems="0"/>
@@ -1764,8 +1764,8 @@ double K1 = log(ZZ/Z0);
    <Show Class="False" Name="True" Image="False"/>
    <Position Left="481" Top="802"/>
    <Parameters NumItems="2">
-    <Parameter ID="Expression" Indent="0">(NSubst==36 &amp;&amp; _Z[0]==0.0 &amp;&amp; z==1 &amp;&amp; (x==42 || x==43 || x==45 || x==46) &amp;&amp; y&lt;=60 &amp;&amp; y&gt;=7) ? (x==42 ? 2.450E-14 : (x==43 ? 1.961E-14 : (x==45 ? 2.897E-14 : 2.719E-14))) : 0.0;</Parameter>
     <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">(NSubst==36 &amp;&amp; _Z[0]==0.0 &amp;&amp; z==1 &amp;&amp; (x==42 || x==43 || x==45 || x==46) &amp;&amp; y&lt;=60 &amp;&amp; y&gt;=7) ? (x==42 ? 2.450E-14 : (x==43 ? 1.961E-14 : (x==45 ? 2.897E-14 : 2.719E-14))) : 0.0;</Parameter>
    </Parameters>
    <InternalInputs NumItems="0"/>
    <InternalOutputs NumItems="0"/>
@@ -1784,8 +1784,8 @@ double K1 = log(ZZ/Z0);
    <Show Class="False" Name="True" Image="False"/>
    <Position Left="484" Top="858"/>
    <Parameters NumItems="2">
-    <Parameter ID="Expression" Indent="0">(NSubst==36 &amp;&amp; _Z[0]==0.0 &amp;&amp; z==1 &amp;&amp; (x==42 || x==43 || x==45 || x==46) &amp;&amp; y&lt;=60 &amp;&amp; y&gt;=7) ? (x==42 ? 7.184E-15 : (x==43 ? 5.850E-15 : (x==45 ? 8.516E-15 : 8.060E-15))) : 0.0;</Parameter>
     <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">(NSubst==36 &amp;&amp; _Z[0]==0.0 &amp;&amp; z==1 &amp;&amp; (x==42 || x==43 || x==45 || x==46) &amp;&amp; y&lt;=60 &amp;&amp; y&gt;=7) ? (x==42 ? 7.184E-15 : (x==43 ? 5.850E-15 : (x==45 ? 8.516E-15 : 8.060E-15))) : 0.0;</Parameter>
    </Parameters>
    <InternalInputs NumItems="0"/>
    <InternalOutputs NumItems="0"/>
@@ -1804,8 +1804,8 @@ double K1 = log(ZZ/Z0);
    <Show Class="False" Name="True" Image="False"/>
    <Position Left="483" Top="922"/>
    <Parameters NumItems="2">
-    <Parameter ID="Expression" Indent="0">(_Z[0]==0.0 &amp;&amp; z==1 &amp;&amp; (x==42 || x==43 || x==45 || x==46) &amp;&amp; y&lt;=60 &amp;&amp; y&gt;=7) ? (x==42 ? 1.021E-14 : (x==43 ? 4.075E-15 : (x==45 ? 1.114E-14 : 7.519E-15))) : 0.0;</Parameter>
     <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">(_Z[0]==0.0 &amp;&amp; z==1 &amp;&amp; (x==42 || x==43 || x==45 || x==46) &amp;&amp; y&lt;=60 &amp;&amp; y&gt;=7) ? (x==42 ? 1.021E-14 : (x==43 ? 4.075E-15 : (x==45 ? 1.114E-14 : 7.519E-15))) : 0.0;</Parameter>
    </Parameters>
    <InternalInputs NumItems="0"/>
    <InternalOutputs NumItems="0"/>
@@ -2034,8 +2034,8 @@ double uFluxPi = @uDiffuseFlux/Pi;
    <Show Class="False" Name="True" Image="False"/>
    <Position Left="416" Top="1047"/>
    <Parameters NumItems="2">
-    <Parameter ID="Expression" Indent="0">ueBeta;</Parameter>
     <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">ueBeta;</Parameter>
    </Parameters>
    <InternalInputs NumItems="0"/>
    <InternalOutputs NumItems="0"/>
@@ -2054,8 +2054,8 @@ double uFluxPi = @uDiffuseFlux/Pi;
    <Show Class="False" Name="True" Image="False"/>
    <Position Left="518" Top="1051"/>
    <Parameters NumItems="2">
-    <Parameter ID="Expression" Indent="0">@uSolarIntensity;</Parameter>
     <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">@uSolarIntensity;</Parameter>
    </Parameters>
    <InternalInputs NumItems="0"/>
    <InternalOutputs NumItems="0"/>
@@ -2131,8 +2131,8 @@ double uFluxPi = @uDiffuseFlux/Pi;
    <Show Class="False" Name="True" Image="False"/>
    <Position Left="526" Top="1257"/>
    <Parameters NumItems="2">
-    <Parameter ID="Expression" Indent="0">eBeta;</Parameter>
     <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">eBeta;</Parameter>
    </Parameters>
    <InternalInputs NumItems="0"/>
    <InternalOutputs NumItems="0"/>
@@ -2151,8 +2151,8 @@ double uFluxPi = @uDiffuseFlux/Pi;
    <Show Class="False" Name="True" Image="False"/>
    <Position Left="521" Top="1300"/>
    <Parameters NumItems="2">
-    <Parameter ID="Expression" Indent="0">@SolarIntensity;</Parameter>
     <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">@SolarIntensity;</Parameter>
    </Parameters>
    <InternalInputs NumItems="0"/>
    <InternalOutputs NumItems="0"/>
@@ -2415,8 +2415,8 @@ double Ft = _Ft*F0;
    <Show Class="False" Name="True" Image="False"/>
    <Position Left="502" Top="1462"/>
    <Parameters NumItems="2">
-    <Parameter ID="Expression" Indent="0">reBeta;</Parameter>
     <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">reBeta;</Parameter>
    </Parameters>
    <InternalInputs NumItems="0"/>
    <InternalOutputs NumItems="0"/>
@@ -2435,8 +2435,8 @@ double Ft = _Ft*F0;
    <Show Class="False" Name="True" Image="False"/>
    <Position Left="525" Top="1504"/>
    <Parameters NumItems="2">
-    <Parameter ID="Expression" Indent="0">@rSolarIntensity;</Parameter>
     <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">@rSolarIntensity;</Parameter>
    </Parameters>
    <InternalInputs NumItems="0"/>
    <InternalOutputs NumItems="0"/>
@@ -2808,6 +2808,7 @@ double CC0 = 1.4*(718+0.1167*RO0);
    <Show Class="False" Name="True" Image="False"/>
    <Position Left="800" Top="124"/>
    <Parameters NumItems="2">
+    <Parameter ID="Vars" Indent="3"></Parameter>
     <Parameter ID="Expression" Indent="3">if (IsClosed(T) &amp;&amp; SlowMode)
       {
        if (IsForw)
@@ -2854,7 +2855,6 @@ double CC0 = 1.4*(718+0.1167*RO0);
           }
       }
 </Parameter>
-    <Parameter ID="Vars" Indent="3"></Parameter>
    </Parameters>
    <InternalInputs NumItems="0"/>
    <InternalOutputs NumItems="0"/>
@@ -2873,8 +2873,8 @@ double CC0 = 1.4*(718+0.1167*RO0);
    <Show Class="False" Name="True" Image="False"/>
    <Position Left="365" Top="333"/>
    <Parameters NumItems="2">
-    <Parameter ID="Expression" Indent="0">@BT*9.81*(T-@T0);</Parameter>
     <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">@BT*9.81*(T-@T0);</Parameter>
    </Parameters>
    <InternalInputs NumItems="0"/>
    <InternalOutputs NumItems="0"/>
@@ -2893,8 +2893,8 @@ double CC0 = 1.4*(718+0.1167*RO0);
    <Show Class="False" Name="True" Image="False"/>
    <Position Left="461" Top="246"/>
    <Parameters NumItems="2">
-    <Parameter ID="Expression" Indent="0">Split{0.0,@RO*@BT*9.81*dFdz(T)};</Parameter>
     <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">Split{0.0,@RO*@BT*9.81*dFdz(T)};</Parameter>
    </Parameters>
    <InternalInputs NumItems="0"/>
    <InternalOutputs NumItems="0"/>
@@ -3211,8 +3211,8 @@ double CC0 = 1.4*(718+0.1167*RO0);
    <Show Class="False" Name="True" Image="False"/>
    <Position Left="618" Top="1926"/>
    <Parameters NumItems="2">
-    <Parameter ID="Expression" Indent="0">Ux;</Parameter>
     <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">Ux;</Parameter>
    </Parameters>
    <InternalInputs NumItems="0"/>
    <InternalOutputs NumItems="0"/>
@@ -3231,8 +3231,8 @@ double CC0 = 1.4*(718+0.1167*RO0);
    <Show Class="False" Name="True" Image="False"/>
    <Position Left="618" Top="2017"/>
    <Parameters NumItems="2">
-    <Parameter ID="Expression" Indent="0">Uy;</Parameter>
     <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">Uy;</Parameter>
    </Parameters>
    <InternalInputs NumItems="0"/>
    <InternalOutputs NumItems="0"/>
@@ -3251,8 +3251,8 @@ double CC0 = 1.4*(718+0.1167*RO0);
    <Show Class="False" Name="True" Image="False"/>
    <Position Left="604" Top="2096"/>
    <Parameters NumItems="2">
-    <Parameter ID="Expression" Indent="0">Split{0.0,@UwLight[i]!=0.0 ? Uz : Uz-GetdU(9.81,RO0,ROK,_Sigma,@D,DD[i],Uz-Ukz[i])};</Parameter>
     <Parameter ID="Vars" Indent="0"></Parameter>
+    <Parameter ID="Expression" Indent="0">Split{0.0,@UwLight[i]!=0.0 ? Uz : Uz-GetdU(9.81,RO0,ROK,_Sigma,@D,DD[i],Uz-Ukz[i])};</Parameter>
    </Parameters>
    <InternalInputs NumItems="0"/>
    <InternalOutputs NumItems="0"/>
@@ -3340,10 +3340,10 @@ vector A1[i] = (EMPTY[i] || State[i]&lt;0.0) ? 0.0 : XY2[i];
 vector B1[i] = (EMPTY[i] || State[i]&lt;0.0) ? 0.0 : XY1[i];
 vector A2[i] = (EMPTY[i] || State[i]&lt;0.0) ? 0.0 : XY5[i];
 vector B2[i] = (EMPTY[i] || State[i]&lt;0.0) ? 0.0 : XY4[i];
-vector nC2[i] = (EMPTY[i] || State[i]&lt;0.0) ? 0.0 : 6.0*Rok[i]/Pi/ROK;
+vector _C2[i] = (EMPTY[i] || State[i]&lt;0.0) ? 0.0 : 6.0*Rok[i]/Pi/ROK;
 vector Determ[i] = (EMPTY[i] || State[i]&lt;0.0) ? 0.0 : A1[i]*B2[i]-B1[i]*A2[i];
-vector AnC[i] = EMPTY[i] ? 0.0 : State[i]&lt;0.0 ? 0.0 : (B2[i]*Nk[i]-B1[i]*nC2[i])/Determ[i];
-vector BnC[i] = EMPTY[i] ? 0.0 : State[i]&lt;0.0 ? Nk[i]/(Y[i]-X[i]) : (-A2[i]*Nk[i]+A1[i]*nC2[i])/Determ[i];
+vector AnC[i] = EMPTY[i] ? 0.0 : State[i]&lt;0.0 ? 0.0 : (B2[i]*Nk[i]-B1[i]*_C2[i])/Determ[i];
+vector BnC[i] = EMPTY[i] ? 0.0 : State[i]&lt;0.0 ? Nk[i]/(Y[i]-X[i]) : (-A2[i]*Nk[i]+A1[i]*_C2[i])/Determ[i];
 vector CORR[i] = EMPTY[i] ? 0.0 : AnC[i]*X[i]+BnC[i]&lt;0.0 || AnC[i]*Y[i]+BnC[i]&lt;0.0;
 vector An[i] = EMPTY[i] ? 0.0 : CORR[i] ? 0.0 : AnC[i];
 vector Bn[i] = EMPTY[i] ? 0.0 : CORR[i] ? Nk[i]/(Y[i]-X[i]) : BnC[i];

@@ -465,7 +465,8 @@ begin
           CloseFile(F);
           Anlz:=TAnalyser.Create(IdentSet,[Space,Tabulation]);
           Anlz.AnlzLine:=S;
-          MainSys.LoadFromFile(Lang,StringReplace(Anlz.GetString(Quote,Quote),'/','\',[rfReplaceAll]),Nil,Nil);
+          If Not Anlz.Empty Then
+             MainSys.LoadFromFile(Lang,StringReplace(Anlz.GetString(Quote,Quote),'/','\',[rfReplaceAll]),Nil,Nil);
           Anlz.Free
         end
 end;
@@ -755,6 +756,7 @@ begin
      Enabled:=False;
      ProgText.Lines.Text:='Компиляция и запуск...';
      Application.ProcessMessages;
+     DeleteFile(PChar('_.'+StartLanguage));
      RenameFile('_.out', '_.'+StartLanguage);
      ProgText.Lines.Text:=RunExtCommand('start_'+StartLanguage+'.bat','_.'+StartLanguage+' _.res','_.res',CRLF+CRLF);
      Enabled:=True

@@ -1,6 +1,8 @@
 solve(ID):-
-  parameter(ID,'Session',_,SessionID),
-  parameter(ID,'NumTasks',_,NumTasks_),
+  parameter(ID,'Session',_,SessionID0),
+  parse_string_list(SessionID0, [SessionID1]), atom_chars(SessionID, SessionID1),
+  parameter(ID,'NumTasks',_,NumTasks_0),
+  parse_string_list(NumTasks_0, [NumTasks_1]), atom_chars(NumTasks_, NumTasks_1),
   number_atom(NumTasks,NumTasks_),
   (predicate_property(spawned(_,_),'dynamic'),spawned(SessionID,TaskID)->
     true;

@@ -1,6 +1,7 @@
 init(ID,Group):-
   =(Group,ID),
-  parameter(ID,'Val',_,Val0),
+  parameter(ID,'Val',_,Val00),
+  parse_string_list(Val00, [Val01]), atom_chars(Val0, Val01),
   inet_to_str(Val0,Val),
   val_list(Val,ThisVal),
   (predicate_property(prm_values(_),'dynamic'),prm_values(A)->

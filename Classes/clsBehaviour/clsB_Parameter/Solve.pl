@@ -6,7 +6,10 @@ solve(ID,Group):-
      (
       predicate_property(external_pop(_),'dynamic'),external_pop(IDHandled)->
         position(ID,Left,Top),
-        findall(_,delete_element(_),_),
+        (
+         (predicate_property(element(_,_,_,_),'dynamic'), element(IDD,_,_,_), delete_element(IDD), fail);
+         true
+        ),
         insert_element('JoinFromParams','clsB_Join','True','True','False',Left,Top,['Session'],['ByParams'],[],[]);
         (
          =(Group,ID),

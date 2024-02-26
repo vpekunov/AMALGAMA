@@ -69,6 +69,7 @@ object Translator: TTranslator
     ParentFont = False
     ScrollBars = ssBoth
     TabOrder = 8
+    WordWrap = False
   end
   object SaveBtn: TBitBtn
     Left = 144

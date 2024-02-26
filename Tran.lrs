@@ -22,19 +22,19 @@ LazarusResources.Add('TTranslator','FORMDATA',[
   +#10'ParentFont'#8#8'TabOrder'#2#7#0#0#5'TMemo'#8'ProgText'#4'Left'#2#8#6'Hei'
   +'ght'#2#28#3'Top'#2'0'#5'Width'#3'S'#1#7'Anchors'#11#5'akTop'#6'akLeft'#7'ak'
   +'Right'#8'akBottom'#0#11'Font.Height'#2#245#9'Font.Name'#6#11'Courier New'#10
-  +'ParentFont'#8#10'ScrollBars'#7#6'ssBoth'#8'TabOrder'#2#8#0#0#7'TBitBtn'#7'S'
-  +'aveBtn'#4'Left'#3#144#0#6'Height'#2#25#3'Top'#2'S'#5'Width'#2'>'#7'Anchors'
-  +#11#8'akBottom'#0#7'Caption'#6#18#208#161#208#190#209#133#209#128#208#176#208
-  +#189#208#184#209#130#209#140#8'TabOrder'#2#2#0#0#7'TBitBtn'#10'ExecuteBtn'#4
-  +'Left'#3#216#0#6'Height'#2#25#3'Top'#2'S'#5'Width'#2'>'#7'Anchors'#11#8'akBo'
-  +'ttom'#0#7'Caption'#6#18#208#146#209#139#208#191#208#190#208#187#208#189#208
-  +#184#209#130#209#140#7'OnClick'#7#15'ExecuteBtnClick'#8'TabOrder'#2#3#0#0#7
-  +'TBitBtn'#7'CopyBtn'#4'Left'#2'H'#6'Height'#2#25#3'Top'#2'S'#5'Width'#2'B'#7
-  +'Anchors'#11#8'akBottom'#0#7'Caption'#6#20#208#154#208#190#208#191#208#184
-  +#209#128#208#190#208#178#208#176#209#130#209#140#7'OnClick'#7#12'CopyBtnClic'
-  +'k'#8'TabOrder'#2#1#0#0#7'TBitBtn'#8'LearnBtn'#4'Left'#3#29#1#6'Height'#2#25
-  +#3'Top'#2'S'#5'Width'#2'>'#7'Anchors'#11#8'akBottom'#0#7'Caption'#6#14#208
-  +#158#208#177#209#131#209#135#208#184#209#130#209#140#7'OnClick'#7#13'LearnBt'
-  +'nClick'#8'TabOrder'#2#4#0#0#6'TTimer'#9'TranTimer'#7'Enabled'#8#8'Interval'
-  +#3#244#1#7'OnTimer'#7#14'TranTimerTimer'#0#0#0
+  +'ParentFont'#8#10'ScrollBars'#7#6'ssBoth'#8'TabOrder'#2#8#8'WordWrap'#8#0#0#7
+  +'TBitBtn'#7'SaveBtn'#4'Left'#3#144#0#6'Height'#2#25#3'Top'#2'S'#5'Width'#2'>'
+  +#7'Anchors'#11#8'akBottom'#0#7'Caption'#6#18#208#161#208#190#209#133#209#128
+  +#208#176#208#189#208#184#209#130#209#140#8'TabOrder'#2#2#0#0#7'TBitBtn'#10'E'
+  +'xecuteBtn'#4'Left'#3#216#0#6'Height'#2#25#3'Top'#2'S'#5'Width'#2'>'#7'Ancho'
+  +'rs'#11#8'akBottom'#0#7'Caption'#6#18#208#146#209#139#208#191#208#190#208#187
+  +#208#189#208#184#209#130#209#140#7'OnClick'#7#15'ExecuteBtnClick'#8'TabOrder'
+  +#2#3#0#0#7'TBitBtn'#7'CopyBtn'#4'Left'#2'H'#6'Height'#2#25#3'Top'#2'S'#5'Wid'
+  +'th'#2'B'#7'Anchors'#11#8'akBottom'#0#7'Caption'#6#20#208#154#208#190#208#191
+  +#208#184#209#128#208#190#208#178#208#176#209#130#209#140#7'OnClick'#7#12'Cop'
+  +'yBtnClick'#8'TabOrder'#2#1#0#0#7'TBitBtn'#8'LearnBtn'#4'Left'#3#29#1#6'Heig'
+  +'ht'#2#25#3'Top'#2'S'#5'Width'#2'>'#7'Anchors'#11#8'akBottom'#0#7'Caption'#6
+  +#14#208#158#208#177#209#131#209#135#208#184#209#130#209#140#7'OnClick'#7#13
+  +'LearnBtnClick'#8'TabOrder'#2#4#0#0#6'TTimer'#9'TranTimer'#7'Enabled'#8#8'In'
+  +'terval'#3#244#1#7'OnTimer'#7#14'TranTimerTimer'#0#0#0
 ]);
