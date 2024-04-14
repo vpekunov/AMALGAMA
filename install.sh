@@ -23,9 +23,9 @@ cd ./Params
 fpc -B -O3 -Mobjfpc -FcUTF-8 ./lparams.pas
 cp ./lparams ../
 cd ..
-cd ./link-grammar-5.3.0
 unzip ./link-grammar-5.3.0.zip
-sudo sh ./configure CPPFLAGS="$PWD" CFLAGS="$PWD"
+cd ./link-grammar-5.3.0
+sudo sh ./configure CPPFLAGS="-I$PWD" CFLAGS="-I$PWD"
 sudo make
 sudo make install
 sudo ldconfig
