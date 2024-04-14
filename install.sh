@@ -23,8 +23,8 @@ cd ./Params
 fpc -B -O3 -Mobjfpc -FcUTF-8 ./lparams.pas
 cp ./lparams ../
 cd ..
-unzip ./link-grammar-5.3.0.zip
 cd ./link-grammar-5.3.0
+unzip ./link-grammar-5.3.0.zip
 sudo sh ./configure CPPFLAGS="-I$PWD" CFLAGS="-I$PWD"
 sudo make
 sudo make install
