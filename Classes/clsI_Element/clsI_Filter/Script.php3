@@ -30,11 +30,11 @@
               $IDs = array();
               foreach ($Norms as $Key => $V)
                 array_push($IDs,$Idents[$Key]);
-              $Count = count($Norms);
+              $Count =  _count($Norms);
               while ($Count-- && ($Item = array_shift($Norms))=="")
                  array_shift($IDs);
               if ($Item!="") array_unshift($Norms,$Item);
-              $N = min($powVal,count($Norms));
+              $N = min($powVal, _count($Norms));
               $Keys = array_keys($Norms);
               for ($i=0; $i<$N; $i++)
                   $this->Selected[] = $IDs[$Keys[$i]];
@@ -51,7 +51,7 @@
       if ($this->Passed)
          {
           if ($Stage!=stDone) $Val["Event"] = $Barrier["Event"];
-          $N = empty($this->Selected) ? 0 : count($this->Selected);
+          $N = empty($this->Selected) ? 0 :  _count($this->Selected);
           // Выдаем столько значений, сколько есть, максимум -- сколько выходов.
           for ($i=0; $i<$N; $i++)
             {

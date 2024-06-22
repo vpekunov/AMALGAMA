@@ -13,14 +13,14 @@
       cortege_push($Val["MatLabDir"],$this->MLabDir);
       CollectBinaryIDs($powX1,$X1["IDs"],$powX2,$X2["IDs"],$IDs1,$IDs2);
       array_push($IDs1,$this->ID);
-      cortege_push($Val["IDs"],array_unique(array_merge($IDs1,$IDs2)));
+      cortege_push($Val["IDs"],array_unique( _array_merge($IDs1,$IDs2)));
       CollectBinaryIDs($powX1,$X1["allIDs"],$powX2,$X2["allIDs"],$allIDs1,$allIDs2);
       array_push($allIDs1,$this->ID);
-      cortege_push($Val["allIDs"],array_unique(array_merge($allIDs1,$allIDs2)));
+      cortege_push($Val["allIDs"],array_unique( _array_merge($allIDs1,$allIDs2)));
       break;
     case stDone:
       $Expression = $this->Function;
-      for ($i=1; $i<=count($this->K); $i++)
+      for ($i=1; $i<= _count($this->K); $i++)
           $Expression = str_replace("K($i)","(".$this->K[$i-1].")",$Expression);
       echo $this->ID." = inline('".$Expression."','X1','X2');\n";
       $Expression = $this->ID."(#1,#2)";
@@ -158,8 +158,8 @@
               }
       $CanSpeak = $powBarrier==0 || !$this->Stopped;
       cortege_push($Val["Changed"],$SendCalc && $CanSpeak);
-      cortege_push($Val["IDs"],!$powBarrier ? array_unique(array_merge($IDs1,$IDs2)) : array());
-      cortege_push($Val["allIDs"],!$powBarrier ? array_unique(array_merge($allIDs1,$allIDs2,array($this->ID))) : array());
+      cortege_push($Val["IDs"],!$powBarrier ? array_unique( _array_merge($IDs1,$IDs2)) : array());
+      cortege_push($Val["allIDs"],!$powBarrier ? array_unique( _array_merge($allIDs1,$allIDs2,array($this->ID))) : array());
       cortege_push($Val["Event"],nonempty_value($X1["Event"]));
       cortege_push($Barrier["Event"],nonempty_value($X1["Event"]));
       cortege_push($Val["Value"],$CanSpeak ? $this->Res : "");

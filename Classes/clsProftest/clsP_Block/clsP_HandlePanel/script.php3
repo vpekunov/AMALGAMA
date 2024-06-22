@@ -7,7 +7,7 @@ if ($Stage==$this->Event)
     if ($this->Forward=="Yes") array_push($Buttons,"hbForward");
     if ($this->Save=="Yes") array_push($Buttons,"hbSave");
     if ($this->Exit=="Yes") array_push($Buttons,"hbExit");
-    if (count($Buttons)!=0)
+    if (_count($Buttons)!=0)
        echo $this->Prefix."HandlePanel(".implode(",",$Buttons).")\n";
    }
 ?>

@@ -2,11 +2,11 @@
 if ($Stage==stCall)
    {
     $Qarray   = explode(",",$this->QList);
-    $NQuestions = count($Qarray);
+    $NQuestions =  _count($Qarray);
     $Aarray   = explode(",",$this->Answers);
-    $NAnswers = count($Aarray);
+    $NAnswers =  _count($Aarray);
     $Sarray   = explode(",",$this->Scores);
-    $NScores  = count($Sarray);
+    $NScores  =  _count($Sarray);
     $Questions = "&".implode(",&",$Qarray);
     if ($this->Scheme=="1=>1")
        {

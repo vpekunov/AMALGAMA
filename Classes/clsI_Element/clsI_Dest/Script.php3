@@ -15,7 +15,7 @@
          {
           $Val = array();
           foreach ($Y["IDs"] as $Val1)
-            $Val = array_merge($Val,$Val1);
+            $Val =  _array_merge($Val,$Val1);
           $Val = array_unique($Val);
           foreach ($Val as $ID)
             {

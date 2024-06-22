@@ -36,7 +36,7 @@
           else
              {
               $Expression = $this->Function;
-              for ($i=1; $i<=count($this->K); $i++)
+              for ($i=1; $i<= _count($this->K); $i++)
                   $Expression = str_replace("K($i)","(".$this->K[$i-1].")",$Expression);
               echo $this->ID." = inline('".$Expression."','X');\n";
              }

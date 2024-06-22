@@ -897,7 +897,7 @@ begin
                CollectParams(AllParams);
                If Used Then
                   begin
-                    Code:=Code+CRLF+'  function '+ClsID+'($_'+idfieldID+',';
+                    Code:=Code+CRLF+'  function __construct($_'+idfieldID+',';
                     For F:=0 To Length(AllParams)-1 Do
                         If Not AllParams[F].Redefined Then
                            Code:=Code+'$_'+AllParams[F].Name+',';
@@ -913,7 +913,7 @@ begin
                SetLength(AllParams,0);
                If Used Or Not Assigned(Parent) Then
                   begin
-                    Code:=Code+CRLF+'  function '+idfunGenerate+'($'+idprmStage+',';
+                    Code:=Code+CRLF+'  function '+idfunGenerate+'_'+ClsID+'($'+idprmStage+',';
                     If Assigned(ContactRegList) Then
                        begin
                          ProducePrms(False,Code,dirInput,'$');
@@ -929,7 +929,7 @@ begin
                            P:=P.Parent;
                          If Assigned(P) Then
                             begin
-                              Code:=Code+'   '+P.ClsID+'::'+idFunGenerate+'($'+idprmStage+',';
+                              Code:=Code+'   '+P.ClsID+'::'+idFunGenerate+'_'+P.ClsID+'($'+idprmStage+',';
                               If Assigned(ContactRegList) Then
                                  begin
                                    P.ProducePrms(False,Code,dirInput,'$');
@@ -2199,7 +2199,7 @@ begin
          With Outputs Do
            For F:=0 To Count-1 Do
              Code:=Code+'$'+Ident+'_'+Strings[F]+' = '+GetOutDefinition(TContact(Objects[F]))+';'+CRLF;
-         Code:=Code+'$'+Ident+'->'+idfunGenerate+'($'+idvarStage+',';
+         Code:=Code+'$'+Ident+'->'+idfunGenerate+'_'+Ref.ClsID+'($'+idvarStage+',';
          With Inputs Do
            For F:=0 To Count-1 Do
              With CollectBackLinks(TContact(Objects[F])) Do

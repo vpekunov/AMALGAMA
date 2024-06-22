@@ -61,11 +61,11 @@ else
     if ($powK==0)
        $Solver["Parameters"] = $Calc["Parameters"];
     else
-       $Solver["Parameters"] = array_merge($Calc["Parameters"],$K["Parameters"]);
+       $Solver["Parameters"] =  _array_merge($Calc["Parameters"],$K["Parameters"]);
     if ($powS!=0)
-       $Solver["Parameters"] = array_merge($Solver["Parameters"],$S["Parameters"]);
+       $Solver["Parameters"] =  _array_merge($Solver["Parameters"],$S["Parameters"]);
     if ($powBound!=0)
-       $Solver["Parameters"] = array_merge($Solver["Parameters"],$Bound["Parameters"]);
+       $Solver["Parameters"] =  _array_merge($Solver["Parameters"],$Bound["Parameters"]);
     AnalyzeFunctionItems($K,$powK,$Calc,$Solver,"FText","FText","FVars","K_","[Ptr]","K_","[Ptr]","+=");
     AnalyzeFunctionItems($S,$powS,$Calc,$Solver,"FText","SText","SVars","S_","[Ptr]","S_","[Ptr]","+=");
     AnalyzeFunctionItems($Bound,$powBound,$Calc,$Solver,"FText","BText","BVars","if (IsBound && !IsExchng) ","","if (IsBound && !IsExchng) ","","=");

@@ -26,14 +26,14 @@
      $Init .= $DBName . " = 0.0;\n";
      $Init .= $WName . " = array();\n";
      $Init .= $DWName . " = array();\n";
-     for ($i = 0; $i < count($Inp["OutNum"]); $i++) {
+     for ($i = 0; $i <  _count($Inp["OutNum"]); $i++) {
          $Init .= $WName . "[" . $Inp["OutNum"][$i] . "] = mt_rand()/mt_getrandmax();\n";
          $Init .= $DWName . "[" . $Inp["OutNum"][$i] . "] = 0.0;\n";
      }
      eval($Init);
 
      $F = array();
-     for ($i = 0; $i < count($Inp["OutNum"]); $i++)
+     for ($i = 0; $i <  _count($Inp["OutNum"]); $i++)
          array_push($F, $Inp["OutName"][$i] . "*" . $WName . "[" . $Inp["OutNum"][$i] . "]");
 
      $Calc =  $OName . " = " . $BName . " + " . implode(" + ", $F) . ";\n";
@@ -49,14 +49,14 @@
      if ($LayerNum == $nLayers - 1) {
         // Deltas
         if ($LayerNum > 0) {
-            for ($k = 0; $k < count($Inp["OutNum"]); $k++) {
+            for ($k = 0; $k <  _count($Inp["OutNum"]); $k++) {
                 AppendTapeBegin("\$" . $Inp["_ID"][$k] . "_delta += " .
                    $Inp["OutName"][$k] . "*(1.0 - " . $Inp["OutName"][$k] . ")*\$delta*" .
                    $WName . "[" . $Inp["OutNum"][$k] . "];\n");
             }
         }
         // WB-calculations
-        for ($k = 0; $k < count($Inp["OutNum"]); $k++) {
+        for ($k = 0; $k <  _count($Inp["OutNum"]); $k++) {
             AppendTapeBegin($WName . "[" . $Inp["OutNum"][$k] . "] += " . $DWName . "[" . $Inp["OutNum"][$k] . "];\n");
             AppendTapeBegin($DWName . "[" . $Inp["OutNum"][$k] . "] = " .
                "\$alpha*" . $DWName . "[" . $Inp["OutNum"][$k] . "] + " .
@@ -67,14 +67,14 @@
      } else {
         // Deltas
         if ($LayerNum > 1) {
-            for ($j = 0; $j < count($Inp["OutNum"]); $j++) {
+            for ($j = 0; $j <  _count($Inp["OutNum"]); $j++) {
                 AppendTapeBegin("\$" . $Inp["_ID"][$j] . "_delta += " .
                    $Inp["OutName"][$j] . "*(1.0 - " . $Inp["OutName"][$j] . ")*\$" . $this->ID. "_delta*" .
                    $WName . "[" . $Inp["OutNum"][$j] . "];\n");
             }
         }
         // WB-calculations
-        for ($k = 0; $k < count($Inp["OutNum"]); $k++) {
+        for ($k = 0; $k <  _count($Inp["OutNum"]); $k++) {
             AppendTapeBegin($WName . "[" . $Inp["OutNum"][$k] . "] += " . $DWName . "[" . $Inp["OutNum"][$k] . "];\n");
             AppendTapeBegin($DWName . "[" . $Inp["OutNum"][$k] . "] = " .
                "\$alpha*" . $DWName . "[" . $Inp["OutNum"][$k] . "] + " .
@@ -91,7 +91,7 @@
 
      PutMail("B" . $LayerNum . $this->Num, eval("return " . $BName . ";"));
 
-     for ($i = 0; $i < count($Inp["OutNum"]); $i++)
+     for ($i = 0; $i <  _count($Inp["OutNum"]); $i++)
          PutMail("W" . $LayerNum . $Inp["OutNum"][$i] . $this->Num,
                  eval("return " . $WName . "[" . $Inp["OutNum"][$i] . "];"));
   }

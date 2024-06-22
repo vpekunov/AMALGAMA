@@ -47,7 +47,7 @@ if ($Stage == stResource) {
        $MATRIX[$NodeName][$Node2Name] = GetNextMail($WeightName);
     }
 
-    $N = count($this->VarNames);
+    $N =  _count($this->VarNames);
     $this->Matrix = array();
     $i = 0;
     foreach ($MATRIX as $Val)
@@ -68,7 +68,7 @@ if ($Stage == stResource) {
     foreach ($this->VarNames as $Val)
        array_push($P, GetNextMail($Val));
     $P1 = array();
-    $N = count($this->VarNames);
+    $N =  _count($this->VarNames);
     $delta = 0.0;
     for ($i = 0; $i < $N; $i++) {
         $P1[$i] = 0.0;

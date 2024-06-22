@@ -20,8 +20,8 @@
                 if (file_exists($Base."._out.pl"))
                    {
                     $Info = file($Base."._out.pl");
-                    if (count($Info)>0)
-                       unset($Info[count($Info)-1]);
+                    if (_count($Info)>0)
+                       unset($Info[ _count($Info)-1]);
                     if (isset($Info[0]))
                        unset($Info[0]);
                     $PlBase[$ID] = implode("",$Info);

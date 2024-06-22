@@ -67,9 +67,9 @@ else
     if ($powK==0)
        $Solver["Parameters"] = $Calc["Parameters"];
     else
-       $Solver["Parameters"] = array_merge($Calc["Parameters"],$K["Parameters"]);
+       $Solver["Parameters"] =  _array_merge($Calc["Parameters"],$K["Parameters"]);
     if ($powBound!=0)
-       $Solver["Parameters"] = array_merge($Solver["Parameters"],$Bound["Parameters"]);
+       $Solver["Parameters"] =  _array_merge($Solver["Parameters"],$Bound["Parameters"]);
     AnalyzeFunctionItems($K,$powK,$Calc,$Solver,"FText","FText","FVars","K_","[Ptr]","Kf[_Num","][Ptr]","+=");
 
     $bounds = array('Right(X+)', 'Left(X-)', 'Forw(Y+)', 'Backw(Y-)', 'Up(Z+)', 'Down(Z-)');
@@ -99,7 +99,7 @@ else
              $nnWalls++;
           } else {
              foreach ($keys as $key) {
-                 if ($i < count($Bound[$key]))
+                 if ($i <  _count($Bound[$key]))
                     cortege_push($NoWalls[$key], $Bound[$key][$i]);
              }
              $nNoWalls++;
@@ -107,7 +107,7 @@ else
           $i++;
        }
     AnalyzeFunctionItems($NoWalls,$nNoWalls,$Calc,$Solver,"FText","BText","BVars","if (IsBound && !IsExchng) ","","if (IsBound && !IsExchng) ","","=");
-    for ($idx = 0; $idx < count($bounds); $idx++) {
+    for ($idx = 0; $idx <  _count($bounds); $idx++) {
       $type = $bounds[$idx];
       AnalyzeFunctionItems($Walls[$type],$nWalls[$type],$Calc,$Solver,"FText","BText","BVars",
                            "if (IsBound && !IsExchng && ".$conds[$idx].") ".$prefs[$idx]."(",")",

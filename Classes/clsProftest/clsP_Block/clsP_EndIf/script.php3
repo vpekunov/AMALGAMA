@@ -11,8 +11,8 @@
      if ($this->Event!=$Rev["Event"][0])
         MakeError("Model Error"," ".$this->ID.": End contact can be connected to reverse line only",__LINE__);
      $this->EventElse = $In["Event"][0];
-     $C1 = count($In["Construct"]);
-     $C2 = count($Rev["Construct"]);
+     $C1 =  _count($In["Construct"]);
+     $C2 =  _count($Rev["Construct"]);
      if ($C1==$C2)
         if ($C1==0)
            MakeError("Model Error"," ".$this->ID.": Different level of code on input lines",__LINE__);

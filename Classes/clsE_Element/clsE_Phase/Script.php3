@@ -65,7 +65,7 @@ if ($powSourceK!=0 || $powSourceS!=0)
       {
        if ($powSourceK!=0) $Data["Parameters"] = $SourceK["Parameters"];
        else $Data["Parameters"] = array();
-       if ($powSourceS!=0) $Data["Parameters"] = array_merge($Data["Parameters"],$SourceS["Parameters"]);
+       if ($powSourceS!=0) $Data["Parameters"] =  _array_merge($Data["Parameters"],$SourceS["Parameters"]);
        $Post = $this->Nc>1 ? "0" : "";
        if ($powSourceK!=0)
           {
@@ -75,8 +75,8 @@ if ($powSourceK!=0 || $powSourceS!=0)
            else
               $Data["FVars"] = $SourceK["FVars"][0];
            $Data["FText"] =
-              ereg_replace("(([^a-z0-9A-Z_])|(^))Result([ \n]*)=([ \n]*)(([^a-z0-9A-Z_])|($))",
-                           "\\1KDn[PhaseLinks[ph".$this->ID.$Post."]][Ptr] += \\6",
+              preg_replace("/(([^a-z0-9A-Z_])|(^))Result([ \n]*)=([ \n]*)(([^a-z0-9A-Z_])|($))/",
+                           "\${1}KDn[PhaseLinks[ph".$this->ID.$Post."]][Ptr] += \${6}",
                            HandleMultiFunction(false,$SourceK["FText"][0],$this->Nc));
           }
        if ($powSourceS!=0)
@@ -87,8 +87,8 @@ if ($powSourceK!=0 || $powSourceS!=0)
            else
               $Data["SVars"] = $SourceS["FVars"][0];
            $Data["SText"] =
-              ereg_replace("(([^a-z0-9A-Z_])|(^))Result([ \n]*)=([ \n]*)(([^a-z0-9A-Z_])|($))",
-                           "\\1SDn[PhaseLinks[ph".$this->ID.$Post."]][Ptr] += \\6",
+              preg_replace("/(([^a-z0-9A-Z_])|(^))Result([ \n]*)=([ \n]*)(([^a-z0-9A-Z_])|($))/",
+                           "\${1}SDn[PhaseLinks[ph".$this->ID.$Post."]][Ptr] += \${6}",
                            HandleMultiFunction(false,$SourceS["FText"][0],$this->Nc));
           }
       }

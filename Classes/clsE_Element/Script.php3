@@ -2,9 +2,9 @@
 if (!function_exists("ExtractParams")) {
    function ExtractParams($Text,&$Params) {
      do {
-       if (ereg("@((\[([0-9]*)\])?(([a-z0-9A-Z_]+)\{([a-z0-9A-Z_]+)\}))",$Text,$Regs))
+       if (preg_match("/@((\[([0-9]*)\])?(([a-z0-9A-Z_]+)\{([a-z0-9A-Z_]+)\}))/",$Text,$Regs))
           $Text = str_replace($Regs[0],$Regs[5],$Text);
-       else if (ereg("@((\[([0-9]*)\])?([a-z0-9A-Z_]+))(([^\{a-z0-9A-Z_])|($))",$Text,$Regs))
+       else if (preg_match("/@((\[([0-9]*)\])?([a-z0-9A-Z_]+))(([^\{a-z0-9A-Z_])|($))/",$Text,$Regs))
           $Text = str_replace($Regs[0],$Regs[4].$Regs[5],$Text);
        else
           break;
@@ -15,17 +15,17 @@ if (!function_exists("ExtractParams")) {
 }
 if (!function_exists("AnalyzeFunction")) {
    function AnalyzeFunction(&$Vars,&$Text,$DefPhase) {
-     $nLines = count(explode("\n",trim($Text)));
+     $nLines =  _count(explode("\n",trim($Text)));
      $Vars = 
-        ereg_replace("(([^a-z0-9A-Z_])|(^))Source(([^a-z0-9A-Z_])|($))",
-                     "\\1Source_".$DefPhase."[Ptr]\\4",
+        preg_replace("/(([^a-z0-9A-Z_])|(^))Source(([^a-z0-9A-Z_])|($))/",
+                     "\${1}Source_".$DefPhase."[Ptr]\${4}",
                      $Vars);
      $Text = 
-        ereg_replace("(([^a-z0-9A-Z_])|(^))Source(([^a-z0-9A-Z_])|($))",
-                     "\\1Source_".$DefPhase."[Ptr]\\4",
+        preg_replace("/(([^a-z0-9A-Z_])|(^))Source(([^a-z0-9A-Z_])|($))/",
+                     "\${1}Source_".$DefPhase."[Ptr]\${4}",
                      $Text);
      if ($nLines<2)
-        if (!ereg("(^([ \n]*))Result(([^a-z0-9A-Z_])|($))",$Text))
+        if (!preg_match("/(^([ \n]*))Result(([^a-z0-9A-Z_])|($))/",$Text))
            $Text = "Result = ".$Text;
    }
 }
@@ -38,16 +38,16 @@ if (!function_exists("AnalyzeFunctionItems")) {
        if ($Calc["Nc"][0]>1)
           {
            $Text = HandleMultiFunction(false,$K[$KNmText][$i],$Calc["Nc"][0]);
-           if (ereg("(([^a-z0-9A-Z_])|(^))Result\[([^]i]+)\]",$Text))
+           if (preg_match("/(([^a-z0-9A-Z_])|(^))Result\[([^]i]+)\]/",$Text))
               cortege_push($Solver[$NmText],
-                 ereg_replace("(([^a-z0-9A-Z_])|(^))Result\[([^]i]+)\]([ \n]*)=([ \n]*)(([^a-z0-9A-Z_])|($))",
-                                           "\\1".$MultiPrefix.$Calc["Name"][0]."[\\4]".$MultiPostfix." ".$Operation." \\7",
+                 preg_replace("/(([^a-z0-9A-Z_])|(^))Result\[([^]i]+)\]([ \n]*)=([ \n]*)(([^a-z0-9A-Z_])|($))/",
+                                           "\${1}".$MultiPrefix.$Calc["Name"][0]."[\${4}]".$MultiPostfix." ".$Operation." \${7}",
                                            $Text));
            else
              cortege_push($Solver[$NmText],
                 "vector(".$Calc["Nc"][0].") {\n".
-                ShiftStr(" ",ereg_replace("(([^a-z0-9A-Z_])|(^))Result([ \n]*)=([ \n]*)(([^a-z0-9A-Z_])|($))",
-                                          "\\1".$MultiPrefix.$Calc["Name"][0]."[i]".$MultiPostfix." ".$Operation." \\6",
+                ShiftStr(" ",preg_replace("/(([^a-z0-9A-Z_])|(^))Result([ \n]*)=([ \n]*)(([^a-z0-9A-Z_])|($))/",
+                                          "\${1}".$MultiPrefix.$Calc["Name"][0]."[i]".$MultiPostfix." ".$Operation." \${6}",
                                           $Text))."\n".
                 "}\n");
            cortege_push($Solver[$NmVars],HandleMultiFunction(true,$K["FVars"][$i],$Calc["Nc"][0]));
@@ -55,10 +55,10 @@ if (!function_exists("AnalyzeFunctionItems")) {
        else
           {
            $Solver[$NmVars] = $K["FVars"];
-           if (ereg("(([^a-z0-9A-Z_])|(^))Result([ \n]*)=",$K[$KNmText][$i]))
+           if (preg_match("/(([^a-z0-9A-Z_])|(^))Result([ \n]*)=/",$K[$KNmText][$i]))
               cortege_push($Solver[$NmText],
-                 ereg_replace("(([^a-z0-9A-Z_])|(^))Result([ \n]*)=([ \n]*)(([^a-z0-9A-Z_])|($))",
-                              "\\1".$SinglePrefix.$Calc["Name"][0].$SinglePostfix." ".$Operation." \\6",
+                 preg_replace("/(([^a-z0-9A-Z_])|(^))Result([ \n]*)=([ \n]*)(([^a-z0-9A-Z_])|($))/",
+                              "\${1}".$SinglePrefix.$Calc["Name"][0].$SinglePostfix." ".$Operation." \${6}",
                               $K[$KNmText][$i]));
            else
               cortege_push($Solver[$NmText],$SinglePrefix.$K[$KNmText][$i]);
@@ -68,20 +68,20 @@ if (!function_exists("AnalyzeFunctionItems")) {
 }
 if (!function_exists("HandleMultiFExpression")) {
    function HandleMultiFExpression(&$FExpression,$Nc) {
-    if (ereg("(([^a-z0-9A-Z_])|(^))Result\[([^]i]+)\]",$FExpression,$Regs))
+    if (preg_match("/(([^a-z0-9A-Z_])|(^))Result\[([^]i]+)\]/",$FExpression,$Regs))
        {
-        $Expr = ereg_replace("(([^a-z0-9A-Z_])|(^))Nc(([^a-z0-9A-Z_])|($))",
-                             "\\1ResultNc\\4",
+        $Expr = preg_replace("/(([^a-z0-9A-Z_])|(^))Nc(([^a-z0-9A-Z_])|($))/",
+                             "\${1}ResultNc\${4}",
                              $Regs[4]);
         $FExpression = str_replace($Regs[1]."Result[".$Regs[4]."]",
                                    $Regs[1]."Result[".$Expr."]",
                                    $FExpression);
        }
     $FExpression = HandleMultiFunction(false,$FExpression,$Nc);
-    if (ereg("(([^a-z0-9A-Z_])|(^))Result\[([^]i]+)\]",$FExpression,$Regs))
+    if (preg_match("/(([^a-z0-9A-Z_])|(^))Result\[([^]i]+)\]/",$FExpression,$Regs))
        {
-        $Expr = ereg_replace("(([^a-z0-9A-Z_])|(^))ResultNc(([^a-z0-9A-Z_])|($))",
-                             "\\1Nc\\4",
+        $Expr = preg_replace("/(([^a-z0-9A-Z_])|(^))ResultNc(([^a-z0-9A-Z_])|($))/",
+                             "\${1}Nc\${4}",
                              $Regs[4]);
         $FExpression = str_replace($Regs[1]."Result[".$Regs[4]."]",
                                    $Regs[1]."Result[".$Expr."]",
@@ -113,7 +113,7 @@ if (!function_exists("HandleParameter")) {
 }
 if (!function_exists("HandleInitParameter")) {
    function HandleInitParameter($Stage,&$Var,$Nc,&$CVar,&$CParameters,$Name) {
-     $VarLines = count(explode("\n",trim($Var)));
+     $VarLines =  _count(explode("\n",trim($Var)));
      if ($VarLines<2) $Var = trim($Var);
      cortege_push($CVar,"_".$Name);
      $RetVal = ExtractParams($Var,$CParameters);
@@ -126,7 +126,7 @@ double _<?php echo $Name; ?> (int i, int x, int y, int z, unsigned char Map);
         { ?>
 double _<?php echo $Name; ?> (int i, int x, int y, int z, unsigned char Map)
 {
-<?php       if ($VarLines<2 && !ereg("(^([ \n]*))Result(([^a-z0-9A-Z_])|($))",$RetVal))
+<?php       if ($VarLines<2 && !preg_match("/(^([ \n]*))Result(([^a-z0-9A-Z_])|($))/",$RetVal))
             echo " return ".$RetVal.";\n";
          else
             echo " double Result;\n".ShiftStr(" ",$RetVal)."\n return Result;\n"; ?>
@@ -138,21 +138,21 @@ double _<?php echo $Name; ?> (int i, int x, int y, int z, unsigned char Map)
 if (!function_exists("HandleMultiFunction")) {
    function HandleMultiFunction($HandleVectors,$Text,$Nc) {
      if ($HandleVectors)
-        $Text = ereg_replace("(([^a-z0-9A-Z_])|(^))vector(([^a-z0-9A-Z_\(])|($))",
-                             "\\1vector(".$Nc.")\\4",
+        $Text = preg_replace("/(([^a-z0-9A-Z_])|(^))vector(([^a-z0-9A-Z_\(])|($))/",
+                             "\${1}vector(".$Nc.")\${4}",
                              $Text);
-     $Text = ereg_replace("(([^a-z0-9A-Z_])|(^))Sum\{([^,}]+)\}",
-                          "\\1Sum{0,".$Nc."-1,\\4}",
+     $Text = preg_replace("/(([^a-z0-9A-Z_])|(^))Sum\{([^,}]+)\}/",
+                          "\${1}Sum{0,".$Nc."-1,\${4}}",
                           $Text);
-     $Text = ereg_replace("(([^a-z0-9A-Z_])|(^))Min\{([^,}]+)\}",
-                          "\\1Min{0,".$Nc."-1,\\4}",
+     $Text = preg_replace("/(([^a-z0-9A-Z_])|(^))Min\{([^,}]+)\}/",
+                          "\${1}Min{0,".$Nc."-1,\${4}}",
                           $Text);
-     $Text = ereg_replace("(([^a-z0-9A-Z_])|(^))Max\{([^,}]+)\}",
-                          "\\1Max{0,".$Nc."-1,\\4}",
+     $Text = preg_replace("/(([^a-z0-9A-Z_])|(^))Max\{([^,}]+)\}/",
+                          "\${1}Max{0,".$Nc."-1,\${4}}",
                           $Text);
      do {
-        $RES = ereg_replace("((([^a-z0-9A-Z_])|(^))Nc(([^a-z0-9A-Z_])|($)))",
-                          "\\2".$Nc."\\5",
+        $RES = preg_replace("/((([^a-z0-9A-Z_])|(^))Nc(([^a-z0-9A-Z_])|($)))/",
+                          "\${2}".$Nc."\${5}",
                           $Text);
         if ($RES === $Text) return $RES;
         $Text = $RES;
@@ -288,9 +288,9 @@ if (!function_exists("ExportXMLElement")) {
    <Show Class="True" Name="True" Image="False"/>
    <Position Left="<?php echo ($n % 8)*150; ?>" Top="<?php echo (int)($n/8)*150; ?>"/>
 <?php
-     if (count($Params) == 0) echo "<Parameters NumItems=\"0\"/>\n";
+     if (_count($Params) == 0) echo "<Parameters NumItems=\"0\"/>\n";
      else {
-        echo "<Parameters NumItems=\"".count($Params)."\">\n";
+        echo "<Parameters NumItems=\"". _count($Params)."\">\n";
         foreach ($Params as $Key => $Val)
            echo "    <Parameter ID=\"".$Key."\" Indent=\"0\">".htmlspecialchars($Val)."</Parameter>\n";
         echo "</Parameters>\n";

@@ -8,7 +8,7 @@
               MakeError("Model Error: ","Inputs must be traced from NON-FILTER OBJECTS or from ONE FILTER ONLY",__LINE__);
            $Counter = GetNextMail("COUNT_".$X["_ID"][0]);
            foreach ($X as $Key => $Val)
-             if (count($Val)!=$powX)
+             if (_count($Val)!=$powX)
                 $X[$Key] = array_slice($X[$Key],$Counter,$powX);
            PutMail("COUNT_".$X["_ID"][0],$Counter+$powX);
           }
@@ -20,7 +20,7 @@
        $IDs = array($ID);
        for ($i=0; $i<$powX; $i++)
            if (isset($X))
-              $IDs = array_merge($IDs,$X[$i]);
+              $IDs =  _array_merge($IDs,$X[$i]);
        return $IDs;
      }
   }
@@ -31,11 +31,11 @@
        $IDs2 = array();
        for ($i=0; $i<$powX1; $i++)
            if (isset($X1) && isset($X1[$i]))
-              $IDs1 = array_merge($IDs1,$X1[$i]);
+              $IDs1 =  _array_merge($IDs1,$X1[$i]);
        $IDs1 = array_unique($IDs1);
        for ($i=0; $i<$powX2; $i++)
            if (isset($X2) && isset($X2[$i]))
-              $IDs2 = array_merge($IDs2,$X2[$i]);
+              $IDs2 =  _array_merge($IDs2,$X2[$i]);
        $IDs2 = array_unique($IDs2);
      }
   }
@@ -122,7 +122,7 @@
            {
             $Add = GetVectorLine($Val,$NumInd);
             if (!empty($Add))
-               $Result = array_merge($Result,$Add);
+               $Result =  _array_merge($Result,$Add);
            }
       unlink($Name);
       return $Result;
@@ -170,7 +170,7 @@
            $XNum = $Ind+1;
            if ($arrInits)
               $Add .= $arrInits[$Ind][$Selected[$Ind]];
-           if (count($arrN)==1)
+           if (_count($arrN)==1)
               $Inp = "X=".$arrInps[$Ind][$Selected[$Ind]].";";
            else
               $Inp .= "X$XNum=".$arrInps[$Ind][$Selected[$Ind]].";";
@@ -229,7 +229,7 @@
          }
       else
          {
-          if (count($arrN)>1)
+          if (_count($arrN)>1)
              CreateScript($MLab,$MLabDir,$MLabFuns,$ObjID,
                 array(
                   "function Result = $ObjID(K)",
@@ -242,7 +242,7 @@
           echo com_invoke($MLab,"Execute",
               "BestK=0;".
               $Inp.
-              (count($arrN)==1 ?
+              (_count($arrN)==1 ?
                 "Y=$Out;".
                 "$ObjID = inline('$Function','K','X');" :
                 ""
@@ -255,7 +255,7 @@
                 "R=$Rad;".
                 "BestR2Norm=1E30;".
                 ($NP && $NP>1 ? "rand('state',sum(100*clock));for i=1:$NP;" : "").
-                  (count($arrN)==1 ?
+                  (_count($arrN)==1 ?
                     "[K R2Norm]=lsqcurvefit($ObjID,K0,X,Y);" :
                     "[K R2Norm]=lsqnonlin(@{$ObjID},K0);"
                   ).

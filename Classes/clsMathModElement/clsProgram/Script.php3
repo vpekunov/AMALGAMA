@@ -17,7 +17,7 @@ switch ($Stage) {
  case stCall:
    $NumDims = $Solver["NumDims"][0];
    $VarNames = array();
-   $CalcVarNum = count($Solver["CalcVarNames"]);
+   $CalcVarNum =  _count($Solver["CalcVarNames"]);
    for ($i = 0; $i < $CalcVarNum; $i++)
        if ($VarNames[$Solver["CalcVarNames"][$i]]=="")
           {

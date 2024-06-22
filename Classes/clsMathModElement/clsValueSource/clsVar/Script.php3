@@ -14,8 +14,8 @@ switch ($Stage) {
    echo $this->ID,"_Init(".$MapType.",".$MapName.";";
    echo $Type.",#BYREF".IfArray($NumDims)."(".$this->ID,"))\n";
    $Shift = "  ";
-   $Symbols = array_merge($Init["Symbol"],$Bound["Symbol"]);
-   $Values = array_merge($Init["Value"],$Bound["Value"]);
+   $Symbols =  _array_merge($Init["Symbol"],$Bound["Symbol"]);
+   $Values =  _array_merge($Init["Value"],$Bound["Value"]);
    CreateForLoop(true,$NumDims,explode(";",$Discr["Dims"][0]),$LoopIDs,$Indexes,$Shift);
    CreateSetSelector($Shift,$MapName.$Indexes,
       "#DEREF".IfArray($NumDims)."(".$this->ID.$Indexes.")",

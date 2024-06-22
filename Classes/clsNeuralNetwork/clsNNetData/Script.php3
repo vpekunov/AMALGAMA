@@ -17,7 +17,7 @@
           $_DATA = array();
           $_DATA[0] = explode($Delimiter, $S);
 
-          $COLS = count($_DATA[0]);
+          $COLS =  _count($_DATA[0]);
           $ROWS = 1;
 
           $_IDXS = array();
@@ -26,7 +26,7 @@
             $Line = fgets($F);
             if ($Line != "") {
                $_DATA[$ROWS] = explode($Delimiter, $Line);
-               if ($COLS != count($_DATA[$ROWS]))
+               if ($COLS !=  _count($_DATA[$ROWS]))
                   MakeError("Data Error : ", "Incorrect number of rows [".($ROWS+1)." line]", __LINE__);
                array_push($_IDXS, $ROWS);
                $ROWS++;

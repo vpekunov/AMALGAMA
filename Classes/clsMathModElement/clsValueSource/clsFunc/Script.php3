@@ -1,5 +1,5 @@
 <?php
-$NumPrms = count($Arg["ValName"]);
+$NumPrms =  _count($Arg["ValName"]);
 $NumDims = $Arg["NumDims"][0];
 switch ($Stage) {
  case stResource:
@@ -21,11 +21,11 @@ switch ($Stage) {
        $Tag .= $LoopIDs[$i].",".$Dims[$i].",".$Arg["TypeName"][0]."_H".$Letters[$i].",";
    for ($i = 0; $i<$NumPrms; $i++)
        if ($Arg["Dims"][$i]>0)
-           $this->Expression = ereg_replace("(([^a-z0-9A-Z_@])|(^))".$Arg["ValName"][$i]."(([^a-z0-9A-Z_])|($))",
-                                            "\\1".$Arg["ValName"][$i].$Indexes."\\4",
+           $this->Expression = preg_replace("/(([^a-z0-9A-Z_@])|(^))".$Arg["ValName"][$i]."(([^a-z0-9A-Z_])|($))/",
+                                            "\${1}".$Arg["ValName"][$i].$Indexes."\${4}",
                                             $this->Expression);
-   $this->Expression = ereg_replace("@([a-z0-9A-Z_]+)\\(",
-                                    "#\\1".$Head."(".$Tag,
+   $this->Expression = preg_replace("/@([a-z0-9A-Z_]+)\\(/",
+                                    "#\${1}".$Head."(".$Tag,
                                     $this->Expression);
    $this->Expression = str_replace("@","",$this->Expression);
    echo $Shift;

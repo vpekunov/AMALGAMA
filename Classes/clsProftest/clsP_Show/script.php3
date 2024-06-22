@@ -4,7 +4,7 @@ if ($Stage==stCall)
 ?>  ClearPut
   PutTitle('Результаты')
 <?php
-    $NumOuts = count($In["_ID"]);
+    $NumOuts =  _count($In["_ID"]);
     for ($i = 0; $i<$NumOuts; $i++)
       {
        $ID = $In["_ID"][$i];

@@ -33,7 +33,7 @@ switch ($Stage) {
 <?php
    break;
  case stCall:
-   $NumCalls = count($Eqtn["GCallName"]);
+   $NumCalls =  _count($Eqtn["GCallName"]);
    for ($i = 0; $i < $NumCalls; $i++) {
 ?>    #CALL <?php
        echo $this->ID,"(",$NumDims>0 ? $Eqtn["FMapName"][$i]."," : "";

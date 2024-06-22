@@ -5,7 +5,7 @@ if ($Stage==stCall)
     $Min    = $this->Min;
     $Texts  = $this->Texts;
     $Tarray = explode(',',$Texts);
-    $NTexts = count($Tarray);
+    $NTexts =  _count($Tarray);
     $Max    = $Min+$NTexts-1;
     $Def    = "  Define $ID:Array[$Min:$Max] = {";
     $Map    = "  Define text$ID:Array[$Min:$Max] = {";

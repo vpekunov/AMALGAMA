@@ -69,7 +69,7 @@ else
    }
 if ($powS!=0)
    {
-    $Solver["Parameters"] = array_merge($Solver["Parameters"],$S["Parameters"]);
+    $Solver["Parameters"] =  _array_merge($Solver["Parameters"],$S["Parameters"]);
     AnalyzeFunctionItems($S,$powS,$Calc,$Solver,"FText","SText","SVars","S_","[Ptr]","Sf[_Num","][Ptr]","+=");
    }
 ?>

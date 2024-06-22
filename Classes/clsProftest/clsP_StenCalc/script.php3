@@ -3,7 +3,7 @@ if ($Stage==stCall)
    {
     $P = $In["_ID"][0];
     $Barray  = explode(",",$this->Bounds);
-    $NStens = count($Barray)+1;
+    $NStens =  _count($Barray)+1;
     if ($NStens==1)
        MakeError("Model Error"," ".$this->ID.": Must be at least one bound",__LINE__);
     $NotFound = "nf".$this->ID;

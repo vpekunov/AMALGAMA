@@ -39,7 +39,7 @@ switch ($Stage) {
   case stResource:
     $AdditionalVars = array("Lmin2","DIV","DivSolar");
     if ($powModify>0)
-       $AdditionalVars = array_merge($AdditionalVars,$Modify["Name"]);
+       $AdditionalVars =  _array_merge($AdditionalVars,$Modify["Name"]);
     $MultiVars = is_array($Eqtn["MultiName"]) ? $Eqtn["MultiName"] : array();
     $MultiNums = is_array($Eqtn["MultiNum"]) ? $Eqtn["MultiNum"] : array();
     $nPhases = array();
@@ -62,15 +62,16 @@ switch ($Stage) {
              }
       else
          array_push($nPhases,$Val);
+
     if (is_array($Eqtn["Parameters"]))
        $nParams = $Eqtn["Parameters"];
     else
        $nParams = array();
     if (is_array($Modify["Parameters"]))
-       $nParams = array_merge($nParams,$Modify["Parameters"]);
+       $nParams =  _array_merge($nParams,$Modify["Parameters"]);
     foreach ($nPhases as $Val)
        if (is_array($Val["Parameters"]))
-          $nParams = array_merge($nParams,$Val["Parameters"]);
+          $nParams =  _array_merge($nParams,$Val["Parameters"]);
     $hParams = array();
     foreach ($nParams as $Val)
       {
@@ -125,7 +126,7 @@ switch ($Stage) {
         else
            echo $Key,";\n";
       }
-    $NumVars = count($Eqtn["Name"]);
+    $NumVars =  _count($Eqtn["Name"]);
     $VFields = array("Name","FBase","Projection","SubClass","NeedK","NeedS","Init","NuMol","Kappa","Solver","DefPhase","Nc","Description","Restrict","BndLevel");
     for ($i=0; $i<$NumVars-1; $i++)
         {
@@ -165,10 +166,10 @@ int PredictControlVar = <?php echo $Eqtn["Control"][0],";\n\n";
     $Phases = array();
     foreach($nPhases as $Key => $Value)
       if (array_key_exists($Value["Name"],$Phases))
-         $Phases[$Value["Name"]] = array_merge($Phases[$Value["Name"]],$Value);
+         $Phases[$Value["Name"]] =  _array_merge($Phases[$Value["Name"]],$Value);
       else
          $Phases[$Value["Name"]] = $Value;
-    $NumPhases = count($Phases);
+    $NumPhases =  _count($Phases);
     $NumHeavyPhases = 0;
     $idPhases = array();
     foreach ($Phases as $Key => $Val)
@@ -373,7 +374,7 @@ char   SLinks[MaxActSubst] = {0};
 void AddCustomVars()
 {
 <?php
-    if (count($Params)>0)
+    if (_count($Params)>0)
        {
         asort($Params);
         $Sect = reset($Params);
@@ -435,10 +436,10 @@ void CalculateK(WKoeffs * W, StoreStruct * V, float ** Kf, float ** KDn, float *
  int Delta = 0;
  float ** Bounds = V->Bounds;
 #endif
-<?php  $FTexts = array_merge($Eqtn["FText"],$Modify["FText"],$Eqtn["SText"],$Modify["SText"],$Eqtn["BText"],$Modify["BText"],$PhaseFText);
-    $NumFTexts = count($FTexts);
-    $FVars = array_values(array_unique(array_merge($Eqtn["FVars"],$Modify["FVars"],$Eqtn["SVars"],$Modify["SVars"],$Eqtn["BVars"],$Modify["BVars"],$PhaseFVars)));
-    $NumFVars = count($FVars);
+<?php  $FTexts =  _array_merge($Eqtn["FText"],$Modify["FText"],$Eqtn["SText"],$Modify["SText"],$Eqtn["BText"],$Modify["BText"],$PhaseFText);
+    $NumFTexts =  _count($FTexts);
+    $FVars = array_values(array_unique( _array_merge($Eqtn["FVars"],$Modify["FVars"],$Eqtn["SVars"],$Modify["SVars"],$Eqtn["BVars"],$Modify["BVars"],$PhaseFVars)));
+    $NumFVars =  _count($FVars);
     $UsedVars = array();
     foreach ($Vars as $Key => $Val)
      if ($Eqtn["Nc"][$Key]>1)
@@ -447,10 +448,10 @@ void CalculateK(WKoeffs * W, StoreStruct * V, float ** Kf, float ** KDn, float *
        {
         $Found = 0;
         for ($i=0; $i<$NumFTexts && !$Found; $i++)
-          if (ereg("(([^a-z0-9A-Z_])|(^))".$Val."(([^a-z0-9A-Z_])|($))",$FTexts[$i]))
+          if (preg_match("/(([^a-z0-9A-Z_])|(^))".$Val."(([^a-z0-9A-Z_])|($))/",$FTexts[$i]))
              $Found = 1;
         for ($i=0; $i<$NumFVars && !$Found; $i++)
-          if (ereg("(([^a-z0-9A-Z_])|(^))".$Val."(([^a-z0-9A-Z_])|($))",$FVars[$i]))
+          if (preg_match("/(([^a-z0-9A-Z_])|(^))".$Val."(([^a-z0-9A-Z_])|($))/",$FVars[$i]))
              $Found = 1;
         if ($Found)
            {
@@ -498,16 +499,16 @@ void CalculateK(WKoeffs * W, StoreStruct * V, float ** Kf, float ** KDn, float *
     foreach ($UsedVars as $Key => $Val)
        {
         $Found = 0;
-        foreach (array_merge($FTexts,$FVars) as $Val1)
+        foreach ( _array_merge($FTexts,$FVars) as $Val1)
           if (strstr($Val1,"dFdz(".$Key.")")!==false ||
               strstr($Val1,"dFdzb(".$Key.")")!==false ||
               strstr($Val1,"dFdzt(".$Key.")")!==false ||
               strstr($Val1,"dFdzn(".$Key.")")!==false ||
-              ereg("dRdFdz2\(".$Key.",([a-z0-9A-Z_]+)\)",$Val1,$Rdummy)!==false ||
-              ereg("dRdFdz2\(([a-z0-9A-Z_]+),".$Key."\)",$Val1,$Rdummy)!==false ||
-              ereg("d2NFdz2\(".$Key.",([a-z0-9A-Z_]+)\)",$Val1,$Rdummy)!==false ||
-              ereg("d2NFdz2\(([a-z0-9A-Z_]+),".$Key."\)",$Val1,$Rdummy)!==false ||
-              ereg("_d2Fdz2\(([a-z0-9A-Z_]+),".$Key."\)",$Val1,$Rdummy)!==false)
+              preg_match("/dRdFdz2\(".$Key.",([a-z0-9A-Z_]+)\)/",$Val1,$Rdummy)!==false ||
+              preg_match("/dRdFdz2\(([a-z0-9A-Z_]+),".$Key."\)/",$Val1,$Rdummy)!==false ||
+              preg_match("/d2NFdz2\(".$Key.",([a-z0-9A-Z_]+)\)/",$Val1,$Rdummy)!==false ||
+              preg_match("/d2NFdz2\(([a-z0-9A-Z_]+),".$Key."\)/",$Val1,$Rdummy)!==false ||
+              preg_match("/_d2Fdz2\(([a-z0-9A-Z_]+),".$Key."\)/",$Val1,$Rdummy)!==false)
              {
               $Found = 1;
               break;
@@ -521,12 +522,12 @@ void CalculateK(WKoeffs * W, StoreStruct * V, float ** Kf, float ** KDn, float *
     foreach ($MultiVars as $Key => $Val)
        {
         $Found = 0;
-        foreach (array_merge($FTexts,$FVars) as $Val1)
+        foreach ( _array_merge($FTexts,$FVars) as $Val1)
           if (strstr($Val1,"dFdz(".$Val."[i])")!==false ||
               strstr($Val1,"dFdzn(".$Val."[i])")!==false ||
               strstr($Val1,"d2Fdz2(".$Val."[i])")!==false ||
-              ereg("dRdFdz2\(".$Key."\[i\],([a-z0-9A-Z_]+)\)",$Val1,$Rdummy)!==false ||
-              ereg("dRdFdz2\(([a-z0-9A-Z_]+),".$Key."\[i\]\)",$Val1,$Rdummy)!==false)
+              preg_match("/dRdFdz2\(".$Key."\[i\],([a-z0-9A-Z_]+)\)/",$Val1,$Rdummy)!==false ||
+              preg_match("/dRdFdz2\(([a-z0-9A-Z_]+),".$Key."\[i\]\)/",$Val1,$Rdummy)!==false)
              {
               $Found = 1;
               break;
@@ -561,90 +562,90 @@ void CalculateK(WKoeffs * W, StoreStruct * V, float ** Kf, float ** KDn, float *
        function ProcessDefinitions(&$Arr,$NArr,$SV,$RV,$SD,$RD) {
          for ($i=0; $i<$NArr; $i++)
            {
-            $Arr[$i] = ereg_replace($SV,$RV,$Arr[$i]);
-            $Arr[$i] = ereg_replace($SD,$RD,$Arr[$i]);
+            $Arr[$i] = preg_replace($SV,$RV,$Arr[$i]);
+            $Arr[$i] = preg_replace($SD,$RD,$Arr[$i]);
            }
        }
     }
     
-    foreach (array_merge(array_keys($UsedVars),$AdditionalVars) as $Key => $Val)
+    foreach ( _array_merge(array_keys($UsedVars),$AdditionalVars) as $Key => $Val)
       {
-       $SearchVarPtrn  = "(([^a-z0-9A-Z_])|(^))".$Val."(([^a-z0-9A-Z_])|($))";
-       $ReplaceVarPtrn = "\\1".$Val."[Ptr]\\4";
-       $SearchDrvPtrn  = "((([^a-z0-9A-Z_])|(^))d2?Fd[xyz][2nrlbft]?)\(".$Val."\[Ptr\]\)";
-       $ReplaceDrvPtrn = "\\1(".$Val.")";
+       $SearchVarPtrn  = "/(([^a-z0-9A-Z_])|(^))".$Val."(([^a-z0-9A-Z_])|($))/";
+       $ReplaceVarPtrn = "\${1}".$Val."[Ptr]\${4}";
+       $SearchDrvPtrn  = "/((([^a-z0-9A-Z_])|(^))d2?Fd[xyz][2nrlbft]?)\(".$Val."\[Ptr\]\)/";
+       $ReplaceDrvPtrn = "\${1}(".$Val.")";
        ProcessDefinitions($FVars,$NumFVars,$SearchVarPtrn,$ReplaceVarPtrn,$SearchDrvPtrn,$ReplaceDrvPtrn);
        ProcessDefinitions($FTexts,$NumFTexts,$SearchVarPtrn,$ReplaceVarPtrn,$SearchDrvPtrn,$ReplaceDrvPtrn);
-       $SearchDrvPtrn  = "((([^a-z0-9A-Z_])|(^))dRdFd[xyz]2)\(".$Val."\[Ptr\](,[^\)]+)\)";
-       $ReplaceDrvPtrn = "\\1(".$Val."\\5)";
-       ProcessDefinitions($FVars,$NumFVars,$SearchDrvPtrn,$ReplaceDrvPtrn,"a","a");
-       ProcessDefinitions($FTexts,$NumFTexts,$SearchDrvPtrn,$ReplaceDrvPtrn,"a","a");
-       $SearchDrvPtrn  = "((([^a-z0-9A-Z_])|(^))dRdFd[xyz]2)\(([^\)]+,)".$Val."\[Ptr\]\)";
-       $ReplaceDrvPtrn = "\\1(\\5".$Val.")";
-       ProcessDefinitions($FVars,$NumFVars,$SearchDrvPtrn,$ReplaceDrvPtrn,"a","a");
-       ProcessDefinitions($FTexts,$NumFTexts,$SearchDrvPtrn,$ReplaceDrvPtrn,"a","a");
-       $SearchDrvPtrn  = "((([^a-z0-9A-Z_])|(^))_d2?Fd[xyz]2?)\(([^\)]+,)".$Val."\[Ptr\]\)";
-       $ReplaceDrvPtrn = "\\1(\\5".$Val.")";
-       ProcessDefinitions($FVars,$NumFVars,$SearchDrvPtrn,$ReplaceDrvPtrn,"a","a");
-       ProcessDefinitions($FTexts,$NumFTexts,$SearchDrvPtrn,$ReplaceDrvPtrn,"a","a");
-       $SearchDrvPtrn  = "((([^a-z0-9A-Z_])|(^))d2NFd[xyz]2)\(".$Val."\[Ptr\](,[^\)]+)\)";
-       $ReplaceDrvPtrn = "\\1(".$Val."\\5)";
-       ProcessDefinitions($FVars,$NumFVars,$SearchDrvPtrn,$ReplaceDrvPtrn,"a","a");
-       ProcessDefinitions($FTexts,$NumFTexts,$SearchDrvPtrn,$ReplaceDrvPtrn,"a","a");
-       $SearchDrvPtrn  = "((([^a-z0-9A-Z_])|(^))d2NFd[xyz]2)\(([^\)]+,)".$Val."\[Ptr\]\)";
-       $ReplaceDrvPtrn = "\\1(\\5".$Val.")";
-       ProcessDefinitions($FVars,$NumFVars,$SearchDrvPtrn,$ReplaceDrvPtrn,"a","a");
-       ProcessDefinitions($FTexts,$NumFTexts,$SearchDrvPtrn,$ReplaceDrvPtrn,"a","a");
-       $SearchFPtrn  = "((([^a-z0-9A-Z_])|(^))IsClosed)\(".$Val."\[Ptr\]\)";
-       $ReplaceFPtrn = "\\1(".$Val.")";
-       ProcessDefinitions($FVars,$NumFVars,$SearchFPtrn,$ReplaceFPtrn,"a","a");
-       ProcessDefinitions($FTexts,$NumFTexts,$SearchFPtrn,$ReplaceFPtrn,"a","a");
-       $SearchFPtrn  = "((([^a-z0-9A-Z_])|(^))IsCond)\(".$Val."\[Ptr\],([a-z0-9A-Z])\)";
-       $ReplaceFPtrn = "\\1(".$Val.",'\\5')";
-       ProcessDefinitions($FVars,$NumFVars,$SearchFPtrn,$ReplaceFPtrn,"a","a");
-       ProcessDefinitions($FTexts,$NumFTexts,$SearchFPtrn,$ReplaceFPtrn,"a","a");
+       $SearchDrvPtrn  = "/((([^a-z0-9A-Z_])|(^))dRdFd[xyz]2)\(".$Val."\[Ptr\](,[^\)]+)\)/";
+       $ReplaceDrvPtrn = "\${1}(".$Val."\${5})";
+       ProcessDefinitions($FVars,$NumFVars,$SearchDrvPtrn,$ReplaceDrvPtrn,"/a/","a");
+       ProcessDefinitions($FTexts,$NumFTexts,$SearchDrvPtrn,$ReplaceDrvPtrn,"/a/","a");
+       $SearchDrvPtrn  = "/((([^a-z0-9A-Z_])|(^))dRdFd[xyz]2)\(([^\)]+,)".$Val."\[Ptr\]\)/";
+       $ReplaceDrvPtrn = "\${1}(\${5}".$Val.")";
+       ProcessDefinitions($FVars,$NumFVars,$SearchDrvPtrn,$ReplaceDrvPtrn,"/a/","a");
+       ProcessDefinitions($FTexts,$NumFTexts,$SearchDrvPtrn,$ReplaceDrvPtrn,"/a/","a");
+       $SearchDrvPtrn  = "/((([^a-z0-9A-Z_])|(^))_d2?Fd[xyz]2?)\(([^\)]+,)".$Val."\[Ptr\]\)/";
+       $ReplaceDrvPtrn = "\${1}(\${5}".$Val.")";
+       ProcessDefinitions($FVars,$NumFVars,$SearchDrvPtrn,$ReplaceDrvPtrn,"/a/","a");
+       ProcessDefinitions($FTexts,$NumFTexts,$SearchDrvPtrn,$ReplaceDrvPtrn,"/a/","a");
+       $SearchDrvPtrn  = "/((([^a-z0-9A-Z_])|(^))d2NFd[xyz]2)\(".$Val."\[Ptr\](,[^\)]+)\)/";
+       $ReplaceDrvPtrn = "\${1}(".$Val."\${5})";
+       ProcessDefinitions($FVars,$NumFVars,$SearchDrvPtrn,$ReplaceDrvPtrn,"/a/","a");
+       ProcessDefinitions($FTexts,$NumFTexts,$SearchDrvPtrn,$ReplaceDrvPtrn,"/a/","a");
+       $SearchDrvPtrn  = "/((([^a-z0-9A-Z_])|(^))d2NFd[xyz]2)\(([^\)]+,)".$Val."\[Ptr\]\)/";
+       $ReplaceDrvPtrn = "\${1}(\${5}".$Val.")";
+       ProcessDefinitions($FVars,$NumFVars,$SearchDrvPtrn,$ReplaceDrvPtrn,"/a/","a");
+       ProcessDefinitions($FTexts,$NumFTexts,$SearchDrvPtrn,$ReplaceDrvPtrn,"/a/","a");
+       $SearchFPtrn  = "/((([^a-z0-9A-Z_])|(^))IsClosed)\(".$Val."\[Ptr\]\)/";
+       $ReplaceFPtrn = "\${1}(".$Val.")";
+       ProcessDefinitions($FVars,$NumFVars,$SearchFPtrn,$ReplaceFPtrn,"/a/","a");
+       ProcessDefinitions($FTexts,$NumFTexts,$SearchFPtrn,$ReplaceFPtrn,"/a/","a");
+       $SearchFPtrn  = "/((([^a-z0-9A-Z_])|(^))IsCond)\(".$Val."\[Ptr\],([a-z0-9A-Z])\)/";
+       $ReplaceFPtrn = "\${1}(".$Val.",'\${5}')";
+       ProcessDefinitions($FVars,$NumFVars,$SearchFPtrn,$ReplaceFPtrn,"/a/","a");
+       ProcessDefinitions($FTexts,$NumFTexts,$SearchFPtrn,$ReplaceFPtrn,"/a/","a");
       }
     if (is_array($MultiVars))
        foreach ($MultiVars as $Key => $Val)
          {
-          $SearchVarPtrn  = "(([^a-z0-9A-Z_])|(^))".$Val."\[([^]]+)]";
-          $ReplaceVarPtrn = "\\1".$Val."[\\4][Ptr]";
-          $SearchDrvPtrn  = "((([^a-z0-9A-Z_])|(^))d2?Fd[xyz][2nrlbft]?)\(".$Val."\[([^]]+)]\[Ptr\]\)";
-          $ReplaceDrvPtrn = "\\1(".$Val."[\\5])";
+          $SearchVarPtrn  = "/(([^a-z0-9A-Z_])|(^))".$Val."\[([^]]+)]/";
+          $ReplaceVarPtrn = "\${1}".$Val."[\${4}][Ptr]";
+          $SearchDrvPtrn  = "/((([^a-z0-9A-Z_])|(^))d2?Fd[xyz][2nrlbft]?)\(".$Val."\[([^]]+)]\[Ptr\]\)/";
+          $ReplaceDrvPtrn = "\${1}(".$Val."[\${5}])";
           ProcessDefinitions($FVars,$NumFVars,$SearchVarPtrn,$ReplaceVarPtrn,$SearchDrvPtrn,$ReplaceDrvPtrn);
           ProcessDefinitions($FTexts,$NumFTexts,$SearchVarPtrn,$ReplaceVarPtrn,$SearchDrvPtrn,$ReplaceDrvPtrn);
-          $SearchDrvPtrn  = "((([^a-z0-9A-Z_])|(^))dRdFd[xyz]2)\(".$Val."\[([^]]+)]\[Ptr\](,[^\)]+)\)";
-          $ReplaceDrvPtrn = "\\1(".$Val."[\\5]\\6)";
-          ProcessDefinitions($FVars,$NumFVars,$SearchDrvPtrn,$ReplaceDrvPtrn,"a","a");
-          ProcessDefinitions($FTexts,$NumFTexts,$SearchDrvPtrn,$ReplaceDrvPtrn,"a","a");
-          $SearchDrvPtrn  = "((([^a-z0-9A-Z_])|(^))dRdFd[xyz]2)\(([^\)]+,)".$Val."\[([^]]+)]\[Ptr\]\)";
-          $ReplaceDrvPtrn = "\\1(\\5".$Val."[\\6])";
-          ProcessDefinitions($FVars,$NumFVars,$SearchDrvPtrn,$ReplaceDrvPtrn,"a","a");
-          ProcessDefinitions($FTexts,$NumFTexts,$SearchDrvPtrn,$ReplaceDrvPtrn,"a","a");
-          $SearchDrvPtrn  = "((([^a-z0-9A-Z_])|(^))_d2Fd[xyz]2)\(([^\)]+,)".$Val."\[([^]]+)]\[Ptr\]\)";
-          $ReplaceDrvPtrn = "\\1(\\5".$Val."[\\6])";
-          ProcessDefinitions($FVars,$NumFVars,$SearchDrvPtrn,$ReplaceDrvPtrn,"a","a");
-          ProcessDefinitions($FTexts,$NumFTexts,$SearchDrvPtrn,$ReplaceDrvPtrn,"a","a");
-          $SearchDrvPtrn  = "((([^a-z0-9A-Z_])|(^))d2NFd[xyz]2)\(".$Val."\[([^]]+)]\[Ptr\](,[^\)]+)\)";
-          $ReplaceDrvPtrn = "\\1(".$Val."[\\5]\\6)";
-          ProcessDefinitions($FVars,$NumFVars,$SearchDrvPtrn,$ReplaceDrvPtrn,"a","a");
-          ProcessDefinitions($FTexts,$NumFTexts,$SearchDrvPtrn,$ReplaceDrvPtrn,"a","a");
-          $SearchDrvPtrn  = "((([^a-z0-9A-Z_])|(^))d2NFd[xyz]2)\(([^\)]+,)".$Val."\[([^]]+)]\[Ptr\]\)";
-          $ReplaceDrvPtrn = "\\1(\\5".$Val."[\\6])";
-          ProcessDefinitions($FVars,$NumFVars,$SearchDrvPtrn,$ReplaceDrvPtrn,"a","a");
-          ProcessDefinitions($FTexts,$NumFTexts,$SearchDrvPtrn,$ReplaceDrvPtrn,"a","a");
-          $SearchFPtrn  = "((([^a-z0-9A-Z_])|(^))IsClosed)\(".$Val."\[([^]]+)]\[Ptr\]\)";
-          $ReplaceFPtrn = "\\1(".$Val."[\\5])";
-          ProcessDefinitions($FVars,$NumFVars,$SearchFPtrn,$ReplaceFPtrn,"a","a");
-          ProcessDefinitions($FTexts,$NumFTexts,$SearchFPtrn,$ReplaceFPtrn,"a","a");
-          $SearchFPtrn  = "((([^a-z0-9A-Z_])|(^))IsCond)\(".$Val."\[([^]]+)]\[Ptr\],([a-z0-9A-Z])\)";
-          $ReplaceFPtrn = "\\1(".$Val."[\\5],'\\6')";
-          ProcessDefinitions($FVars,$NumFVars,$SearchFPtrn,$ReplaceFPtrn,"a","a");
-          ProcessDefinitions($FTexts,$NumFTexts,$SearchFPtrn,$ReplaceFPtrn,"a","a");
+          $SearchDrvPtrn  = "/((([^a-z0-9A-Z_])|(^))dRdFd[xyz]2)\(".$Val."\[([^]]+)]\[Ptr\](,[^\)]+)\)/";
+          $ReplaceDrvPtrn = "\${1}(".$Val."[\${5}]\${6})";
+          ProcessDefinitions($FVars,$NumFVars,$SearchDrvPtrn,$ReplaceDrvPtrn,"/a/","a");
+          ProcessDefinitions($FTexts,$NumFTexts,$SearchDrvPtrn,$ReplaceDrvPtrn,"/a/","a");
+          $SearchDrvPtrn  = "/((([^a-z0-9A-Z_])|(^))dRdFd[xyz]2)\(([^\)]+,)".$Val."\[([^]]+)]\[Ptr\]\)/";
+          $ReplaceDrvPtrn = "\${1}(\${5}".$Val."[\${6}])";
+          ProcessDefinitions($FVars,$NumFVars,$SearchDrvPtrn,$ReplaceDrvPtrn,"/a/","a");
+          ProcessDefinitions($FTexts,$NumFTexts,$SearchDrvPtrn,$ReplaceDrvPtrn,"/a/","a");
+          $SearchDrvPtrn  = "/((([^a-z0-9A-Z_])|(^))_d2Fd[xyz]2)\(([^\)]+,)".$Val."\[([^]]+)]\[Ptr\]\)/";
+          $ReplaceDrvPtrn = "\${1}(\${5}".$Val."[\${6}])";
+          ProcessDefinitions($FVars,$NumFVars,$SearchDrvPtrn,$ReplaceDrvPtrn,"/a/","a");
+          ProcessDefinitions($FTexts,$NumFTexts,$SearchDrvPtrn,$ReplaceDrvPtrn,"/a/","a");
+          $SearchDrvPtrn  = "/((([^a-z0-9A-Z_])|(^))d2NFd[xyz]2)\(".$Val."\[([^]]+)]\[Ptr\](,[^\)]+)\)/";
+          $ReplaceDrvPtrn = "\${1}(".$Val."[\${5}]\${6})";
+          ProcessDefinitions($FVars,$NumFVars,$SearchDrvPtrn,$ReplaceDrvPtrn,"/a/","a");
+          ProcessDefinitions($FTexts,$NumFTexts,$SearchDrvPtrn,$ReplaceDrvPtrn,"/a/","a");
+          $SearchDrvPtrn  = "/((([^a-z0-9A-Z_])|(^))d2NFd[xyz]2)\(([^\)]+,)".$Val."\[([^]]+)]\[Ptr\]\)/";
+          $ReplaceDrvPtrn = "\${1}(\${5}".$Val."[\${6}])";
+          ProcessDefinitions($FVars,$NumFVars,$SearchDrvPtrn,$ReplaceDrvPtrn,"/a/","a");
+          ProcessDefinitions($FTexts,$NumFTexts,$SearchDrvPtrn,$ReplaceDrvPtrn,"/a/","a");
+          $SearchFPtrn  = "/((([^a-z0-9A-Z_])|(^))IsClosed)\(".$Val."\[([^]]+)]\[Ptr\]\)/";
+          $ReplaceFPtrn = "\${1}(".$Val."[\${5}])";
+          ProcessDefinitions($FVars,$NumFVars,$SearchFPtrn,$ReplaceFPtrn,"/a/","a");
+          ProcessDefinitions($FTexts,$NumFTexts,$SearchFPtrn,$ReplaceFPtrn,"/a/","a");
+          $SearchFPtrn  = "/((([^a-z0-9A-Z_])|(^))IsCond)\(".$Val."\[([^]]+)]\[Ptr\],([a-z0-9A-Z])\)/";
+          $ReplaceFPtrn = "\${1}(".$Val."[\${5}],'\${6}')";
+          ProcessDefinitions($FVars,$NumFVars,$SearchFPtrn,$ReplaceFPtrn,"/a/","a");
+          ProcessDefinitions($FTexts,$NumFTexts,$SearchFPtrn,$ReplaceFPtrn,"/a/","a");
          }
     if (!function_exists("InlineExplode")) {
        function InlineExplode($Text,$FName,$Prefix,$Infix,$Postfix) {
-         while (ereg("(([^a-z0-9A-Z_])|(^))".$FName."\{([^,]+),([^,]+),([^;}]+)(\;([a-zA-Z0-9_]+))?\}",$Text,$Regs))
+         while (preg_match("/(([^a-z0-9A-Z_])|(^))".$FName."\{([^,]+),([^,]+),([^;}]+)(\;([a-zA-Z0-9_]+))?\}/",$Text,$Regs))
            {
             $R = array();
             $From = (int) eval("return ".$Regs[4].";");
@@ -653,7 +654,7 @@ void CalculateK(WKoeffs * W, StoreStruct * V, float ** Kf, float ** KDn, float *
             for ($j = $From; $j <= $To; $j++)
                 array_push($R,
                   "(".
-                  ereg_replace("(([^a-z0-9A-Z_])|(^))".$Idx."(([^a-z0-9A-Z_])|(^))","\\1".$j."\\4",$Regs[6]).
+                  preg_replace("/(([^a-z0-9A-Z_])|(^))".$Idx."(([^a-z0-9A-Z_])|(^))/","\${1}".$j."\${4}",$Regs[6]).
                   ")");
             $Text = str_replace($Regs[0],$Regs[1].sprintf($Prefix,$To-$From+1).implode($Infix,$R).$Postfix,$Text);
            }
@@ -667,8 +668,8 @@ void CalculateK(WKoeffs * W, StoreStruct * V, float ** Kf, float ** KDn, float *
             $Arr[$i] = InlineExplode($Arr[$i],"Sum","(","+",")");
             $Arr[$i] = InlineExplode($Arr[$i],"Min","min%u(",",(double)",")");
             $Arr[$i] = InlineExplode($Arr[$i],"Max","max%u(",",(double)",")");
-            $Arr[$i] = ereg_replace("(([^a-z0-9A-Z_])|(^))Split\{([^,]+),([^}]+)\}",
-                                    "\\1((FastMode ? (\\4) : 0.0)+(SlowMode ? (\\5) : 0.0))",
+            $Arr[$i] = preg_replace("/(([^a-z0-9A-Z_])|(^))Split\{([^,]+),([^}]+)\}/",
+                                    "\${1}((FastMode ? (\${4}) : 0.0)+(SlowMode ? (\${5}) : 0.0))",
                                     $Arr[$i]);
             $Arr[$i] = str_replace("[Ptr][up]","[ZPYX]",$Arr[$i]);
             $Arr[$i] = str_replace("[Ptr][down]","[ZMYX]",$Arr[$i]);
@@ -687,7 +688,7 @@ void CalculateK(WKoeffs * W, StoreStruct * V, float ** Kf, float ** KDn, float *
     foreach ($SplittedFVars as $Key => $Val)
       {
        $Tokenized = "";
-       $Val = ereg_replace("/\*.*\*/","",$Val);
+       $Val = preg_replace("/\*.*\*/","",$Val);
        $Token = strtok($Val," \n\t");
        while ($Token)
          $Tokenized .= ($Token = strtok(" \n\t"));
@@ -696,7 +697,7 @@ void CalculateK(WKoeffs * W, StoreStruct * V, float ** Kf, float ** KDn, float *
     asort($TokenizedFVars);
     $FVal = reset($TokenizedFVars);
     $FKey = key($TokenizedFVars);
-    while (list($Key, $Val) = each ($TokenizedFVars))
+    foreach ($TokenizedFVars as $Key => $Val)
       if ($Val==$FVal)
          if ((int) $FKey < (int) $Key)
             $TokenizedFVars[$Key] = "";
@@ -712,11 +713,11 @@ void CalculateK(WKoeffs * W, StoreStruct * V, float ** Kf, float ** KDn, float *
          }
     foreach ($TokenizedFVars as $Key => $Val)
       if ($Val=="") unset($SplittedFVars[$Key]);
-    if (count($SplittedFVars))
+    if (_count($SplittedFVars))
        {
-        reset($SplittedFVars);
-        $FIRST = each($SplittedFVars);
-        $SplittedFVars[$FIRST[0]] = "\n" . $FIRST[1];
+        // reset($SplittedFVars);
+        $FIRST = array_key_first($SplittedFVars);
+        $SplittedFVars[$FIRST] = "\n" . $SplittedFVars[$FIRST];
        }
     /* Разделяем декларации на деклараторы и присваивания */
     $Declarators = array();
@@ -765,7 +766,7 @@ void CalculateK(WKoeffs * W, StoreStruct * V, float ** Kf, float ** KDn, float *
          {
           $Name1 = $Names[$Key1];
           if ($Key!=$Key1)
-             if (ereg("(([^a-z0-9A-Z_])|(^))".$Name."(([^a-z0-9A-Z_])|($))",$Val1,$Regs))
+             if (preg_match("/(([^a-z0-9A-Z_])|(^))".$Name."(([^a-z0-9A-Z_])|($))/",$Val1,$Regs))
                 {
                  array_push($Link,$Name1);
                  array_push($RLinks[$Name1],$Name);
@@ -774,14 +775,14 @@ void CalculateK(WKoeffs * W, StoreStruct * V, float ** Kf, float ** KDn, float *
        $Links[$Name] = $Link;
       }
     $OutFVars = array();
-    while (count($SplittedFVars))
+    while (_count($SplittedFVars))
       {
        /* Собираем фронт из узлов, на которые нет обратных ссылок */
        /* Это узлы, зависящие только от уже проработанных узлов */
        /* из предыдущих фронтов или исходно независимые. */
        $Front = array();
        foreach ($RLinks as $Key => $Val)
-         if (count($Val)==0 && isset($SplittedFVars[$Keys[$Key]]))
+         if (_count($Val)==0 && isset($SplittedFVars[$Keys[$Key]]))
             {
              $Front[$Keys[$Key]] = $SplittedFVars[$Keys[$Key]];
              unset($SplittedFVars[$Keys[$Key]]);
@@ -799,8 +800,8 @@ void CalculateK(WKoeffs * W, StoreStruct * V, float ** Kf, float ** KDn, float *
                  }
          }
        ksort($Front);
-       $OutFVars = array_merge($OutFVars,$Front);
-       if (count($Front) == 0 && count($SplittedFVars) > 0) {
+       $OutFVars =  _array_merge($OutFVars,$Front);
+       if (_count($Front) == 0 &&  _count($SplittedFVars) > 0) {
           echo "--------------------\n";
           echo ShiftStr("               ",implode(";",$SplittedFVars)),";\n";
           echo "--------------------\n";
@@ -820,7 +821,7 @@ void CalculateK(WKoeffs * W, StoreStruct * V, float ** Kf, float ** KDn, float *
                         return $Cycled;
                      else {
                         if ($From == $Cycled) {
-                           for ($i = 0; $i < count($Path); $i++)
+                           for ($i = 0; $i <  _count($Path); $i++)
                                if ($Path[$i] == $From)
                                   return array_slice($Path, $i);
                         }
@@ -847,11 +848,11 @@ void CalculateK(WKoeffs * W, StoreStruct * V, float ** Kf, float ** KDn, float *
           break;
        }
       }
-    if (count($Declarators))
+    if (_count($Declarators))
        echo ShiftStr("               ",implode(";",$Declarators)),";\n\n";
-    if (count($OutFVars))
+    if (_count($OutFVars))
        echo ShiftStr("               ",implode(";",$OutFVars)),";\n\n";
-    if (count($FTexts))
+    if (_count($FTexts))
        echo ShiftStr("               ",implode("\n",$FTexts)),"\n";
 ?>
               }
