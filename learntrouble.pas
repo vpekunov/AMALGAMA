@@ -16,8 +16,8 @@ type
 
   TLearnTroubleForm = class(TForm)
     EditMemo: TMemo;
-    OKBtn: TBitBtn;
-    CancelBtn: TBitBtn;
+    OKBtn: TButton;
+    CancelBtn: TButton;
     ListBox: TListBox;
     ModeBtn: TSpeedButton;
     procedure EditMemoChange(Sender: TObject);

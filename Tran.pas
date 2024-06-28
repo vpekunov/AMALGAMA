@@ -15,16 +15,16 @@ type
   { TTranslator }
 
   TTranslator = class(TForm)
-    LearnBtn: TBitBtn;
+    LearnBtn: TButton;
     TranTimer: TTimer;
-    CloseBtn: TBitBtn;
+    CloseBtn: TButton;
     ErrProgText: TListBox;
     ProgressBar: TProgressBar;
     InfoPanel: TPanel;
     ProgText: TMemo;
-    SaveBtn: TBitBtn;
-    ExecuteBtn: TBitBtn;
-    CopyBtn: TBitBtn;
+    SaveBtn: TButton;
+    ExecuteBtn: TButton;
+    CopyBtn: TButton;
     procedure FormShow(Sender: TObject);
     procedure LearnBtnClick(Sender: TObject);
     procedure TranTimerTimer(Sender: TObject);

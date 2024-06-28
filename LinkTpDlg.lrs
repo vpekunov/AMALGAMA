@@ -1,23 +1,25 @@
+{ This is an automatically generated lazarus resource file }
+
 LazarusResources.Add('TLinkTypeDlg','FORMDATA',[
-  'TPF0'#12'TLinkTypeDlg'#11'LinkTypeDlg'#4'Left'#3#29#1#6'Height'#2'e'#3'Top'#3
-  +#209#0#5'Width'#3#185#0#11'BorderStyle'#7#8'bsDialog'#7'Caption'#6#17#208#162
+  'TPF0'#12'TLinkTypeDlg'#11'LinkTypeDlg'#4'Left'#3#29#1#6'Height'#2'~'#3'Top'#3
+  +#209#0#5'Width'#3#230#0#11'BorderStyle'#7#8'bsDialog'#7'Caption'#6#17#208#162
   +#208#184#208#191' '#209#129#208#178#209#143#208#183#208#184#12'ClientHeight'
-  +#2'e'#11'ClientWidth'#3#185#0#10'ParentFont'#8#8'Position'#7#14'poScreenCent'
-  +'er'#10'LCLVersion'#6#6'0.9.26'#0#7'TButton'#5'OKBtn'#4'Left'#2#15#6'Height'
-  +#2#25#3'Top'#2'H'#5'Width'#2'K'#7'Anchors'#11#6'akLeft'#8'akBottom'#0#7'Capt'
-  +'ion'#6#2'OK'#7'Default'#9#11'ModalResult'#2#1#8'TabOrder'#2#0#0#0#7'TButton'
-  +#9'CancelBtn'#4'Left'#2'`'#6'Height'#2#25#3'Top'#2'H'#5'Width'#2'K'#7'Anchor'
-  +'s'#11#6'akLeft'#8'akBottom'#0#6'Cancel'#9#7'Caption'#6#6'Cancel'#11'ModalRe'
-  +'sult'#2#2#8'TabOrder'#2#1#0#0#11'TRadioGroup'#13'LinkTypeGroup'#4'Left'#2#8
-  +#6'Height'#2'A'#5'Width'#3#169#0#8'AutoFill'#9#7'Caption'#6#12' '#208#161#208
-  +#178#209#143#208#183#209#140' '#28'ChildSizing.LeftRightSpacing'#2#6#28'Chil'
-  +'dSizing.TopBottomSpacing'#2#6#29'ChildSizing.EnlargeHorizontal'#7#24'crsHom'
-  +'ogenousChildResize'#27'ChildSizing.EnlargeVertical'#7#24'crsHomogenousChild'
-  +'Resize'#28'ChildSizing.ShrinkHorizontal'#7#14'crsScaleChilds'#26'ChildSizin'
-  +'g.ShrinkVertical'#7#14'crsScaleChilds'#18'ChildSizing.Layout'#7#29'cclLeftT'
-  +'oRightThenTopToBottom'#27'ChildSizing.ControlsPerLine'#2#1#12'ClientHeight'
-  +#2'/'#11'ClientWidth'#3#165#0#9'ItemIndex'#2#0#13'Items.Strings'#1#6#16#208
-  +#158#209#129#208#189#208#190#208#178#208#189#208#176#209#143#6#30#208#146#209
-  +#129#208#191#208#190#208#188#208#190#208#179#208#176#209#130#208#181#208#187
-  +#209#140#208#189#208#176#209#143#0#8'TabOrder'#2#2#0#0#0
+  +#2'~'#11'ClientWidth'#3#230#0#13'DesignTimePPI'#2'x'#8'Position'#7#14'poScre'
+  +'enCenter'#10'LCLVersion'#6#7'3.2.0.0'#0#7'TButton'#5'OKBtn'#4'Left'#2#19#6
+  +'Height'#2#31#3'Top'#2'Z'#5'Width'#2'^'#7'Anchors'#11#6'akLeft'#8'akBottom'#0
+  +#7'Caption'#6#2'OK'#7'Default'#9#11'ModalResult'#2#1#8'TabOrder'#2#0#0#0#7'T'
+  +'Button'#9'CancelBtn'#4'Left'#2'x'#6'Height'#2#31#3'Top'#2'Z'#5'Width'#2'^'#7
+  +'Anchors'#11#6'akLeft'#8'akBottom'#0#6'Cancel'#9#7'Caption'#6#6'Cancel'#11'M'
+  +'odalResult'#2#2#8'TabOrder'#2#1#0#0#11'TRadioGroup'#13'LinkTypeGroup'#4'Lef'
+  +'t'#2#10#6'Height'#2'Q'#3'Top'#2#0#5'Width'#3#211#0#8'AutoFill'#9#7'Caption'
+  +#6#12' '#208#161#208#178#209#143#208#183#209#140' '#28'ChildSizing.LeftRight'
+  +'Spacing'#2#6#28'ChildSizing.TopBottomSpacing'#2#6#29'ChildSizing.EnlargeHor'
+  +'izontal'#7#24'crsHomogenousChildResize'#27'ChildSizing.EnlargeVertical'#7#24
+  +'crsHomogenousChildResize'#28'ChildSizing.ShrinkHorizontal'#7#14'crsScaleChi'
+  +'lds'#26'ChildSizing.ShrinkVertical'#7#14'crsScaleChilds'#18'ChildSizing.Lay'
+  +'out'#7#29'cclLeftToRightThenTopToBottom'#27'ChildSizing.ControlsPerLine'#2#1
+  +#12'ClientHeight'#2'8'#11'ClientWidth'#3#207#0#9'ItemIndex'#2#0#13'Items.Str'
+  +'ings'#1#6#16#208#158#209#129#208#189#208#190#208#178#208#189#208#176#209#143
+  +#6#30#208#146#209#129#208#191#208#190#208#188#208#190#208#179#208#176#209#130
+  +#208#181#208#187#209#140#208#189#208#176#209#143#0#8'TabOrder'#2#2#0#0#0
 ]);

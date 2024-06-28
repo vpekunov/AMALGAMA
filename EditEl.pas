@@ -11,6 +11,9 @@ uses
   StdCtrls, Elements, Math, Buttons, AutoConsts {$IFDEF FPC},LResources{$ENDIF};
 
 type
+
+  { TEditProps }
+
   TEditProps = class(TForm)
     edtIdent: TEdit;
     IdentLabel: TLabel;

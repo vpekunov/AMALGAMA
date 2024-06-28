@@ -25,10 +25,10 @@ type
     Label3: TLabel;
     nCPUs: TSpinEdit;
     UseXPathing: TCheckBox;
-    CompileBtn: TBitBtn;
-    btnLoadProgram: TBitBtn;
-    btnCancel: TBitBtn;
-    btnOk: TBitBtn;
+    CompileBtn: TButton;
+    btnLoadProgram: TButton;
+    btnCancel: TButton;
+    btnOk: TButton;
     clbVersions: TCheckListBox;
     ClassesTree: TTreeView;
     Label1: TLabel;

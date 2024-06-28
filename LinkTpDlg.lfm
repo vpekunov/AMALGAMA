@@ -1,20 +1,20 @@
 object LinkTypeDlg: TLinkTypeDlg
   Left = 285
-  Height = 101
+  Height = 126
   Top = 209
-  Width = 185
+  Width = 230
   BorderStyle = bsDialog
   Caption = 'Тип связи'
-  ClientHeight = 101
-  ClientWidth = 185
-  ParentFont = False
+  ClientHeight = 126
+  ClientWidth = 230
+  DesignTimePPI = 120
   Position = poScreenCenter
-  LCLVersion = '0.9.26'
+  LCLVersion = '3.2.0.0'
   object OKBtn: TButton
-    Left = 15
-    Height = 25
-    Top = 72
-    Width = 75
+    Left = 19
+    Height = 31
+    Top = 90
+    Width = 94
     Anchors = [akLeft, akBottom]
     Caption = 'OK'
     Default = True
@@ -22,10 +22,10 @@ object LinkTypeDlg: TLinkTypeDlg
     TabOrder = 0
   end
   object CancelBtn: TButton
-    Left = 96
-    Height = 25
-    Top = 72
-    Width = 75
+    Left = 120
+    Height = 31
+    Top = 90
+    Width = 94
     Anchors = [akLeft, akBottom]
     Cancel = True
     Caption = 'Cancel'
@@ -33,9 +33,10 @@ object LinkTypeDlg: TLinkTypeDlg
     TabOrder = 1
   end
   object LinkTypeGroup: TRadioGroup
-    Left = 8
-    Height = 65
-    Width = 169
+    Left = 10
+    Height = 81
+    Top = 0
+    Width = 211
     AutoFill = True
     Caption = ' Связь '
     ChildSizing.LeftRightSpacing = 6
@@ -46,8 +47,8 @@ object LinkTypeDlg: TLinkTypeDlg
     ChildSizing.ShrinkVertical = crsScaleChilds
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 47
-    ClientWidth = 165
+    ClientHeight = 56
+    ClientWidth = 207
     ItemIndex = 0
     Items.Strings = (
       'Основная'
