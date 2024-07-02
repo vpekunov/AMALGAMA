@@ -3292,14 +3292,21 @@ begin
      {$ELSE}
      ;
      {$ENDIF}
-     If FindFirst(Base+SuperSlash+'*.*',faDirectory,T)=0 Then
+     If FindFirst(Base+SuperSlash+'*',faDirectory,T)=0 Then
         begin
-          Repeat
-             If ((T.Attr And faDirectory)<>0) And
-                (T.Name<>'.') And (T.Name<>'..') Then
-                ReadClasses(False,Base+SuperSlash+T.Name,This,T.Name{$IF DEFINED(LCL) OR DEFINED(VCL)},ThisNode{$ENDIF})
-          Until FindNext(T)<>0;
-          FindClose(T)
+          Try
+            Try
+               Repeat
+                  If ((T.Attr And faDirectory)<>0) And
+                     (T.Name<>'.') And (T.Name<>'..') Then
+                     ReadClasses(False,Base+SuperSlash+T.Name,This,T.Name{$IF DEFINED(LCL) OR DEFINED(VCL)},ThisNode{$ENDIF})
+              Until FindNext(T)<>0;
+            Except
+               MakeErrorCommon('Сбой загрузки элемента ' + T.Name)
+            End
+          Finally
+            FindClose(T)
+          End
         end
 end;
 {$WARNINGS ON}

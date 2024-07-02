@@ -3,6 +3,7 @@ program Automodeling;
 {$MODE Delphi}
 
 uses
+  {$IF DEFINED(UNIX) OR DEFINED(LINUX)}cthreads, cmem,{$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms,
   xpathingIntrf,
@@ -22,6 +23,7 @@ uses
   EditList, LearnTrouble, InductModel, InductRules;
 
 begin
+  Application.Title:='';
   Application.Initialize;
   Application.CreateForm(TMainForm, MainForm);
   Application.CreateForm(TClassesForm, ClassesForm);

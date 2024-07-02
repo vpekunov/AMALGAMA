@@ -1,105 +1,102 @@
 object EditProps: TEditProps
   Left = 262
-  Height = 145
+  Height = 116
   Top = 248
-  Width = 302
+  Width = 242
   ActiveControl = edtIdent
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsDialog
-  Caption = 'Параметры'
-  ClientHeight = 145
-  ClientWidth = 302
-  DesignTimePPI = 120
-  Font.Height = -14
+  Caption = 'РџР°СЂР°РјРµС‚СЂС‹'
+  ClientHeight = 116
+  ClientWidth = 242
+  Font.Height = -11
   Font.Name = 'MS Sans Serif'
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   Position = poScreenCenter
-  LCLVersion = '3.2.0.0'
+  LCLVersion = '2.2.0.4'
   object IdentLabel: TLabel
-    Left = 10
-    Height = 15
-    Top = 5
-    Width = 101
+    Left = 8
+    Height = 12
+    Top = 4
+    Width = 81
     AutoSize = False
-    Caption = 'Идентификатор'
-    Font.Height = -11
+    Caption = 'РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ'
+    Font.Height = -9
     Font.Name = 'MS Sans Serif'
-    ParentColor = False
     ParentFont = False
   end
   object ItemsLabel: TLabel
-    Left = 10
-    Height = 16
-    Top = 50
-    Width = 69
-    Caption = 'Субэлементы'
-    Font.Height = -15
+    Left = 8
+    Height = 15
+    Top = 40
+    Width = 84
+    Caption = 'РЎСѓР±СЌР»РµРјРµРЅС‚С‹'
+    Font.Height = -12
     Font.Name = 'MS Sans Serif'
-    ParentColor = False
     ParentFont = False
     Visible = False
   end
   object ItemEdit: TSpeedButton
-    Left = 261
-    Height = 28
-    Top = 69
-    Width = 29
+    Left = 209
+    Height = 22
+    Top = 55
+    Width = 23
     Caption = '...'
     Visible = False
     OnClick = ItemEditClick
   end
   object edtIdent: TEdit
-    Left = 9
-    Height = 24
-    Top = 24
-    Width = 281
+    Left = 7
+    Height = 31
+    Top = 19
+    Width = 225
     TabOrder = 1
   end
   object OKBtn: TButton
-    Left = 40
-    Height = 31
-    Top = 110
-    Width = 94
+    Left = 25
+    Height = 25
+    Top = 88
+    Width = 75
     Anchors = [akBottom]
     Caption = 'OK'
     Default = True
-    Font.Height = -12
+    Font.Height = -10
     Font.Name = 'MS Sans Serif'
     ModalResult = 1
     ParentFont = False
     TabOrder = 2
   end
   object CancelBtn: TButton
-    Left = 174
-    Height = 31
-    Top = 110
-    Width = 94
+    Left = 132
+    Height = 25
+    Top = 88
+    Width = 75
     Anchors = [akBottom]
     Cancel = True
-    Caption = 'Отмена'
+    Caption = 'РћС‚РјРµРЅР°'
     ModalResult = 2
     TabOrder = 3
   end
   object chkPermanent: TCheckBox
-    Left = 96
-    Height = 20
+    Left = 88
+    Height = 16
     Top = 0
-    Width = 174
+    Width = 139
     AutoSize = False
-    Caption = 'Не менять при вставке'
-    Font.Height = -8
+    Caption = 'РќРµ РјРµРЅСЏС‚СЊ РїСЂРё РІСЃС‚Р°РІРєРµ'
+    Font.Height = -9
     Font.Name = 'MS Sans Serif'
     ParentFont = False
     TabOrder = 0
   end
   object ItemsComboBox: TComboBox
-    Left = 10
-    Height = 24
-    Top = 70
-    Width = 248
-    ItemHeight = 16
+    Left = 8
+    Height = 30
+    Top = 56
+    Width = 198
+    ItemHeight = 0
     Style = csDropDownList
     TabOrder = 4
     Visible = False

@@ -4,7 +4,7 @@ object ClassesForm: TClassesForm
   Top = 106
   Width = 273
   BorderStyle = bsSizeToolWin
-  Caption = 'Классы'
+  Caption = 'РљР»Р°СЃСЃС‹'
   ClientHeight = 469
   ClientWidth = 273
   DesignTimePPI = 120

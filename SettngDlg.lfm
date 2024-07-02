@@ -4,7 +4,7 @@ object SettingsDlg: TSettingsDlg
   Top = 108
   Width = 431
   BorderStyle = bsDialog
-  Caption = 'Настройки'
+  Caption = 'РќР°СЃС‚СЂРѕР№РєРё'
   ClientHeight = 341
   ClientWidth = 431
   DesignTimePPI = 120
@@ -37,7 +37,7 @@ object SettingsDlg: TSettingsDlg
     Height = 171
     Top = 10
     Width = 416
-    Caption = ' Отображение элементов '
+    Caption = ' РћС‚РѕР±СЂР°Р¶РµРЅРёРµ СЌР»РµРјРµРЅС‚РѕРІ '
     ClientHeight = 146
     ClientWidth = 412
     TabOrder = 0
@@ -46,7 +46,7 @@ object SettingsDlg: TSettingsDlg
       Height = 24
       Top = 0
       Width = 126
-      Caption = 'Имена классов'
+      Caption = 'РРјРµРЅР° РєР»Р°СЃСЃРѕРІ'
       TabOrder = 0
     end
     object cbShowName: TCheckBox
@@ -54,7 +54,7 @@ object SettingsDlg: TSettingsDlg
       Height = 24
       Top = 20
       Width = 146
-      Caption = 'Имена элементов'
+      Caption = 'РРјРµРЅР° СЌР»РµРјРµРЅС‚РѕРІ'
       TabOrder = 1
     end
     object cbShowImage: TCheckBox
@@ -62,7 +62,7 @@ object SettingsDlg: TSettingsDlg
       Height = 24
       Top = 40
       Width = 211
-      Caption = 'Графические изображения'
+      Caption = 'Р“СЂР°С„РёС‡РµСЃРєРёРµ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ'
       TabOrder = 2
     end
     object ApplyGroup: TRadioGroup
@@ -71,7 +71,7 @@ object SettingsDlg: TSettingsDlg
       Top = 70
       Width = 392
       AutoFill = True
-      Caption = ' Область действия '
+      Caption = ' РћР±Р»Р°СЃС‚СЊ РґРµР№СЃС‚РІРёСЏ '
       ChildSizing.LeftRightSpacing = 6
       ChildSizing.TopBottomSpacing = 6
       ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
@@ -84,8 +84,8 @@ object SettingsDlg: TSettingsDlg
       ClientWidth = 388
       ItemIndex = 0
       Items.Strings = (
-        'Использовать для новых элементов'
-        'Применить ко всем элементам'
+        'РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РґР»СЏ РЅРѕРІС‹С… СЌР»РµРјРµРЅС‚РѕРІ'
+        'РџСЂРёРјРµРЅРёС‚СЊ РєРѕ РІСЃРµРј СЌР»РµРјРµРЅС‚Р°Рј'
       )
       TabOrder = 3
     end
@@ -95,7 +95,7 @@ object SettingsDlg: TSettingsDlg
     Height = 91
     Top = 190
     Width = 414
-    Caption = ' Автозапуск '
+    Caption = ' РђРІС‚РѕР·Р°РїСѓСЃРє '
     ClientHeight = 66
     ClientWidth = 410
     TabOrder = 1
@@ -104,7 +104,7 @@ object SettingsDlg: TSettingsDlg
       Height = 24
       Top = 0
       Width = 303
-      Caption = 'Запускать сгенерированную программу'
+      Caption = 'Р—Р°РїСѓСЃРєР°С‚СЊ СЃРіРµРЅРµСЂРёСЂРѕРІР°РЅРЅСѓСЋ РїСЂРѕРіСЂР°РјРјСѓ'
       TabOrder = 0
     end
     object cbAutoReDeduce: TCheckBox
@@ -112,7 +112,7 @@ object SettingsDlg: TSettingsDlg
       Height = 24
       Top = 40
       Width = 390
-      Caption = 'Продолжать вывод модели при порождении фактов'
+      Caption = 'РџСЂРѕРґРѕР»Р¶Р°С‚СЊ РІС‹РІРѕРґ РјРѕРґРµР»Рё РїСЂРё РїРѕСЂРѕР¶РґРµРЅРёРё С„Р°РєС‚РѕРІ'
       TabOrder = 2
     end
     object cbAutoDeduce: TCheckBox
@@ -120,7 +120,7 @@ object SettingsDlg: TSettingsDlg
       Height = 24
       Top = 20
       Width = 287
-      Caption = 'Начинать дедуктивный вывод модели'
+      Caption = 'РќР°С‡РёРЅР°С‚СЊ РґРµРґСѓРєС‚РёРІРЅС‹Р№ РІС‹РІРѕРґ РјРѕРґРµР»Рё'
       TabOrder = 1
     end
   end

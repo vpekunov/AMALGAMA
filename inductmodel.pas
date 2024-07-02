@@ -75,7 +75,7 @@ type
 implementation
 
 Uses Common, Regexpr, Main, AutoUtils, AutoConsts, Math,
-  dom, xmlread, xmlwrite, Windows, Lexique, DateUtils,
+  dom, xmlread, xmlwrite{$IFNDEF linux}, Windows{$ENDIF}, Lexique, DateUtils,
   xpathingIntrf;
 
 { TInductModelForm }
@@ -299,7 +299,7 @@ begin
 
           S.Add('{$CODEPAGE UTF8}');
 
-          S.Add('Uses {$IF DEFINED(UNIX) OR DEFINED(LINUX)}cthreads{$ELSE}Windows{$ENDIF}, xpathingIntrf, AutoConsts, RegExpr, MetaComp, DateUtils, SysUtils, Classes, xpath, Elements, AutoUtils, Common;');
+          S.Add('Uses {$IF DEFINED(UNIX) OR DEFINED(LINUX)}cmem, cthreads{$ELSE}Windows{$ENDIF}, xpathingIntrf, AutoConsts, RegExpr, MetaComp, DateUtils, SysUtils, Classes, xpath, Elements, AutoUtils, Common;');
           S.Add('Type Stager = class');
           S.Add('        Procedure OnStage(Percent: Real; Const MacroID: AnsiString = '''');');
           S.Add('     End;');
@@ -520,12 +520,15 @@ begin
 
           S.Free;
 
-          memResult.Lines.Text := RunExtCommand('run_fpc.bat','_ _.pout','_.pout','');
+          memResult.Lines.Text := RunExtCommand(
+             {$IF DEFINED(UNIX) OR DEFINED(LINUX)}'sh ./run_fpc.sh'{$ELSE}'run_fpc.bat'{$ENDIF},'_ _.pout','_.pout','');
 
-          If CompareText(ExtractFileName(SaveDialog.FileName), '_.exe') <> 0 Then
+          If CompareText(ExtractFileName(SaveDialog.FileName),
+                {$IF DEFINED(UNIX) OR DEFINED(LINUX)}'_'{$ELSE}'_.exe'{$ENDIF}) <> 0 Then
              Begin
                SysUtils.DeleteFile(SaveDialog.FileName);
-               RenameFile(ExcludeTrailingBackSlash(ExtractFilePath(Application.ExeName)) + SuperSlash + '_.exe', SaveDialog.FileName)
+               RenameFile(ExcludeTrailingBackSlash(ExtractFilePath(Application.ExeName)) + SuperSlash +
+                  {$IF DEFINED(UNIX) OR DEFINED(LINUX)}'_'{$ELSE}'_.exe'{$ENDIF}, SaveDialog.FileName)
              End
        End
 end;
@@ -543,8 +546,8 @@ begin
   ENV := TXPathEnvironment.Create;
   Continuous := False;
 
-  nCPUs.MaxValue := Round(1.5*GetCPUCount);
-  nCPUs.Value := nCPUs.MaxValue
+  nCPUs.MaxValue := 128;
+  nCPUs.Value := 4
 end;
 
 procedure TInductModelForm.SelectedClassesTreeDragDrop(Sender, Source: TObject;

@@ -86,10 +86,10 @@ parse(XPath, [relp(A,C)|T]):-
   !.
 
 test_condition(M,ID,ceq('text()',B)):-
-  var(M,ID,_,B,_),
+  xvar(M,ID,_,B,_),
   !.
 test_condition(M,ID,cneq('text()',B)):-
-  var(M,ID,_,A,_),
+  xvar(M,ID,_,A,_),
   \=(A,B),
   !.
 
@@ -108,11 +108,11 @@ filter_by_cond(M,[_|T],C,L):-
 
 ids_by_name_curs(_,[],_,[]):-!.
 ids_by_name_curs(M,[ID|T],'*',[ID|T1]):-
-  var(M,ID,_,_,_),
+  xvar(M,ID,_,_,_),
   !,
   ids_by_name_curs(M,T,'*',T1).
 ids_by_name_curs(M,[ID|T],A,[ID|T1]):-
-  var(M,ID,A,_,_),
+  xvar(M,ID,A,_,_),
   !,
   ids_by_name_curs(M,T,A,T1).
 ids_by_name_curs(M,[_|T],A,T1):-
@@ -120,15 +120,15 @@ ids_by_name_curs(M,[_|T],A,T1):-
   ids_by_name_curs(M,T,A,T1).
 
 recurse_ids(M,ID,'*',[ID|T]):-
-  var(M,ID,_,_,Childs),
+  xvar(M,ID,_,_,Childs),
   !,
   ids_by_name_in_deep(M,Childs,'*',T).
 recurse_ids(M,ID,A,[ID|T]):-
-  var(M,ID,A,_,Childs),
+  xvar(M,ID,A,_,Childs),
   !,
   ids_by_name_in_deep(M,Childs,A,T).
 recurse_ids(M,ID,A,T):-
-  var(M,ID,_,_,Childs),
+  xvar(M,ID,_,_,Childs),
   !,
   ids_by_name_in_deep(M,Childs,A,T).
 
@@ -140,20 +140,20 @@ ids_by_name_in_deep(M,[ID|T],A,IDs):-
 
 irun(_,[],Cur,Cur):-!.
 irun(M,[absp(A,C)|T],Cur,IDs):-
-  var(M,Cur,_,_,Childs),
+  xvar(M,Cur,_,_,Childs),
   ids_by_name_in_deep(M,Childs,A,Childs1),
   !,
   filter_by_cond(M,Childs1,C,Selected),
   run(M,T,Selected,IDs),
   !.
 irun(M,[relp('..',none)|T],Cur,IDs):-
-  var(M,Parent,_,_,Childs),
+  xvar(M,Parent,_,_,Childs),
   member(Cur,Childs),
   !,
   run(M,T,[Parent],IDs),
   !.
 irun(M,[relp(A,C)|T],Cur,IDs):-
-  var(M,Cur,_,_,Childs),
+  xvar(M,Cur,_,_,Childs),
   ids_by_name_curs(M,Childs,A,Childs1),
   !,
   filter_by_cond(M,Childs1,C,Selected),
@@ -174,7 +174,7 @@ run(M,P,[_|CT],IDs):-
 
 texts(_,[],[]):-!.
 texts(M,[ID|T],[Text|T1]):-
-  var(M,ID,_,Text,_),
+  xvar(M,ID,_,Text,_),
   texts(M,T,T1).
 
 gen_chars(0, []):-
@@ -195,7 +195,7 @@ randomid(N, S):-
 xpath(M,XPath,Texts):-
   atom_concat(RXPath,'/text()',XPath),
   parse(RXPath,XP),
-  var(M,Root,'root',_,_),
+  xvar(M,Root,'root',_,_),
   !,
   run(M,XP,[Root],IDs),
   texts(M,IDs,Texts),
@@ -203,16 +203,16 @@ xpath(M,XPath,Texts):-
 
 xpath(M,XPath,IDs):-
   parse(XPath,XP),
-  var(M,Root,'root',_,_),
+  xvar(M,Root,'root',_,_),
   !,
   run(M,XP,[Root],IDs),
   !.
 
 init:-
   unlink('__db.pl'),
-  asserta(ibf(_,-1,'')),
-  asserta(iaf(_,-1,'')),
-  asserta(chg(_,-1,'')),
+  asserta(ibf('',-1,'')),
+  asserta(iaf('',-1,'')),
+  asserta(chg('',-1,'')),
   (file_exists('_db.pl'),
    consult('_db.pl'),db,!;
    true,!),
@@ -225,7 +225,7 @@ clear_db:-
   retractall(chg(_,_,_)),
   retractall(iaf(_,_,_)),
   retractall(ibf(_,_,_)),
-  retractall(var(_,_,_,_,_)),
+  retractall(xvar(_,_,_,_,_)),
   !.
 
 saveL([]):-!.
@@ -272,7 +272,7 @@ write_log_tree(M,Cur):-
   fail.
 write_log_tree(M,Cur):-
   \+ chg(M,Cur,_),
-  var(M,Cur,_,_,Childs),
+  xvar(M,Cur,_,_,Childs),
   member(C,Childs),
   write_log_tree(M,C),
   fail.
@@ -289,6 +289,6 @@ write_log_tree(M,Cur):-
 write_log_tree(_,_):-!.
 
 write_log(M):-
-  var(M,Root,'root',_,_),
+  xvar(M,Root,'root',_,_),
   write_log_tree(M,Root),
   !.

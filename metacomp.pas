@@ -948,12 +948,12 @@ Begin
                      begin
                         {$IF DEFINED(LCL) OR DEFINED(VCL)}
                         RunExtCommand(
-                           {$IF DEFINED(UNIX) OR DEFINED(LINUX)}'./run_gprolog7.sh'{$ELSE}'run_gprolog7.bat'{$ENDIF},
+                           {$IF DEFINED(UNIX) OR DEFINED(LINUX)}'sh ./run_gprolog7.sh'{$ELSE}'run_gprolog7.bat'{$ENDIF},
                            S+' ' + ScriptFile + ' _.out execute _.info ' + Done + ' ' + GID,
                            '_.info');
                         {$ELSE}
                         WriteLn(RunExtCommand(
-                           {$IF DEFINED(UNIX) OR DEFINED(LINUX)}'./run_gprolog7.sh'{$ELSE}'run_gprolog7.bat'{$ENDIF},
+                           {$IF DEFINED(UNIX) OR DEFINED(LINUX)}'sh ./run_gprolog7.sh'{$ELSE}'run_gprolog7.bat'{$ENDIF},
                            S+' ' + ScriptFile + ' _.out execute _.info ' + Done + ' ' + GID,
                            '_.info'));
                         {$ENDIF}

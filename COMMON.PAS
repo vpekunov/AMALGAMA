@@ -72,7 +72,7 @@ Function InQuotes(Const S: String; L:Integer; Quote:Char): Boolean;
 
 Procedure CreateStrFile(Const FName,Content: String);
 
-function RunExtCommand(Const App,Prm,OutFName: String):String; overload;
+function RunExtCommand(App,Prm,OutFName: String):String; overload;
 function RunExtCommand(Const App,Prm,OutFName,SignalStr:String; Const WaitFile: String = ''):String; overload;
 
 function EncodeStr(Const S:String):String;
@@ -91,7 +91,8 @@ Const Messaging: Boolean = True;
 
 Implementation
 
-Uses SysUtils, Consts{$IF DEFINED(LCL) OR DEFINED(VCL)}, Dialogs{$ENDIF}, Process;
+Uses SysUtils, Consts{$IF DEFINED(LCL) OR DEFINED(VCL)}, Dialogs{$ENDIF}, Process,
+     StrUtils;
 
 { TLine }
 
@@ -444,7 +445,8 @@ Begin
          End
 End;
 
-function RunExtCommand(Const App,Prm,OutFName: String):String;
+function RunExtCommand(App,Prm,OutFName: String):String;
+{$IFNDEF linux}
 begin
      ExecuteProcess(App, Prm, []);
      Result:='';
@@ -458,6 +460,43 @@ begin
      Else
         Result:=''
 end;
+{$ELSE}
+Var AProcess: TProcess;
+    RedirectOutput: String;
+    R: Integer;
+begin
+     AProcess := TProcess.Create(nil);
+     R := RPos('>', Prm);
+     If R <> 0 Then
+        Begin
+          RedirectOutput := Trim(Copy(Prm, R+1, 16384));
+          Prm := Copy(Prm, 1, R-1)
+        end
+     Else
+        RedirectOutput := '';
+     AProcess.CommandLine := App + ' ' + Prm;
+     AProcess.Options := AProcess.Options + [poWaitOnExit, poUsePipes];
+     AProcess.Execute;
+
+     Result:='';
+     If (Length(OutFName)>0) Then
+        With TStringList.Create Do
+          begin
+            LoadFromFile(OutFName);
+            Result:=Text;
+            Free
+          end;
+     If Length(RedirectOutput) > 0 Then
+        With TStringList.Create Do
+          begin
+            LoadFromStream(AProcess.Output);
+            SaveToFile(RedirectOutput);
+            Free
+          end;
+
+     AProcess.Free;
+end;
+{$ENDIF}
 
 function RunExtCommand(Const App,Prm,OutFName,SignalStr:String; Const WaitFile: String = ''):String;
 

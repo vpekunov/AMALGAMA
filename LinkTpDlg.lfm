@@ -4,7 +4,7 @@ object LinkTypeDlg: TLinkTypeDlg
   Top = 209
   Width = 230
   BorderStyle = bsDialog
-  Caption = 'Тип связи'
+  Caption = 'РўРёРї СЃРІСЏР·Рё'
   ClientHeight = 126
   ClientWidth = 230
   DesignTimePPI = 120
@@ -38,7 +38,7 @@ object LinkTypeDlg: TLinkTypeDlg
     Top = 0
     Width = 211
     AutoFill = True
-    Caption = ' Связь '
+    Caption = ' РЎРІСЏР·СЊ '
     ChildSizing.LeftRightSpacing = 6
     ChildSizing.TopBottomSpacing = 6
     ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
@@ -51,8 +51,8 @@ object LinkTypeDlg: TLinkTypeDlg
     ClientWidth = 207
     ItemIndex = 0
     Items.Strings = (
-      'Основная'
-      'Вспомогательная'
+      'РћСЃРЅРѕРІРЅР°СЏ'
+      'Р’СЃРїРѕРјРѕРіР°С‚РµР»СЊРЅР°СЏ'
     )
     TabOrder = 2
   end

@@ -8,7 +8,7 @@ interface
 
 uses
   {$IFDEF FPC}LCLIntf,{$ENDIF} Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, ShellApi, Buttons, ExtCtrls, ComCtrls, Windows{$IFDEF FPC}, LResources{$ENDIF};
+  StdCtrls, Buttons, ExtCtrls, ComCtrls{$IFNDEF linux}, ShellApi, Windows{$ELSE}, fileutil, LCLType{$ENDIF}{$IFDEF FPC}, LResources{$ENDIF};
 
 type
 
@@ -47,13 +47,18 @@ implementation
 Uses Main, Elements, AutoConsts, Clipbrd, LEXIQUE, Common, AutoUtils, LearnTrouble;
 
 function IsWindowsNT:Boolean;
-
+{$IFDEF linux}
+begin
+     Result := False
+end;
+{$ELSE}
 Var OSV:OSVERSIONINFO;
 begin
      OSV.dwOSVersionInfoSize:=SizeOf(OSV);
      GetVersionEx(OSV);
      Result:=OSV.dwPlatformId=VER_PLATFORM_WIN32_NT
 end;
+{$ENDIF}
 
 procedure TTranslator.FormShow(Sender: TObject);
 begin
@@ -439,7 +444,7 @@ begin
                Anlz.AnlzLine:=S;
                FName:=Anlz.GetString(Quote,Quote);
                Prm:=Anlz.GetAll;
-               MainForm.RenewModel(False,StringReplace(FName,'/','\',[rfReplaceAll]));
+               MainForm.RenewModel(False,StringReplace(FName,AnotherSlash,SuperSlash,[rfReplaceAll]));
                Anlz.Free;
                AssignFile(BaseFile,'_base.pl');
                Rewrite(BaseFile);
@@ -466,7 +471,7 @@ begin
           Anlz:=TAnalyser.Create(IdentSet,[Space,Tabulation]);
           Anlz.AnlzLine:=S;
           If Not Anlz.Empty Then
-             MainSys.LoadFromFile(Lang,StringReplace(Anlz.GetString(Quote,Quote),'/','\',[rfReplaceAll]),Nil,Nil);
+             MainSys.LoadFromFile(Lang,StringReplace(Anlz.GetString(Quote,Quote),AnotherSlash,SuperSlash,[rfReplaceAll]),Nil,Nil);
           Anlz.Free
         end
 end;
@@ -539,7 +544,9 @@ begin
                        CreateStrFile('_.pl',Prog);
                        S:=StringReplace(ExcludeTrailingBackSlash(ExtractFilePath(Application.ExeName)),'\','/',[rfReplaceAll]);
                        NewName:=Format('%s.pop%u.reded%u.fork%u.ded%u.xml',[BaseName,Npop,Nrededuce,Nforked,Ndeduce]);
-                       RunExtCommand('run_gprolog.bat',S+' _.pl _.info process(''"'+NewName+'"'') _._',NewName,'');
+                       RunExtCommand(
+                          {$IF DEFINED(UNIX) OR DEFINED(LINUX)}'sh ./run_gprolog.sh'{$ELSE}'run_gprolog.bat'{$ENDIF},
+                          S+' _.pl _.info process('''+NewName+''') _._',NewName,'');
                        MainForm.RenewModel(False,NewName);
                        Inc(Ndeduce)
                      end
@@ -548,19 +555,19 @@ begin
            ProgressBar.Position:=50;
            S:=ExcludeTrailingBackSlash(ExtractFilePath(Application.ExeName));
            Queued:=False;
-           Rededuce:=FileExists(S+'\_base.pl');
-           Forked:=FileExists(S+'\_.fork');
+           Rededuce:=FileExists(S+SuperSlash+'_base.pl');
+           Forked:=FileExists(S+SuperSlash+'_.fork');
            If Forked Then
               begin
-                AssignFile(TaskFile,S+'\_.fork');
+                AssignFile(TaskFile,S+SuperSlash+'_.fork');
                 Reset(TaskFile);
                 ReadLn(TaskFile,SessionID);
                 ReadLn(TaskFile,TaskID);
                 CloseFile(TaskFile);
-                DeleteFile(PChar(S+'\_.fork'));
+                DeleteFile(PChar(S+SuperSlash+'_.fork'));
                 With MainForm Do
                   begin
-                    WaitForSingleObject(ControlMutex,INFINITE);
+                    ControlSemaphore.Wait;
                     If Connected Then
                        If (Not MasterFlag) Or (Slaves.Count>0) Then
                           begin
@@ -570,11 +577,11 @@ begin
                             TaskFiles:=TStringList.Create;
                             TaskFiles.AddObject(TempFileName,TObject(tsModelFile+tsMoveFlag));
                             TaskFiles.AddObject('_'+SessionID+'.'+TaskID+'.out',TObject(tsReportFile));
-                            If FileExists(S+'\_vars.php3') Then
+                            If FileExists(S+SuperSlash+'_vars.php3') Then
                                AddTaskFile(TaskFiles,SessionID,TaskID,'_vars.php3');
                             AddTask(SessionID,TaskID,TaskFiles,False)
                           end;
-                    ReleaseMutex(ControlMutex)
+                    ControlSemaphore.Post;
                   end
               end;
            If Queued And Not Rededuce Then
@@ -588,7 +595,7 @@ begin
            Else If Rededuce And (Queued Or Not Forked) Then
               If Not RestoreState Then
                  begin
-//                   DeleteFile(S+'\_base.pl');
+//                   DeleteFile(S+SuperSlash+'_base.pl');
                    ModalResult:=mrOk;
                    Exit
                  end;
@@ -604,11 +611,11 @@ begin
               CreateStrFile('_.php3',Prog);
               {$IF DEFINED(LCL) OR DEFINED(VCL)}
               Gen := RunExtCommand(
-                 {$IF DEFINED(UNIX) OR DEFINED(LINUX)}'run_php.sh'{$ELSE}'run_php.bat'{$ENDIF},
+                 {$IF DEFINED(UNIX) OR DEFINED(LINUX)}'sh ./run_php.sh'{$ELSE}'run_php.bat'{$ENDIF},
                  '_.php3 _.gen','_.gen',CRLF+CRLF);
               {$ELSE}
               Gen := RunExtCommand(
-                 {$IF DEFINED(UNIX) OR DEFINED(LINUX)}'run_php.sh'{$ELSE}'run_php.bat'{$ENDIF},
+                 {$IF DEFINED(UNIX) OR DEFINED(LINUX)}'sh ./run_php.sh'{$ELSE}'run_php.bat'{$ENDIF},
                  '_.php3 _.gen','_.gen',CRLF+CRLF);
               {$ENDIF}
               ProgressBar.Position:=200;
@@ -695,13 +702,13 @@ begin
          If Not Error Then
             begin
               S:=ExcludeTrailingBackSlash(ExtractFilePath(Application.ExeName));
-              If FileExists(S+'\_.start') Then
+              If FileExists(S+SuperSlash+'_.start') Then
                  begin
-                   AssignFile(TaskFile,S+'\_.start');
+                   AssignFile(TaskFile,S+SuperSlash+'_.start');
                    Reset(TaskFile);
                    ReadLn(TaskFile,StartLanguage);
                    CloseFile(TaskFile);
-                   DeleteFile(PChar(S+'\_.start'));
+                   DeleteFile(PChar(S+SuperSlash+'_.start'));
                    If MainForm.AutoStart Or (ExternalForked=efNode) Or (MessageDlg('Сгенерированная программа требует запуска (язык "'+StartLanguage+'"). Запустить?',mtConfirmation,[mbYes,mbNo],0)=mrYes) Then
                       ExecuteBtnClick(Nil)
                    Else
@@ -715,7 +722,7 @@ begin
               If Rededuce Then
                  If Not RestoreState Then
                     begin
-//                      DeleteFile(S+'\_base.pl');
+//                      DeleteFile(S+SuperSlash+'_base.pl');
                       ModalResult:=mrOk;
                       Exit
                     end
@@ -758,7 +765,9 @@ begin
      Application.ProcessMessages;
      DeleteFile(PChar('_.'+StartLanguage));
      RenameFile('_.out', '_.'+StartLanguage);
-     ProgText.Lines.Text:=RunExtCommand('start_'+StartLanguage+'.bat','_.'+StartLanguage+' _.res','_.res',CRLF+CRLF);
+     ProgText.Lines.Text:=RunExtCommand(
+        {$IF DEFINED(UNIX) OR DEFINED(LINUX)}'bash ./start_'+StartLanguage+'.sh'{$ELSE}'start_'+StartLanguage+'.bat'{$ENDIF},
+        '_.'+StartLanguage+' _.res','_.res',CRLF+CRLF);
      Enabled:=True
 end;
 

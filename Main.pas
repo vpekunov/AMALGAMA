@@ -4,12 +4,16 @@ unit Main;
 {$MODE Delphi}
 {$ENDIF}
 
+{$CODEPAGE UTF8}
+
 interface
 
 uses
-  {$IFDEF FPC}LCLIntf,{$ENDIF} Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, ShellApi, Buttons, ExtCtrls, ComCtrls, Elements, Menus, IniFiles,
-  WinSock, AutoConsts, Windows, Registry{$IFDEF FPC}, LResources, LMessages{$ENDIF};
+  {$IFDEF FPC}LCLIntf,{$ENDIF} Messages, SysUtils, Classes
+  {$IFDEF FPC}, LMessages{$ENDIF}, Forms, Graphics, Controls, Dialogs,
+  StdCtrls, {$IFNDEF linux}ShellApi,{$ENDIF}Buttons, ExtCtrls, ComCtrls, Elements, Menus, IniFiles,
+  AutoConsts{$IFDEF linux}, ctypes, UnixType, Sockets, Process, fileutil{$ELSE}, Winsock, Windows, Registry{$ENDIF},
+  uSemaphore, LocalIP{$IFDEF FPC}, LResources{$ENDIF};
 
 Const IniFName        = 'Automodeling.ini';
       SectLangs       = 'Languages';
@@ -70,7 +74,6 @@ type
     MainStatusBar: TStatusBar;
     BigPanel: TPanel;
     ModelBox: TGroupBox;
-    MainPaintBox: TPaintBox;
     HScroller: TScrollBar;
     VScroller: TScrollBar;
     DockPanel: TPanel;
@@ -80,6 +83,8 @@ type
     LinkColorDialog: TColorDialog;
     CntPubl: TMenuItem;
     MessageListBox: TListBox;
+    GraphicsPanel: TPanel;
+    MainPaintBox: TPaintBox;
     procedure FormResize(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure DockPanelDockDrop(Sender: TObject; Source: TDragDockObject;
@@ -127,7 +132,7 @@ type
   private
     FSaved: Boolean;
     NoLang: TMenuItem;
-    InSock, OutSock:TSocket;
+    InSock, OutSock: TSocket;
     ControlThread: TControlThread;
     QueryThread: TQueryThread;
     { Private declarations }
@@ -158,7 +163,8 @@ type
     OldX, OldY:    Integer;
     Languages:     Array Of TLanguage;
     DblClicked:    Boolean;
-    ControlMutex:  THANDLE;
+    ControlSemaphore: TSemaphore;
+    WorkSemaphore: TSemaphore;
     States:        Array Of Boolean;
 
     procedure AddTask(Const SessionID, TaskID: String; Files:TStringList; Lock:Boolean);
@@ -182,8 +188,8 @@ type
 
   TControlThread = class(TThread)
     InSocket, OutSocket: TSocket;
-    WorkMutex, ControlMutex: THANDLE;
-    constructor Create(_In,_Out: TSocket);
+    WorkSemaphore, ControlSemaphore: TSemaphore;
+    constructor Create(Parent: TMainForm; _In,_Out: TSocket);
     procedure   Execute; override;
     procedure   DoTerminate; override;
   End;
@@ -204,9 +210,9 @@ type
 
   TQueryThread = class(TThread)
     OutSocket, ExchangeSocket: TSocket;
-    WorkMutex, ControlMutex: THANDLE;
+    WorkSemaphore, ControlSemaphore: TSemaphore;
     Threads:  TList;
-    constructor Create(_Out: TSocket);
+    constructor Create(Parent: TMainForm; _Out: TSocket);
     procedure   Execute; override;
     procedure   DoTerminate; override;
   End;
@@ -221,7 +227,6 @@ type
   End;
 
 Const MasterFlag:Boolean = True;
-      HostName:Array[0..255] Of Char = '';
       HostIP:String = '';
       Slaves:TStringList = Nil;
       FreeSlaves:TStringList = Nil;
@@ -240,12 +245,84 @@ implementation
 
 
 Uses Math, ClassWin, EditEl, Tran, SettngDlg, LinkTpDlg, InductModel,
-  ContDlg, LEXIQUE, FileCtrl, AutoUtils, InductRules, Common;
+  ContDlg, LEXIQUE, FileCtrl, AutoUtils, InductRules, Common,
+  Types, StrUtils;
 
-Type IP_MREQ = Record
+Type IP_MREQN = Record
         IMR_MultiAddr:IN_ADDR;
-        IMR_Interface:IN_ADDR
+        IMR_Interface:IN_ADDR;
+        INTRF:Integer;
      End;
+
+{$IFDEF linux}
+Type TSockAddrIn = TInetSockAddr;
+
+function inet_addr (Const IP: String): cuint32;
+begin
+     Result := StrToNetAddr(Trim(IP)).s_addr;
+end;
+
+function inet_ntoa (Const IP: IN_ADDR): String;
+begin
+     Result := NetAddrToStr(IP)
+end;
+
+function  socket (domain:cint; xtype:cint; protocol: cint):cint;
+begin
+     Result := fpsocket(domain, xtype, protocol)
+end;
+
+function  recv (s:cint; buf: pointer; len: size_t; flags: cint):ssize_t;
+begin
+     Result := fprecv(s, buf, len, flags)
+end;
+
+function  send (s:cint; msg:pointer; len:size_t; flags:cint):ssize_t;
+begin
+     Result := fpsend(s, msg, len, flags)
+end;
+
+function  sendto      (s:cint; var msg; len:size_t; flags:cint; Var tox : TInetSockAddr; tolen: tsocklen):ssize_t;
+begin
+     Result := fpsendto(s, @msg, len, flags, @tox, tolen)
+end;
+
+function  recvfrom    (s:cint; var buf; len: size_t; flags: cint; Var from : TSockAddr; fromlen : tsocklen):ssize_t;
+begin
+     Result := fprecvfrom(s, @buf, len, flags, @from, @fromlen)
+end;
+
+function  setsockopt  (s:cint; level:cint; optname:cint; optval:pointer; optlen : tsocklen):cint;
+begin
+     Result := fpsetsockopt(s, level, optname, optval, optlen)
+end;
+
+function  getsockopt  (s:cint; level:cint; optname:cint; optval:pointer; Var optlen : tsocklen):cint;
+begin
+     Result := fpgetsockopt(s, level, optname, optval, @optlen)
+end;
+
+function  bind (s:cint; var addrx : TInetSockAddr; addrlen : tsocklen):cint;
+begin
+     Result := fpbind(s, @addrx, addrlen)
+end;
+
+function  connect     (s:cint; var name : TInetSockAddr; namelen : tsocklen):cint;
+begin
+     Result := fpconnect(s, @name, namelen)
+end;
+
+function  listen      (s:cint; backlog : cint):cint;
+begin
+     Result := fplisten(s, backlog)
+end;
+
+function  accept      (s:cint; addrx : psockaddr; var addrlen : tsocklen):cint;
+begin
+     Result := fpaccept(s, addrx, @addrlen)
+end;
+
+{$ENDIF}
 
 function ReadString(Sock:TSocket):String;
 
@@ -254,11 +331,11 @@ Var Ptr,Len:Integer;
 begin
      Ptr:=0;
      While Ptr<SizeOf(Len) Do
-       Inc(Ptr,recv(Sock,LBuf[Ptr],SizeOf(Len)-Ptr,0));
+        Inc(Ptr,recv(Sock,@LBuf[Ptr],SizeOf(Len)-Ptr,0));
      SetLength(Result,Len);
      Ptr:=1;
      While Ptr<=Len Do
-       Inc(Ptr,recv(Sock,Result[Ptr],Len-Ptr+1,0))
+       Inc(Ptr,recv(Sock,@Result[Ptr],Len-Ptr+1,0))
 end;
 
 procedure WriteString(Sock:TSocket; Buf:String);
@@ -269,10 +346,10 @@ begin
      Len:=Length(Buf);
      Ptr:=0;
      While Ptr<SizeOf(Len) Do
-       Inc(Ptr,send(Sock,LBuf[Ptr],SizeOf(Len)-Ptr,0));
+       Inc(Ptr,send(Sock,@LBuf[Ptr],SizeOf(Len)-Ptr,0));
      Ptr:=1;
      While Ptr<=Len Do
-       Inc(Ptr,send(Sock,Buf[Ptr],Len-Ptr+1,0))
+       Inc(Ptr,send(Sock,@Buf[Ptr],Len-Ptr+1,0))
 end;
 
 procedure ParsePipedStr(Const FName:String; Var ServerFName,SlaveFName:String);
@@ -297,26 +374,26 @@ procedure CopyMoveStructure(Const FromDir,ToDir:String; Move:Boolean);
 Var S:TSearchRec;
     Result:Integer;
 begin
-     Result:=FindFirst(FromDir+'\*.*',faAnyFile,S);
+     Result:=FindFirst(FromDir+SuperSlash+'*',faAnyFile,S);
      While Result=0 Do
        Begin
           If (S.Name<>'.') And (S.Name<>'..') Then
              If (S.Attr And faDirectory)<>0 Then
                 Begin
-                  CreateDirectory(PChar(ToDir+'\'+S.Name),Nil);
-                  CopyMoveStructure(FromDir+'\'+S.Name,ToDir+'\'+S.Name,Move)
+                  CreateDir(PChar(ToDir+SuperSlash+S.Name));
+                  CopyMoveStructure(FromDir+SuperSlash+S.Name,ToDir+SuperSlash+S.Name,Move)
                 End
              Else
                 begin
                   If Move Then
                      begin
-                       DeleteFile(PChar(ToDir+'\'+S.Name));
-                       RenameFile(PChar(FromDir+'\'+S.Name),PChar(ToDir+'\'+S.Name))
+                       DeleteFile(PChar(ToDir+SuperSlash+S.Name));
+                       RenameFile(PChar(FromDir+SuperSlash+S.Name),PChar(ToDir+SuperSlash+S.Name))
                      end
                   Else
-                     CopyFile(PChar(FromDir+'\'+S.Name),PChar(ToDir+'\'+S.Name),False);
-                  FileSetAttr(ToDir+'\'+S.Name,
-                    FileGetAttr(ToDir+'\'+S.Name) And Not faReadOnly)
+                     CopyFile(PChar(FromDir+SuperSlash+S.Name),PChar(ToDir+SuperSlash+S.Name),False);
+                  FileSetAttr(ToDir+SuperSlash+S.Name,
+                    FileGetAttr(ToDir+SuperSlash+S.Name) And Not faReadOnly)
                 end;
           Result:=FindNext(S)
        End;
@@ -404,7 +481,7 @@ begin
                // To prevent Lazarus bugs (or features), who knows what's the matter...
                // I love Lazarus, but it looks strange sometimes :)
                Application.ProcessMessages;
-               PostMessage(MainForm.WinHandle,WM_EDIT_OBJ,0,Integer(Obj));
+               PostMessage(MainForm.WinHandle,WM_EDIT_OBJ,0,TObjectToInteger(Obj));
                Exit
              end
           Else
@@ -420,99 +497,109 @@ end;
 
 procedure TMainForm.FormCreate(Sender: TObject);
 
-Type IP_MREQ = Record
-        IMR_MultiAddr:IN_ADDR;
-        IMR_Interface:IN_ADDR
-     End;
-
 function ConnectNetwork(Var InSock,OutSock:TSocket):Boolean;
 
-Var Info:PHostEnt;
-    Addr:Integer;
+Type TTimeVal = packed record
+   tv_sec : longint;//time_t
+   tv_usec : longint;//suseconds_t
+end;
+
+Var Addr:Integer;
     Data:TSockAddrIn;
-    One,TTL:Integer;
-    MReq:IP_MREQ;
+    One,TTL:DWORD;
+    OneL: LongInt;
+    MReq:IP_MREQN;
+    TM: TTimeVal;
 begin
      Result:=False;
-     If gethostname(@HostName,256)<>0 Then
-        MessageDlg('Невозможно определить имя машины. Socket Error = '+IntToStr(WSAGetLastError),mtError,[mbOk],0)
-     Else
+     HostIP:=getLocalIP;
+     {$IFDEF linux}
+     RunExtCommand('route','add 224.0.0.0 gw '+HostIP,'','');
+     RunExtCommand('route','add '+ConnectMask+' gw '+HostIP,'','');
+     {$ELSE}
+     RunExtCommand('route','add 224.0.0.0 '+HostIP,'','');
+     RunExtCommand('route','add '+ConnectMask+' '+HostIP,'','');
+     {$ENDIF}
+     One:=1;
+     TTL:=33;
+     FillChar(Data,SizeOf(Data),0);
+     {$IFDEF linux}
+     Data.sin_family:=AF_INET;
+     Data.sin_addr.s_addr:=inet_addr(PChar(ConnectMask));
+     {$ELSE}
+     Data.sa_family:=AF_INET;
+     Data.sin_addr.s_addr:=inet_addr(PChar(HostIP));
+     {$ENDIF}
+     Data.sin_port:=ConnectPort;
+
+     OutSock:=socket(AF_INET,SOCK_DGRAM,IPPROTO_IP);
+     If (OutSock < 0) Or
+        (setsockopt(OutSock,SOL_SOCKET,SO_REUSEADDR,@One,SizeOf(One))<>0) Or
+        (setsockopt(OutSock,IPPROTO_IP,IP_MULTICAST_TTL,@TTL,SizeOf(TTL))<>0) Then Exit;
+
+     InSock:=socket(AF_INET,SOCK_DGRAM,IPPROTO_IP);
+     If (InSock < 0) Or
+        (setsockopt(InSock,SOL_SOCKET,SO_REUSEADDR,@One,SizeOf(One))<>0) Or
+        (bind(InSock,Data,SizeOf(Data))<>0) Then
         begin
-          Info:=gethostbyname(HostName);
-          If Assigned(Info) Then
-             begin
-               With Info^ Do
-                  HostIP:=IntToStr(Ord(h_addr^[0]))+'.'+
-                          IntToStr(Ord(h_addr^[1]))+'.'+
-                          IntToStr(Ord(h_addr^[2]))+'.'+
-                          IntToStr(Ord(h_addr^[3]));
-               RunExtCommand('route',' add 224.0.0.0 '+HostIP,'','');
-               RunExtCommand('route',' add '+ConnectMask+' '+HostIP,'','');
-               One:=1;
-               TTL:=33;
-               FillChar(Data,SizeOf(Data),0);
-               Data.sa_family:=AF_INET;
-               Data.sin_addr.s_addr:=inet_addr(PChar(HostIP));
-               Data.sin_port:=ConnectPort;
+          closesocket(OutSock);
+          Exit
+        end;
 
-               OutSock:=socket(AF_INET,SOCK_DGRAM,IPPROTO_IP);
-               If (OutSock=INVALID_SOCKET) Or
-                  (setsockopt(OutSock,SOL_SOCKET,SO_REUSEADDR,@One,SizeOf(One))<>0) And
-                  (setsockopt(OutSock,IPPROTO_IP,IP_MULTICAST_TTL,@TTL,SizeOf(TTL))=0) Then Exit;
-
-               InSock:=socket(AF_INET,SOCK_DGRAM,IPPROTO_IP);
-               If (InSock=INVALID_SOCKET) Or
-                  (setsockopt(InSock,SOL_SOCKET,SO_REUSEADDR,@One,SizeOf(One))<>0) Or
-                  (bind(InSock,Data,SizeOf(Data))<>0) Then
-                  begin
-                    closesocket(OutSock);
-                    Exit
-                  end;
-
-               If Length(HostIP)<>0 Then
-                  Addr:=inet_addr(PChar(HostIP))
-               Else
-                  Addr:=INADDR_ANY;
-               If (setsockopt(InSock,IPPROTO_IP,IP_MULTICAST_TTL,@TTL,SizeOf(TTL))=0) And
-                  (setsockopt(InSock,IPPROTO_IP,IP_MULTICAST_IF,@Addr,SizeOf(Addr))=0) Then
-                  begin
-                    MReq.IMR_MultiAddr.s_addr:=inet_addr(ConnectMask);
-                    If Length(HostIP)<>0 Then
-                       MReq.IMR_Interface.s_addr:=inet_addr(PChar(HostIP))
-                    Else
-                       MReq.IMR_Interface.s_addr:=INADDR_ANY;
-                    Result:=setsockopt(InSock,IPPROTO_IP,IP_ADD_MEMBERSHIP,@Mreq,SizeOf(MReq))=0;
-                    If Not Result Then
-                       begin
-                         closesocket(InSock);
-                         closesocket(OutSock)
-                       end
-                  end
-             end
+     If Length(HostIP)<>0 Then
+        Addr:=inet_addr(PChar(HostIP))
+     Else
+        Addr:=INADDR_ANY;
+     If (setsockopt(InSock,IPPROTO_IP,IP_MULTICAST_TTL,@TTL,SizeOf(TTL))=0) And
+        (setsockopt(InSock,IPPROTO_IP,IP_MULTICAST_IF,@Addr,SizeOf(Addr))=0) Then
+        begin
+          MReq.IMR_MultiAddr.s_addr:=inet_addr(ConnectMask);
+          If Length(HostIP)<>0 Then
+             MReq.IMR_Interface.s_addr:=inet_addr(PChar(HostIP))
           Else
-             MessageDlg('Невозможно определить IP - адрес машины. Socket Error = '+IntToStr(WSAGetLastError),mtError,[mbOk],0);
+             MReq.IMR_Interface.s_addr:=INADDR_ANY;
+          MReq.INTRF := 0;
+          TM.tv_sec := 1;
+          TM.tv_usec := 0;
+          // fcntl(InSock, F_SetFl, O_NONBLOCK);
+          OneL := 1;
+          {$IFNDEF linux}
+          ioctlsocket(InSock, FIONBIO, @OneL);
+          {$ENDIF}
+          Result:=
+              (setsockopt(InSock,IPPROTO_IP,IP_ADD_MEMBERSHIP,@Mreq,SizeOf(MReq))=0)
+              {$IFNDEF linux}And (setsockopt(InSock,SOL_SOCKET,SO_RCVTIMEO, @TM, sizeof(TM))=0){$ENDIF};
+          If Not Result Then
+             begin
+               MessageDlg('Ошибка сети: ' + IntToStr({$IFDEF linux}SocketError{$ELSE}WSAGetLastError{$ENDIF}), mtInformation, [mbOk], 0);
+               closesocket(InSock);
+               closesocket(OutSock)
+             end
         end
 end;
 
-Var WSA:TWSAData;
+Var {$IFNDEF linux}WSA:TWSAData;{$ENDIF}
     S:TStringList;
     F:Integer;
 begin
+     {$IFNDEF linux}
+     If WSAStartup(MAKEWORD(2,0),WSA)<>0 Then
+        MessageDlg('Невозможно вызвать Winsock',mtInformation,[mbOk],0);
+     {$ENDIF}
      // To prevent Lazarus unesthetic docking
      {$IFDEF FPC}
      Width:=Width-DockPanel.Width;
      DockPanel.Width:=0;
      {$ENDIF}
-     If WSAStartup(MAKEWORD(2,0),WSA)<>0 Then
-        MessageDlg('Невозможно вызвать Winsock',mtInformation,[mbOk],0);
      SetLength(States,0);
      MainSys:=TSystem.Create;
-     ControlMutex:=CreateMutex(Nil,False,ControlMutexName);
+     ControlSemaphore:=TSemaphore.Create(1);
+     WorkSemaphore:=TSemaphore.Create(1);
      If ConnectNetwork(InSock,OutSock) Then
         begin
-          ControlThread:=TControlThread.Create(InSock,OutSock);
+          ControlThread:=TControlThread.Create(Self, InSock,OutSock);
           ControlThread.Resume;
-          QueryThread:=TQueryThread.Create(OutSock);
+          QueryThread:=TQueryThread.Create(Self, OutSock);
           QueryThread.Resume
         end
      Else
@@ -532,7 +619,7 @@ begin
      Cnv:=MainPaintBox.Canvas;
      With MainPaintBox Do
        SetBufSize(Width,Height);
-     With TIniFile.Create(GetCurrentDir+'\'+IniFName) Do
+     With TIniFile.Create(GetCurrentDir+SuperSlash+IniFName) Do
        begin
          S:=TStringList.Create;
          ReadSectionValues(SectLangs,S);
@@ -573,12 +660,11 @@ begin
 end;
 
 procedure TMainForm.FormDestroy(Sender: TObject);
-
 Var F,G,Rslt:Integer;
     C,N,I:Boolean;
     MCast:TSockAddrIn;
     First:TMulticastMsg;
-    MReq:IP_MREQ;
+    MReq:IP_MREQN;
 begin
      SetLength(States,0);
      InactiveSystem(True);
@@ -588,17 +674,17 @@ begin
           First.Msg:=Unregister;
           First.IP:=INADDR_ANY;
           FillChar(MCast,SizeOf(MCast),0);
-          MCast.sa_family:=AF_INET;
-          MCast.sin_addr.s_addr:=inet_addr(ConnectMask);
+          MCast.sin_family:=AF_INET;
+          MCast.sin_addr.s_addr := inet_addr(ConnectMask);
           MCast.sin_port:=ConnectPort;
-          WaitForSingleObject(ControlMutex,INFINITE);
+          ControlSemaphore.Wait;
           Rslt:=sendto(OutSock,First,SizeOf(First),0,MCast,SizeOf(MCast));
-          ReleaseMutex(ControlMutex);
-          If Rslt<>SOCKET_ERROR Then
+          ControlSemaphore.Post;
+          If Rslt >= 0 Then
              ControlThread.WaitFor
         end;
      FreeAndNil(ControlThread);
-     WaitForSingleObject(ControlMutex,INFINITE);
+     ControlSemaphore.Wait;
      If Assigned(Sessions) Then
         With Sessions Do
           begin
@@ -612,26 +698,28 @@ begin
             Free
           end;
      Sessions:=Nil;
-     ReleaseMutex(ControlMutex);
+     ControlSemaphore.Post;
      If Assigned(QueryThread) Then
         begin
           QueryThread.WaitFor;
           FreeAndNil(QueryThread)
         end;
-     MReq.IMR_MultiAddr.s_addr:=inet_addr(ConnectMask);
+     MReq.IMR_MultiAddr.S_addr := inet_addr(ConnectMask);
      If Length(HostIP)<>0 Then
-        MReq.IMR_Interface.s_addr:=inet_addr(PChar(HostIP))
+        MReq.IMR_Interface.S_addr := inet_addr(PChar(HostIP))
      Else
         MReq.IMR_Interface.s_addr:=INADDR_ANY;
+     MReq.INTRF := 0;
      setsockopt(InSock,IPPROTO_IP,IP_DROP_MEMBERSHIP,@Mreq,SizeOf(MReq));
      closesocket(InSock);
      closesocket(OutSock);
      RequestingList.Free;
      Slaves.Free;
      FreeSlaves.Free;
-     CloseHandle(ControlMutex);
+     ControlSemaphore.Free;
+     WorkSemaphore.Free;
      SetLength(Languages,0);
-     With TIniFile.Create(GetCurrentDir+'\'+IniFName) Do
+     With TIniFile.Create(GetCurrentDir+SuperSlash+IniFName) Do
        begin
          FlagsToCB(ShowFlags,C,N,I);
          WriteBool(SectSettings,prmShowClass,C);
@@ -643,7 +731,9 @@ begin
          WriteBool(SectSettings,prmAutoReDeduce,AutoReDeduce);
          Free
        end;
+     {$IFNDEF linux}
      WSACleanup
+     {$ENDIF}
 end;
 
 procedure TMainForm.MainPaintBoxPaint(Sender: TObject);
@@ -1051,15 +1141,15 @@ begin
      If Not MasterFlag Then
         begin
           First.Msg:=FreeNode;
-          First.IP:=inet_addr(PChar(HostIP));
+          First.IP := inet_addr(PChar(HostIP));
           FillChar(MCast,SizeOf(MCast),0);
-          MCast.sa_family:=AF_INET;
-          MCast.sin_addr.s_addr:=inet_addr(ConnectMask);
+          MCast.sin_family:=AF_INET;
+          MCast.sin_addr.S_addr := inet_addr(ConnectMask);
           MCast.sin_port:=ConnectPort;
-          WaitForSingleObject(ControlMutex,INFINITE);
+          ControlSemaphore.Wait;
           sendto(OutSock,First,SizeOf(First),0,MCast,SizeOf(MCast));
           LockedFlag:=False;
-          ReleaseMutex(ControlMutex)
+          ControlSemaphore.Post
         end
 end;
 
@@ -1074,23 +1164,23 @@ begin
         NSaveAsClick(Nil);
      If Saved Then
         begin
-          WaitForSingleObject(ControlMutex,INFINITE);
+          ControlSemaphore.Wait;
           RunFlag:=FreeFlag Or Not Assigned(Sender);
-          ReleaseMutex(ControlMutex);
+          ControlSemaphore.Post;
           If RunFlag Then
              With TTranslator.Create(Nil) Do
                begin
                  If Not MasterFlag Then
                     begin
                       First.Msg:=BusyNode;
-                      First.IP:=inet_addr(PChar(HostIP));
+                      First.IP := inet_addr(PChar(HostIP));
                       FillChar(MCast,SizeOf(MCast),0);
-                      MCast.sa_family:=AF_INET;
-                      MCast.sin_addr.s_addr:=inet_addr(ConnectMask);
+                      MCast.sin_family:=AF_INET;
+                      MCast.sin_addr.S_addr := inet_addr(ConnectMask);
                       MCast.sin_port:=ConnectPort;
-                      WaitForSingleObject(ControlMutex,INFINITE);
+                      ControlSemaphore.Wait;
                       sendto(OutSock,First,SizeOf(First),0,MCast,SizeOf(MCast));
-                      ReleaseMutex(ControlMutex)
+                      ControlSemaphore.Post
                     end;
 
                  InactiveSystem(False);
@@ -1333,7 +1423,7 @@ Var H,Idx:Integer;
     Tasks:TStringList;
     S, ThisName, SlaveName:String;
 begin
-     If Lock Then WaitForSingleObject(ControlMutex,INFINITE);
+     If Lock Then ControlSemaphore.Wait;
      Idx:=Sessions.IndexOf(SessionID);
      With Sessions Do
        If Idx>=0 Then
@@ -1347,7 +1437,7 @@ begin
             Tasks.AddObject(TaskID,Files);
             AddObject(SessionID,Tasks)
           end;
-     S:=TasksDir+'\'+SessionID+'.'+TaskID;
+     S:=TasksDir+SuperSlash+SessionID+'.'+TaskID;
      If Not DirectoryExists(TasksDir) Then
         CreateDir(TasksDir);
      CreateDir(S);
@@ -1358,20 +1448,20 @@ begin
              If (Integer(Objects[H]) And tsMoveFlag)<>0 Then
                 Begin
                   ParsePipedStr(Strings[H],ThisName,SlaveName);
-                  DeleteFile(PChar(S+'\'+ThisName));
-                  RenameFile(ThisName,S+'\'+ThisName)
+                  DeleteFile(PChar(S+SuperSlash+ThisName));
+                  RenameFile(ThisName,S+SuperSlash+ThisName)
                 End
              Else
-                CopyFile(PChar(Strings[H]),PChar(S+'\'+Strings[H]),False);
+                CopyFile(PChar(Strings[H]),PChar(S+SuperSlash+Strings[H]),False);
          end;
-     If Lock Then ReleaseMutex(ControlMutex)
+     If Lock Then ControlSemaphore.Post
 end;
 
 procedure TMainForm.InactiveSystem(const State: Boolean);
 begin
-     WaitForSingleObject(ControlMutex,INFINITE);
+     ControlSemaphore.Wait;
      FreeFlag:=State;
-     ReleaseMutex(ControlMutex)
+     ControlSemaphore.Post
 end;
 
 procedure TMainForm.PopState;
@@ -1382,11 +1472,11 @@ end;
 
 procedure TMainForm.PushStateAndRun;
 begin
-     WaitForSingleObject(ControlMutex,INFINITE);
+     ControlSemaphore.Wait;
      SetLength(States,Length(States)+1);
      States[High(States)]:=FreeFlag;
      FreeFlag:=False;
-     ReleaseMutex(ControlMutex)
+     ControlSemaphore.Post
 end;
 
 procedure TMainForm.RunEvent(var Message: TMessage);
@@ -1406,8 +1496,8 @@ begin
           FillChar(Addr,SizeOf(Addr),0);
           Addr.sin_family:=AF_INET;
           Addr.sin_port:=ControlPort;
-          Addr.sin_addr.s_addr:=inet_addr(PChar(ExternalFileName));
-          While connect(Sock,Addr,SizeOf(Addr))=Socket_Error Do
+          Addr.sin_addr.S_addr := inet_addr(PChar(ExternalFileName));
+          While connect(Sock,Addr,SizeOf(Addr)) < 0 Do
             Sleep(1);
           ModelReceived:=False;
           Repeat
@@ -1501,24 +1591,23 @@ End;
 
 { TControlThread }
 
-constructor TControlThread.Create(_In, _Out: TSocket);
+constructor TControlThread.Create(Parent: TMainForm; _In, _Out: TSocket);
 begin
      Inherited Create(True);
      InSocket:=_In;
      OutSocket:=_Out;
-     ControlMutex:=OpenMutex(MUTEX_ALL_ACCESS Or Windows.SYNCHRONIZE,False,ControlMutexName);
-     WorkMutex:=CreateMutex(Nil,True,WorkMutexName);
-     WaitForSingleObject(ControlMutex,INFINITE);
+     ControlSemaphore := Parent.ControlSemaphore;
+     WorkSemaphore := Parent.WorkSemaphore;
+     WorkSemaphore.Wait;
+     ControlSemaphore.Wait;
      Slaves:=TStringList.Create;
      FreeSlaves:=TStringList.Create;
-     ReleaseMutex(ControlMutex)
+     ControlSemaphore.Post
 end;
 
 procedure TControlThread.DoTerminate;
 begin
      inherited;
-     CloseHandle(ControlMutex);
-     CloseHandle(WorkMutex)
 end;
 
 procedure TControlThread.Execute;
@@ -1529,26 +1618,39 @@ Var MCast:TSockAddrIn;
     First:TMulticastMsg;
     SlaveIP:String;
     Idx,Rslt,Len:Integer;
+    RES: LongInt;
 begin
      MasterAddr:=0;
      First.Msg:=RegisterMaster;
      First.IP:=INADDR_ANY;
      FillChar(MCast,SizeOf(MCast),0);
-     MCast.sa_family:=AF_INET;
-     MCast.sin_addr.s_addr:=inet_addr(ConnectMask);
+     MCast.sin_family:=AF_INET;
+     MCast.sin_addr.S_addr := inet_addr(ConnectMask);
      MCast.sin_port:=ConnectPort;
-     WaitForSingleObject(ControlMutex,INFINITE);
+     ControlSemaphore.Wait;
      Rslt:=sendto(OutSocket,First,SizeOf(First),0,MCast,SizeOf(MCast));
-     ReleaseMutex(ControlMutex);
-     If Rslt=SOCKET_ERROR Then
+     ControlSemaphore.Post;
+     If Rslt < 0 Then
         Terminate
      Else
         While Not Terminated Do
           begin
-            Addr:=MCast;
+            Addr.sin_family := MCast.sin_family;
+            Addr.sin_addr := MCast.sin_addr;
+            Addr.sin_port := MCast.sin_port;
             Len:=SizeOf(Addr);
-            If recvfrom(InSocket,First,SizeOf(First),0,Addr,Len)=SOCKET_ERROR Then
-               Terminate
+            RES := recvfrom(InSocket,First,SizeOf(First),{$IFDEF linux}MSG_DONTWAIT{$ELSE}0{$ENDIF},Addr,Len);
+            If (RES < 0) Then
+               Begin
+                 {$IFDEF linux}
+                 If SocketError <> ESockEWOULDBLOCK Then
+                 {$ELSE}
+                 If WSAGetLastError <> WSAEWOULDBLOCK Then
+                 {$ENDIF}
+                    Terminate
+                 Else
+                    Sleep(10);
+               end
             Else
                If First.Msg=Unregister Then
                   begin
@@ -1557,11 +1659,11 @@ begin
                           PostMessage(MainForm.WinHandle,WM_PGEN_MSG,0,Integer(NewStr('Главный узел ['+inet_ntoa(Addr.sin_addr)+'] завершил работы. Работаем самостоятельно')));
                           Terminate
                         end
-                    Else If (Addr.sin_addr.s_addr=inet_addr(PChar(HostIP))) Then
+                    Else If (Addr.sin_addr.s_addr = inet_addr(PChar(HostIP))) Then
                         Terminate
                     Else If MasterFlag Then
                         begin
-                          WaitForSingleObject(ControlMutex,INFINITE);
+                          ControlSemaphore.Wait;
                           Idx:=Slaves.IndexOf(inet_ntoa(Addr.sin_addr));
                           If Idx>=0 Then
                              begin
@@ -1570,30 +1672,30 @@ begin
                              end;
                           Idx:=FreeSlaves.IndexOf(inet_ntoa(Addr.sin_addr));
                           If Idx>=0 Then FreeSlaves.Delete(Idx);
-                          ReleaseMutex(ControlMutex)
+                          ControlSemaphore.Post
                         end
                   end
                Else If (First.Msg=FreeNode) And MasterFlag Then
                   begin
-                    WaitForSingleObject(ControlMutex,INFINITE);
+                    ControlSemaphore.Wait;
                     Addr.sin_family:=AF_INET;
                     Addr.sin_addr.s_addr:=First.IP;
                     SlaveIP:=inet_ntoa(Addr.sin_addr);
                     If FreeSlaves.IndexOf(SlaveIP)>=0 Then
                        begin
-                         ReleaseMutex(ControlMutex);
+                         ControlSemaphore.Post;
                          PostMessage(MainForm.WinHandle,WM_PGEN_MSG,0,Integer(NewStr('Коллизия: ['+SlaveIP+'] свободен, но один из узлов сообщает об его освобождении')))
                        end
                     Else
                        begin
                          FreeSlaves.Add(SlaveIP);
-                         ReleaseMutex(ControlMutex);
+                         ControlSemaphore.Post;
                          PostMessage(MainForm.WinHandle,WM_PGEN_MSG,0,Integer(NewStr('Узел ['+SlaveIP+'] освободился')))
                        end
                   end
                Else If (First.Msg=BusyNode) And MasterFlag Then
                   begin
-                    WaitForSingleObject(ControlMutex,INFINITE);
+                    ControlSemaphore.Wait;
                     Addr.sin_family:=AF_INET;
                     Addr.sin_addr.s_addr:=First.IP;
                     SlaveIP:=inet_ntoa(Addr.sin_addr);
@@ -1603,11 +1705,11 @@ begin
                          FreeSlaves.Delete(Idx);
                          PostMessage(MainForm.WinHandle,WM_PGEN_MSG,0,Integer(NewStr('Узел ['+SlaveIP+'] занят')))
                        end;
-                    ReleaseMutex(ControlMutex)
+                    ControlSemaphore.Post
                   end
                Else If (First.Msg=CanIWork) And MasterFlag Then
                   begin
-                    WaitForSingleObject(ControlMutex,INFINITE);
+                    ControlSemaphore.Wait;
                     Addr.sin_family:=AF_INET;
                     Addr.sin_addr.s_addr:=First.IP;
                     SlaveIP:=inet_ntoa(Addr.sin_addr);
@@ -1623,55 +1725,55 @@ begin
                     First.IP:=Addr.sin_addr.s_addr;
                     First.Info:=INADDR_ANY;
                     sendto(OutSocket,First,SizeOf(First),0,MCast,SizeOf(MCast));
-                    ReleaseMutex(ControlMutex)
+                    ControlSemaphore.Post
                   end
                Else If (First.Msg=RequestNode) And MasterFlag Then
                   begin
-                    WaitForSingleObject(ControlMutex,INFINITE);
+                    ControlSemaphore.Wait;
                     Addr.sin_family:=AF_INET;
                     Addr.sin_addr.s_addr:=First.IP;
                     RequestingList.Add(inet_ntoa(Addr.sin_addr));
-                    ReleaseMutex(ControlMutex)
+                    ControlSemaphore.Post
                   end
                Else If (First.Msg=ThisIsNode) And (First.IP=inet_addr(PChar(HostIP))) And Not MasterFlag Then
                   begin
-                    WaitForSingleObject(ControlMutex,INFINITE);
+                    ControlSemaphore.Wait;
                     Addr.sin_family:=AF_INET;
                     Addr.sin_addr.s_addr:=First.Info;
                     FreeSlaves.Add(inet_ntoa(Addr.sin_addr));
-                    ReleaseMutex(ControlMutex);
+                    ControlSemaphore.Post;
                     PostMessage(MainForm.WinHandle,WM_PGEN_MSG,0,Integer(NewStr('Получил узел ['+inet_ntoa(Addr.sin_addr)+'] для задания')))
                   end
                Else If (First.Msg=YouAreFree) And (First.IP=inet_addr(PChar(HostIP))) And Not MasterFlag Then
                   begin
                     LockedFlag:=False;
-                    ReleaseMutex(WorkMutex);
-                    WaitForSingleObject(WorkMutex,INFINITE)
+                    WorkSemaphore.Post;
+                    WorkSemaphore.Wait
                   end
                Else If (First.Msg=YouAreLocked) And (First.IP=inet_addr(PChar(HostIP))) And Not MasterFlag Then
                   begin
                     LockedFlag:=True;
-                    ReleaseMutex(WorkMutex);
-                    WaitForSingleObject(WorkMutex,INFINITE)
+                    WorkSemaphore.Post;
+                    WorkSemaphore.Wait
                   end
                Else If (First.Msg=YouAreBusy) And (First.IP=inet_addr(PChar(HostIP))) And Not MasterFlag Then
                   begin
-                    WaitForSingleObject(ControlMutex,INFINITE);
+                    ControlSemaphore.Wait;
                     ExternalForked:=efNode;
                     Addr.sin_family:=AF_INET;
                     Addr.sin_addr.s_addr:=First.Info;
                     ExternalFileName:=inet_ntoa(Addr.sin_addr);
-                    ReleaseMutex(ControlMutex);
+                    ControlSemaphore.Post;
                     PostMessage(MainForm.WinHandle,WM_PGEN_MSG,0,Integer(NewStr('Готов к получению задания от ['+inet_ntoa(Addr.sin_addr)+']')));
                     PostMessage(MainForm.WinHandle,WM_PGEN_RUN,0,0);
                   end
                Else If Addr.sin_addr.s_addr<>inet_addr(PChar(HostIP)) Then
                   If (First.Msg=RegisterSlave) And (First.IP=inet_addr(PChar(HostIP))) Then
                      begin
-                       WaitForSingleObject(ControlMutex,INFINITE);
+                       ControlSemaphore.Wait;
                        MasterFlag:=False;
                        MasterAddr:=Addr.sin_addr.s_addr;
-                       ReleaseMutex(ControlMutex);
+                       ControlSemaphore.Post;
                        PostMessage(MainForm.WinHandle,WM_PGEN_MSG,0,Integer(NewStr('Узел зарегистрирован как вспомогательный. Главный узел = ['+inet_ntoa(Addr.sin_addr)+']')))
                      end
                   Else If First.Msg=RegisterMaster Then
@@ -1679,11 +1781,11 @@ begin
                         begin
                           First.Msg:=RegisterSlave;
                           First.IP:=Addr.sin_addr.s_addr;
-                          WaitForSingleObject(ControlMutex,INFINITE);
+                          ControlSemaphore.Wait;
                           sendto(OutSocket,First,SizeOf(First),0,MCast,SizeOf(MCast));
                           Slaves.Add(inet_ntoa(Addr.sin_addr));
                           FreeSlaves.Add(inet_ntoa(Addr.sin_addr));
-                          ReleaseMutex(ControlMutex);
+                          ControlSemaphore.Post;
                           PostMessage(MainForm.WinHandle,WM_PGEN_MSG,0,Integer(NewStr('Зарегистрирован дополнительный узел = ['+inet_ntoa(Addr.sin_addr)+']')))
                         end
           end
@@ -1706,17 +1808,17 @@ end;
 
 { TQueryThread }
 
-constructor TQueryThread.Create(_Out: TSocket);
+constructor TQueryThread.Create(Parent: TMainForm; _Out: TSocket);
 begin
      Inherited Create(True);
      OutSocket:=_Out;
-     ControlMutex:=OpenMutex(MUTEX_ALL_ACCESS Or Windows.SYNCHRONIZE,False,ControlMutexName);
-     WorkMutex:=CreateMutex(Nil,False,WorkMutexName);
-     WaitForSingleObject(ControlMutex,INFINITE);
+     ControlSemaphore := Parent.ControlSemaphore;
+     WorkSemaphore := Parent.WorkSemaphore;
+     ControlSemaphore.Wait;
      Sessions:=TStringList.Create;
      Threads:=TList.Create;
      RequestingList:=TStringList.Create;
-     ReleaseMutex(ControlMutex)
+     ControlSemaphore.Post
 end;
 
 procedure TQueryThread.DoTerminate;
@@ -1735,8 +1837,6 @@ begin
              end;
          Free
        end;
-     CloseHandle(ControlMutex);
-     CloseHandle(WorkMutex);
      closesocket(ExchangeSocket)
 end;
 
@@ -1747,7 +1847,8 @@ Var ContinueFlag:Boolean;
     NowName,SlaveName:String;
     MCast:TSockAddrIn;
     Msg:TMulticastMsg;
-    F,G,H,K,Len:Integer;
+    F,G,H,K:Integer;
+    Len:{$IFDEF linux}LongWord{$ELSE}LongInt{$ENDIF};
     Buf:String;
     _File:File;
     One:Integer;
@@ -1760,15 +1861,15 @@ begin
      FillChar(Addr,SizeOf(Addr),0);
      Addr.sin_family:=AF_INET;
      Addr.sin_port:=ControlPort;
-     Addr.sin_addr.s_addr:=inet_addr(PChar(HostIP));
+     Addr.sin_addr.S_addr := inet_addr(PChar(HostIP));
      bind(ExchangeSocket,Addr,SizeOf(Addr));
 
      FillChar(MCast,SizeOf(MCast),0);
-     MCast.sa_family:=AF_INET;
-     MCast.sin_addr.s_addr:=inet_addr(ConnectMask);
+     MCast.sin_family:=AF_INET;
+     MCast.sin_addr.S_addr := inet_addr(ConnectMask);
      MCast.sin_port:=ConnectPort;
      Repeat
-        WaitForSingleObject(ControlMutex,INFINITE);
+        ControlSemaphore.Wait;
         ContinueFlag:=Assigned(Sessions);
         If ContinueFlag Then
            With Sessions Do
@@ -1790,10 +1891,10 @@ begin
                               If Not MasterFlag Then
                                  begin
                                    Msg.Msg:=CanIWork;
-                                   Msg.IP:=inet_addr(PChar(HostIP));
+                                   Msg.IP := inet_addr(PChar(HostIP));
                                    sendto(OutSocket,Msg,SizeOf(Msg),0,MCast,SizeOf(MCast));
-                                   WaitForSingleObject(WorkMutex,INFINITE);
-                                   ReleaseMutex(WorkMutex)
+                                   WorkSemaphore.Wait;
+                                   WorkSemaphore.Post
                                  end;
                               If Not LockedFlag Then
                                  begin
@@ -1812,15 +1913,15 @@ begin
                                               Buf:=ExtractFileName(NowName);
                                               If AnsiCompareFileName(Buf,SlaveName)<>0 Then
                                                  begin
-                                                   Buf:=TasksDir+'\'+Sessions.Strings[F]+'.'+TStringList(Sessions.Objects[F]).Strings[G];
-                                                   DeleteFile(PChar(Buf+'\'+SlaveName));
-                                                   RenameFile(Buf+'\'+NowName,Buf+'\'+SlaveName)
+                                                   Buf:=TasksDir+SuperSlash+Sessions.Strings[F]+'.'+TStringList(Sessions.Objects[F]).Strings[G];
+                                                   DeleteFile(PChar(Buf+SuperSlash+SlaveName));
+                                                   RenameFile(Buf+SuperSlash+NowName,Buf+SuperSlash+SlaveName)
                                                  end
                                             end;
                                        Free
                                      end;
-                                   CopyMoveStructure(TasksDir+'\'+Sessions.Strings[F]+'.'+Strings[G],'.',True);
-                                   RemoveDir(TasksDir+'\'+Sessions.Strings[F]+'.'+Strings[G]);
+                                   CopyMoveStructure(TasksDir+SuperSlash+Sessions.Strings[F]+'.'+Strings[G],'.',True);
+                                   RemoveDir(TasksDir+SuperSlash+Sessions.Strings[F]+'.'+Strings[G]);
                                    Delete(G);
                                    FreeFlag:=False;
                                    PostMessage(MainForm.WinHandle,WM_PGEN_RUN,0,0)
@@ -1851,14 +1952,14 @@ begin
                                         // spawn, send, set sockets
                                         // start wait to receive
                                         Msg.Msg:=YouAreBusy;
-                                        Msg.IP:=inet_addr(PChar(FreeSlaves.Strings[0]));
-                                        Msg.Info:=inet_addr(PChar(HostIP));
+                                        Msg.IP := inet_addr(PChar(FreeSlaves.Strings[0]));
+                                        Msg.Info := inet_addr(PChar(HostIP));
                                         sendto(OutSocket,Msg,SizeOf(Msg),0,MCast,SizeOf(MCast));
-                                        CopyMoveStructure(TasksDir+'\'+Sessions.Strings[F]+'.'+Strings[G],'.',True);
-                                        RemoveDir(TasksDir+'\'+Sessions.Strings[F]+'.'+Strings[G]);
+                                        CopyMoveStructure(TasksDir+SuperSlash+Sessions.Strings[F]+'.'+Strings[G],'.',True);
+                                        RemoveDir(TasksDir+SuperSlash+Sessions.Strings[F]+'.'+Strings[G]);
                                         listen(ExchangeSocket,1);
                                         Len:=SizeOf(Addr);
-                                        NewSock:=accept(ExchangeSocket,@Addr,@Len);
+                                        NewSock:=accept(ExchangeSocket,@Addr,Len);
                                         FreeSlaves.Delete(FreeSlaves.IndexOf(inet_ntoa(Addr.sin_addr)));
                                         With TStringList(Objects[G]) Do
                                           begin
@@ -1895,7 +1996,7 @@ begin
                                    begin
                                      // send request
                                      Msg.Msg:=RequestNode;
-                                     Msg.IP:=inet_addr(PChar(HostIP));
+                                     Msg.IP := inet_addr(PChar(HostIP));
                                      sendto(OutSocket,Msg,SizeOf(Msg),0,MCast,SizeOf(MCast));
                                      Sleep(100);
                                      With TStringList(Objects[G]) Do
@@ -1920,12 +2021,12 @@ begin
                              If FreeSlaves.Count>0 Then
                                 begin
                                   Msg.Msg:=ThisIsNode;
-                                  Msg.IP:=inet_addr(PChar(NowName));
-                                  Msg.Info:=inet_addr(PChar(FreeSlaves.Strings[0]));
+                                  Msg.IP := inet_addr(PChar(NowName));
+                                  Msg.Info := inet_addr(PChar(FreeSlaves.Strings[0]));
                                   sendto(OutSocket,Msg,SizeOf(Msg),0,MCast,SizeOf(MCast));
                                   Msg.Msg:=YouAreBusy;
-                                  Msg.IP:=inet_addr(PChar(FreeSlaves.Strings[0]));
-                                  Msg.Info:=inet_addr(PChar(NowName));
+                                  Msg.IP := inet_addr(PChar(FreeSlaves.Strings[0]));
+                                  Msg.Info := inet_addr(PChar(NowName));
                                   sendto(OutSocket,Msg,SizeOf(Msg),0,MCast,SizeOf(MCast));
                                   FreeSlaves.Delete(0);
                                   Delete(H)
@@ -1944,14 +2045,14 @@ begin
                            For H:=0 To Count-1 Do
                              begin
                                Msg.Msg:=FreeNode;
-                               Msg.IP:=inet_addr(PChar(Strings[H]));
+                               Msg.IP := inet_addr(PChar(Strings[H]));
                                sendto(OutSocket,Msg,SizeOf(Msg),0,MCast,SizeOf(MCast));
                                Sleep(100)
                              end;
                            Clear
                          end
              end;
-        ReleaseMutex(ControlMutex);
+        ControlSemaphore.Post;
         Sleep(500)
      Until Not ContinueFlag;
      Terminate
@@ -2006,28 +2107,11 @@ begin
      Terminate
 end;
 
-var Registry : TRegistry;
-
 initialization
   {$IFDEF FPC}
   {$i Main.lrs}
   {$ELSE}
   {$R *.dfm}
   {$ENDIF}
-
-  try
-    Registry := TRegistry.Create;
-    Registry.RootKey := HKEY_CURRENT_USER;
-    Registry.Access:= KEY_WRITE;
-    Registry.OpenKey('\Software\GnuProlog', true);
-    Registry.WriteInteger('LOCALSZ', 65536*2);
-    Registry.WriteInteger('GLOBALSZ', 65536*2);
-    Registry.WriteInteger('TRAILSZ', 40192);
-    Registry.WriteInteger('CSTRSZ', 40192);
-    Registry.WriteInteger('MAX_ATOM', 65536);
-    Registry.CloseKey;
-  finally
-    Registry.Free;
-  end;
 
 end.

@@ -1,51 +1,51 @@
 object LearnTroubleForm: TLearnTroubleForm
   Left = 475
-  Height = 305
+  Height = 244
   Top = 199
-  Width = 410
+  Width = 328
   Caption = 'Исправьте скрипт вручную'
-  ClientHeight = 305
-  ClientWidth = 410
-  DesignTimePPI = 120
+  ClientHeight = 244
+  ClientWidth = 328
   OnCreate = FormCreate
   Position = poScreenCenter
-  LCLVersion = '3.2.0.0'
+  LCLVersion = '2.2.0.4'
   object ListBox: TListBox
     Left = 0
-    Height = 250
+    Height = 200
     Top = 0
-    Width = 410
+    Width = 328
     Anchors = [akTop, akLeft, akRight, akBottom]
     ItemHeight = 0
+    OnDrawItem = ListBoxDrawItem
     Style = lbOwnerDrawFixed
     TabOrder = 0
-    OnDrawItem = ListBoxDrawItem
+    TopIndex = -1
   end
   object OKBtn: TButton
-    Left = 184
-    Height = 40
-    Top = 258
-    Width = 94
+    Left = 140
+    Height = 32
+    Top = 206
+    Width = 75
     Anchors = [akBottom]
     Caption = 'OK'
     ModalResult = 1
     TabOrder = 1
   end
   object CancelBtn: TButton
-    Left = 296
-    Height = 40
-    Top = 258
-    Width = 94
+    Left = 229
+    Height = 32
+    Top = 206
+    Width = 75
     Anchors = [akBottom]
     Caption = 'Cancel'
     ModalResult = 2
     TabOrder = 2
   end
   object ModeBtn: TSpeedButton
-    Left = 32
-    Height = 40
-    Top = 258
-    Width = 136
+    Left = 15
+    Height = 32
+    Top = 206
+    Width = 109
     AllowAllUp = True
     Anchors = [akBottom]
     Caption = 'Редактор'
@@ -55,15 +55,15 @@ object LearnTroubleForm: TLearnTroubleForm
   end
   object EditMemo: TMemo
     Left = 0
-    Height = 253
+    Height = 202
     Top = 0
-    Width = 408
+    Width = 326
     Anchors = [akTop, akLeft, akRight, akBottom]
     Lines.Strings = (
       'EditMemo'
     )
+    OnChange = EditMemoChange
     TabOrder = 3
     Visible = False
-    OnChange = EditMemoChange
   end
 end

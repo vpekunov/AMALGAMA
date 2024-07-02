@@ -4,7 +4,7 @@ object ContactDlg: TContactDlg
   Top = 108
   Width = 391
   BorderStyle = bsDialog
-  Caption = 'Публикация контакта'
+  Caption = 'РџСѓР±Р»РёРєР°С†РёСЏ РєРѕРЅС‚Р°РєС‚Р°'
   ClientHeight = 225
   ClientWidth = 391
   DesignTimePPI = 120
@@ -37,7 +37,7 @@ object ContactDlg: TContactDlg
     Height = 24
     Top = 10
     Width = 336
-    Caption = 'Контакт доступен для внешних подключений'
+    Caption = 'РљРѕРЅС‚Р°РєС‚ РґРѕСЃС‚СѓРїРµРЅ РґР»СЏ РІРЅРµС€РЅРёС… РїРѕРґРєР»СЋС‡РµРЅРёР№'
     TabOrder = 2
   end
   object GroupBox: TGroupBox
@@ -45,7 +45,7 @@ object ContactDlg: TContactDlg
     Height = 136
     Top = 40
     Width = 371
-    Caption = ' Параметры контакта '
+    Caption = ' РџР°СЂР°РјРµС‚СЂС‹ РєРѕРЅС‚Р°РєС‚Р° '
     ClientHeight = 111
     ClientWidth = 367
     TabOrder = 3
@@ -54,7 +54,7 @@ object ContactDlg: TContactDlg
       Height = 20
       Top = 0
       Width = 176
-      Caption = 'Внешний идентификатор'
+      Caption = 'Р’РЅРµС€РЅРёР№ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ'
       ParentColor = False
     end
     object Label2: TLabel
@@ -62,7 +62,7 @@ object ContactDlg: TContactDlg
       Height = 20
       Top = 56
       Width = 95
-      Caption = 'Внешнее имя'
+      Caption = 'Р’РЅРµС€РЅРµРµ РёРјСЏ'
       ParentColor = False
     end
     object edID: TEdit

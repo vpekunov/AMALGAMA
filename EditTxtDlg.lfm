@@ -1,21 +1,21 @@
 object EditTextDlg: TEditTextDlg
   Left = 244
-  Height = 241
+  Height = 301
   Top = 173
-  Width = 321
+  Width = 401
   Caption = 'Редактирование текстового параметра'
-  ClientHeight = 241
-  ClientWidth = 321
-  Constraints.MinHeight = 241
-  Constraints.MinWidth = 321
-  ParentFont = False
+  ClientHeight = 301
+  ClientWidth = 401
+  Constraints.MinHeight = 301
+  Constraints.MinWidth = 401
+  DesignTimePPI = 120
   Position = poScreenCenter
-  LCLVersion = '0.9.26'
+  LCLVersion = '3.2.0.0'
   object OKBtn: TButton
-    Left = 79
-    Height = 25
-    Top = 208
-    Width = 75
+    Left = 110
+    Height = 31
+    Top = 260
+    Width = 94
     Anchors = [akBottom]
     Caption = 'OK'
     Default = True
@@ -23,10 +23,10 @@ object EditTextDlg: TEditTextDlg
     TabOrder = 0
   end
   object CancelBtn: TButton
-    Left = 159
-    Height = 25
-    Top = 208
-    Width = 75
+    Left = 210
+    Height = 31
+    Top = 260
+    Width = 94
     Anchors = [akBottom]
     Cancel = True
     Caption = 'Cancel'
@@ -34,10 +34,10 @@ object EditTextDlg: TEditTextDlg
     TabOrder = 1
   end
   object TextMemo: TMemo
-    Left = 8
-    Height = 193
-    Top = 8
-    Width = 305
+    Left = 10
+    Height = 241
+    Top = 10
+    Width = 381
     Anchors = [akTop, akLeft, akRight, akBottom]
     Lines.Strings = (
       'TextMemo'

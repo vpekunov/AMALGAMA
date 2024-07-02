@@ -4,7 +4,7 @@ object EditListDlg: TEditListDlg
   Top = 108
   Width = 467
   BorderStyle = bsDialog
-  Caption = 'Выбор объектов'
+  Caption = 'Р’С‹Р±РѕСЂ РѕР±СЉРµРєС‚РѕРІ'
   ClientHeight = 385
   ClientWidth = 467
   DesignTimePPI = 120
@@ -74,7 +74,7 @@ object EditListDlg: TEditListDlg
     Top = 20
     Width = 191
     Anchors = [akTop, akLeft, akBottom]
-    Caption = ' Объекты '
+    Caption = ' РћР±СЉРµРєС‚С‹ '
     ClientHeight = 269
     ClientWidth = 187
     TabOrder = 2
@@ -96,7 +96,7 @@ object EditListDlg: TEditListDlg
     Top = 20
     Width = 191
     Anchors = [akTop, akRight, akBottom]
-    Caption = ' Выбранные объекты '
+    Caption = ' Р’С‹Р±СЂР°РЅРЅС‹Рµ РѕР±СЉРµРєС‚С‹ '
     ClientHeight = 269
     ClientWidth = 187
     TabOrder = 3

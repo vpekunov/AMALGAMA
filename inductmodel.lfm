@@ -1,32 +1,31 @@
 object InductModelForm: TInductModelForm
   Left = 232
-  Height = 720
+  Height = 604
   Top = 115
-  Width = 1274
+  Width = 1112
   BorderStyle = bsDialog
   Caption = 'Индукция моделей'
-  ClientHeight = 720
-  ClientWidth = 1274
-  DesignTimePPI = 120
+  ClientHeight = 604
+  ClientWidth = 1112
   OnClose = FormClose
   OnCreate = FormCreate
   Position = poScreenCenter
-  LCLVersion = '3.2.0.0'
+  LCLVersion = '2.2.0.4'
   object gbClasses: TGroupBox
     Left = 0
-    Height = 720
+    Height = 604
     Top = 0
-    Width = 231
+    Width = 185
     Align = alLeft
     Caption = ' Все классы '
-    ClientHeight = 695
-    ClientWidth = 227
+    ClientHeight = 586
+    ClientWidth = 183
     TabOrder = 0
     object ClassesTree: TTreeView
       Left = 0
-      Height = 695
+      Height = 586
       Top = 0
-      Width = 227
+      Width = 183
       Align = alClient
       DragMode = dmAutomatic
       ReadOnly = True
@@ -38,10 +37,10 @@ object InductModelForm: TInductModelForm
     end
   end
   object btnCancel: TButton
-    Left = 813
-    Height = 38
-    Top = 648
-    Width = 91
+    Left = 743
+    Height = 30
+    Top = 547
+    Width = 73
     Anchors = [akRight, akBottom]
     Cancel = True
     Caption = 'Cancel'
@@ -49,40 +48,40 @@ object InductModelForm: TInductModelForm
     TabOrder = 1
   end
   object btnOk: TButton
-    Left = 705
-    Height = 38
-    Top = 648
-    Width = 104
+    Left = 657
+    Height = 30
+    Top = 547
+    Width = 83
     Anchors = [akRight, akBottom]
     Caption = 'Индукция'
     OnClick = btnOkClick
     TabOrder = 2
   end
   object btnLoadProgram: TButton
-    Left = 531
-    Height = 38
-    Top = 648
-    Width = 172
+    Left = 494
+    Height = 30
+    Top = 547
+    Width = 161
     Anchors = [akRight, akBottom]
     Caption = 'Загрузить программу'
     OnClick = btnLoadProgramClick
     TabOrder = 3
   end
   object gbSelectedClasses: TGroupBox
-    Left = 280
-    Height = 720
+    Left = 224
+    Height = 604
     Top = 0
-    Width = 242
+    Width = 194
     Anchors = [akTop, akLeft, akBottom]
     Caption = ' Выбранные классы '
-    ClientHeight = 695
-    ClientWidth = 238
+    ClientHeight = 586
+    ClientWidth = 192
     TabOrder = 4
     object SelectedClassesTree: TTreeView
       Left = 0
-      Height = 695
+      Height = 586
       Top = 0
-      Width = 238
+      Width = 192
       Align = alClient
       DragMode = dmAutomatic
       ReadOnly = True
@@ -94,10 +93,10 @@ object InductModelForm: TInductModelForm
     end
   end
   object btnAdd: TSpeedButton
-    Left = 240
-    Height = 28
-    Top = 190
-    Width = 29
+    Left = 192
+    Height = 22
+    Top = 152
+    Width = 23
     Glyph.Data = {
       76010000424D7801000000000000760000002800000020000000100000000100
       04000000000000000000120B0000120B00000000000000000000000000000000
@@ -116,10 +115,10 @@ object InductModelForm: TInductModelForm
     OnClick = btnAddClick
   end
   object btnDel: TSpeedButton
-    Left = 240
-    Height = 28
-    Top = 225
-    Width = 29
+    Left = 192
+    Height = 22
+    Top = 180
+    Width = 23
     Glyph.Data = {
       76010000424D7801000000000000760000002800000020000000100000000100
       04000000000000000000120B0000120B00000000000000000000000000000000
@@ -138,92 +137,91 @@ object InductModelForm: TInductModelForm
     OnClick = btnDelClick
   end
   object memProgram: TMemo
-    Left = 530
-    Height = 337
+    Left = 432
+    Height = 277
     Top = 24
-    Width = 372
+    Width = 369
     Anchors = [akTop, akBottom]
-    Font.Height = -16
+    Font.Height = -13
     Font.Pitch = fpFixed
     ParentFont = False
     ScrollBars = ssBoth
     TabOrder = 5
   end
   object memResult: TMemo
-    Left = 910
-    Height = 694
-    Top = 20
-    Width = 359
+    Left = 821
+    Height = 583
+    Top = 16
+    Width = 287
     Anchors = [akTop, akRight, akBottom]
     Color = clMenuBar
-    Font.Height = -16
+    Font.Height = -13
     Font.Pitch = fpFixed
     ParentFont = False
     ScrollBars = ssBoth
     TabOrder = 6
   end
   object Label1: TLabel
-    Left = 530
-    Height = 20
+    Left = 424
+    Height = 17
     Top = 2
-    Width = 109
+    Width = 111
     Caption = 'Исходный текст'
-    ParentColor = False
   end
   object Label2: TLabel
-    Left = 920
-    Height = 20
+    Left = 736
+    Height = 17
     Top = 2
-    Width = 160
+    Width = 161
     Caption = 'После трансформации'
-    ParentColor = False
   end
   object clbVersions: TCheckListBox
-    Left = 526
-    Height = 100
-    Top = 370
-    Width = 376
+    Left = 421
+    Height = 80
+    Top = 304
+    Width = 393
     Anchors = [akLeft, akRight, akBottom]
     ItemHeight = 0
-    TabOrder = 7
     OnClickCheck = clbVersionsClickCheck
+    TabOrder = 7
+    TopIndex = -1
   end
   object Progress: TProgressBar
-    Left = 530
-    Height = 25
-    Top = 691
-    Width = 372
+    Left = 424
+    Height = 20
+    Top = 581
+    Width = 390
     Anchors = [akLeft, akRight, akBottom]
     TabOrder = 8
   end
   object CompileBtn: TButton
-    Left = 526
-    Height = 38
-    Top = 474
-    Width = 376
+    Left = 420
+    Height = 30
+    Top = 392
+    Width = 393
     Anchors = [akLeft, akRight, akBottom]
     Caption = 'Скомпилировать программу-индуктор'
     OnClick = CompileBtnClick
     TabOrder = 9
   end
   object UseXPathing: TCheckBox
-    Left = 525
-    Height = 24
-    Top = 520
-    Width = 360
+    Left = 424
+    Height = 23
+    Top = 424
+    Width = 370
     Anchors = [akLeft, akBottom]
     Caption = 'Использовать XPath-дедукцию, если доступна'
     Font.Color = clBlue
     Font.Style = [fsBold]
+    OnClick = UseXPathingClick
     ParentFont = False
     TabOrder = 10
-    OnClick = UseXPathingClick
   end
   object nCPUs: TSpinEdit
-    Left = 530
-    Height = 28
-    Top = 614
-    Width = 62
+    Left = 424
+    Height = 34
+    Top = 516
+    Width = 66
     Anchors = [akLeft, akBottom]
     Enabled = False
     MaxValue = 256
@@ -232,22 +230,21 @@ object InductModelForm: TInductModelForm
     Value = 1
   end
   object Label3: TLabel
-    Left = 600
-    Height = 20
-    Top = 614
-    Width = 230
+    Left = 494
+    Height = 17
+    Top = 524
+    Width = 231
     Anchors = [akLeft, akBottom]
     Caption = 'Число потоков на XPath-вывод'
     Font.Color = clRed
     Font.Style = [fsBold]
-    ParentColor = False
     ParentFont = False
   end
   object UseNNet: TCheckBox
-    Left = 525
-    Height = 24
-    Top = 540
-    Width = 357
+    Left = 424
+    Height = 23
+    Top = 462
+    Width = 369
     Anchors = [akLeft, akBottom]
     Caption = 'Использовать нейросеть для настройки весов'
     Checked = True
@@ -258,32 +255,32 @@ object InductModelForm: TInductModelForm
     TabOrder = 12
   end
   object Timeout: TSpinEdit
-    Left = 530
-    Height = 28
-    Top = 586
-    Width = 62
+    Left = 424
+    Height = 34
+    Top = 480
+    Width = 66
     Anchors = [akLeft, akBottom]
     Enabled = False
     MaxValue = 86400
     TabOrder = 13
+    Value = 20
   end
   object Label4: TLabel
-    Left = 599
-    Height = 20
-    Top = 586
-    Width = 311
+    Left = 494
+    Height = 17
+    Top = 496
+    Width = 317
     Anchors = [akLeft, akBottom]
     Caption = 'Таймаут вывода в сек (интервал рестарта)'
     Font.Color = clGreen
     Font.Style = [fsBold]
-    ParentColor = False
     ParentFont = False
   end
   object UseMainLine: TCheckBox
-    Left = 525
-    Height = 24
-    Top = 560
-    Width = 311
+    Left = 424
+    Height = 23
+    Top = 443
+    Width = 314
     Caption = 'Напрямую применять идентичные случаи'
     Enabled = False
     Font.Style = [fsItalic]
@@ -294,13 +291,13 @@ object InductModelForm: TInductModelForm
     Title = 'Открыть текст программы'
     Filter = 'Все файлы (*.*)|*.*'
     Options = [ofHideReadOnly, ofPathMustExist, ofFileMustExist, ofEnableSizing]
-    Left = 568
-    Top = 36
+    Left = 454
+    Top = 29
   end
   object SaveDialog: TSaveDialog
     DefaultExt = '.exe'
     Filter = 'Executable Files (*.exe)|*.exe'
-    Left = 14
-    Top = 34
+    Left = 11
+    Top = 27
   end
 end

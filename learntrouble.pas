@@ -8,7 +8,7 @@ interface
 
 uses
   {$IFDEF FPC}LCLIntf,{$ENDIF} Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, ShellApi, Buttons, ExtCtrls, ComCtrls, Windows{$IFDEF FPC}, LResources{$ENDIF}, types;
+  StdCtrls, Buttons, ExtCtrls, ComCtrls{$IFNDEF linux}, ShellApi, Windows{$ELSE}, LCLType{$ENDIF}{$IFDEF FPC}, LResources{$ENDIF}, types;
 
 type
 

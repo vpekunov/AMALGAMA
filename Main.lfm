@@ -1,14 +1,15 @@
 object MainForm: TMainForm
-  Left = 205
-  Height = 478
+  Left = 204
+  Height = 598
   Top = 76
-  Width = 785
-  Caption = 'АвтоГЕН'
-  ClientHeight = 458
-  ClientWidth = 785
-  Constraints.MinHeight = 250
-  Constraints.MinWidth = 250
-  Font.Height = -11
+  Width = 981
+  Caption = 'РђРІС‚РѕР“Р•Рќ'
+  ClientHeight = 598
+  ClientWidth = 981
+  Constraints.MinHeight = 312
+  Constraints.MinWidth = 312
+  DesignTimePPI = 120
+  Font.Height = -14
   Font.Name = 'MS Sans Serif'
   Menu = MainMenu
   OnClose = FormClose
@@ -17,50 +18,50 @@ object MainForm: TMainForm
   OnResize = FormResize
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '2.2.4.0'
+  LCLVersion = '3.2.0.0'
   object MainStatusBar: TStatusBar
     Left = 0
-    Height = 23
-    Top = 435
-    Width = 785
+    Height = 29
+    Top = 569
+    Width = 981
     Panels = <>
   end
   object BigPanel: TPanel
     Left = 0
-    Height = 435
+    Height = 569
     Top = 0
-    Width = 785
+    Width = 981
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 435
-    ClientWidth = 785
+    ClientHeight = 569
+    ClientWidth = 981
     TabOrder = 1
     object MainSplitter: TSplitter
-      Left = 185
-      Height = 435
+      Left = 231
+      Height = 569
       Top = 0
-      Width = 8
+      Width = 10
       Beveled = True
       OnCanResize = MainSplitterCanResize
     end
     object ModelBox: TGroupBox
-      Left = 193
-      Height = 435
+      Left = 241
+      Height = 569
       Top = 0
-      Width = 592
+      Width = 740
       Align = alClient
-      Caption = ' Модель '
-      ClientHeight = 417
-      ClientWidth = 588
+      Caption = ' РњРѕРґРµР»СЊ '
+      ClientHeight = 548
+      ClientWidth = 736
       TabOrder = 0
       object MainPaintBox: TPaintBox
         Left = 2
-        Height = 342
-        Top = 15
-        Width = 571
+        Height = 454
+        Top = 19
+        Width = 715
         Anchors = [akTop, akLeft, akRight, akBottom]
         Color = clBtnFace
-        Font.Height = -9
+        Font.Height = -11
         Font.Name = 'Arial'
         ParentColor = False
         ParentFont = False
@@ -75,8 +76,8 @@ object MainForm: TMainForm
       object HScroller: TScrollBar
         Left = 2
         Height = 16
-        Top = 357
-        Width = 584
+        Top = 477
+        Width = 732
         Anchors = [akLeft, akRight, akBottom]
         LargeChange = 50
         Max = 4000
@@ -85,9 +86,9 @@ object MainForm: TMainForm
         OnScroll = HScrollerScroll
       end
       object VScroller: TScrollBar
-        Left = 572
-        Height = 350
-        Top = 7
+        Left = 720
+        Height = 464
+        Top = 9
         Width = 16
         Anchors = [akTop, akRight, akBottom]
         Kind = sbVertical
@@ -99,9 +100,9 @@ object MainForm: TMainForm
       end
       object MessageListBox: TListBox
         Left = 2
-        Height = 42
-        Top = 373
-        Width = 584
+        Height = 52
+        Top = 494
+        Width = 732
         Anchors = [akLeft, akRight, akBottom]
         ItemHeight = 0
         TabOrder = 2
@@ -109,9 +110,9 @@ object MainForm: TMainForm
     end
     object DockPanel: TPanel
       Left = 0
-      Height = 435
+      Height = 569
       Top = 0
-      Width = 185
+      Width = 231
       Align = alLeft
       ChildSizing.Layout = cclTopToBottomThenLeftToRight
       DockSite = True
@@ -123,17 +124,17 @@ object MainForm: TMainForm
     end
   end
   object MainMenu: TMainMenu
-    Left = 8
-    Top = 8
+    Left = 10
+    Top = 10
     object NFile: TMenuItem
-      Caption = 'Файл'
+      Caption = 'Р¤Р°Р№Р»'
       object NNew: TMenuItem
-        Caption = 'Новый'
+        Caption = 'РќРѕРІС‹Р№'
         ShortCut = 16462
         OnClick = NNewClick
       end
       object NOpen: TMenuItem
-        Caption = 'Открыть'
+        Caption = 'РћС‚РєСЂС‹С‚СЊ'
         ShortCut = 16463
         OnClick = NOpenClick
       end
@@ -141,38 +142,38 @@ object MainForm: TMainForm
         Caption = '-'
       end
       object NInductRules: TMenuItem
-        Caption = 'Индукция правил'
+        Caption = 'РРЅРґСѓРєС†РёСЏ РїСЂР°РІРёР»'
         OnClick = NInductRulesClick
       end
       object NInduct: TMenuItem
-        Caption = 'Индукция модели'
+        Caption = 'РРЅРґСѓРєС†РёСЏ РјРѕРґРµР»Рё'
         OnClick = NInductClick
       end
       object N6: TMenuItem
         Caption = '-'
       end
       object NSave: TMenuItem
-        Caption = 'Сохранить'
+        Caption = 'РЎРѕС…СЂР°РЅРёС‚СЊ'
         ShortCut = 16467
         OnClick = NSaveClick
       end
       object NSaveAs: TMenuItem
-        Caption = 'Сохранить как...'
+        Caption = 'РЎРѕС…СЂР°РЅРёС‚СЊ РєР°Рє...'
         OnClick = NSaveAsClick
       end
       object N5: TMenuItem
         Caption = '-'
       end
       object NExit: TMenuItem
-        Caption = 'Выход'
+        Caption = 'Р’С‹С…РѕРґ'
         ShortCut = 32883
         OnClick = NExitClick
       end
     end
     object NGenerate: TMenuItem
-      Caption = 'Генерация'
+      Caption = 'Р“РµРЅРµСЂР°С†РёСЏ'
       object NTranslate: TMenuItem
-        Caption = 'Транслировать'
+        Caption = 'РўСЂР°РЅСЃР»РёСЂРѕРІР°С‚СЊ'
         ShortCut = 120
         OnClick = NTranslateClick
       end
@@ -180,72 +181,72 @@ object MainForm: TMainForm
         Caption = '-'
       end
       object NLangs: TMenuItem
-        Caption = 'Язык конкретизации'
+        Caption = 'РЇР·С‹Рє РєРѕРЅРєСЂРµС‚РёР·Р°С†РёРё'
       end
     end
     object NView: TMenuItem
-      Caption = 'Вид'
+      Caption = 'Р’РёРґ'
       object NClasses: TMenuItem
-        Caption = 'Классы'
+        Caption = 'РљР»Р°СЃСЃС‹'
         Checked = True
         ShortCut = 117
         OnClick = NClassesClick
       end
       object NSettings: TMenuItem
-        Caption = 'Настройки'
+        Caption = 'РќР°СЃС‚СЂРѕР№РєРё'
         OnClick = NSettingsClick
       end
     end
   end
   object OpenModel: TOpenDialog
-    Title = 'Загрузить модель'
+    Title = 'Р—Р°РіСЂСѓР·РёС‚СЊ РјРѕРґРµР»СЊ'
     DefaultExt = '.amd'
-    Filter = 'XML-файлы (*.xml)|*.xml|Файлы моделей (*.amd)|*.amd|Все файлы (*.*)|*.*'
+    Filter = 'XML-С„Р°Р№Р»С‹ (*.xml)|*.xml|Р¤Р°Р№Р»С‹ РјРѕРґРµР»РµР№ (*.amd)|*.amd|Р’СЃРµ С„Р°Р№Р»С‹ (*.*)|*.*'
     Options = [ofHideReadOnly, ofPathMustExist, ofFileMustExist, ofEnableSizing]
-    Left = 40
-    Top = 8
+    Left = 50
+    Top = 10
   end
   object SaveModel: TSaveDialog
-    Title = 'Сохранить модель'
+    Title = 'РЎРѕС…СЂР°РЅРёС‚СЊ РјРѕРґРµР»СЊ'
     DefaultExt = '.amd'
-    Filter = 'XML-файлы (*.xml)|*.xml|Файлы моделей (*.amd)|*.amd|Prolog-базы (*.pl; *.pro)|*.pl;*.pro|Все файлы (*.*)|*.*'
+    Filter = 'XML-С„Р°Р№Р»С‹ (*.xml)|*.xml|Р¤Р°Р№Р»С‹ РјРѕРґРµР»РµР№ (*.amd)|*.amd|Prolog-Р±Р°Р·С‹ (*.pl; *.pro)|*.pl;*.pro|Р’СЃРµ С„Р°Р№Р»С‹ (*.*)|*.*'
     Options = [ofOverwritePrompt, ofHideReadOnly, ofEnableSizing]
-    Left = 72
-    Top = 8
+    Left = 90
+    Top = 10
   end
   object ElementPopup: TPopupMenu
-    Left = 8
-    Top = 40
+    Left = 10
+    Top = 50
     object ElProps: TMenuItem
-      Caption = 'Параметры'
+      Caption = 'РџР°СЂР°РјРµС‚СЂС‹'
       OnClick = ElPropsClick
     end
     object ElSettings: TMenuItem
-      Caption = 'Отображение'
+      Caption = 'РћС‚РѕР±СЂР°Р¶РµРЅРёРµ'
       OnClick = ElSettingsClick
     end
     object ElDel: TMenuItem
-      Caption = 'Удалить'
+      Caption = 'РЈРґР°Р»РёС‚СЊ'
       OnClick = ElDelClick
     end
     object CntPubl: TMenuItem
-      Caption = 'Опубликовать контакт'
+      Caption = 'РћРїСѓР±Р»РёРєРѕРІР°С‚СЊ РєРѕРЅС‚Р°РєС‚'
       OnClick = CntPublClick
     end
   end
   object LinkPopup: TPopupMenu
-    Left = 40
-    Top = 40
+    Left = 50
+    Top = 50
     object LinkDel: TMenuItem
-      Caption = 'Удалить'
+      Caption = 'РЈРґР°Р»РёС‚СЊ'
       OnClick = LinkDelClick
     end
     object LinkType: TMenuItem
-      Caption = 'Тип'
+      Caption = 'РўРёРї'
       OnClick = LinkTypeClick
     end
     object LinkColor: TMenuItem
-      Caption = 'Цвет'
+      Caption = 'Р¦РІРµС‚'
       OnClick = LinkColorClick
     end
   end
@@ -273,7 +274,7 @@ object MainForm: TMainForm
       'ColorS=F0FBFF'
       'ColorT=A4A0A0'
     )
-    Left = 72
-    Top = 40
+    Left = 90
+    Top = 50
   end
 end

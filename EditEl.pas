@@ -117,7 +117,7 @@ begin
      _El:=El;
      edtIdent.Text:=El.Ident;
      chkPermanent.Checked:=El.IdPermanent;
-     H:=IdentLabel.Height+Max(ItemsComboBox.Height,edtIdent.Height)+{$IFDEF FPC}4{$ELSE}2{$ENDIF};
+     H:=Round(1.5*IdentLabel.Height)+Max(ItemsComboBox.Height,edtIdent.Height)+{$IFDEF FPC}4{$ELSE}2{$ENDIF};
      ActiveControl:=edtIdent;
      With El Do
        begin
