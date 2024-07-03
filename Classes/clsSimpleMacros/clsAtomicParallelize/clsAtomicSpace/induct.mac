@@ -1,5 +1,0 @@
-@fast(db_gid,"db_gid.csv").
-@fast(db_atomic_prog,"db_atomic_prog.csv").
-@fast(db_atomic_arg,"db_atomic_arg.csv").
-@unique(SPACE,infinity):-
-  (((\s|\\t)*\\n(\s|\\t)*)+)|((\s|\\t)+).

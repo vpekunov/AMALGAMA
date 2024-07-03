@@ -1,6 +1,0 @@
-@fast(db_gid,"db_gid.csv").
-@fast(db_atomic_prog,"db_atomic_prog.csv").
-@fast(db_atomic_arg,"db_atomic_arg.csv").
-@fast(db_atomic_incl,"db_atomic_incl.csv").
-@context(PROCESS,1):-
-  (^)-=>{db_atomic_prog(_,_),db_atomic_arg(_,_,_),db_atomic_incl(_)}.
