@@ -10,6 +10,6 @@
       xpathf(SENTENCE,'Afv0io','функцию',$V3,'true'),dbtables_eco3(V3,$VRES3)
    }.
  @auto:-MAIN:"//VRES3/text()" => "Type",MAIN:"//P0/text()" => "Fun",MAIN:"//P1/text()" => "Var",randomid() => "ID".
- @goal:-xpath('MAIN','//VRES3/text()',[VTypeText3]),xpath('MAIN','//P0/text()',[VFunText0]),xpath('MAIN','//P1/text()',[VVarText1]),assertz(e_saddfunction(VTypeText3,VFunText0,VVarText1,'randomid')),!.
+ @goal:-xpath('MAIN','//VRES3/text()',[VTypeText1]),xpath('MAIN','//P0/text()',[VFunText1]),xpath('MAIN','//P1/text()',[VVarText1]),assertz(e_saddfunction(VTypeText1,VFunText1,VVarText1,'randomid')),!.
  @done:-clear_db.
 

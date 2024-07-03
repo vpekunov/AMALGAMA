@@ -662,6 +662,10 @@ insert_link(ID,CID,ToID,ToCID,Color):-
   asserta(o_link(ID,CID,ToID,ToCID,Color,'False',0,'')),
   asserta(i_link(ToID,ToCID,ID,CID,'False')).
 
+insert_info_link(ID,CID,ToID,ToCID,Color):-
+  asserta(o_link(ID,CID,ToID,ToCID,Color,'True',0,'')),
+  asserta(i_link(ToID,ToCID,ID,CID,'True')).
+
 delete_element(ID):-
   retractall(element(ID,_,_,_)),
   retractall(show(ID,_,_,_)),

@@ -55,9 +55,9 @@ function GetTape() {
 function UnrollIfNotExport($V) {
    global $Exporting;
    if (!$Exporting && strlen($V) > 3) {
-      while (preg_match("/\?\(([A-Za-z0-9_.:\\\/]+)\)/",$V,$regs)) {
+      while (preg_match("/\?\(([A-Za-z0-9_\.\:\\\\\/]+)\)/",$V,$regs)) {
          $file = file_get_contents($regs[1]);
-         $array = split("(\x0D|\x0A)+", $file);
+         $array = preg_split("/(\x0D|\x0A)+/", $file);
          $f = implode("\n", $array);
          $V = str_replace("?(".$regs[1].")", $f, $V);
       }

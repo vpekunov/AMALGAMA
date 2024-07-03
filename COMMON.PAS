@@ -78,6 +78,8 @@ function RunExtCommand(Const App,Prm,OutFName,SignalStr:String; Const WaitFile: 
 function EncodeStr(Const S:String):String;
 function DecodeStr(Const S:String):String;
 
+function UnifyStrings(Const S: String):String;
+
 procedure MakeErrorCommon(Const Msg: String);
 procedure MakeInfoCommon(Const Msg: String);
 
@@ -736,6 +738,11 @@ Begin
 End;
 
 {$ENDIF}
+
+function UnifyStrings(const S: String): String;
+begin
+     Result := StringReplace(S, #$0D#$0A, #$0A, [rfReplaceAll])
+end;
 
 procedure MakeErrorCommon(const Msg: String);
 begin

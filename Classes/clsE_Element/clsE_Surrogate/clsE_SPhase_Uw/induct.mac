@@ -7,6 +7,6 @@
       xpathf(SENTENCE,'MVIv1ii','Скорость','приравняем','true')
    }.
  @auto:-MAIN:"//P0/text()" => "Name",MAIN:"//P1/text()" => "Uw",randomid() => "ID".
- @goal:-xpath('MAIN','//P0/text()',[VNameText0]),xpath('MAIN','//P1/text()',[VUwText1]),assertz(e_sphase_uw(VNameText0,VUwText1,'randomid')),!.
+ @goal:-xpath('MAIN','//P0/text()',[VNameText1]),xpath('MAIN','//P1/text()',[VUwText1]),assertz(e_sphase_uw(VNameText1,VUwText1,'randomid')),!.
  @done:-clear_db.
 

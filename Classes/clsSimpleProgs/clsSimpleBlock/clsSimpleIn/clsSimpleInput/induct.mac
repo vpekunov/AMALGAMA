@@ -10,7 +10,7 @@
       xpathf(SENTENCE,'Mp1ii','вектор','с','true')
    }.
  @auto:-MAIN:"//P0/text()" => "IVar","in"+MAIN:"//P0/text()" => "ID".
- @goal:-xpath('MAIN','//P0/text()',[VIVarText0]),xpath('MAIN','//P0/text()',[VIDText0]),atom_concat('in',VIDText0,LHXBZH),assertz(simpleinput(VIVarText0,LHXBZH)),!.
+ @goal:-xpath('MAIN','//P0/text()',[VIVarText1]),xpath('MAIN','//P0/text()',[VIDText3]),atom_concat('in',VIDText3,CQVRCZ),assertz(simpleinput(VIVarText1,CQVRCZ)),!.
  @done:-clear_db.
 
 @versions(Programmatical)

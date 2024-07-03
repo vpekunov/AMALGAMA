@@ -7,6 +7,6 @@
       xpathf(SENTENCE,'MVv1ii','иметь','значение','true')
    }.
  @auto:-MAIN:"//P0/text()" => "Name","Positive" => "Restrict",randomid() => "ID".
- @goal:-xpath('MAIN','//P0/text()',[VNameText0]),assertz(e_svar_restrict(VNameText0,'Positive','randomid')),!.
+ @goal:-xpath('MAIN','//P0/text()',[VNameText1]),assertz(e_svar_restrict(VNameText1,'Positive','randomid')),!.
  @done:-clear_db.
 

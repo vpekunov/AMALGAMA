@@ -7,6 +7,6 @@
       xpathf(SENTENCE,'MVv1ii','Введем','определения','true')
    }.
  @auto:-MAIN:"//P0/text()" => "Name",MAIN:"//P1/text()" => "Vars",randomid() => "ID".
- @goal:-xpath('MAIN','//P0/text()',[VNameText0]),xpath('MAIN','//P1/text()',[VVarsText1]),assertz(e_sfun_vars(VNameText0,VVarsText1,'randomid')),!.
+ @goal:-xpath('MAIN','//P0/text()',[VNameText1]),xpath('MAIN','//P1/text()',[VVarsText1]),assertz(e_sfun_vars(VNameText1,VVarsText1,'randomid')),!.
  @done:-clear_db.
 

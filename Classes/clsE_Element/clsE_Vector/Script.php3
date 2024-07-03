@@ -17,7 +17,7 @@ if ($EXPORT !== "") {
           if ($PhasePrm["_ClassID"][$i] == "clsE_Model") {
 ?> Зададим контроль фазы <?php echo $Phase["_ID"][0]; ?> по переменной <?php echo $this->ID; ?>.<?php
           } else {
-?> Назначением переменной <?php echo $this->ID; ?> сделаем <?php echo $Params[$PhasePrm["_LinkID"][$i]]; ?> фазы <?php echo $Phase["_ID"][0]; ?>.<?php
+?> Пусть переменная <?php echo $this->ID; ?> будет <?php echo $Params[$PhasePrm["_LinkID"][$i]]; ?> фазы <?php echo $Phase["_ID"][0]; ?>.<?php
           }
       }
       if (trim($this->Desc) !== "") {

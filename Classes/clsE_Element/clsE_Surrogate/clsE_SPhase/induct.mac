@@ -7,6 +7,6 @@
       xpathf(SENTENCE,'MVv1ii','Введем','фазу','true')
    }.
  @auto:-"Carrier" => "Mode",MAIN:"//P0/text()" => "Name","1" => "Nc",MAIN:"//P1/text()" => "Model","ID2" => "ID".
- @goal:-xpath('MAIN','//P0/text()',[VNameText0]),xpath('MAIN','//P1/text()',[VModelText1]),assertz(e_sphase('Carrier',VNameText0,'1',VModelText1,'ID2')),!.
+ @goal:-xpath('MAIN','//P0/text()',[VNameText1]),xpath('MAIN','//P1/text()',[VModelText1]),assertz(e_sphase('Carrier',VNameText1,'1',VModelText1,'ID2')),!.
  @done:-clear_db.
 

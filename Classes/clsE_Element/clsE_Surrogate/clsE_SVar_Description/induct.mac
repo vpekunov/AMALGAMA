@@ -7,6 +7,6 @@
       xpathf(SENTENCE,'MVv1ii','Дадим','описание','true')
    }.
  @auto:-MAIN:"//P0/text()" => "Name",randomid() => "Desc",randomid() => "ID".
- @goal:-xpath('MAIN','//P0/text()',[VNameText0]),assertz(e_svar_description(VNameText0,'randomid','randomid')),!.
+ @goal:-xpath('MAIN','//P0/text()',[VNameText1]),assertz(e_svar_description(VNameText1,'randomid','randomid')),!.
  @done:-clear_db.
 

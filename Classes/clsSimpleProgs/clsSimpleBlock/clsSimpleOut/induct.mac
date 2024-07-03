@@ -9,7 +9,7 @@
       xpathf(SENTENCE,'MVv1io','Вывести',$V1,'true'),dbconsts4(V1)
    }.
  @auto:-MAIN:"//P0/text()" => "IVar","out"+MAIN:"//P0/text()" => "ID".
- @goal:-xpath('MAIN','//P0/text()',[VIVarText0]),xpath('MAIN','//P0/text()',[VIDText0]),atom_concat('out',VIDText0,JMUVNM),assertz(simpleout(VIVarText0,JMUVNM)),!.
+ @goal:-xpath('MAIN','//P0/text()',[VIVarText1]),xpath('MAIN','//P0/text()',[VIDText4]),atom_concat('out',VIDText4,ZWMNZB),assertz(simpleout(VIVarText1,ZWMNZB)),!.
  @done:-clear_db.
 
 @versions(Programmatical)

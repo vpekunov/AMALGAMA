@@ -7,6 +7,6 @@
       xpathf(SENTENCE,'MVv1ii','Зададим','контроль','true')
    }.
  @auto:-MAIN:"//P1/text()" => "ControlVar",MAIN:"//P0/text()" => "Phase","ID6" => "ID".
- @goal:-xpath('MAIN','//P1/text()',[VControlVarText1]),xpath('MAIN','//P0/text()',[VPhaseText0]),assertz(e_svar_control(VControlVarText1,VPhaseText0,'ID6')),!.
+ @goal:-xpath('MAIN','//P1/text()',[VControlVarText1]),xpath('MAIN','//P0/text()',[VPhaseText1]),assertz(e_svar_control(VControlVarText1,VPhaseText1,'ID6')),!.
  @done:-clear_db.
 

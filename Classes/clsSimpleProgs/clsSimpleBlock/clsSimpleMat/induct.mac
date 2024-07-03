@@ -11,7 +11,7 @@
       xpathf(SENTENCE,'NXv0io','результат',$V3,'true'),dbtables0(V3,$VRES0)
    }.
  @auto:-MAIN:"//P0/text()" => "IVar",MAIN:"//VRES0/text()" => "Op",MAIN:"//P1/text()" => "OVar",MAIN:"//VRES0/text()"+MAIN:"//P0/text()"+MAIN:"//P1/text()" => "ID".
- @goal:-xpath('MAIN','//P0/text()',[VIVarText0]),xpath('MAIN','//VRES0/text()',[VOpText0]),xpath('MAIN','//P1/text()',[VOVarText1]),xpath('MAIN','//VRES0/text()',[VIDText0]),xpath('MAIN','//P0/text()',[VIDText0]),xpath('MAIN','//P1/text()',[VIDText1]),atom_concat(VIDText0,VIDText0,OPSVPW),atom_concat(OPSVPW,VIDText1,OWLQQJ),assertz(simplemat(VIVarText0,VOpText0,VOVarText1,OWLQQJ)),!.
+ @goal:-xpath('MAIN','//P0/text()',[VIVarText1]),xpath('MAIN','//VRES0/text()',[VOpText1]),xpath('MAIN','//P1/text()',[VOVarText1]),xpath('MAIN','//VRES0/text()',[VIDText1]),xpath('MAIN','//P0/text()',[VIDText5]),xpath('MAIN','//P1/text()',[VIDText9]),atom_concat(VIDText1,VIDText5,CRRIDU),atom_concat(CRRIDU,VIDText9,FYJRVA),assertz(simplemat(VIVarText1,VOpText1,VOVarText1,FYJRVA)),!.
  @done:-clear_db.
 
 @versions(Programmatical)

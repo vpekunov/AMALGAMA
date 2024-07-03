@@ -9,7 +9,7 @@
       xpathf(SENTENCE,'MVv1oi',$V0,'скаляр','true'),dbconsts3(V0)
    }.
  @auto:-MAIN:"//P0/text()" => "ID".
- @goal:-xpath('MAIN','//P0/text()',[VIDText0]),assertz(simplescalar(VIDText0)),!.
+ @goal:-xpath('MAIN','//P0/text()',[VIDText1]),assertz(simplescalar(VIDText1)),!.
  @done:-clear_db.
 
 @versions(Programmatical)

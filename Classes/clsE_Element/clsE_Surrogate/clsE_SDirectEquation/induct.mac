@@ -7,6 +7,6 @@
       xpathf(SENTENCE,'MVv1ii','зададим','схему','true')
    }.
  @auto:-MAIN:"//P0/text()" => "Var","DirectSolver" => "Handler",randomid() => "ID".
- @goal:-xpath('MAIN','//P0/text()',[VVarText0]),assertz(e_sdirectequation(VVarText0,'DirectSolver','randomid')),!.
+ @goal:-xpath('MAIN','//P0/text()',[VVarText1]),assertz(e_sdirectequation(VVarText1,'DirectSolver','randomid')),!.
  @done:-clear_db.
 

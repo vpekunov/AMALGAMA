@@ -7,6 +7,6 @@
       xpathf(SENTENCE,'MVv1ii','Добавим','функции','true')
    }.
  @auto:-MAIN:"//P0/text()" => "Funs","ID238" => "ID".
- @goal:-xpath('MAIN','//P0/text()',[VFunsText0]),assertz(e_ssolver_fs(VFunsText0,'ID238')),!.
+ @goal:-xpath('MAIN','//P0/text()',[VFunsText1]),assertz(e_ssolver_fs(VFunsText1,'ID238')),!.
  @done:-clear_db.
 

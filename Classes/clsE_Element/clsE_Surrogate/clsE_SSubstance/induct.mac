@@ -8,6 +8,6 @@
       xpathf(SENTENCE,'Ew1Jt1ii','Введем','обозначением','true')
    }.
  @auto:-MAIN:"//P0/text()" => "Name",MAIN:"//P1/text()" => "Substance",MAIN:"//P2/text()" => "Phase","ID34" => "ID".
- @goal:-xpath('MAIN','//P0/text()',[VNameText0]),xpath('MAIN','//P1/text()',[VSubstanceText1]),xpath('MAIN','//P2/text()',[VPhaseText2]),assertz(e_ssubstance(VNameText0,VSubstanceText1,VPhaseText2,'ID34')),!.
+ @goal:-xpath('MAIN','//P0/text()',[VNameText1]),xpath('MAIN','//P1/text()',[VSubstanceText1]),xpath('MAIN','//P2/text()',[VPhaseText1]),assertz(e_ssubstance(VNameText1,VSubstanceText1,VPhaseText1,'ID34')),!.
  @done:-clear_db.
 

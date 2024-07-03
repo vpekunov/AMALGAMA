@@ -966,7 +966,7 @@ Begin
                            S1:=''
                         Else If S1[1]='"' Then
                            S1:=Text;
-                        MappedParams[F].ValueFromIndex[G] := Trim(S1)
+                        MappedParams[F].ValueFromIndex[G] := UnifyStrings(Trim(S1))
                       end;
                    Free
                 end;
@@ -1546,17 +1546,17 @@ Begin
                                    If S2[H] = Pound Then
                                       begin
                                         AppendStr(S3, S4 + 'MAIN:"//VRES'+IntToStr(K)+'/text()"');
-                                        AppendStr(Goal, 'xpath(''MAIN'',''//VRES'+IntToStr(K)+'/text()'',[V'+S1+'Text'+IntToStr(K)+']),')
+                                        AppendStr(Goal, 'xpath(''MAIN'',''//VRES'+IntToStr(K)+'/text()'',[V'+S1+'Text'+IntToStr(H)+']),')
                                       end
                                    Else
                                       begin
                                         AppendStr(S3, S4 + 'MAIN:"//P'+IntToStr(K)+'/text()"');
-                                        AppendStr(Goal, 'xpath(''MAIN'',''//P'+IntToStr(K)+'/text()'',[V'+S1+'Text'+IntToStr(K)+']),')
+                                        AppendStr(Goal, 'xpath(''MAIN'',''//P'+IntToStr(K)+'/text()'',[V'+S1+'Text'+IntToStr(H)+']),')
                                       end;
                                    If Length(S5) = 0 Then
-                                      S5 := 'V'+S1+'Text'+IntToStr(K)
+                                      S5 := 'V'+S1+'Text'+IntToStr(H)
                                    Else
-                                      AppendStr(S5, '#@#V'+S1+'Text'+IntToStr(K));
+                                      AppendStr(S5, '#@#V'+S1+'Text'+IntToStr(H));
                                    H := H1+1
                                  end
                               Else
@@ -2067,7 +2067,7 @@ begin
   If (edPhrase.Text <> '') And (lbObjs.ItemIndex >= 0) And
      (BoundSentences.IndexOfObject(lbObjs.Items.Objects[lbObjs.ItemIndex]) < 0) Then
      begin
-       BoundSentences.AddObject(edPhrase.Text, lbObjs.Items.Objects[lbObjs.ItemIndex]);
+       BoundSentences.AddObject(UnifyStrings(edPhrase.Text), lbObjs.Items.Objects[lbObjs.ItemIndex]);
        lbBound.Items.AddObject(
           TElementReg(tvClasses.Selected.Data).ClsId +
           '\' +
@@ -2137,7 +2137,7 @@ begin
                      MessageDlg('Ошибка', 'В текстовом файле меньше объектов, чем в модели!', mtError, [mbOk], 0);
                      Break
                    end;
-                BoundSentences.AddObject(Trim(Sent), Elements[G]);
+                BoundSentences.AddObject(Trim(UnifyStrings(Sent)), Elements[G]);
                 lbBound.Items.AddObject(
                    TElement(Elements[G]).Ref.ClsId +
                    '\' +
@@ -2254,7 +2254,7 @@ begin
                S := TSystem(lbModels.Items.Objects[G]);
                E := S.GetElement(PChar(L));
                L1 := UnEscapeString(Strings[K]);
-               BoundSentences.AddObject(L1, E);
+               BoundSentences.AddObject(UnifyStrings(L1), E);
                lbBound.Items.AddObject(
                   E.Ref.ClsId +
                   '\' +

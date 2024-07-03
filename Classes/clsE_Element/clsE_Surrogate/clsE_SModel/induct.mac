@@ -7,6 +7,6 @@
       xpathf(SENTENCE,'MVv1ii','Определим','модель','true')
    }.
  @auto:-MAIN:"//P0/text()" => "Name","ID1" => "ID".
- @goal:-xpath('MAIN','//P0/text()',[VNameText0]),assertz(e_smodel(VNameText0,'ID1')),!.
+ @goal:-xpath('MAIN','//P0/text()',[VNameText1]),assertz(e_smodel(VNameText1,'ID1')),!.
  @done:-clear_db.
 

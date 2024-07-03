@@ -8,7 +8,7 @@
       xpathf(SENTENCE,'Mp1ii','вектор','из','true')
    }.
  @auto:-MAIN:"//P1/text()" => "Size",MAIN:"//P0/text()" => "ID".
- @goal:-xpath('MAIN','//P1/text()',[VSizeText1]),xpath('MAIN','//P0/text()',[VIDText0]),assertz(simplevector(VSizeText1,VIDText0)),!.
+ @goal:-xpath('MAIN','//P1/text()',[VSizeText1]),xpath('MAIN','//P0/text()',[VIDText1]),assertz(simplevector(VSizeText1,VIDText1)),!.
  @done:-clear_db.
 
 @versions(Programmatical)

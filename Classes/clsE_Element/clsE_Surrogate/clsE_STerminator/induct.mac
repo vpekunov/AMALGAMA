@@ -8,8 +8,8 @@ get_left_top(Left,Top):-
   N1 is N+1,
   retractall(counter(_)),
   asserta(counter(N1)),
-  Left is (N mod 8)*150,
-  Top is (N div 8)*100,
+  Left is (N - 8*floor(N/8))*150,
+  Top is floor(N/8)*100,
   !.
 
 deduce_add_functions(Type,Var,ID2,CID2):-
@@ -23,7 +23,7 @@ deduce_add_functions(_,_,_,_):-
 deduce_vars:-
   e_svar('Scalar',Name,Ext,Phase,_),
   once(get_left_top(Left, Top)),
-  once(((e_svar_control(Name,Phase,_),e_smodel(MID,_))->(insert_link(MID,'Control',Name,'PhasePrm','clBlack'));true)),
+  once(((e_svar_control(Name,Phase,_),e_smodel(MID,_))->(insert_info_link(MID,'Control',Name,'PhasePrm','clBlack'));true)),
   once((e_svar_is(Name,Type,Phase,_)->(insert_link(Phase,Type,Name,'PhasePrm','clBlack'));true)),
   once((e_svar_description(Name,Desc,_)->true;=(Desc,''))),
   once((e_svar_init(Name,Init0,_)->unescape_specs(Init0,Init);=(Init,''))),

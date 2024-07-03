@@ -14,7 +14,7 @@ if ($EXPORT !== "") {
       if ($this->Functions !== "") {
           ?> Добавим в решение новые функции "<?php echo $this->Functions; ?>".<?php
       }
-?> Решим полученную систему уравнений.<?php
+?> Теперь решим полученную систему уравнений.<?php
      } else if ($EXPORT == "XML") {
       $n = GetNextMail("COUNTER");
       if ($this->Functions !== "") {
