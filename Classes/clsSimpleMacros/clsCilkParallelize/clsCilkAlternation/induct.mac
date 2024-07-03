@@ -1,0 +1,20 @@
+@fast(db_gid,"db_gid.csv").
+@fast(db_cilk_prog,"db_cilk_prog.csv").
+@fast(db_cilk_arg,"db_cilk_arg.csv").
+@context(PREV,infinity):-
+  (((^)|(\;)+|\}|\{|\\n|\:)((\s|\\t)*\\n)*)(\s|\\t)*.
+@glue:-.
+@global_unique(ALT,1):-
+  ()->{GID}
+  (\s|\\t)*
+  (
+   ((case(\\n|\s|\\t)+((.+?)->{CASE}\:)?=>{Predicates.BAL($,':')}
+        ()?=>{db_gid($GID)}
+        ()-=>{db_cilk_prog(GID,_),db_cilk_arg(GID,_,_)}
+        )+=>{db_cilk_prog(GID,"case"),db_cilk_arg(GID,"arg",CASE)})|
+   ((default(\\n|\s|\\t)*\:)->{DFLT}
+        ()?=>{db_gid($GID)}
+        ()-=>{db_cilk_prog(GID,_)}
+        )+=>{db_cilk_prog(GID,"default")}
+  )
+  (\s|\\t)*.

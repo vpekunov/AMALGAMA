@@ -1,0 +1,12 @@
+@versions(Auto)
+@context(PREV,infinity):-
+  (((^)|(\.)+)(\s*\\n)*)\s*.
+@glue:-.
+@global_unique(MAIN,1):-
+   (([^\w\.]+(\w+)->{P0}[^\.]*\.)->{Grammar.ru{SENTENCE}}(*PRUNE))?=>{
+      xpathf(SENTENCE,'MVv1ii','Определим','модель','true')
+   }.
+ @auto:-MAIN:"//P0/text()" => "Name","ID1" => "ID".
+ @goal:-xpath('MAIN','//P0/text()',[VNameText0]),assertz(e_smodel(VNameText0,'ID1')),!.
+ @done:-clear_db.
+

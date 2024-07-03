@@ -1,0 +1,15 @@
+@versions(Auto)
+@fast(dbtables_eco3,"dbtables_eco3.csv").
+@context(PREV,infinity):-
+  (((^)|(\.)+)(\s*\\n)*)\s*.
+@glue:-.
+@global_unique(MAIN,1):-
+   ()->{V3}()->{VRES3}
+   (([^\w\.]+(\w+)->{P0}[^\w\.]+(\w+)->{P1}[^\.]*\.)->{Grammar.ru{SENTENCE}}(*PRUNE))?=>{
+      xpathf(SENTENCE,'MVv1ii','Присоединим','функцию','true'),
+      xpathf(SENTENCE,'Afv0io','функцию',$V3,'true'),dbtables_eco3(V3,$VRES3)
+   }.
+ @auto:-MAIN:"//VRES3/text()" => "Type",MAIN:"//P0/text()" => "Fun",MAIN:"//P1/text()" => "Var",randomid() => "ID".
+ @goal:-xpath('MAIN','//VRES3/text()',[VTypeText3]),xpath('MAIN','//P0/text()',[VFunText0]),xpath('MAIN','//P1/text()',[VVarText1]),assertz(e_saddfunction(VTypeText3,VFunText0,VVarText1,'randomid')),!.
+ @done:-clear_db.
+

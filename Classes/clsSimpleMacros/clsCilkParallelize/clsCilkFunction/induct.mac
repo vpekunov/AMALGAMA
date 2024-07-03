@@ -1,0 +1,46 @@
+@fast(db_gid,"db_gid.csv").
+@fast(db_cilk_prog,"db_cilk_prog.csv").
+@fast(db_cilk_arg,"db_cilk_arg.csv").
+@context(PREV,infinity):-
+  (((^)|(\;)+|\}|\\n)((\s|\\t)*\\n)*)(\s|\\t)*.
+@glue:-.
+@global_unique(FUNC,1):-
+  ()->{GID}
+  (\s|\\t)*
+  ((([A-Za-z0-9_\[\]\*]+((\\n|\s|\\t)*\*(\\n|\s|\\t)*|(\\n|\s|\\t)+))+)->{RETTYPE}(\w+(\\n|\s|\\t)*)->{ID}\(
+       ()?=>{db_gid($GID)}
+       ()-=>{db_cilk_prog(GID,_)}
+       ()-=>{db_cilk_arg(GID,_,_)}
+       (
+        (((\\n|\s|\\t)*[A-Za-z0-9_\[\]]+)+
+          (
+           ((\\n|\s|\\t)*(\&|(\*)+)->{FIRST_REF}
+              ()+=>{db_cilk_arg(GID,"arg",FIRST_REF)}
+           )|
+           (\\n|\s|\\t)+
+          )
+          (\\n|\s|\\t)*(\w+)->{FIRST}(((\\n|\s|\\t)*\[(\\n|\s|\\t)*\w+(\\n|\s|\\t)*\])*)->{FIRST_IDXS}
+             ()+=>{db_cilk_arg(GID,"arg",FIRST),db_cilk_arg(GID,"idxs",FIRST_IDXS)}
+          ((\\n|\s|\\t)*\,((\\n|\s|\\t)*[A-Za-z0-9_\[\]]+)+
+           (
+            ((\\n|\s|\\t)*(\&|(\*)+)->{OTHER_REF}
+              ()+=>{db_cilk_arg(GID,"arg",OTHER_REF)}
+            )|
+            (\\n|\s|\\t)+
+           )
+           (\\n|\s|\\t)*(\w+)->{OTHER}(((\\n|\s|\\t)*\[(\\n|\s|\\t)*\w+(\\n|\s|\\t)*\])*)->{OTHER_IDXS}(\\n|\s|\\t)*
+             ()+=>{db_cilk_arg(GID,"arg",OTHER),db_cilk_arg(GID,"idxs",OTHER_IDXS)}
+          )->{TAIL}*
+          (
+           (\\n|\s|\\t)*\,(\\n|\s|\\t)*\.\.\.(\\n|\s|\\t)*
+             ()+=>{db_cilk_arg(GID,"arg","...")}
+          )?
+        )|
+        ((\\n|\s|\\t)*\.\.\.(\\n|\s|\\t)*)+=>{db_cilk_arg(GID,"arg","...")}|
+        (((\\n|\s|\\t)*void(\\n|\s|\\t)*)|((\\n|\s|\\t)*)->{EMPTY})-=>{db_cilk_arg(GID,"arg",_)}
+       )+=>{db_cilk_arg(GID,"args",$),db_cilk_arg(GID,"ret",RETTYPE)}\)(\s|\\t|\\n)*)
+  (\s|\\t)*.
+@glue:-.
+@context(ENDF,1):-
+  (\{|\;)+=>{db_cilk_prog(FUNC.GID,"func")}
+  ()+=>{db_cilk_arg(FUNC.GID,"name",FUNC.ID)}.

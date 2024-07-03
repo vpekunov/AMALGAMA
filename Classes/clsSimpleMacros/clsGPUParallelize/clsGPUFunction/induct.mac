@@ -1,0 +1,50 @@
+@fast(db_gid,"db_gid.csv").
+@fast(db_gpu_prog,"db_gpu_prog.csv").
+@fast(db_gpu_arg,"db_gpu_arg.csv").
+@context(PREV,infinity):-
+  (((^)|(\;)+|\}|\\n)((\s|\\t)*\\n)*)(\s|\\t)*.
+@glue:-.
+@global_unique(FUNC,1):-
+  ()->{GID}
+  (\s|\\t)*
+  ((([A-Za-z0-9_\[\]\*]+((\\n|\s|\\t)*\*(\\n|\s|\\t)*|(\\n|\s|\\t)+))+)->{RETTYPE}(\w+(\\n|\s|\\t)*)->{ID}\(
+       ()?=>{db_gid($GID)}
+       ()-=>{db_gpu_prog(GID,_)}
+       ()-=>{db_gpu_arg(GID,_,_)}
+       (
+        ((((\\n|\s|\\t)*[A-Za-z0-9_\[\]]+)+)->{FIRST_TYPE}
+          (
+           ((\\n|\s|\\t)*(\&|(\*)+)->{FIRST_REF}
+              ()+=>{db_gpu_arg(GID,"arg",FIRST_REF)}
+           )|
+           (\\n|\s|\\t)+
+          )
+          (\\n|\s|\\t)*(\w+)->{FIRST}
+          ()+=>{db_gpu_arg(GID,"type",FIRST_TYPE)}
+          (((\\n|\s|\\t)*\[(\\n|\s|\\t)*\w+(\\n|\s|\\t)*\])*)->{FIRST_IDXS}
+             ()+=>{db_gpu_arg(GID,"arg",FIRST),db_gpu_arg(GID,"idxs",FIRST_IDXS)}
+          ((\\n|\s|\\t)*\,(((\\n|\s|\\t)*[A-Za-z0-9_\[\]]+)+)->{OTHER_TYPE}
+           (
+            ((\\n|\s|\\t)*(\&|(\*)+)->{OTHER_REF}
+              ()+=>{db_gpu_arg(GID,"arg",OTHER_REF)}
+            )|
+            (\\n|\s|\\t)+
+           )
+           (\\n|\s|\\t)*(\w+)->{OTHER}
+           ()+=>{db_gpu_arg(GID,"type",OTHER_TYPE)}
+           (((\\n|\s|\\t)*\[(\\n|\s|\\t)*\w+(\\n|\s|\\t)*\])*)->{OTHER_IDXS}(\\n|\s|\\t)*
+             ()+=>{db_gpu_arg(GID,"arg",OTHER),db_gpu_arg(GID,"idxs",OTHER_IDXS)}
+          )->{TAIL}*
+          (
+           (\\n|\s|\\t)*\,(\\n|\s|\\t)*\.\.\.(\\n|\s|\\t)*
+             ()+=>{db_gpu_arg(GID,"arg","...")}
+          )?
+        )|
+        ((\\n|\s|\\t)*\.\.\.(\\n|\s|\\t)*)+=>{db_gpu_arg(GID,"arg","...")}|
+        (((\\n|\s|\\t)*void(\\n|\s|\\t)*)|((\\n|\s|\\t)*)->{EMPTY})-=>{db_gpu_arg(GID,"arg",_)}
+       )+=>{db_gpu_arg(GID,"args",$),db_gpu_arg(GID,"ret",RETTYPE)}\)(\s|\\n|\\t)*)
+  (\s|\\t)*.
+@glue:-.
+@context(ENDF,1):-
+  (\{|\;)+=>{db_gpu_prog(FUNC.GID,"func")}
+  ()+=>{db_gpu_arg(FUNC.GID,"name",FUNC.ID)}.

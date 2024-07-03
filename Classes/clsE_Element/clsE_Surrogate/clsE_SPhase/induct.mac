@@ -1,0 +1,12 @@
+@versions(Auto)
+@context(PREV,infinity):-
+  (((^)|(\.)+)(\s*\\n)*)\s*.
+@glue:-.
+@global_unique(MAIN,1):-
+   (([^\w\.]+(\w+)->{P0}[^\w\.]+(\w+)->{P1}[^\.]*\.)->{Grammar.ru{SENTENCE}}(*PRUNE))?=>{
+      xpathf(SENTENCE,'MVv1ii','Введем','фазу','true')
+   }.
+ @auto:-"Carrier" => "Mode",MAIN:"//P0/text()" => "Name","1" => "Nc",MAIN:"//P1/text()" => "Model","ID2" => "ID".
+ @goal:-xpath('MAIN','//P0/text()',[VNameText0]),xpath('MAIN','//P1/text()',[VModelText1]),assertz(e_sphase('Carrier',VNameText0,'1',VModelText1,'ID2')),!.
+ @done:-clear_db.
+

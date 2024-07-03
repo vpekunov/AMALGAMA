@@ -1,0 +1,5 @@
+@fast(db_gid,"db_gid.csv").
+@fast(db_cilk_prog,"db_cilk_prog.csv").
+@fast(db_cilk_arg,"db_cilk_arg.csv").
+@unique(SPACE,infinity):-
+  (((\s|\\t)*\\n(\s|\\t)*)+)|((\s|\\t)+).

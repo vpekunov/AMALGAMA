@@ -1,0 +1,14 @@
+@fast(db_gid,"db_gid.csv").
+@fast(db_gpu_prog,"db_gpu_prog.csv").
+@fast(db_gpu_arg,"db_gpu_arg.csv").
+@context(CONTEXT,infinity):-
+  ((^)|\\n)(\s|\\t)*.
+@glue:-.
+@global_unique(PREPROC,1):-
+  ()->{GID}
+  (\s|\\t)*
+  (\#((include\s*\<[^\>]+\>\s*)|([^\\]*\\\\\\n)*[^\\]*)(\\n|($))
+     ()?=>{db_gid($GID)}
+     ()-=>{db_gpu_arg(GID,_,_),db_gpu_prog(GID,_)}
+  )+=>{db_gpu_arg(GID,"body",$),db_gpu_prog(GID,"preproc")}
+  (\s|\\t)*.

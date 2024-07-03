@@ -1,0 +1,6 @@
+@fast(db_gid,"db_gid.csv").
+@fast(db_cilk_prog,"db_cilk_prog.csv").
+@fast(db_cilk_arg,"db_cilk_arg.csv").
+@fast(db_cilk_incl,"db_cilk_incl.csv").
+@context(PROCESS,1):-
+  (^)-=>{db_cilk_prog(_,_),db_cilk_arg(_,_,_),db_cilk_incl(_)}.

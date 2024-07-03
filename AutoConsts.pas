@@ -47,9 +47,17 @@ Const cnidAny    = '$*any';
       idParamsFile   = 'params.cfg';
       idParamsOut    = 'params.out';
       {$IF DEFINED(UNIX) OR DEFINED(LINUX)}
+         {$IFDEF LCL}
+      idParamsExe    = './params';
+         {$ELSE}
       idParamsExe    = './lparams';
+         {$ENDIF}
       {$ELSE}
+         {$IF DEFINED(LCL) OR DEFINED(VCL)}
       idParamsExe    = 'params.exe';
+         {$ELSE}
+      idParamsExe    = 'lparams.exe';
+         {$ENDIF}
       {$ENDIF}
 
       idprmStage     = 'Stage';

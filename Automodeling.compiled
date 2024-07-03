@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <Compiler Value="C:\lazarus\fpc\3.2.2\bin\i386-win32\fpc.exe" Date="1482329590"/>
-  <Params Value=" -Rintel -MObjFPC -Scaghi -O1 -gw2 -godwarfsets -gl -WG -l -vewnhibq -FuC:\lazarus\lcl\units\i386-win32\win32 -FuC:\lazarus\lcl\units\i386-win32 -FuC:\lazarus\components\freetype\lib\i386-win32 -FuC:\lazarus\components\lazutils\lib\i386-win32 -FuC:\lazarus\packager\units\i386-win32 -FuE:\Work\Automodeling\ -oE:\Work\Automodeling\Automodeling.exe -dLCL -dLCLwin32 Automodeling.lpr"/>
+  <Params Value=" -Rintel -MObjFPC -Scaghi -O1 -gw3 -gl -WG -l -vewnhibq -FuC:\lazarus\lcl\units\i386-win32\win32 -FuC:\lazarus\lcl\units\i386-win32 -FuC:\lazarus\components\freetype\lib\i386-win32 -FuC:\lazarus\components\lazutils\lib\i386-win32 -FuC:\lazarus\packager\units\i386-win32 -FuE:\Work\Automodeling\ -oE:\Work\Automodeling\Automodeling.exe -dLCL -dLCLwin32 Automodeling.lpr"/>
 </CONFIG>

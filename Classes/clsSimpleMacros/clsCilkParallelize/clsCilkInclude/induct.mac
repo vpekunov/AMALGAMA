@@ -1,0 +1,14 @@
+@fast(db_gid,"db_gid.csv").
+@fast(db_cilk_prog,"db_cilk_prog.csv").
+@fast(db_cilk_arg,"db_cilk_arg.csv").
+@fast(db_cilk_incl,"db_cilk_incl.csv").
+@context(CONTEXT,infinity):-
+  ((^)|\\n)(\s|\\t)*.
+@glue:-.
+@unique(INCL,1):-
+  (\s|\\t)*
+  (\#include(\s|\\t)*\x22([^\x22]+)->{FILE}\x22(\\n|($))
+     ()?=>{!db_cilk_incl(FILE)}
+  )+=>{db_cilk_incl(FILE)}
+  (\s|\\t)*.
+@replace(INCL):-$(${FILE}).

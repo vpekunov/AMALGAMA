@@ -5,7 +5,7 @@ object EditProps: TEditProps
   Width = 242
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsDialog
-  Caption = 'Параметры'
+  Caption = 'РџР°СЂР°РјРµС‚СЂС‹'
   ClientHeight = 36
   ClientWidth = 242
   Font.Height = -11
@@ -34,7 +34,7 @@ object EditProps: TEditProps
     Width = 75
     Anchors = [akBottom]
     Cancel = True
-    Caption = 'Отмена'
+    Caption = 'РћС‚РјРµРЅР°'
     ModalResult = 2
     OnClick = CancelBtnClick
     TabOrder = 1

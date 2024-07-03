@@ -1,0 +1,12 @@
+@versions(Auto)
+@context(PREV,infinity):-
+  (((^)|(\.)+)(\s*\\n)*)\s*.
+@glue:-.
+@global_unique(MAIN,1):-
+   (([^\w\.]+(\w+)->{P0}[^\x22\x27\.]+[\x22\x27]([^\x22\x27]+)->{P1}[\x22\x27][^\.]*\.)->{Grammar.ru{SENTENCE}}(*PRUNE))?=>{
+      xpathf(SENTENCE,'MVIv1ii','Скорость','приравняем','true')
+   }.
+ @auto:-MAIN:"//P0/text()" => "Name",MAIN:"//P1/text()" => "Uw",randomid() => "ID".
+ @goal:-xpath('MAIN','//P0/text()',[VNameText0]),xpath('MAIN','//P1/text()',[VUwText1]),assertz(e_sphase_uw(VNameText0,VUwText1,'randomid')),!.
+ @done:-clear_db.
+
