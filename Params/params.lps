@@ -21,10 +21,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="374"/>
-        <CursorPos X="2" Y="376"/>
+        <TopLine Value="227"/>
+        <CursorPos X="49" Y="242"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="EditTxtDlg.pas"/>
@@ -52,7 +53,7 @@
         <Filename Value="EditEl.lrs"/>
         <EditorIndex Value="3"/>
         <TopLine Value="6"/>
-        <CursorPos Y="17"/>
+        <CursorPos Y="16"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit5>

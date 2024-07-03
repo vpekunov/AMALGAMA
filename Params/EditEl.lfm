@@ -14,7 +14,7 @@ object EditProps: TEditProps
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   Position = poScreenCenter
-  LCLVersion = '1.2.6.0'
+  LCLVersion = '2.2.0.4'
   object OKBtn: TButton
     Left = 41
     Height = 25

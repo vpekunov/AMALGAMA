@@ -239,7 +239,7 @@ begin
 
      Width:=NormWidth+NormGap2;
      Caption:='Параметры эксперимента';
-     H:=13(*LABEL*)+Max(21(*COMBOBOX HEIGHT*),21(*EDIT CONTROL*))+{$IFDEF FPC}4{$ELSE}2{$ENDIF};
+     H:=13(*LABEL*)+Max(21(*COMBOBOX HEIGHT*),28(*EDIT CONTROL*))+{$IFDEF FPC}4{$ELSE}2{$ENDIF};
 
      NVisible := 0;
      For F:=0 To Length(_El)-1 Do

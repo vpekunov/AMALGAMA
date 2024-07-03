@@ -3,7 +3,8 @@ init(ID,Phase,Solver):-
   !,
   parameters(ID,1),
   parameter(ID,'Modificators',_,Params),
-  parse_string_list(Params,List),
+  inet_to_str(Params,Params0),
+  parse_string_list(Params0,List),
   register_modificators(ID,List),
   =(Solver,'null').
 

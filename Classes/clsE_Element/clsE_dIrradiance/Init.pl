@@ -2,7 +2,8 @@ init(ID,Phase,Solver):-
   element(ID,'clsE_dIrradiance',_,_),
   !,
   parameters(ID,1),
-  parameter(ID,'Descriptors',_,Params),
+  parameter(ID,'Descriptors',_,Params0),
+  inet_to_str(Params0,Params),
   parse_string_list(Params,List),
   register_irradiances(ID,List),
   =(Solver,'null').

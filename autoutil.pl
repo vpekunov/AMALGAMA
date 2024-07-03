@@ -332,6 +332,14 @@ inet_to_str(In,Out):-
   string_replace(Out2,'&gt;','>',Out3),
   string_replace(Out3,'&amp;','&',Out).
 
+inet_list_to_str([],[]):-
+  !.
+inet_list_to_str([H|T],[H1|T1]):-
+  atom_chars(HH,H),
+  inet_to_str(HH, HH1),
+  atom_chars(HH1,H1),
+  inet_list_to_str(T,T1),
+  !.
 parse_before(_,[],[],[]):-!.
 parse_before(Sign,[Sign|Rest],Rest,[]):-!.
 parse_before(Sign,[A|Tag],Rest,Str):-

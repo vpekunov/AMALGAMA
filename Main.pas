@@ -57,6 +57,7 @@ type
     NView: TMenuItem;
     NClasses: TMenuItem;
     OpenModel: TOpenDialog;
+    GraphicsPanel: TPanel;
     SaveModel: TSaveDialog;
     ElementPopup: TPopupMenu;
     LinkPopup: TPopupMenu;
@@ -83,7 +84,6 @@ type
     LinkColorDialog: TColorDialog;
     CntPubl: TMenuItem;
     MessageListBox: TListBox;
-    GraphicsPanel: TPanel;
     MainPaintBox: TPaintBox;
     procedure FormResize(Sender: TObject);
     procedure FormShow(Sender: TObject);
