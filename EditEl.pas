@@ -280,7 +280,7 @@ begin
                 Show
               end;
             ItemEdit.Show;
-            ClientHeight:=112
+            ClientHeight:=136
           end;
      edtIdent.Enabled:=Not LockID;
      chkPermanent.Enabled:=Not LockID;

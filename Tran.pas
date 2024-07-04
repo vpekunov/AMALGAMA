@@ -16,6 +16,7 @@ type
 
   TTranslator = class(TForm)
     LearnBtn: TButton;
+    SaveDialog: TSaveDialog;
     TranTimer: TTimer;
     CloseBtn: TButton;
     ErrProgText: TListBox;
@@ -27,6 +28,8 @@ type
     CopyBtn: TButton;
     procedure FormShow(Sender: TObject);
     procedure LearnBtnClick(Sender: TObject);
+    procedure ProgTextChange(Sender: TObject);
+    procedure SaveBtnClick(Sender: TObject);
     procedure TranTimerTimer(Sender: TObject);
     procedure ErrProgTextDrawItem(Control: TWinControl; Index: LongInt;
       Rect: TRect; State: TOwnerDrawState);
@@ -101,17 +104,20 @@ procedure SkipMarkup;
 
 Var P: Integer;
 begin
-   P := Pos('>>>>>', Map[MapIdx]);
-   While (MapIdx < Map.Count) And (Copy(Map[MapIdx], 1, 5) = '<<<<<') And (P > 0) Do
-     begin
-       If Map[MapIdx][6] = '/' Then
-          CurrentClass := ''
-       Else
-          CurrentClass := Copy(Map[MapIdx], 6, P-6);
-       Inc(MapIdx);
-       If MapIdx < Map.Count Then
-          P := Pos('>>>>>', Map[MapIdx]);
-     end
+   If MapIdx < Map.Count Then
+      begin
+         P := Pos('>>>>>', Map[MapIdx]);
+         While (MapIdx < Map.Count) And (Copy(Map[MapIdx], 1, 5) = '<<<<<') And (P > 0) Do
+           begin
+             If Map[MapIdx][6] = '/' Then
+                CurrentClass := ''
+             Else
+                CurrentClass := Copy(Map[MapIdx], 6, P-6);
+             Inc(MapIdx);
+             If MapIdx < Map.Count Then
+                P := Pos('>>>>>', Map[MapIdx]);
+           end
+      end
 end;
 
 begin
@@ -386,6 +392,20 @@ end;
 
 begin
   LearnBtn.Enabled := HandleChanges(True) And HandleChanges(False);
+end;
+
+procedure TTranslator.ProgTextChange(Sender: TObject);
+begin
+     SaveBtn.Enabled := True
+end;
+
+procedure TTranslator.SaveBtnClick(Sender: TObject);
+begin
+     If SaveDialog.Execute Then
+        begin
+          ProgText.Lines.SaveToFile(SaveDialog.FileName);
+          SaveBtn.Enabled := False
+        end
 end;
 
 procedure TTranslator.TranTimerTimer(Sender: TObject);

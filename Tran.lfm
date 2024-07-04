@@ -1,134 +1,143 @@
 object Translator: TTranslator
   Left = 459
-  Height = 115
+  Height = 144
   Top = 409
-  Width = 358
+  Width = 448
   Caption = 'Трансляция'
-  ClientHeight = 115
-  ClientWidth = 358
-  Constraints.MinHeight = 115
-  Constraints.MinWidth = 282
-  Font.Height = -11
+  ClientHeight = 144
+  ClientWidth = 448
+  Constraints.MinHeight = 144
+  Constraints.MinWidth = 352
+  DesignTimePPI = 120
+  Font.Height = -14
   Font.Name = 'MS Sans Serif'
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '2.2.0.4'
+  LCLVersion = '3.2.0.0'
   object CloseBtn: TButton
-    Left = 2
-    Height = 25
-    Top = 83
-    Width = 62
+    Left = 12
+    Height = 31
+    Top = 104
+    Width = 78
     Anchors = [akBottom]
     Caption = 'Закрыть'
-    Font.Height = -9
+    Font.Height = -11
     Font.Name = 'MS Sans Serif'
     ModalResult = 1
     ParentFont = False
     TabOrder = 0
   end
   object ErrProgText: TListBox
-    Left = 8
-    Height = 27
-    Top = 48
-    Width = 339
+    Left = 10
+    Height = 34
+    Top = 60
+    Width = 424
     Anchors = [akTop, akLeft, akRight, akBottom]
     Color = clWhite
-    ItemHeight = 14
-    OnDrawItem = ErrProgTextDrawItem
+    ItemHeight = 18
     Style = lbOwnerDrawFixed
     TabOrder = 5
-    TopIndex = -1
     Visible = False
+    OnDrawItem = ErrProgTextDrawItem
   end
   object ProgressBar: TProgressBar
-    Left = 8
-    Height = 16
-    Top = 4
-    Width = 339
+    Left = 10
+    Height = 20
+    Top = 5
+    Width = 424
     Anchors = [akTop, akLeft, akRight]
     Max = 300
     TabOrder = 6
   end
   object InfoPanel: TPanel
-    Left = 8
-    Height = 25
-    Top = 24
-    Width = 339
+    Left = 10
+    Height = 31
+    Top = 30
+    Width = 424
     Anchors = [akTop, akLeft, akRight]
     BevelOuter = bvLowered
-    Font.Height = -11
+    Font.Height = -14
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 7
   end
   object ProgText: TMemo
-    Left = 8
-    Height = 33
-    Top = 48
-    Width = 339
+    Left = 10
+    Height = 42
+    Top = 60
+    Width = 424
     Anchors = [akTop, akLeft, akRight, akBottom]
-    Font.Height = -11
+    Font.Height = -14
     Font.Name = 'Courier New'
     ParentFont = False
     ScrollBars = ssBoth
     TabOrder = 8
     WordWrap = False
+    OnChange = ProgTextChange
   end
   object SaveBtn: TButton
-    Left = 146
-    Height = 25
-    Top = 83
-    Width = 62
+    Left = 192
+    Height = 31
+    Top = 104
+    Width = 78
     Anchors = [akBottom]
     Caption = 'Сохранить'
-    Font.Height = -9
+    Font.Height = -11
     Font.Name = 'MS Sans Serif'
     ParentFont = False
     TabOrder = 2
+    OnClick = SaveBtnClick
   end
   object ExecuteBtn: TButton
-    Left = 211
-    Height = 25
-    Top = 83
-    Width = 62
+    Left = 274
+    Height = 31
+    Top = 104
+    Width = 78
     Anchors = [akBottom]
     Caption = 'Выполнить'
-    Font.Height = -9
+    Font.Height = -11
     Font.Name = 'MS Sans Serif'
-    OnClick = ExecuteBtnClick
     ParentFont = False
     TabOrder = 3
+    OnClick = ExecuteBtnClick
   end
   object CopyBtn: TButton
-    Left = 73
-    Height = 25
-    Top = 83
-    Width = 66
+    Left = 102
+    Height = 31
+    Top = 104
+    Width = 82
     Anchors = [akBottom]
     Caption = 'Копировать'
-    Font.Height = -9
+    Font.Height = -11
     Font.Name = 'MS Sans Serif'
-    OnClick = CopyBtnClick
     ParentFont = False
     TabOrder = 1
+    OnClick = CopyBtnClick
   end
   object LearnBtn: TButton
-    Left = 278
-    Height = 25
-    Top = 83
-    Width = 62
+    Left = 358
+    Height = 31
+    Top = 104
+    Width = 78
     Anchors = [akBottom]
     Caption = 'Обучить'
-    Font.Height = -9
+    Font.Height = -11
     Font.Name = 'MS Sans Serif'
-    OnClick = LearnBtnClick
     ParentFont = False
     TabOrder = 4
+    OnClick = LearnBtnClick
   end
   object TranTimer: TTimer
     Enabled = False
     Interval = 500
     OnTimer = TranTimerTimer
+  end
+  object SaveDialog: TSaveDialog
+    DefaultExt = '.txt'
+    Filter = 'Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*'
+    Options = [ofOverwritePrompt, ofEnableSizing, ofViewDetail]
+    Left = 41
+    Top = 1
   end
 end

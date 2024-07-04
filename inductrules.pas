@@ -1964,69 +1964,72 @@ begin
           SetLength(Henealogy[F], G-1);
         end;
       G := 0;
-      Repeat
-         Root := Henealogy[0][High(Henealogy[0])-G];
-         For F := 1 To SortedClasses.Count-1 Do
-            If Henealogy[F][High(Henealogy[F])-G] <> Root Then
-               begin
-                 Root := Nil;
-                 Break
-               end;
-         If Assigned(Root) Then
-            begin
-              Inc(G);
-              For F := 0 To SortedClasses.Count-1 Do
-                If G > High(Henealogy[F]) Then
-                   begin
-                     Root := Nil;
-                     Break
-                   end;
-              If Not Assigned(Root) Then
-                 begin
-                   Root := Henealogy[0][High(Henealogy[0])-G+1];
-                   Break
-                 end
-            end
-         Else
-            begin
-              If G > 0 Then
-                 Root := Henealogy[0][High(Henealogy[0])-G+1];
-              Break
-            end
-      Until False;
-      While Assigned(Root) Do
-        begin
-          S := ExcludeTrailingBackSlash(Root.GetBasePath) + XPathFile;
-          S1 := ExcludeTrailingBackSlash(Root.GetBasePath) + LogFile;
-          If FileExists(S) Then Break;
-          Root := Root.Parent
-        end;
-      If Assigned(Root) Then
+      If Length(Henealogy) > 0 Then
          begin
-            Content := TStringList.Create;
-            If FileExists(S) Then
+            Repeat
+               Root := Henealogy[0][High(Henealogy[0])-G];
+               For F := 1 To SortedClasses.Count-1 Do
+                  If Henealogy[F][High(Henealogy[F])-G] <> Root Then
+                     begin
+                       Root := Nil;
+                       Break
+                     end;
+               If Assigned(Root) Then
+                  begin
+                    Inc(G);
+                    For F := 0 To SortedClasses.Count-1 Do
+                      If G > High(Henealogy[F]) Then
+                         begin
+                           Root := Nil;
+                           Break
+                         end;
+                    If Not Assigned(Root) Then
+                       begin
+                         Root := Henealogy[0][High(Henealogy[0])-G+1];
+                         Break
+                       end
+                  end
+               Else
+                  begin
+                    If G > 0 Then
+                       Root := Henealogy[0][High(Henealogy[0])-G+1];
+                    Break
+                  end
+            Until False;
+            While Assigned(Root) Do
+              begin
+                S := ExcludeTrailingBackSlash(Root.GetBasePath) + XPathFile;
+                S1 := ExcludeTrailingBackSlash(Root.GetBasePath) + LogFile;
+                If FileExists(S) Then Break;
+                Root := Root.Parent
+              end;
+            If Assigned(Root) Then
                begin
-                 Content.LoadFromFile(S);
-                 If (Content.Count > 0) And (Content[0] = '@versions(Auto)') Then
-                    begin
-                      Content.Delete(0);
-                      While (Content.Count > 0) And (Copy(Content[0],1,Length('@versions')) <> '@versions') Do
-                        Content.Delete(0)
-                    end
-               end;
-            If FileExists(S1) Then
-               If MessageDlg('Внимание!', 'Обнаружен старый файл БД индукций (лог-файл)! Рекомендуется его удалить (во избежание проблем). Удалить?', mtConfirmation, [mbYes, mbNo], 0) = mrYes Then
-                  DeleteFile(S1);
-            Content.Insert(0, memIm.Lines.Text);
-            memIm.Clear;
-            memIm.Lines.Assign(Content);
-            Content.SaveToFile(S);
-            btSaveIm.Enabled := False;
-            PathToIm := S;
-            Content.Free
-         end
-      Else
-         MessageDlg('Ошибка!', 'Не обнаружен базовый im-файл! Сохраните его вручную!', mtError, [mbOk], 0);
+                  Content := TStringList.Create;
+                  If FileExists(S) Then
+                     begin
+                       Content.LoadFromFile(S);
+                       If (Content.Count > 0) And (Content[0] = '@versions(Auto)') Then
+                          begin
+                            Content.Delete(0);
+                            While (Content.Count > 0) And (Copy(Content[0],1,Length('@versions')) <> '@versions') Do
+                              Content.Delete(0)
+                          end
+                     end;
+                  If FileExists(S1) Then
+                     If MessageDlg('Внимание!', 'Обнаружен старый файл БД индукций (лог-файл)! Рекомендуется его удалить (во избежание проблем). Удалить?', mtConfirmation, [mbYes, mbNo], 0) = mrYes Then
+                        DeleteFile(S1);
+                  Content.Insert(0, memIm.Lines.Text);
+                  memIm.Clear;
+                  memIm.Lines.Assign(Content);
+                  Content.SaveToFile(S);
+                  btSaveIm.Enabled := False;
+                  PathToIm := S;
+                  Content.Free
+               end
+            Else
+               MessageDlg('Ошибка!', 'Не обнаружен базовый im-файл! Сохраните его вручную!', mtError, [mbOk], 0)
+         end;
 
       With DBases Do
         For F := 0 To Count-1 Do

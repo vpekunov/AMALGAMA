@@ -1,13 +1,13 @@
 object EditProps: TEditProps
   Left = 262
-  Height = 116
+  Height = 132
   Top = 248
   Width = 242
   ActiveControl = edtIdent
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsDialog
   Caption = 'Параметры'
-  ClientHeight = 116
+  ClientHeight = 132
   ClientWidth = 242
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
@@ -28,9 +28,9 @@ object EditProps: TEditProps
     ParentFont = False
   end
   object ItemsLabel: TLabel
-    Left = 8
+    Left = 9
     Height = 15
-    Top = 40
+    Top = 56
     Width = 84
     Caption = 'Субэлементы'
     Font.Height = -12
@@ -39,9 +39,9 @@ object EditProps: TEditProps
     Visible = False
   end
   object ItemEdit: TSpeedButton
-    Left = 209
+    Left = 208
     Height = 22
-    Top = 55
+    Top = 76
     Width = 23
     Caption = '...'
     Visible = False
@@ -57,7 +57,7 @@ object EditProps: TEditProps
   object OKBtn: TButton
     Left = 25
     Height = 25
-    Top = 88
+    Top = 104
     Width = 75
     Anchors = [akBottom]
     Caption = 'OK'
@@ -71,7 +71,7 @@ object EditProps: TEditProps
   object CancelBtn: TButton
     Left = 132
     Height = 25
-    Top = 88
+    Top = 104
     Width = 75
     Anchors = [akBottom]
     Cancel = True
@@ -92,9 +92,9 @@ object EditProps: TEditProps
     TabOrder = 0
   end
   object ItemsComboBox: TComboBox
-    Left = 8
+    Left = 9
     Height = 30
-    Top = 56
+    Top = 72
     Width = 198
     ItemHeight = 0
     Style = csDropDownList
