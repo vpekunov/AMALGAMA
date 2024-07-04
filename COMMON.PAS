@@ -527,8 +527,11 @@ begin
           end
      Else
         Result:='';
-     P:=Pos(SignalStr,Result);
-     If P>0 Then Delete(Result,1,P+Length(SignalStr)-1)
+     If (Length(SignalStr) > 0) And (Copy(Result, 1, Length(SignalStr)) = SignalStr) Then
+        Begin
+          P:=Pos(CRLF+CRLF,Result);
+          If P>0 Then Delete(Result,1,P+Length(CRLF+CRLF)-1)
+        End
 end;
 
 Function CRC(Const S: String): LongInt;

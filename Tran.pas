@@ -612,11 +612,11 @@ begin
               {$IF DEFINED(LCL) OR DEFINED(VCL)}
               Gen := RunExtCommand(
                  {$IF DEFINED(UNIX) OR DEFINED(LINUX)}'sh ./run_php.sh'{$ELSE}'run_php.bat'{$ENDIF},
-                 '_.php3 _.gen','_.gen',CRLF+CRLF);
+                 '_.php3 _.gen','_.gen','Content-type:');
               {$ELSE}
               Gen := RunExtCommand(
                  {$IF DEFINED(UNIX) OR DEFINED(LINUX)}'sh ./run_php.sh'{$ELSE}'run_php.bat'{$ENDIF},
-                 '_.php3 _.gen','_.gen',CRLF+CRLF);
+                 '_.php3 _.gen','_.gen','Content-type:');
               {$ENDIF}
               ProgressBar.Position:=200;
               InfoPanel.Caption:='Конкретизация программы';
@@ -767,7 +767,7 @@ begin
      RenameFile('_.out', '_.'+StartLanguage);
      ProgText.Lines.Text:=RunExtCommand(
         {$IF DEFINED(UNIX) OR DEFINED(LINUX)}'bash ./start_'+StartLanguage+'.sh'{$ELSE}'start_'+StartLanguage+'.bat'{$ENDIF},
-        '_.'+StartLanguage+' _.res','_.res',CRLF+CRLF);
+        '_.'+StartLanguage+' _.res','_.res','Content-type:');
      Enabled:=True
 end;
 
