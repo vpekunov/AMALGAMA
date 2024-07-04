@@ -35,6 +35,10 @@ cd ./NeuroNet.dir
 g++ -o NeuroNet ./NeuroNet.cpp -D__LINUX__ -O3 -fopenmp -fpermissive -std=c++0x
 cp ./NeuroNet ../
 cd ..
+cd ./NNetsSimplify
+g++ -o nnets_simplify -O4 nnets_simplify.cpp -fopenmp -fpermissive -std=c++11
+cp ./nnets_simplify ../
+cd ..
 cd ./Predicates
 g++ -o main.o -c ./main.cpp -fPIC -O3
 g++ -shared -o libPredicates.so main.o

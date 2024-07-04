@@ -17,9 +17,11 @@ Const CR = #$0D;
 {$IF DEFINED(UNIX) OR DEFINED(LINUX)}
 Const SuperSlash = '/';
 Const AnotherSlash = '\';
+Const CRLF2 = LF+LF;
 {$ELSE}
 Const SuperSlash = '\';
 Const AnotherSlash = '/';
+Const CRLF2 = CRLF+CRLF;
 {$ENDIF}
 
 Const cnidAny    = '$*any';

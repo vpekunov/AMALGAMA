@@ -20,7 +20,7 @@ object Translator: TTranslator
     Width = 62
     Anchors = [akBottom]
     Caption = 'Закрыть'
-    Font.Height = -6
+    Font.Height = -9
     Font.Name = 'MS Sans Serif'
     ModalResult = 1
     ParentFont = False
@@ -82,7 +82,7 @@ object Translator: TTranslator
     Width = 62
     Anchors = [akBottom]
     Caption = 'Сохранить'
-    Font.Height = -6
+    Font.Height = -9
     Font.Name = 'MS Sans Serif'
     ParentFont = False
     TabOrder = 2
@@ -94,7 +94,7 @@ object Translator: TTranslator
     Width = 62
     Anchors = [akBottom]
     Caption = 'Выполнить'
-    Font.Height = -6
+    Font.Height = -9
     Font.Name = 'MS Sans Serif'
     OnClick = ExecuteBtnClick
     ParentFont = False
@@ -107,7 +107,7 @@ object Translator: TTranslator
     Width = 66
     Anchors = [akBottom]
     Caption = 'Копировать'
-    Font.Height = -6
+    Font.Height = -9
     Font.Name = 'MS Sans Serif'
     OnClick = CopyBtnClick
     ParentFont = False
@@ -120,7 +120,7 @@ object Translator: TTranslator
     Width = 62
     Anchors = [akBottom]
     Caption = 'Обучить'
-    Font.Height = -6
+    Font.Height = -9
     Font.Name = 'MS Sans Serif'
     OnClick = LearnBtnClick
     ParentFont = False

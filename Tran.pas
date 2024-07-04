@@ -157,7 +157,9 @@ begin
      SkipLine(Map, MapIdx, 0);
      SkipLine(Map1, Map1Idx, 0, False);
      ProgText.Lines.SaveToFile('_.mod');
-     Report := RunExtCommand('run_diff.bat','_.out _.mod _.diff','_.diff','');
+     Report := RunExtCommand(
+       {$IF DEFINED(UNIX) OR DEFINED(LINUX)}'sh ./run_diff.sh'{$ELSE}'run_diff.bat'{$ENDIF},
+       '_.out _.mod _.diff','_.diff','');
      S := TStringList.Create;
      S.Text := Report;
      Anlz := TAnalyser.Create(IntNumberSet, [Space, Tabulation]);
@@ -188,15 +190,15 @@ begin
                      begin
                        Deleted := Map.Strings[MapIdx];
                        ElReg := GetElementReg(CurrentClass);
-                       VV := StringReplace(CRLF + ElReg.Script, CRLF + Deleted + CRLF, #0, [rfReplaceAll]);
+                       VV := StringReplace(LineEnding + ElReg.Script, LineEnding + Deleted + LineEnding, #0, [rfReplaceAll]);
                        M := 0;
                        For K:= 1 To Length(VV) Do
                          If VV[K] = #0 Then
                             Inc(M);
                        If M = 1 Then
                           begin
-                            VV := StringReplace(VV, #0, CRLF, []);
-                            ElReg.Script := Copy(VV, 3, 16*65536)
+                            VV := StringReplace(VV, #0, LineEnding, []);
+                            ElReg.Script := Copy(VV, Length(LineEnding)+1, 16*65536)
                           end
                        Else
                           begin
@@ -233,15 +235,15 @@ begin
                        If Round(MM1) > Round(MM2) Then
                           begin // N1,N2cN : Deleting
                             ElReg := GetElementReg(CurrentClass);
-                            VV := StringReplace(CRLF + ElReg.Script, CRLF + Changed + CRLF, #0, [rfReplaceAll]);
+                            VV := StringReplace(LineEnding + ElReg.Script, LineEnding + Changed + LineEnding, #0, [rfReplaceAll]);
                             M := 0;
                             For K:= 1 To Length(VV) Do
                               If VV[K] = #0 Then
                                  Inc(M);
                             If M = 1 Then
                                begin
-                                 VV := StringReplace(VV, #0, CRLF, []);
-                                 ElReg.Script := Copy(VV, 3, 16*65536)
+                                 VV := StringReplace(VV, #0, LineEnding, []);
+                                 ElReg.Script := Copy(VV, Length(LineEnding)+1, 16*65536)
                                end
                             Else
                                begin
@@ -260,15 +262,15 @@ begin
                              ChangedTo := ProgText.Lines[Round(MM1)-1];
                              Map1.Strings[Map1Idx] := ChangedTo;
                              ElReg := GetElementReg(CurrentClass);
-                             VV := StringReplace(CRLF + ElReg.Script, CRLF + Changed + CRLF, #0, [rfReplaceAll]);
+                             VV := StringReplace(LineEnding + ElReg.Script, LineEnding + Changed + LineEnding, #0, [rfReplaceAll]);
                              M := 0;
                              For K:= 1 To Length(VV) Do
                                If VV[K] = #0 Then
                                   Inc(M);
                              If M = 1 Then
                                 begin
-                                  VV := StringReplace(VV, #0, CRLF + ChangedTo + CRLF, []);
-                                  ElReg.Script := Copy(VV, 3, 16*65536)
+                                  VV := StringReplace(VV, #0, LineEnding + ChangedTo + LineEnding, []);
+                                  ElReg.Script := Copy(VV, Length(LineEnding)+1, 16*65536)
                                 end
                              Else
                                 begin
@@ -285,15 +287,15 @@ begin
                      end;
                    If Round(MM2-MM1) >= 0 Then
                       begin // NcN1,N2 : Append
-                        AppendAfter := ChangedTo + CRLF;
+                        AppendAfter := ChangedTo + LineEnding;
                         ToAppend := '';
                         For G := Round(MM1) To Round(MM2) Do
                             begin
-                              ToAppend := ToAppend + ProgText.Lines[Round(G)-1] + CRLF;
+                              ToAppend := ToAppend + ProgText.Lines[Round(G)-1] + LineEnding;
                               Map1.Insert(Map1Idx+G-Round(MM1)+1, ProgText.Lines[Round(G)-1])
                             end;
                         ElReg := GetElementReg(CurrentClass);
-                        VV := StringReplace(CRLF + ElReg.Script, CRLF + AppendAfter, #0, [rfReplaceAll]);
+                        VV := StringReplace(LineEnding + ElReg.Script, LineEnding + AppendAfter, #0, [rfReplaceAll]);
                         SkipLine(Map, MapIdx, 1);
                         SkipLine(Map1, Map1Idx, (Round(MM2)-Round(MM1)+1)+1, False);
                         M := 0;
@@ -302,14 +304,14 @@ begin
                              Inc(M);
                         If M = 1 Then
                            begin
-                             VV := StringReplace(VV, #0, CRLF + AppendAfter + ToAppend, []);
-                             ElReg.Script := Copy(VV, 3, 16*65536)
+                             VV := StringReplace(VV, #0, LineEnding + AppendAfter + ToAppend, []);
+                             ElReg.Script := Copy(VV, Length(LineEnding)+1, 16*65536)
                            end
                         Else
                            begin
-                             MessageDlg('Строка "'+Copy(AppendAfter, 1, Length(AppendAfter)-2)+'", возможно, встречается более одного раза или возникла иная проблема', mtInformation, [mbOk], 0);
+                             MessageDlg('Строка "'+Copy(AppendAfter, 1, Length(AppendAfter)-Length(LineEnding))+'", возможно, встречается более одного раза или возникла иная проблема', mtInformation, [mbOk], 0);
                              VV := ElReg.Script;
-                             If EditTroubles(CurrentClass, VV, Copy(AppendAfter, 1, Length(AppendAfter)-2)) Then
+                             If EditTroubles(CurrentClass, VV, Copy(AppendAfter, 1, Length(AppendAfter)-Length(LineEnding))) Then
                                 ElReg.Script := VV;
                              ErrorSignaled := True
                            end
@@ -331,31 +333,31 @@ begin
                        SkipLine(Map, MapIdx, 1);
                        SkipLine(Map1, Map1Idx, 1, False)
                      end;
-                   AppendAfter := Map.Strings[MapIdx] + CRLF;
+                   AppendAfter := Map.Strings[MapIdx] + LineEnding;
                    ToAppend := '';
                    For G := Round(MM1) To Round(MM2) Do
                        begin
-                         ToAppend := ToAppend + ProgText.Lines[Round(G)-1] + CRLF;
+                         ToAppend := ToAppend + ProgText.Lines[Round(G)-1] + LineEnding;
                          Map1.Insert(Map1Idx+G-Round(MM1)+1, ProgText.Lines[Round(G)-1])
                        end;
                    SkipLine(Map, MapIdx, 1);
                    SkipLine(Map1, Map1Idx, (Round(MM2)-Round(MM1)+1)+1, False);
                    ElReg := GetElementReg(CurrentClass);
-                   VV := StringReplace(CRLF + ElReg.Script, CRLF + AppendAfter, #0, [rfReplaceAll]);
+                   VV := StringReplace(LineEnding + ElReg.Script, LineEnding + AppendAfter, #0, [rfReplaceAll]);
                    M := 0;
                    For K:= 1 To Length(VV) Do
                      If VV[K] = #0 Then
                         Inc(M);
                    If M = 1 Then
                       begin
-                        VV := StringReplace(VV, #0, CRLF + AppendAfter + ToAppend, []);
-                        ElReg.Script := Copy(VV, 3, 16*65536)
+                        VV := StringReplace(VV, #0, LineEnding + AppendAfter + ToAppend, []);
+                        ElReg.Script := Copy(VV, Length(LineEnding)+1, 16*65536)
                       end
                    Else
                       begin
-                        MessageDlg('Строка "'+Copy(AppendAfter, 1, Length(AppendAfter)-2)+'", возможно, встречается более одного раза или возникла иная проблема', mtInformation, [mbOk], 0);
+                        MessageDlg('Строка "'+Copy(AppendAfter, 1, Length(AppendAfter)-Length(LineEnding))+'", возможно, встречается более одного раза или возникла иная проблема', mtInformation, [mbOk], 0);
                         VV := ElReg.Script;
-                        If EditTroubles(CurrentClass, VV, Copy(AppendAfter, 1, Length(AppendAfter)-2)) Then
+                        If EditTroubles(CurrentClass, VV, Copy(AppendAfter, 1, Length(AppendAfter)-Length(LineEnding))) Then
                            ElReg.Script := VV;
                         ErrorSignaled := True
                       end
@@ -388,7 +390,7 @@ end;
 
 procedure TTranslator.TranTimerTimer(Sender: TObject);
 
-Const SignalStr = 'No errors'+CRLF+CRLF;
+Const SignalStr = 'No errors'+CRLF2;
 
 function ExtractBetween(Var Gen: String; Const Before,After: String):String;
 

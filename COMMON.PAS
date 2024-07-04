@@ -7,7 +7,7 @@ Interface
 {$ENDIF}
 {$H+}
 
-Uses Classes, Lexique;
+Uses Classes, Lexique, AutoConsts;
 
 Type
 
@@ -529,8 +529,8 @@ begin
         Result:='';
      If (Length(SignalStr) > 0) And (Copy(Result, 1, Length(SignalStr)) = SignalStr) Then
         Begin
-          P:=Pos(CRLF+CRLF,Result);
-          If P>0 Then Delete(Result,1,P+Length(CRLF+CRLF)-1)
+          P:=Pos(CRLF2,Result);
+          If P>0 Then Delete(Result,1,P+Length(CRLF2)-1)
         End
 end;
 
