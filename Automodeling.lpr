@@ -2,6 +2,8 @@ program Automodeling;
 
 {$MODE Delphi}
 
+{$MINSTACKSIZE 1500000000}
+
 uses
   {$IF DEFINED(UNIX) OR DEFINED(LINUX)}cthreads, cmem,{$ENDIF}
   Interfaces, // this includes the LCL widgetset
