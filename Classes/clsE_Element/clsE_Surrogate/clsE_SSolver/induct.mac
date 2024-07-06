@@ -9,4 +9,3 @@
  @auto:-"ID239" => "ID".
  @goal:-assertz(e_ssolver('ID239')),!.
  @done:-clear_db.
-

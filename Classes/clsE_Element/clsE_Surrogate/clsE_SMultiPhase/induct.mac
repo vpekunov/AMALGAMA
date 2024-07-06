@@ -7,6 +7,5 @@
       xpathf(SENTENCE,'MVv1ii','Введем','мультифазу','true')
    }.
  @auto:-"Other" => "Mode",MAIN:"//P0/text()" => "Name",MAIN:"//P1/text()" => "Nc",MAIN:"//P2/text()" => "Model","ID1"+MAIN:"//P1/text()"+"4" => "ID".
- @goal:-xpath('MAIN','//P0/text()',[VNameText1]),xpath('MAIN','//P1/text()',[VNcText1]),xpath('MAIN','//P2/text()',[VModelText1]),xpath('MAIN','//P1/text()',[VIDText4]),atom_concat('ID1',VIDText4,OPSVPW),atom_concat(OPSVPW,'4',OWLQQJ),assertz(e_smultiphase('Other',VNameText1,VNcText1,VModelText1,OWLQQJ)),!.
+ @goal:-xpath('MAIN','//P0/text()',[VNameText1]),xpath('MAIN','//P1/text()',[VNcText1]),xpath('MAIN','//P2/text()',[VModelText1]),xpath('MAIN','//P1/text()',[VIDText4]),atom_concat('ID1',VIDText4,XZFSYZ),atom_concat(XZFSYZ,'4',KUEDPZ),assertz(e_smultiphase('Other',VNameText1,VNcText1,VModelText1,KUEDPZ)),!.
  @done:-clear_db.
-

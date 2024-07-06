@@ -9,4 +9,3 @@
  @auto:-MAIN:"//P0/text()" => "Name",MAIN:"//P1/text()" => "Source","ID176" => "ID".
  @goal:-xpath('MAIN','//P0/text()',[VNameText1]),xpath('MAIN','//P1/text()',[VSourceText1]),assertz(e_sphase_source(VNameText1,VSourceText1,'ID176')),!.
  @done:-clear_db.
-

@@ -12,4 +12,3 @@
  @auto:-MAIN:"//P0/text()" => "Name",MAIN:"//P1/text()" => "Expression",MAIN:"//P2/text()" => "Phase",randomid() => "ID".
  @goal:-xpath('MAIN','//P0/text()',[VNameText1]),xpath('MAIN','//P1/text()',[VExpressionText1]),xpath('MAIN','//P2/text()',[VPhaseText1]),assertz(e_sfun(VNameText1,VExpressionText1,VPhaseText1,'randomid')),!.
  @done:-clear_db.
-

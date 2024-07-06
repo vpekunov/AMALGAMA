@@ -12,4 +12,3 @@
  @auto:-MAIN:"//P0/text()" => "Var",MAIN:"//VRES2/text()" => "Handler",MAIN:"//P1/text()" => "NuMol",MAIN:"//P2/text()" => "Kappa",randomid() => "ID".
  @goal:-xpath('MAIN','//P0/text()',[VVarText1]),xpath('MAIN','//VRES2/text()',[VHandlerText1]),xpath('MAIN','//P1/text()',[VNuMolText1]),xpath('MAIN','//P2/text()',[VKappaText1]),assertz(e_sequation(VVarText1,VHandlerText1,VNuMolText1,VKappaText1,'randomid')),!.
  @done:-clear_db.
-

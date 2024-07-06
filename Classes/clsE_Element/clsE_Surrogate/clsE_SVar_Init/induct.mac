@@ -10,4 +10,3 @@
  @auto:-MAIN:"//P0/text()" => "Name",MAIN:"//P1/text()" => "Init",randomid() => "ID".
  @goal:-xpath('MAIN','//P0/text()',[VNameText1]),xpath('MAIN','//P1/text()',[VInitText1]),assertz(e_svar_init(VNameText1,VInitText1,'randomid')),!.
  @done:-clear_db.
-

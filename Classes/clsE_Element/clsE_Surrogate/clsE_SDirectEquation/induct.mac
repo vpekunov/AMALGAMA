@@ -9,4 +9,3 @@
  @auto:-MAIN:"//P0/text()" => "Var","DirectSolver" => "Handler",randomid() => "ID".
  @goal:-xpath('MAIN','//P0/text()',[VVarText1]),assertz(e_sdirectequation(VVarText1,'DirectSolver','randomid')),!.
  @done:-clear_db.
-

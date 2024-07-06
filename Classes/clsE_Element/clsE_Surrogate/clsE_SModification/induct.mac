@@ -9,4 +9,3 @@
  @auto:-MAIN:"//P0/text()" => "Var","ID204" => "ID".
  @goal:-xpath('MAIN','//P0/text()',[VVarText1]),assertz(e_smodification(VVarText1,'ID204')),!.
  @done:-clear_db.
-

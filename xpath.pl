@@ -292,3 +292,23 @@ write_log(M):-
   xvar(M,Root,'root',_,_),
   write_log_tree(M,Root),
   !.
+
+string_replace(S,From,To,Out):-
+  atom_concat(Part1,Rest,S),
+  atom_concat(X,From,Part1),
+  !,
+  atom_concat(X,To,NewStr),
+  !,
+  string_replace(Rest,From,To,S1),
+  atom_concat(NewStr,S1,Out),
+  !.
+string_replace(S,_,_,S):-
+  !.
+
+str_to_inet(In,Out):-
+  string_replace(In,'''','&apos;',Out0),
+  string_replace(Out0,'"','&quot;',Out1),
+  string_replace(Out1,'<','&lt;',Out2),
+  string_replace(Out2,'>','&gt;',Out3),
+  string_replace(Out3,'&','&amp;',Out).
+

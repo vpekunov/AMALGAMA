@@ -9,4 +9,3 @@
  @auto:-MAIN:"//P0/text()" => "Name",randomid() => "Desc",randomid() => "ID".
  @goal:-xpath('MAIN','//P0/text()',[VNameText1]),assertz(e_svar_description(VNameText1,'randomid','randomid')),!.
  @done:-clear_db.
-

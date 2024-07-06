@@ -1125,12 +1125,12 @@ Begin
    If L1.IsNext(DblQuote) Then
       Begin
         S1 := L1.GetString(DblQuote, DblQuote);
-        AppendStr(S, '=(' + Base + IntToStr(J) + ',''' + S1 + ''')')
+        AppendStr(S, '=(' + Base + IntToStr(J) + 'a,''' + S1 + '''),str_to_inet(' + Base + IntToStr(J) + 'a,' + Base + IntToStr(J) + ')')
       End
    Else If L1.IsNext(Quote) Then
       Begin
         S1 := L1.GetString(Quote, Quote);
-        AppendStr(S, '=(' + Base + IntToStr(J) + ',''' + S1 + ''')')
+        AppendStr(S, '=(' + Base + IntToStr(J) + 'a,''' + S1 + '''),str_to_inet(' + Base + IntToStr(J) + 'a,' + Base + IntToStr(J) + ')')
       End
    Else Begin
         S2 := L1.GetIdent(False);
@@ -1158,7 +1158,7 @@ Begin
                 S1 := L1.GetString(Quote, Quote)
              Else
                 S1 := L1.GetString(DblQuote, DblQuote);
-             AppendStr(S, 'xpath(''' + S2 + ''',''' + S1 + ''',[' + Base + IntToStr(J) + '])')
+             AppendStr(S, 'xpath(''' + S2 + ''',''' + S1 + ''',[' + Base + IntToStr(J) + 'a]),str_to_inet(' + Base + IntToStr(J) + 'a,' + Base + IntToStr(J) + ')')
            End
       End;
 End;

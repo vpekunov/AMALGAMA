@@ -1829,7 +1829,7 @@ begin
    btSaveScript.Enabled := False;
    If Assigned(tvClasses.Selected) Then
       begin
-        Path := ExcludeTrailingBackSlash(TElementReg(tvClasses.Selected.Data).GetBasePath);
+        Path := ExcludeTrailingBackSlash(ExtractFilePath(TElementReg(tvClasses.Selected.Data).GetBasePath));
         If FileExists(Path + MacroFile) Then
            memInducer.Lines.LoadFromFile(Path + MacroFile);
         btSaveScript.Enabled := False
@@ -1923,7 +1923,7 @@ begin
     begin
       For F := 0 To Scripts.Count-1 Do
         begin
-          S := ExcludeTrailingBackSlash(FindElementRegByID(SortedClasses[F]).GetBasePath) + MacroFile;
+          S := ExcludeTrailingBackSlash(ExtractFilePath(FindElementRegByID(SortedClasses[F]).GetBasePath)) + MacroFile;
           Content := TStringList.Create;
           If FileExists(S) Then
              begin
@@ -1941,7 +1941,7 @@ begin
         end;
       If Assigned(tvClasses.Selected) Then
          begin
-           S := ExcludeTrailingBackSlash(TElementReg(tvClasses.Selected.Data).GetBasePath);
+           S := ExcludeTrailingBackSlash(ExtractFilePath(TElementReg(tvClasses.Selected.Data).GetBasePath));
            If FileExists(S + MacroFile) Then
               memInducer.Lines.LoadFromFile(S + MacroFile);
            btSaveScript.Enabled := False
@@ -1998,8 +1998,8 @@ begin
             Until False;
             While Assigned(Root) Do
               begin
-                S := ExcludeTrailingBackSlash(Root.GetBasePath) + XPathFile;
-                S1 := ExcludeTrailingBackSlash(Root.GetBasePath) + LogFile;
+                S := ExcludeTrailingBackSlash(ExtractFilePath(Root.GetBasePath)) + XPathFile;
+                S1 := ExcludeTrailingBackSlash(ExtractFilePath(Root.GetBasePath)) + LogFile;
                 If FileExists(S) Then Break;
                 Root := Root.Parent
               end;
@@ -2343,7 +2343,7 @@ Var Path: String;
 begin
   If Assigned(tvClasses.Selected) Then
      begin
-       Path := ExcludeTrailingBackSlash(TElementReg(tvClasses.Selected.Data).GetBasePath);
+       Path := ExcludeTrailingBackSlash(ExtractFilePath(TElementReg(tvClasses.Selected.Data).GetBasePath));
        StoreWithBackup(memInducer.Lines, Path + MacroFile);
        btSaveScript.Enabled := False
      end

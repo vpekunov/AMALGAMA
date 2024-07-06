@@ -17,5 +17,3 @@
 * MVv1io($i0,&$o1): (count(/*/Link[Name/text()="MVv" and Left/Value/text()=$i0 and set($o1,Right/Value/text())]) > 0).
 
 * MVv1oo(&$o0,&$o1): (count(/*/Link[Name/text()="MVv" and set($o0,Left/Value/text()) and set($o1,Right/Value/text())]) > 0).
-
-

@@ -12,4 +12,3 @@
  @auto:-MAIN:"//VRES3/text()" => "Type",MAIN:"//P0/text()" => "Fun",MAIN:"//P1/text()" => "Var",randomid() => "ID".
  @goal:-xpath('MAIN','//VRES3/text()',[VTypeText1]),xpath('MAIN','//P0/text()',[VFunText1]),xpath('MAIN','//P1/text()',[VVarText1]),assertz(e_saddfunction(VTypeText1,VFunText1,VVarText1,'randomid')),!.
  @done:-clear_db.
-

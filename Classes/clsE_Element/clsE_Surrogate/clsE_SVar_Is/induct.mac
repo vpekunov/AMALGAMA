@@ -12,4 +12,3 @@
  @auto:-MAIN:"//P0/text()" => "Var",MAIN:"//VRES1/text()" => "Type",MAIN:"//P1/text()" => "Phase",randomid() => "ID".
  @goal:-xpath('MAIN','//P0/text()',[VVarText1]),xpath('MAIN','//VRES1/text()',[VTypeText1]),xpath('MAIN','//P1/text()',[VPhaseText1]),assertz(e_svar_is(VVarText1,VTypeText1,VPhaseText1,'randomid')),!.
  @done:-clear_db.
-

@@ -9,4 +9,3 @@
  @auto:-MAIN:"//P0/text()" => "Type",MAIN:"//P2/text()" => "Name",MAIN:"//P1/text()" => "Vector",randomid() => "ID".
  @goal:-xpath('MAIN','//P0/text()',[VTypeText1]),xpath('MAIN','//P2/text()',[VNameText1]),xpath('MAIN','//P1/text()',[VVectorText1]),assertz(e_sprojection(VTypeText1,VNameText1,VVectorText1,'randomid')),!.
  @done:-clear_db.
-
