@@ -689,10 +689,10 @@ Begin
             Error := True
           end
        Else
-          Transformers.AddObject(lib, IntegerToTObject(HH))
+          Transformers.AddObject(lib, TObject(HH))
      end
   Else
-     HH := TLibHandle(TObjectToInteger(Transformers.Objects[G]));
+     HH := TLibHandle(Transformers.Objects[G]);
 
   SetLength(Words, BoundSentences.Count);
   SetLength(NonWords, BoundSentences.Count);

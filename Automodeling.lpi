@@ -34,11 +34,10 @@
         <PackageName Value="LCL"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="81">
+    <Units Count="85">
       <Unit0>
         <Filename Value="Automodeling.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="7"/>
         <WindowIndex Value="1"/>
         <CursorPos X="18" Y="5"/>
@@ -52,8 +51,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <WindowIndex Value="1"/>
-        <TopLine Value="1031"/>
-        <CursorPos X="6" Y="1010"/>
+        <TopLine Value="469"/>
+        <CursorPos X="21" Y="483"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -112,10 +111,11 @@
         <ComponentName Value="EditProps"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="1"/>
         <TopLine Value="257"/>
-        <CursorPos Y="283"/>
+        <CursorPos X="25" Y="265"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -221,8 +221,8 @@
         <UnitName Value="Common"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="1"/>
-        <TopLine Value="464"/>
-        <CursorPos X="6" Y="469"/>
+        <TopLine Value="216"/>
+        <CursorPos X="24" Y="232"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit16>
@@ -265,8 +265,8 @@
         <UnitName Value="XPath"/>
         <EditorIndex Value="-1"/>
         <WindowIndex Value="1"/>
-        <TopLine Value="4161"/>
-        <CursorPos X="8" Y="4166"/>
+        <TopLine Value="2015"/>
+        <CursorPos X="33" Y="2032"/>
         <UsageCount Value="202"/>
       </Unit20>
       <Unit21>
@@ -316,7 +316,8 @@
         <UnitName Value="InductRules"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="1"/>
-        <CursorPos X="5" Y="11"/>
+        <TopLine Value="1410"/>
+        <CursorPos X="15" Y="1417"/>
         <UsageCount Value="204"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -361,7 +362,7 @@
         <WindowIndex Value="1"/>
         <TopLine Value="50"/>
         <CursorPos X="5" Y="64"/>
-        <UsageCount Value="161"/>
+        <UsageCount Value="162"/>
       </Unit30>
       <Unit31>
         <Filename Value="xpathInduct.dir\xpathing.pas"/>
@@ -770,123 +771,133 @@
         <CursorPos X="87" Y="49"/>
         <UsageCount Value="10"/>
       </Unit80>
+      <Unit81>
+        <Filename Value="C:\lazarus64\fpc\3.2.2\source\rtl\win\wininc\ascdef.inc"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="1"/>
+        <TopLine Value="178"/>
+        <CursorPos X="10" Y="187"/>
+        <UsageCount Value="10"/>
+      </Unit81>
+      <Unit82>
+        <Filename Value="C:\lazarus64\fpc\3.2.2\source\rtl\win\wininc\base.inc"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="1"/>
+        <TopLine Value="79"/>
+        <CursorPos X="6" Y="89"/>
+        <UsageCount Value="10"/>
+      </Unit82>
+      <Unit83>
+        <Filename Value="C:\lazarus64\fpc\3.2.2\source\rtl\inc\systemh.inc"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="1"/>
+        <TopLine Value="321"/>
+        <CursorPos X="3" Y="331"/>
+        <UsageCount Value="10"/>
+      </Unit83>
+      <Unit84>
+        <Filename Value="C:\lazarus64\fpc\3.2.2\source\rtl\win\wininc\messages.inc"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="1"/>
+        <TopLine Value="1323"/>
+        <CursorPos X="6" Y="1330"/>
+        <UsageCount Value="10"/>
+      </Unit84>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="24" HistoryIndex="23">
       <Position1>
-        <Filename Value="Tran.pas"/>
-        <Caret Line="156" TopLine="140"/>
+        <Filename Value="inductrules.pas"/>
+        <Caret Line="496" Column="51" TopLine="481"/>
       </Position1>
       <Position2>
-        <Filename Value="Tran.pas"/>
-        <Caret Line="157" TopLine="140"/>
+        <Filename Value="inductrules.pas"/>
+        <Caret Line="692" Column="50" TopLine="676"/>
       </Position2>
       <Position3>
-        <Filename Value="Tran.pas"/>
-        <Caret Line="117" TopLine="103"/>
+        <Filename Value="inductrules.pas"/>
+        <Caret Line="836" Column="50" TopLine="820"/>
       </Position3>
       <Position4>
-        <Filename Value="Tran.pas"/>
-        <Caret Line="118" TopLine="103"/>
+        <Filename Value="inductrules.pas"/>
+        <Caret Line="896" Column="42" TopLine="880"/>
       </Position4>
       <Position5>
-        <Filename Value="Tran.pas"/>
-        <Caret Line="364" Column="114" TopLine="351"/>
+        <Filename Value="inductrules.pas"/>
+        <Caret Line="910" Column="78" TopLine="894"/>
       </Position5>
       <Position6>
-        <Filename Value="Tran.pas"/>
+        <Filename Value="inductrules.pas"/>
+        <Caret Line="1038" Column="46" TopLine="1022"/>
       </Position6>
       <Position7>
-        <Filename Value="Tran.pas"/>
-        <Caret Line="500" Column="15" TopLine="476"/>
+        <Filename Value="inductrules.pas"/>
+        <Caret Line="1226" Column="37" TopLine="1210"/>
       </Position7>
       <Position8>
-        <Filename Value="Tran.pas"/>
-        <Caret Line="498" Column="15" TopLine="476"/>
+        <Filename Value="inductrules.pas"/>
+        <Caret Line="1288" Column="42" TopLine="1272"/>
       </Position8>
       <Position9>
-        <Filename Value="metacomp.pas"/>
-        <Caret Line="936" Column="35" TopLine="932"/>
+        <Filename Value="inductrules.pas"/>
+        <Caret Line="1296" Column="42" TopLine="1280"/>
       </Position9>
       <Position10>
-        <Filename Value="metacomp.pas"/>
+        <Filename Value="inductrules.pas"/>
+        <Caret Line="1329" Column="44" TopLine="1313"/>
       </Position10>
       <Position11>
-        <Filename Value="metacomp.pas"/>
-        <Caret Line="119" Column="31" TopLine="95"/>
+        <Filename Value="inductrules.pas"/>
+        <Caret Line="1360" Column="39" TopLine="1344"/>
       </Position11>
       <Position12>
-        <Filename Value="metacomp.pas"/>
-        <Caret Line="213" Column="37" TopLine="189"/>
+        <Filename Value="Main.pas"/>
       </Position12>
       <Position13>
-        <Filename Value="inductrules.pas"/>
-        <Caret Line="1967" Column="26" TopLine="1957"/>
+        <Filename Value="Main.pas"/>
+        <Caret Line="481" Column="27" TopLine="469"/>
       </Position13>
       <Position14>
-        <Filename Value="EditEl.pas"/>
-        <Caret Line="117" Column="40" TopLine="16"/>
+        <Filename Value="COMMON.PAS"/>
+        <Caret Line="468" Column="15" TopLine="464"/>
       </Position14>
       <Position15>
-        <Filename Value="EditEl.pas"/>
+        <Filename Value="COMMON.PAS"/>
       </Position15>
       <Position16>
-        <Filename Value="EditEl.pas"/>
-        <Caret Line="23" Column="15"/>
+        <Filename Value="COMMON.PAS"/>
+        <Caret Line="55" Column="21" TopLine="39"/>
       </Position16>
       <Position17>
-        <Filename Value="EditEl.pas"/>
-        <Caret Line="120" Column="52" TopLine="107"/>
+        <Filename Value="COMMON.PAS"/>
+        <Caret Line="56" Column="21" TopLine="40"/>
       </Position17>
       <Position18>
-        <Filename Value="EditEl.pas"/>
-        <Caret Line="264" Column="12" TopLine="256"/>
+        <Filename Value="COMMON.PAS"/>
+        <Caret Line="219" Column="21" TopLine="200"/>
       </Position18>
       <Position19>
-        <Filename Value="EditEl.pas"/>
-        <Caret Line="361" Column="21" TopLine="336"/>
+        <Filename Value="COMMON.PAS"/>
+        <Caret Line="231" Column="21" TopLine="214"/>
       </Position19>
       <Position20>
-        <Filename Value="EditEl.pas"/>
+        <Filename Value="Main.pas"/>
+        <Caret Line="484" Column="73" TopLine="475"/>
       </Position20>
       <Position21>
-        <Filename Value="EditEl.pas"/>
-        <Caret Line="61" Column="28" TopLine="37"/>
+        <Filename Value="Main.pas"/>
+        <Caret Line="488" Column="44" TopLine="475"/>
       </Position21>
       <Position22>
-        <Filename Value="EditEl.pas"/>
-        <Caret Line="105" Column="8" TopLine="81"/>
+        <Filename Value="Main.pas"/>
+        <Caret Line="181" Column="19" TopLine="168"/>
       </Position22>
       <Position23>
-        <Filename Value="EditEl.pas"/>
-        <Caret Line="106" Column="8" TopLine="82"/>
+        <Filename Value="Main.pas"/>
+        <Caret Line="1573" Column="29" TopLine="1569"/>
       </Position23>
       <Position24>
-        <Filename Value="Tran.pas"/>
-        <Caret Line="398" Column="29" TopLine="396"/>
+        <Filename Value="Main.pas"/>
       </Position24>
-      <Position25>
-        <Filename Value="Tran.pas"/>
-        <Caret Line="396" Column="4" TopLine="396"/>
-      </Position25>
-      <Position26>
-        <Filename Value="Tran.pas"/>
-      </Position26>
-      <Position27>
-        <Filename Value="Tran.pas"/>
-        <Caret Line="406" Column="26" TopLine="396"/>
-      </Position27>
-      <Position28>
-        <Filename Value="inductrules.pas"/>
-        <Caret Line="2032" Column="14" TopLine="2015"/>
-      </Position28>
-      <Position29>
-        <Filename Value="metacomp.pas"/>
-        <Caret Line="323" Column="47" TopLine="307"/>
-      </Position29>
-      <Position30>
-        <Filename Value="inductrules.pas"/>
-        <Caret TopLine="70"/>
-      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

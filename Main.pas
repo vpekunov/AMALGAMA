@@ -481,7 +481,7 @@ begin
                // To prevent Lazarus bugs (or features), who knows what's the matter...
                // I love Lazarus, but it looks strange sometimes :)
                Application.ProcessMessages;
-               PostMessage(MainForm.WinHandle,WM_EDIT_OBJ,0,TObjectToInteger(Obj));
+               PostMessage(MainForm.WinHandle,WM_EDIT_OBJ,0,Int64(Obj));
                Exit
              end
           Else
