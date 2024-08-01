@@ -45,7 +45,7 @@ NeuroNet, Predicates, prolog_micro_brain.dir, PrologIntrf для C++)]. Допо
   В настоящее время основная часть системы существует в кроссплатформенной версии для Windows/Linux.
 
   Для инсталляции под Linux:
-  а) Установите Lazarus или, в крайнем случае, Free Pascal (fpc)
+  а) Установите Lazarus или, в крайнем случае, Free Pascal (fpc 3.2.0 и выше)
   б) Установите PHP (php), желательно не ниже версии 8.0
   в) Установите php-xml
   г) Выполните скрипт install.sh
