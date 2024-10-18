@@ -6,12 +6,12 @@ fpc -B -O3 -Mobjfpc -FcUTF-8 ./Grammar.lpr
 cp ./libGrammar.so ../
 cd ..
 cd ./prolog_micro_brain.dir
-g++ -o prolog_micro_brain tinyxml2.cpp elements.cpp prolog_micro_brain.cpp -fshort-wchar -std=c++11 -O4 -lm -lboost_system -lboost_filesystem -ldl
-g++ -c tinyxml2.cpp elements.cpp prolog_micro_brain.cpp -fshort-wchar -std=c++11 -O4 -lm -lboost_system -lboost_filesystem -ldl -fPIC
+g++ -o prolog_micro_brain tinyxml2.cpp elements.cpp prolog_micro_brain.cpp -std=c++11 -O4 -lm -lboost_system -lboost_filesystem -ldl
+g++ -c tinyxml2.cpp elements.cpp prolog_micro_brain.cpp -std=c++11 -O4 -lm -lboost_system -lboost_filesystem -ldl -fPIC
 cp ./prolog_micro_brain ../
 cd ..
 cd ./PrologIntrf
-g++ -o main.o -c main.cpp -fshort-wchar -fPIC -O4 -std=c++11
+g++ -o main.o -c main.cpp -fPIC -O4 -std=c++11
 g++ -shared -o libPrologIntrf.so main.o ../prolog_micro_brain.dir/*.o -lm -lboost_system -lboost_filesystem -ldl -Wl,--allow-multiple-definition
 cp libPrologIntrf.so ../
 cd ..
