@@ -48,8 +48,9 @@ NeuroNet, Predicates, prolog_micro_brain.dir, PrologIntrf для C++)]. Допо
   а) Установите Lazarus или, в крайнем случае, Free Pascal (fpc 3.2.0 и выше)
   б) Установите PHP (php), желательно не ниже версии 8.0
   в) Установите php-xml
-  г) Выполните скрипт install.sh
-  д) Скомпилируйте в Lazarus проекты Automodelling.lpi и Params.lpi
+  г) Установите консоли ru_RU.UTF-8, en_US.UTF-8
+  д) Выполните скрипт install.sh
+  у) Скомпилируйте в Lazarus проекты Automodelling.lpi и Params.lpi
 
   Запустите файл Automodeling[.exe]. Появляется окно редактирования моделей,
 в которое можно "перетащить" элементы модели из окна "Классы"
