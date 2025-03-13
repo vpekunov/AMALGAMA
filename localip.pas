@@ -41,12 +41,16 @@ end;
 {$ELSE}
 function getLocalIP: string;
 var re: TStringList;
+    space: Integer;
 begin
  RunExtCommand('hostname','-I >_host.txt','');
  try
    re := TStringList.Create;
    re.LoadFromFile('_host.txt');
    Result := re.Strings[0];
+   space := Pos(' ', Result);
+   if space > 0 Then
+      Result := Copy(Result, 1, space - 1);
  finally
    re.Free;
  end;
